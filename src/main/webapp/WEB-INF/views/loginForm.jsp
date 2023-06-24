@@ -1,123 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<c:set var="loginId"
-       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
+<c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>teamProject</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <script src="<c:url value="/js/loginForm.js?210624"/>"></script>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        form {
-            width: 400px;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid rgb(89, 117, 196);
-            border-radius: 10px;
-        }
-
-        input[type='text'], input[type='password'] {
-            width: 300px;
-            height: 40px;
-            border: 1px solid rgb(89, 117, 196);
-            border-radius: 5px;
-            padding: 0 10px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            background-color: rgb(89, 117, 196);
-            color: white;
-            width: 300px;
-            height: 50px;
-            font-size: 17px;
-            border: none;
-            border-radius: 5px;
-            margin: 20px 0 30px 0;
-        }
-
-        #title {
-            font-size: 50px;
-            margin: 40px 0 30px 0;
-        }
-
-        #msg {
-            height: 30px;
-            text-align: center;
-            font-size: 16px;
-            color: red;
-            margin-bottom: 20px;
-        }
+        @import url(/css/common/login.css);
     </style>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li id="logo">teamProject</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
-    </ul>
-</div>
-<form action="<c:url value="/login/login"/>" method="post" onsubmit="return formCheck(this);">
-    <h3 id="title">Login</h3>
-    <div id="msg">
-        <c:if test="${not empty param.msg}">
-            <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
-        </c:if>
-    </div>
-    <input type="text" name="id" value="${cookie.id.value}" placeholder="이메일 입력" autofocus>
-    <input type="password" name="pwd" placeholder="비밀번호">
-    <input type="hidden" name="toURL" value="${param.toURL}">
-    <button>로그인</button>
-    <div>
-        <label><input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}> 아이디
-            기억</label> |
-        <a href="">비밀번호 찾기</a> |
-        <a href="">회원가입</a>
-    </div>
-    <script>
-        function formCheck(frm) {
-            let msg = '';
-            if (frm.id.value.length == 0) {
-                setMessage('id를 입력해주세요.', frm.id);
-                return false;
-            }
-            if (frm.pwd.value.length == 0) {
-                setMessage('password를 입력해주세요.', frm.pwd);
-                return false;
-            }
-            return true;
-        }
+<jsp:include page="include/header.jsp"/>
 
-        function setMessage(msg, element) {
-            document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-            if (element) {
-                element.select();
-            }
-        }
-    </script>
-</form>
+<div class="login_container">
+    <div class="login_area">
+        <h2 class="login_title">syusyu</h2>
+        <div class="input_box">
+            <h3 class="input_title">아이디</h3>
+            <div class="input_item">
+                <input type="email" id="login_id" autocomplete="off" class="input_txt">
+            </div>
+            <p class="input_error">이메일 주소를 정확히 입력해주세요.</p>
+        </div>
+        <div class="input_box">
+            <h3 class="input_title">비밀번호</h3>
+            <div class="input_item">
+                <input type="password" id="login_pwd" autocomplete="off" class="input_txt"> <!-- autocom off = 자동완성 기능 사용 XX -->
+            </div>
+            <p class="input_error">영문, 숫자, 특수문자를 조합해서 입력해주세요. (8-16자)</p>
+        </div>
+        <div class="login_btn_box">
+            <a disabled="disabled" href="#" id="btn_login" class="btn full solid disabled"> 로그인</a>
+        </div>
+        <ul class="look_box">
+            <li class="look_list"><a href="" class="look_link">이메일 가입</a></li>
+            <li class="look_list"><a href="" class="look_link">이메일 찾기</a></li>
+            <li class="look_list"><a href="" class="look_link">비밀번호 찾기</a></li>
+        </ul>
+        <div class="social_login"></div>
+    </div>
+</div>
+<jsp:include page="include/footer.jsp"/>
 </body>
 </html>
