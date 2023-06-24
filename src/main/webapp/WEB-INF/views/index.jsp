@@ -15,7 +15,7 @@
 <jsp:include page="include/header.jsp"/>
 
 <div id="content">
-    <div class="slider">
+    <div class="slide_banner">
         <div class="banner-container fade" style="background-color: #191919;">
             <img class="banner" src="<c:url value="/image/banner/banner1.png"/>" alt="Banner Image 1">
         </div>
