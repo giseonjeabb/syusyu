@@ -48,7 +48,7 @@ public class LoginController {
         // 2. id와 pwd가 일치하면
         // 2-1. 세션 객체에 id를 저장한다.
         HttpSession session = request.getSession();
-        session.setAttribute("id", memberDto.getMemberId());
+        session.setAttribute("id", memberDto.getLginId());
 
         // 2-1. 홈으로 이동한다.
         return "success";
