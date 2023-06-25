@@ -21,7 +21,7 @@
         <div class="input_box">
             <h3 class="input_title">아이디</h3>
             <div class="input_item">
-                <input type="email" id="login_id" autocomplete="off" class="input_txt">
+                <input type="email" id="login_id" autocomplete="off" class="input_txt" autofocus>
             </div>
             <p class="input_error">이메일 주소를 정확히 입력해주세요.</p>
         </div>

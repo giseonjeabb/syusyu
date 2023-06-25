@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="loginOutLink" value="${sessionScope.id != null ? '/login/logout' : '/login/login'}" />
-<c:set var="loginOutText" value="${sessionScope.id != null ? 'Logout' : 'Login'}" />
+<c:set var="loginOutText" value="${sessionScope.id != null ? '로그아웃' : '로그인'}" />
 <html>
 <head>
     <title>syusyu</title>
@@ -24,12 +24,12 @@
             <li><a href="#">마이페이지</a></li>
             <li><a href="#">관심상품</a></li>
             <li><a href="#">알림</a></li>
-            <li><a href="#">로그인</a></li>
+            <li><a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a></li>
         </ul>
     </nav>
     <div id="title">
         <div id="logo">
-            <img src="<c:url value="/static/image/logo/syusyuBlackLogo.png"/>">
+            <img src="<c:url value="/static/image/logo/syusyuBlackLogo.png"/>" onclick="location.href='/'">
         </div>
         <div id="search_box">
             검색
