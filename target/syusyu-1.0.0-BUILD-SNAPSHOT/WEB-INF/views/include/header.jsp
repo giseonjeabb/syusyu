@@ -38,7 +38,6 @@
         <ul>
             <li><a href="#">추천</a></li>
             <li><a href="#">랭킹</a></li>
-            <li><a href="#">신발</a></li>
             <li><a href="#">남성</a></li>
             <li><a href="#">여성</a></li>
             <li><a href="#">발견</a></li>

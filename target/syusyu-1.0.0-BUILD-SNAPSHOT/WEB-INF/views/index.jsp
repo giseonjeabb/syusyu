@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <c:set var="loginId"
@@ -8,26 +8,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>teamProject</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <title>syusyu</title>
+    <script src="<c:url value="/js/index.js"/>"></script>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li id="logo">teamProject</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
-    </ul>
+<jsp:include page="include/header.jsp"/>
+
+<div id="content">
+    <div class="slider">
+        <div class="banner-container fade" style="background-color: #191919;">
+            <img class="banner" src="<c:url value="/image/banner/banner1.png"/>" alt="Banner Image 1">
+        </div>
+        <div class="banner-container fade" style="background-color: #fcf8e8; display: none;">
+            <img class="banner" src="<c:url value="/image/banner/banner2.png"/>" alt="Banner Image 2">
+        </div>
+        <div class="banner-container" style="background-color: #d4e4ed; display: none;">
+            <img class="banner" src="<c:url value="/image/banner/banner3.png"/>" alt="Banner Image 3">
+        </div>
+        <button class="btn btn-prev">❮</button>
+        <button class="btn btn-next">❯</button>
+        <div class="dot-container"></div>
+    </div>
+    <div id="main_dspy_mdPick">
+        dsfs
+    </div>
 </div>
-<div style="text-align:center">
-    <h1>This is HOME</h1>
-    <h1>This is HOME</h1>
-    <h1>This is HOME</h1>
-</div>
+<jsp:include page="include/footer.jsp"/>
 </body>
 </html>
