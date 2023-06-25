@@ -7,9 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="<c:url value="/js/loginForm.js?210624"/>"></script>
+    <script src="/static/js/loginForm.js"></script>
     <style>
-        @import url(/css/common/login.css);
+        @import url(/static/css/common/login.css);
     </style>
 </head>
 <body>

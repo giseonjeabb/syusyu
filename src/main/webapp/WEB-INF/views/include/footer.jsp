@@ -5,7 +5,7 @@
 <footer id="main_footer" style="margin-top: 110px;">
     <div class="footer_content">
         <div class="footer_logo">
-            <img src="<c:url value="/image/logo/syusyuWhiteLogo.png"/>" alt="로고">
+            <img src="<c:url value="/static/image/logo/syusyuWhiteLogo.png"/>" alt="로고">
         </div>
         <div class="footer_wrapper_info">
             <div class="footer_info" style="float: left; width: 920px;">
