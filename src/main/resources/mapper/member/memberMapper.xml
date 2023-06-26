@@ -14,4 +14,30 @@
         WHERE LGIN_ID = #{lginId}
           AND LGIN_PWD = #{lginPwd};
     </select>
+
+    <insert id="memberInsert" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="mbrId">
+        INSERT INTO member ( LGIN_ID
+                           , LGIN_PWD
+                           , NAME
+                           , EMAIL
+                           , ROLE)
+        VALUES ( #{lginId}
+               , #{lginPwd}
+               , #{name}
+               , #{email}
+               , #{role})
+    </insert>
+
+    <insert id="memberInfoInsert" parameterType="MemberDto">
+        INSERT INTO mbr_info ( MBR_ID
+                             , SHOE_SIZE
+                             , MP_NO
+                             , BIRTH
+                             , SEX)
+        VALUES ( #{mbrId}
+               , #{shoeSize}
+               , #{mpNo}
+               , #{birth}
+               , #{sex})
+    </insert>
 </mapper>

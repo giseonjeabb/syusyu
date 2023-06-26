@@ -206,7 +206,7 @@ input, textarea {
     border: 0;
     resize: none;
     border-radius: 0;
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;*/
     background-color: transparent
 }
 
@@ -219,6 +219,19 @@ input, textarea {
     font-size: 13px; /* 텍스트 줄 사이의 높이를 13px로 설정 */
     letter-spacing: -.07px;
     line-height: 18px
+}
+
+.input_title.ess {
+    position: relative;
+    display: inline-block;
+    padding-right: 6px;
+}
+
+.input_title.ess:after {
+    content: "*";
+    position: absolute;
+    top: -2px;
+    right: 0
 }
 
 .input_item  {
