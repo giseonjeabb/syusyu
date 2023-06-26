@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.controller.member;
 
+import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String registerForm() {
-        return "/member/registerForm";
+        return ViewPath.MEMBER + "registerForm";
     }
 
     /*

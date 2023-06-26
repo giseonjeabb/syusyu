@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.controller.member;
 
+import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.MemberDto;
 import com.teamProject.syusyu.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,10 @@ public class LoginController {
     @Autowired
     MemberService memberService;
 
-    private final String viewPath = "fos/member/";
 
     @GetMapping("/login")
     public String loginForm() {
-        return viewPath + "loginForm";
+        return ViewPath.MEMBER + "loginForm";
     }
 
     @GetMapping("/logout")
