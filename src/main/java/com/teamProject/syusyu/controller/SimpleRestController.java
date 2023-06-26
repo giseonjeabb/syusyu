@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller;
 
-import com.teamProject.syusyu.domain.*;
+import com.teamProject.syusyu.domain.Person;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
