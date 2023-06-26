@@ -1,5 +1,6 @@
-package com.teamProject.syusyu.dao.member;
+package com.teamProject.syusyu.dao.member.impl;
 
+import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.domain.member.MemberDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
