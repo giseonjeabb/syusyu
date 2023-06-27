@@ -24,7 +24,9 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         // 로그인이 필요하지 않은 URL 목록을 정의한다.
-        List<String> urlList = Arrays.asList("/login/login", "/static", "/register/add");
+
+        List<String> urlList = Arrays.asList("/login/login", "/static", "/register/register","/prodList");
+
         String requestUrl = request.getRequestURI();
 
         // 1. 로그인이 되어있는지 체크한다.
