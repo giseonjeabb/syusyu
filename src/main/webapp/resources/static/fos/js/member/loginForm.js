@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // 1. 유효성 검사를 한다.
         if (!validateLogin()) {
             // 1-2. 유효성 검사를 통과하지 못하면 입력되지 않은 값을 alert로 띄워준다.
-            console.log("test");
             return;
         }
         // 1-1. 유효성 검사를 통과하면 로그인을 시킨다.
@@ -51,7 +50,7 @@ function login() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
         success: function (result) {
-            if (result == 'success') {
+            if (result === 'success') {
                 location.href = '/';
             } else {
                 alert("아이디나 비밀번호를 잘못 입력하셨습니다.");

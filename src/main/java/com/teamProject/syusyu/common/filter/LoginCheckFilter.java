@@ -24,14 +24,16 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         // 로그인이 필요하지 않은 URL 목록을 정의한다.
+
         List<String> urlList = Arrays.asList("/login/login", "/static", "/register/register","/prodList");
+
         String requestUrl = request.getRequestURI();
 
         // 1. 로그인이 되어있는지 체크한다.
         //      로그인 체크하는 방법
         //      session으로 체크
         // 단, 로그인이 필요하지 않은 URL일 경우 체크하지 않는다.
-        boolean isExcludedUrl = urlList.stream().anyMatch(url -> requestUrl.startsWith(url));
+        boolean isExcludedUrl = urlList.stream().anyMatch(requestUrl::startsWith);
         System.out.println("isExcludedUrl = " + isExcludedUrl);
 
         // 요청이 온 url이 제외된 url로 시작하는지로 검증했기 때문에 '/'를 넣어두면 모든 url에 대해서 로그인 체크를 해서 '/'검증은 따로 빼둠

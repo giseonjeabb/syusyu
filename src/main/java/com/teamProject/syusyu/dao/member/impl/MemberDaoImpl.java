@@ -21,4 +21,13 @@ public class MemberDaoImpl implements MemberDao {
     public int loginCheck(MemberDto memberDto) throws Exception {
         return session.selectOne(namespace + "loginCheck", memberDto);
     }
+
+    public int memberInsert(MemberDto memberDto) throws Exception {
+        return session.insert(namespace + "memberInsert", memberDto);
+    }
+
+    public int memberInfoInsert(MemberDto memberDto) throws Exception {
+        return session.insert(namespace + "memberInfoInsert", memberDto);
+    }
+
 }
