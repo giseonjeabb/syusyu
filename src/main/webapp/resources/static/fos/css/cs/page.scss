@@ -1,0 +1,45 @@
+/* 마이페이지 */
+.mypage-menu-list{
+  margin-top: 28px;
+  padding-bottom: 20px;
+  dt{
+    margin-bottom: 15px;
+    color:#333;
+  }
+  dd{
+    margin-top: 10px;
+    color: #555;
+    font-size: 15px;
+    & + dt{
+      margin-top: 38px;
+    }
+    a{
+      line-height: 18px;
+      font-size: 15px;
+      color:#22222280;
+      &.active{
+        color: $highlight-color;
+        border-bottom:1px solid $highlight-color;
+        position: relative;
+        &::after{
+          display:block;
+          content:'';
+          position: absolute;
+          right:-17px;
+          top:50%;
+          transform: translateY(-50%);
+          width: 15px;
+          height: 15px;
+          background: url("../images/menu_arrow.svg") no-repeat center/15px;
+        }
+      }
+    }
+  }
+  &:after{
+    content: '';
+    display: inline-block;
+    width: 170px;
+    height: 1px;
+    background: #eee;
+  }
+}
