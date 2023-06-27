@@ -13,6 +13,7 @@
     <script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
 
     <style>
+        @import url(${cssUrlFos}/common/font.css);
         @import url(${cssUrlFos}/common/reset.css);
         @import url(${cssUrlFos}/common/common.css);
         @import url(${cssUrlFos}/common/main.css);
@@ -23,7 +24,7 @@
     <nav id="main_gnb">
         <ul>
             <li><a href="#">고객센터</a></li>
-            <li><a href="#">마이페이지</a></li>
+            <li><a href="/mypage/main">마이페이지</a></li>
             <li><a href="#">관심상품</a></li>
             <li><a href="#">알림</a></li>
             <li><a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a></li>

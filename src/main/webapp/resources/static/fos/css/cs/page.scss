@@ -1,3 +1,5 @@
+@import "../common/variables";
+
 /* 마이페이지 */
 .mypage-menu-list{
   margin-top: 28px;
@@ -30,7 +32,7 @@
           transform: translateY(-50%);
           width: 15px;
           height: 15px;
-          background: url("../images/menu_arrow.svg") no-repeat center/15px;
+          background: url("../../../image/icon_arrow_right_16.svg") no-repeat center/15px;
         }
       }
     }
@@ -41,5 +43,54 @@
     width: 170px;
     height: 1px;
     background: #eee;
+  }
+}
+.mp-info-wrap{
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+  background: #f8f2eb;
+  border-radius: 10px;
+  > div{
+    width: 50%;
+  }
+  .mp-info{
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    a{
+      width: 100px;
+      margin-right: 20px;
+    }
+    p{
+      font-size: 28px;
+      line-height: 1.5;
+      font-weight: bold;
+    }
+  }
+
+  .mp-benefit-box{
+    display: flex;
+    .benefit{
+      width: 50%;
+      border-left: 1px solid #e4d8cd;
+      text-align: center;
+      .txt{
+        display: inline-block;
+        padding-right: 16px;
+        background: url("../../../image/icon_arrow_right_16.svg") right center no-repeat;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      > p{
+        margin-bottom: 15px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .btn{
+        margin: 0 auto;
+        background: transparent;
+      }
+    }
   }
 }
