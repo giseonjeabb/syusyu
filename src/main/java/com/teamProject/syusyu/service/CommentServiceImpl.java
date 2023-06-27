@@ -1,7 +1,8 @@
 package com.teamProject.syusyu.service;
 
-import com.teamProject.syusyu.dao.*;
-import com.teamProject.syusyu.domain.*;
+import com.teamProject.syusyu.dao.BoardDao;
+import com.teamProject.syusyu.dao.CommentDao;
+import com.teamProject.syusyu.domain.CommentDto;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
