@@ -20,8 +20,7 @@
 
     --accent-color: #1D2658;
     --background-color: #040201;
-    --red-color: #C14444;
-    --gray-color:#e7e7e7;;
+    --red-color: #C14444;           
 
     --margin-small: 5px;
     --margin-medium: 10px;
@@ -31,20 +30,12 @@
 
     --blackBG-text-color:#FCF8F7;
     --grayGB-text-color:#999;
-    --black-text-color:#040201;
-
-    --aside-font-size:13px;
     --footer-font-size:13px;
 }
 
 * {
     font-family:var(--main-font);
     vertical-align: baseline;
-}
-
-*,:after,:before {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 body { 
@@ -63,7 +54,6 @@ a:hover, a:active { text-decoration: none; color: inherit; }
     /* 절대 좌표 */
     height: 160px;
     position: relative;
-    border-bottom: 1px solid var(--gray-color);
 }
 
 #main_header > #title {
@@ -203,87 +193,4 @@ a:hover, a:active { text-decoration: none; color: inherit; }
     color: white;
     font-family: var(--bold-font);
     font-size: 15px;
-}
-
-input, textarea {
-    padding: 0;
-    outline: 0;
-    border: 0;
-    resize: none;
-    border-radius: 0;
-    /*-webkit-appearance: none;*/
-    background-color: transparent
-}
-
-.input_box {
-    position: relative;
-    padding: 10px 0 14px
-}
-
-.input_title {
-    font-size: 13px; /* 텍스트 줄 사이의 높이를 13px로 설정 */
-    letter-spacing: -.07px;
-    line-height: 18px
-}
-
-.input_title.ess {
-    position: relative;
-    display: inline-block;
-    padding-right: 6px;
-}
-
-.input_title.ess:after {
-    content: "*";
-    position: absolute;
-    top: -2px;
-    right: 0
-}
-
-.input_item  {
-    position: relative
-}
-
-.input_txt {
-    padding: 8px 0;
-    width: 100%;
-    font-size: 15px;
-    letter-spacing: -.15px;
-    line-height: 22px;
-    border-bottom: 1px solid #ebebeb
-}
-
-.input_error  {
-    display: none
-}
-
-.btn  {
-    display: inline-flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    text-align: center;
-    color: rgba(34, 34, 34, .8);
-    background-color: #fff;
-}
-
-.full  {
-    width: 100%;
-    font-size: 16px;
-    letter-spacing: -.16px;
-    font-weight: 700;
-    height: 52px;
-    border-radius: 12px
-}
-
-.solid  {
-    font-weight: 700;
-    color: #fff;
-    background-color: #222
-}
-
-.solid.disabled ,.solid :disabled {
-    background-color: #ebebeb;
-    color: #fff;
-    cursor: default;
 }
