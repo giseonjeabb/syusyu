@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.dao;
 
-import com.teamProject.syusyu.domain.*;
+import com.teamProject.syusyu.domain.BoardDto;
+import com.teamProject.syusyu.domain.SearchCondition;
 import org.junit.*;
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
