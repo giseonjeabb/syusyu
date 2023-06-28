@@ -26,7 +26,10 @@
 
 
     <select id="selectAll" resultType="NoticeDto">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         SELECT NOTC_NO, NOTC_TP, TITLE, CONTENT, REGR_ID, VIEW_CNT, REG_DTTM
         FROM notice
         ORDER BY REG_DTTM DESC, NOTC_NO DESC
@@ -93,7 +96,10 @@
     </sql>
 
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDto">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP
         FROM notice
          WHERE TRUE

@@ -1,8 +1,13 @@
 package com.teamProject.syusyu.controller.cs;
 
+<<<<<<< Updated upstream
 
 
 import com.teamProject.syusyu.common.ViewPath;
+=======
+import com.teamProject.syusyu.common.ViewPath;
+
+>>>>>>> Stashed changes
 import com.teamProject.syusyu.dao.cs.impl.NoticeDao;
 import com.teamProject.syusyu.domain.cs.NoticeDto;
 import com.teamProject.syusyu.domain.cs.PageHandler;
@@ -26,14 +31,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     @Autowired
     NoticeService noticeService;
 
     @Autowired
     NoticeDao noticeDao;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     // 만약 일반 게시판에서 글을 써야한다면 밑에 처럼 바꿔야함
 //    Dto를 memberDto로 바꿔야 하고 String writer = (String)session.getAttribute("id");
@@ -55,16 +66,24 @@ public class NoticeController {
 
             rattr.addFlashAttribute("msg", "MOD_OK");
 
+<<<<<<< Updated upstream
 
             return "redirect:/notice/noticeList";
 
 
+=======
+            return "redirect:/notice/noticeList";
+
+>>>>>>> Stashed changes
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("noticeDto", noticeDto);
             m.addAttribute("msg", "Modify_Error");
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             return ViewPath.CS+"notice";
 
         }
@@ -85,7 +104,10 @@ public class NoticeController {
 
             rattr.addFlashAttribute("msg", "WRT_OK");
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             return "redirect:/notice/noticeList";
 
         } catch (Exception e) {
@@ -93,9 +115,15 @@ public class NoticeController {
             m.addAttribute("noticeDto", noticeDto);
             m.addAttribute("msg", "WRT_ERR");
 
+<<<<<<< Updated upstream
             return ViewPath.CS+"notice";
 
 
+=======
+
+            return ViewPath.CS+"notice";
+
+>>>>>>> Stashed changes
         }
 
     }
@@ -105,7 +133,10 @@ public class NoticeController {
     public String write(Model m) {
         m.addAttribute("mode", "new");
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         return ViewPath.CS+"notice"; // 읽기와 쓰기에 사용 , 쓰기에 사용할때는 mode = new
 
     }
@@ -129,10 +160,15 @@ public class NoticeController {
             rattr.addFlashAttribute("msg", "DEL_ERR");
         }
 
+<<<<<<< Updated upstream
 
         return "redirect:/notice/noticeList";
 
     }
+=======
+        return "redirect:/notice/noticeList";
+ }
+>>>>>>> Stashed changes
 
 
     @GetMapping("/read")
@@ -145,17 +181,26 @@ public class NoticeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+<<<<<<< Updated upstream
 
         return ViewPath.CS+"notice";
 
+=======
+        return ViewPath.CS+"notice";
+>>>>>>> Stashed changes
     }
 
 
     @GetMapping("/noticeList")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
+<<<<<<< Updated upstream
 //        if (!loginCheck(request))
 //            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+=======
+       if (!loginCheck(request))
+            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+>>>>>>> Stashed changes
 
         try {
             // 페이지 핸들러  << < 1,2,3,4,5,6,7,8,9,10 > >>
@@ -180,15 +225,23 @@ public class NoticeController {
             m.addAttribute("totalCnt", 0);
         }
 
+<<<<<<< Updated upstream
 
         return ViewPath.CS+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
 
+=======
+        return ViewPath.CS+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+
+>>>>>>> Stashed changes
     }
 
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서
         HttpSession session = request.getSession();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
         return session.getAttribute("id") != null;
     }
