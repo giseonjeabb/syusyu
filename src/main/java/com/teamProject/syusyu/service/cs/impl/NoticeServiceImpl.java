@@ -48,10 +48,9 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public List<NoticeDto> getList() throws Exception {
-<<<<<<< Updated upstream
+
         System.out.println("NoticeServiceImpl.getList");
-=======
->>>>>>> Stashed changes
+
         return noticeDao.selectAll();
     }
 
