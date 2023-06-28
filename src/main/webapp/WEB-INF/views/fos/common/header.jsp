@@ -3,27 +3,15 @@
 <c:set var="loginOutLink" value="${sessionScope.id != null ? '/login/logout' : '/login/login'}" />
 <c:set var="loginOutText" value="${sessionScope.id != null ? '로그아웃' : '로그인'}" />
 <html>
-<head>
-    <title>syusyu</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/static/image2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
-
-    <style>
-        @import url(${cssUrlFos}/common/reset.css);
-        @import url(${cssUrlFos}/common/common.css);
-        @import url(${cssUrlFos}/common/main.css);
-    </style>
-</head>
 <body>
 <header id="main_header">
     <nav id="main_gnb">
         <ul>
+
             <li><a href="<c:url value='/notice/noticeList'/>">고객센터</a></li>
             <li><a href="#">마이페이지</a></li>
+            <li><a href="#">고객센터</a></li>
+            <li><a href="/mypage/main">마이페이지</a></li>
             <li><a href="#">관심상품</a></li>
             <li><a href="#">알림</a></li>
             <li><a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a></li>

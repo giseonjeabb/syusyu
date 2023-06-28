@@ -12,5 +12,10 @@ public class MyServletContextListener implements ServletContextListener {
         sc.setAttribute("cssUrlFos", "/static/fos/css");
         sc.setAttribute("jsUrlFos", "/static/fos/js");
         sc.setAttribute("imgUrl", "/static/image");
+
+        // tiles
+        sc.setAttribute("commonLayoutFos", "/WEB-INF/views/fos/common");
+        sc.setAttribute("title", "syusyu");
+
     }
 }

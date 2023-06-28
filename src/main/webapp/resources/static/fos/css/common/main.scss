@@ -1,0 +1,575 @@
+@import "common";
+@import "variables";
+@import "font";
+@import "../cs/layout";
+@import "../cs/_page";
+@import "../cs/_page2";
+
+#content {
+    width: 100%;
+    position: relative;
+    /* left: 20px; */
+}
+
+.slide_banner {
+    width: 100%;
+    height: 45vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide_banner .banner-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition-duration: 5s;
+}
+
+.slide_banner .banner {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.slide_banner .btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.slide_banner .btn-prev {
+    left: 10px;
+}
+
+.slide_banner .btn-next {
+    right: 10px;
+}
+
+.slide_banner .dot-container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide_banner .dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.slide_banner .dot.active {
+    opacity: 1;
+}
+
+/* Fading animation */
+.slide_banner .fade {
+    animation-name: fade;
+    animation-duration: 1.5s; /* 애니메이션을 1.5초동안 재생한다. (투명도 0.4 -> 1이 1.5초동안 재생됨) */
+}
+
+@keyframes fade {
+    from { opacity: 0.4 } /* start 투명도 0.4 */
+    to { opacity: 1 } /* end 투명도 1 */
+}
+
+.main-keyvisual {
+    position: relative;
+    height: 610px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    .main-kv-swiper {
+        height: 100%;
+        &:not(.swiper-initialized) {
+            .swiper-units {
+                display: none;
+            }
+        }
+        .swiper-slide {
+            a {
+                display: block;
+                text-align: center;
+                overflow: hidden;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                img {
+                    max-width: none;
+                }
+            }
+        }
+        .swiper-units {
+            position: absolute;
+            bottom: 25px;
+            left: calc(50% + 705px);
+            z-index: 1;
+            .inner {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+
+                .auto-stop {
+                    &.active {
+                        display: none;
+                        + .auto-play {
+                            display: inline-block;
+                        }
+                    }
+                }
+                .auto-play {
+                    display: none;
+                }
+            }
+
+            .swiper-pagination {
+                position: relative;
+                bottom: 0;
+                width: auto;
+                margin-left: 10px;
+                padding: 0 20px;
+                display: inline-flex;
+                font-size: 0;
+                border-radius: 50px;
+                background-color: rgba($color: #000000, $alpha: 0.3);
+                > span {
+                    position: relative;
+                    font-weight: normal;
+                    font-size: 14px;
+                    line-height: 35px;
+                    color: #fff;
+                    opacity: 0.5;
+                    &.swiper-pagination-current {
+                        font-weight: 700;
+                        opacity: 1;
+                    }
+                    &.swiper-pagination-total {
+                        &::before {
+                            content: '/';
+                            padding: 0 5px;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+
+.brand-links {
+    padding: 0 75px;
+    font-size: 0;
+    > a {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 90px;
+        margin: 20px 40px 0 0;
+        img {
+            display: block;
+            width: 90px;
+            height: 90px;
+            transition: 0.3s;
+        }
+        .thumb{
+            display: block;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        span.txt {
+            display: block;
+            margin-top: 11px;
+            font-size: 15px;
+            line-height: 18px;
+            text-align: center;
+            color: #333;
+            transition: 0.3s;
+        }
+        &:nth-child(-n + 10) {
+            margin-top: 0;
+        }
+        &:nth-child(10n) {
+            margin-right: 0;
+        }
+        &:hover {
+            .txt {
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+/* 오늘이 지나면 생각날 가격 */
+.main-time-event {
+    height: 690px;
+    padding: 100px 0 0 0;
+    background:#e5e5e5 url("../images/main/bg_main_timeevent.jpg") no-repeat center top;
+    .title-t {
+        padding-bottom: 8px;
+    }
+    .time-cont {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        .btn.btt2 {
+            margin-left: auto;
+        }
+    }
+}
+/* 오늘이 지나면 생각날 가격 */
+
+/* 오뚜기 MD가 엄선한 갓상품이에요 */
+.md-recommend {
+    .swiper-slide {
+        height: 600px;
+        position: relative;
+        text-align: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        > img {
+            max-width: none;
+        }
+        .in-cont {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            display: flex;
+            align-items: stretch;
+            width: 1410px;
+            height: 100%;
+            text-align: left;
+            transform: translateX(-50%);
+            .l-side {
+                flex: 1 1 0%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                .title {
+                    font-weight: 700;
+                    font-size: 40px;
+                    line-height: 48px;
+                }
+                .text {
+                    padding-top: 16px;
+                    font-size: 18px;
+                    line-height: 28px;
+                }
+            }
+            .r-side {
+                display: flex;
+                align-self: flex-end;
+                width: 705px;
+                padding: 0 0 100px 20px;
+            }
+        }
+
+    }
+
+}
+
+/* md 상품  */
+.md-recommend-prd {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 10px 90px 10px 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    .thumbs {
+        flex: none;
+        width: 100px;
+    }
+    .desc {
+        padding: 0 10px;
+        .name {
+            font-size: 16px;
+            line-height: 20px;
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: initial;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            margin-top: 7px;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 24px;
+            .amount{
+                display:flex;
+                align-items: center;
+            }
+            .per{
+                margin-right: 3px;
+                color: #d3233a;
+            }
+            .won{
+                margin-right: 6px;
+                font-size: 16px;
+            }
+            del{
+                font-weight: 400;
+                font-size: 14px;
+                color:#ccc;
+            }
+        }
+        .prd-item-btn {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+    }
+    & +.md-recommend-prd{
+        margin-left: 10px;
+    }
+}
+/* md 상품  */
+
+/* 오뚜기 MD가 엄선한 갓상품이에요 */
+
+
+/* 마일리지로 구매해보세요 */
+.main-mileage {
+    height: 600px;
+    padding: 100px 0 0 0;
+    background-color: #f9f2ec;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+/* 마일리지로 구매해보세요 */
+
+/* 이렇게 먹으면 더 맛있어요 */
+.cook-item {
+    .swiper-slide {
+        display: inline-block;
+        width: 960px;
+    }
+    .swiper-slide {
+        .inner {
+            width: 930px;
+            margin: 0 auto;
+            .thumb {
+                overflow: hidden;
+                position: relative;
+                border-radius: 4px;
+                .kv {
+                    border-radius: 8px;
+                }
+                .item-thumb {
+                    position: absolute;
+                    right: 0;
+                    bottom: -105px;
+                }
+            }
+            .cont {
+                padding: 40px 230px 0 0;
+                visibility: hidden;
+                .text {
+                    padding-top: 16px;
+                    font-size: 18px;
+                    line-height: 30px;
+                }
+            }
+            .related-wrap {
+                margin-top: 40px;
+                visibility: hidden;
+            }
+            .related-content {
+                margin-top: 20px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px 0 rgba(136, 136, 136, 0.1);
+                .swiper-button-next.swiper-button-disabled,
+                .swiper-button-prev.swiper-button-disabled{
+                    display: none;
+                }
+            }
+            .related-content-bottom {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px 30px 15px 40px;
+                color: #fff;
+                border-radius: 0 0 8px 8px;
+                background-color: #111;
+                > .tit {
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 22px;
+                }
+                > .r-side {
+                    margin-left: auto;
+                    display: flex;
+                    align-items: center;
+                    .price {
+                        display: flex;
+                        align-items: center;
+                        font-weight: 700;
+                        font-size: 32px;
+                        line-height: 38px;
+                        .won {
+                            font-size: 20px;
+                        }
+                    }
+                    .btns {
+                        margin-left: 30px;
+                        font-size: 0;
+                        .btn {
+                            + .btn {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.swiper-slide-active {
+            .cont,
+            .related-wrap {
+                visibility: visible;
+            }
+        }
+    }
+
+
+}
+
+
+.related-swiper {
+    padding: 30px 29px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #f8f8f8;
+    border-bottom: none;
+    &:not(.swiper-initialized) {
+        font-size: 0;
+        .swiper-slide {
+            display: inline-block;
+            vertical-align: top;
+            width: 270px;
+            + .swiper-slide {
+                margin-left: 30px;
+            }
+        }
+    }
+    .swiper-slide {
+        overflow: hidden;
+    }
+
+}
+
+/* 관련상품 */
+.related-prd {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .chkbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: 85%;
+        height: 100%;
+        label {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .thumb {
+        flex: none;
+        width: 100px;
+    }
+    .desc {
+        width: 48%;
+        padding: 0 10px;
+        .name {
+            font-size: 16px;
+            line-height: 20px;
+            color: #888;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 24px;
+            .amount{
+                display:flex;
+                align-items: center;
+            }
+            .per{
+                margin-right: 3px;
+                color: #d3233a;
+            }
+            .won{
+                margin-right: 6px;
+                font-size: 16px;
+            }
+            del{
+                font-weight: 400;
+                font-size: 14px;
+                color:#ccc;
+            }
+        }
+        .prd-item-btn{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+    }
+    &.soldout-ty1 {
+        .thumb{
+            a {
+                &::before{
+                    content: '일시품절';
+                    position:absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 20px;
+                    background: rgba(255,255,255,0.7);
+                }
+            }
+        }
+    }
+}
+/* 관련상품 */
+
+/* 이렇게 먹으면 더 맛있어요 */
