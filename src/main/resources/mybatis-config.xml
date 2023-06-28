@@ -7,8 +7,9 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias alias="BoardDto" type="com.teamProject.syusyu.domain.BoardDto"/>
-        <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.SearchCondition" />
+        <typeAlias alias="NoticeDto" type="com.teamProject.syusyu.domain.cs.NoticeDto"/>
+<!--        <typeAlias alias="BoardDto" type="com.teamProject.syusyu.domain.cs.BoardDto"/>-->
+        <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
         <typeAlias alias="MemberDto" type="com.teamProject.syusyu.domain.member.MemberDto"/>
     </typeAliases>
