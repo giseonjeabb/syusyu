@@ -1,0 +1,76 @@
+.sections.ty2 * + section {
+    margin-top: 60px;
+}
+.title-t.ty3 {
+    font-size: 32px;
+    line-height: 38px;
+}
+
+.title-t {
+    font-weight: 700;
+}
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+body {
+    position: relative;
+    min-width: 1410px;
+    height: auto;
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    color: #1d1d1b;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    letter-spacing: -0.4px;
+}
+div {
+    display: block;
+}
+.tbl.ty1 {
+    border-top: 2px solid #333;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 100%;
+    border-color: inherit;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+colgroup {
+    display: table-column-group;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.inner-content.mypage-container .move-container-left + .right-case {
+    width: 1125px;
+}
+.inner-content.move-container .content-mini.right-case {
+    width: 1050px;
+    float: right;
+}
+.inner-content.move-container .content-mini {
+    min-height: 1px;
+}
+.sections {
+    overflow: hidden;
+}
+
+.sections.ty2 * + section {
+    margin-top: 60px;
+}
+
+.tbl.ty1 {
+    border-top: 2px solid #333;
+}

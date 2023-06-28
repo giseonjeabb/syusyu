@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.NoticeMapper">
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM notice
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM notice
+    </delete>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM notice WHERE NOTC_NO = #{notcNo} and REGR_ID = #{regrId}
+    </delete>
+
+    <insert id="insert" parameterType="NoticeDto">
+        INSERT INTO notice
+            (TITLE, CONTENT)
+        VALUES
+            (#{title}, #{content})
+    </insert>
+
+
+
+    <select id="selectAll" resultType="NoticeDto">
+<<<<<<< Updated upstream
+        SELECT NOTC_NO, NOTC_TP, TITLE, CONTENT, REGR_ID, VIEW_CNT, REG_DTTM
+=======
+        SELECT NOTC_NO, NOTC_TP, TITLE, CONTENT, REGR_ID, VIEW_CNT, REGR_DTTM
+>>>>>>> Stashed changes
+        FROM notice
+        ORDER BY REG_DTTM DESC, NOTC_NO DESC
+    </select>
+
+    <sql id="selectFromBoard">
+<<<<<<< Updated upstream
+        SELECT NOTC_NO, TITLE, CONTENT, REGR_ID, VIEW_CNT, REG_DTTM
+=======
+        SELECT NOTC_NO, TITLE, CONTENT, REGR_ID, VIEW_CNT, REGR_DTTM
+>>>>>>> Stashed changes
+        FROM notice
+    </sql>
+
+    <select id="select" parameterType="int" resultType="NoticeDto">
+        <include refid="selectFromBoard"/>
+        WHERE NOTC_NO = #{notcNo}
+    </select>
+
+<!--    <select id="selectPage" parameterType="map" resultType="BoardDto">-->
+<!--        <include refid="selectFromBoard"/>-->
+<!--        ORDER BY reg_date DESC, bno DESC-->
+<!--        LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
+    <select id="selectPage" parameterType="map" resultType="NoticeDto">
+<<<<<<< Updated upstream
+        SELECT NOTC_NO,NOTC_TP ,TITLE,CONTENT,VIEW_CNT ,REG_DTTM
+=======
+        SELECT NOTC_NO,NOTC_TP ,TITLE,CONTENT,VIEW_CNT  ,REG_DTTM
+>>>>>>> Stashed changes
+        FROM notice
+        ORDER BY REG_DTTM DESC, NOTC_NO DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="update" parameterType="NoticeDto">
+        UPDATE notice
+        SET   TITLE = #{title}
+          , CONTENT = #{content}
+          , UPD_DTTM = now()
+        WHERE NOTC_NO = #{notcNo} and REGR_ID = #{regrId}
+    </update>
+
+
+<!--    공지사항에는 코멘트 필요없어서 주석 처리함 나중에 리뷰에서 써야지-->
+<!--    <update id="updateCommentCnt" parameterType="map">-->
+<!--        UPDATE notice-->
+<!--        SET   comment_cnt = comment_cnt + #{cnt}-->
+<!--        WHERE bno = #{bno}-->
+<!--    </update>-->
+
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE notice
+        SET   VIEW_CNT = VIEW_CNT + 1
+        WHERE NOTC_NO = #{notcNo}
+    </update>
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND TITLE LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDto">
+<<<<<<< Updated upstream
+        SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP
+=======
+        SELECT NOTC_NO, TITLE, CONTENT, REGR_ID , VIEW_CNT ,REG_DTTM , NOTC_TP
+>>>>>>> Stashed changes
+        FROM notice
+         WHERE TRUE
+        <include refid="searchCondition" />
+        ORDER BY REG_DTTM DESC, NOTC_NO DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM notice
+        WHERE TRUE
+        <include refid="searchCondition" />
+    </select>
+</mapper>
