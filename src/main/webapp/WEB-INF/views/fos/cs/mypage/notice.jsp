@@ -21,14 +21,55 @@
         </script>
 
 <div class="container">
-    <h2 class="writing-header"> 공지사항 ${mode=="new" ? " 작성 " : " "}</h2>
-    <form id="form" class="frm" action="" method="post">
+    <h2 class="title-t ty3 mb-30"> 공지사항 ${mode=="new" ? " 작성 " : " "}</h2>
+    <form id="tbl ty1" class="frm" action="" method="post">
 
+
+<%-- ======================       경계선-=========================--%>
         <input type="hidden" name="notcNo" value="${noticeDto.notcNo}">
+        <colgroup>
+            <col style="width: 105px">
+            <col style="width: auto">
+            <col style="width: 110px">
+        </colgroup>
 
-        <input name="title" type="text" value="<c:out value= '${noticeDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
-        <textarea name="content" rows="20" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
+        <tr>
+        <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
+        </tr>
+        <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
 
+
+
+    <table>
+            <colgroup>
+                <col style="width: 105px">
+                <col style="width: auto">
+                <col style="width: 110px">
+            </colgroup>
+
+            <tbody>
+
+                <%-- 이전글--%>
+                <tr>
+                    <td>
+                        <span class="prev">이전 글</span>
+                    </td>
+                    <td>
+                        <a href= "${noticeDto.notcNo}-1">${noticeDto.title} </a>
+                    </td>
+                </tr>
+                 <%--다음글--%>
+                <tr>
+                    <td>
+                        <span class="next">다음 글</span>
+                    </td>
+                    <td>
+                        <a href = "${noticeDto.notcNo}+1">${noticeDto.title}</a>
+                    </td>
+                </tr>
+            </tbody>
+
+    </table>
 
 <%--        < 버튼- 등록 수정 삭제> 다른 게시판에서 사용예정--%>
 <%--        <c:if test="${mode eq 'new'}">--%>

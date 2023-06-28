@@ -139,7 +139,7 @@ public class PageHandler {
         this.showFirst = showFirst;
     }
 
-    void print() {
+    public void print() {
         System.out.println("page = " + sc.getPage());
 
         System.out.print(showFirst ? "[First] " : "");

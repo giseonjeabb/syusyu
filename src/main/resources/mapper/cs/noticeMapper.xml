@@ -84,6 +84,9 @@
             <when test='option=="W"'>
                 AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')
             </when>
+            <when test='option=="C"'>
+                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')
+            </when>
             <otherwise>
                 AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
                 OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
