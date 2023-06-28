@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MypageController {
     @GetMapping("main")
     public String mainView() {
-        return ViewPath.CS + "mypageMain";
+        return ViewPath.MYPAGE + "mypageMain";
     }
 }

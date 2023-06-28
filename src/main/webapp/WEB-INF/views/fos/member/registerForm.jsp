@@ -1,17 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!DOCTYPE html>
-<html>
 <head>
     <script src="<c:url value="${jsUrlFos}/member/registerForm.js"/>"></script>
     <style>
         @import url(${cssUrlFos}/member/register.css);
     </style>
 </head>
-<body>
-<jsp:include page="../common/header.jsp"/>
-
 <div class="container join">
     <div class="content sm">
         <div class="join_area">
@@ -80,7 +75,3 @@
         </div>
     </div><!---->
 </div>
-
-<jsp:include page="../common/footer.jsp"/>
-</body>
-</html>

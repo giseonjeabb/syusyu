@@ -1,17 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!DOCTYPE html>
-<html>
 <head>
     <script src="<c:url value="${jsUrlFos}/member/loginForm.js"/>"></script>
     <style>
         @import url(${cssUrlFos}/member/login.css);
     </style>
 </head>
-<body>
-<jsp:include page="../common/header.jsp"/>
-
 <div class="login_container">
     <div class="login_area">
         <h2 class="login_title">syusyu</h2>
@@ -40,6 +35,3 @@
         <div class="social_login"></div>
     </div>
 </div>
-<jsp:include page="../common/footer.jsp"/>
-</body>
-</html>

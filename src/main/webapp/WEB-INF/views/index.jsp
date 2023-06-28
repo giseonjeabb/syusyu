@@ -1,14 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!DOCTYPE html>
-<html>
 <head>
-    <title>syusyu</title>
     <script src="<c:url value="${jsUrlFos}/index.js"/>"></script>
 </head>
-<body>
-<jsp:include page="./fos/common/header.jsp"/>
 <div id="content">
     <div class="slide_banner">
         <div class="banner-container fade" style="background-color: #191919;">
@@ -28,6 +23,3 @@
         dsfs
     </div>
 </div>
-<jsp:include page="./fos/common/footer.jsp"/>
-</body>
-</html>
