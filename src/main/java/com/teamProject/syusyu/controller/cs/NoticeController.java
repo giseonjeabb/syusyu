@@ -1,7 +1,10 @@
 package com.teamProject.syusyu.controller.cs;
 
 
+<<<<<<< Updated upstream
 import com.teamProject.syusyu.common.ViewPath;
+=======
+>>>>>>> Stashed changes
 import com.teamProject.syusyu.dao.BoardDao;
 import com.teamProject.syusyu.dao.cs.impl.NoticeDao;
 import com.teamProject.syusyu.domain.BoardDto;
@@ -28,13 +31,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     @Autowired
     NoticeService noticeService;
 
     @Autowired
     NoticeDao noticeDao;
 
+<<<<<<< Updated upstream
 
     // 만약 일반 게시판에서 글을 써야한다면 밑에 처럼 바꿔야함
 //    Dto를 memberDto로 바꿔야 하고 String writer = (String)session.getAttribute("id");
@@ -42,6 +49,8 @@ public class NoticeController {
     // 현재 기능은 했지만 버튼 자체를 주석 처리해서 다른 이들이 사용 할수 없게 했음.
     // 주석 해제시 관리자, 모든사용자 전부가 공지사항에 글을 쓸수 있게됨. 2023.06.28
 
+=======
+>>>>>>> Stashed changes
     @PostMapping("/modify")
     public String modify(NoticeDto noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
         int writer = (int) session.getAttribute("id");
@@ -55,13 +64,21 @@ public class NoticeController {
 
             rattr.addFlashAttribute("msg", "MOD_OK");
 
+<<<<<<< Updated upstream
             return "redirect:/notice/noticeList";
+=======
+            return "redirect:/notice/list";
+>>>>>>> Stashed changes
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("noticeDto", noticeDto);
             m.addAttribute("msg", "Modify_Error");
 
+<<<<<<< Updated upstream
             return ViewPath.CS+"notice";
+=======
+            return "notice";
+>>>>>>> Stashed changes
         }
 
     }
@@ -80,14 +97,22 @@ public class NoticeController {
 
             rattr.addFlashAttribute("msg", "WRT_OK");
 
+<<<<<<< Updated upstream
             return "redirect:/notice/noticeList";
+=======
+            return "redirect:/notice/list";
+>>>>>>> Stashed changes
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("noticeDto", noticeDto);
             m.addAttribute("msg", "WRT_ERR");
 
 
+<<<<<<< Updated upstream
             return ViewPath.CS+"notice";
+=======
+            return "notice";
+>>>>>>> Stashed changes
         }
 
     }
@@ -97,7 +122,11 @@ public class NoticeController {
     public String write(Model m) {
         m.addAttribute("mode", "new");
 
+<<<<<<< Updated upstream
         return ViewPath.CS+"notice"; // 읽기와 쓰기에 사용 , 쓰기에 사용할때는 mode = new
+=======
+        return "notice"; // 읽기와 쓰기에 사용 , 쓰기에 사용할때는 mode = new
+>>>>>>> Stashed changes
     }
 
 
@@ -119,7 +148,11 @@ public class NoticeController {
             rattr.addFlashAttribute("msg", "DEL_ERR");
         }
 
+<<<<<<< Updated upstream
         return "redirect:/notice/noticeList";
+=======
+        return "redirect:/notice/list";
+>>>>>>> Stashed changes
     }
 
 
@@ -133,13 +166,20 @@ public class NoticeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+<<<<<<< Updated upstream
         return ViewPath.CS+"notice";
+=======
+        return "notice";
+>>>>>>> Stashed changes
     }
 
 
     @GetMapping("/noticeList")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         if (!loginCheck(request))
             return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
@@ -159,20 +199,31 @@ public class NoticeController {
 //           m.addAttribute("page",page);
 //           m.addAttribute("pageSize",pageSize);
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("msg", "LIST_ERROR");
             m.addAttribute("totalCnt", 0);
         }
 
+<<<<<<< Updated upstream
         return ViewPath.CS+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+=======
+
+        return "noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+>>>>>>> Stashed changes
     }
 
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서
         HttpSession session = request.getSession();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
         return session.getAttribute("id") != null;
     }

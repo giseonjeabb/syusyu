@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
@@ -14,6 +15,22 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
+=======
+<%--
+  Created by IntelliJ IDEA.
+  User: Han
+  Date: 2023-06-27
+  Time: AM 10:45
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>syusyu</title>
+</head>
+<body>
+<jsp:include page="./fos/common/header.jsp"/>
+>>>>>>> Stashed changes
 
 <script>
     let msg = "${msg}";
@@ -26,6 +43,7 @@
     if (msg == "MOD_OK") alert("성공적으로 수정되었습니다.");
 </script>
 
+<<<<<<< Updated upstream
 
 
 <div class="content-mini right-case sections ty2">
@@ -111,13 +129,100 @@
 
                     </tbody>
                 </table>
+=======
+<div class="board-container">
+    <div class="search-container">
+        <form action="<c:url value="/board/list"/>" class="search-form" method="get">
+
+            <div class="notice">공지사항  총 ${ph.totalCnt} 개 </div>
+
+            <div>
+                <select class="search-option" name="option">
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                    <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+                </select>
+>>>>>>> Stashed changes
             </div>
 
 
 
+<<<<<<< Updated upstream
 
         </div>
     </section>
+=======
+            <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                   placeholder="검색어를 입력해주세요">
+            <input type="submit" class="search-button" value="검색">
+
+
+        </form>
+        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i
+                class="fa fa-pencil"></i> 글쓰기
+        </button>
+
+    </div>
+
+    <table>
+        <tr>
+            <th class="notcNo">번호</th>
+            <th class="notcTp">분류</th>
+            <th class="title">제목</th>
+            <th class="regDttm">등록일</th>
+            <th class="viewCnt">조회수</th>
+        </tr>
+        <c:forEach var="noticeDto" items="${list}">
+            <tr>
+                <td class="notcNo">${noticeDto.notcNo}</td>
+
+                <td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>
+
+                <td class="title"><a
+                        href="<c:url value="/board/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
+                </td>
+
+                <c:choose>
+
+                    <c:when test="${noticeDto.regDttm.time >= startOfToday}">
+                        <td class="regDttm"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm"
+                                                            type="time"/></td>
+                    </c:when>
+
+                    <c:otherwise>
+                        <td class="regDttm"><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd"
+                                                            type="date"/></td>
+                    </c:otherwise>
+
+                </c:choose>
+
+                <td class="viewCnt">${noticeDto.viewCnt}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br>
+    <div class="paging-container">
+        <div class="paging">
+            <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
+            <div> 게시물이 없습니다.</div>
+            </c:if>
+            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
+            <c:if test="${ph.showPrev}">
+            <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
+            </c:if>
+            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+            <a class="page ${i==ph.sc.page? "paging-active" : ""}"
+               href="<c:url value="/board/list${ph.sc.getQueryString(i)}"/>">${i}</a>
+            </c:forEach>
+            <c:if test="${ph.showNext}">
+            <a class="page"
+               href="<c:url value="/board/list${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
+            </c:if>
+            </c:if>
+
+        </div>
+    </div>
+>>>>>>> Stashed changes
 </div>
 
 
@@ -126,6 +231,7 @@
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -249,5 +355,8 @@
 
 <jsp:include page="../common/footer.jsp"/>
 
+=======
+<jsp:include page="./fos/common/footer.jsp"/>
+>>>>>>> Stashed changes
 </body>
 </html>
