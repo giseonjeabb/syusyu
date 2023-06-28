@@ -9,8 +9,6 @@
         <ul>
 
             <li><a href="<c:url value='/notice/noticeList'/>">고객센터</a></li>
-            <li><a href="#">마이페이지</a></li>
-            <li><a href="#">고객센터</a></li>
             <li><a href="/mypage/main">마이페이지</a></li>
             <li><a href="#">관심상품</a></li>
             <li><a href="#">알림</a></li>
