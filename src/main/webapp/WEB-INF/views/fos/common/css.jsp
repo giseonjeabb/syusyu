@@ -6,5 +6,6 @@
 <style>
     @import url(${cssUrlFos}/common/main.css);
     @import url(${cssUrlFos}/common/reset.css);
+    @import url(${cssUrlFos}/common/common.css);
     @import url(${cssUrlFos}/common/common2.css);
 </style>
