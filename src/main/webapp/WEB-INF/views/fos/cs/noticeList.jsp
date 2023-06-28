@@ -15,6 +15,7 @@
 <body>
 <jsp:include page="../common/header.jsp"/>
 
+<<<<<<< Updated upstream
 <%--
   Created by IntelliJ IDEA.
   User: Han
@@ -23,6 +24,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 
+=======
+>>>>>>> Stashed changes
 
 <script>
     let msg = "${msg}";
@@ -97,6 +100,11 @@
 
 
         <div id="ux_page_list">
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
             <div class="tbl ty1" page-no="1" page-size="10" total-size="4" total-page="1">
                 <table>
                     <colgroup>
@@ -104,6 +112,7 @@
                         <col style="width:120px">
                     </colgroup>
                     <tbody>
+<<<<<<< Updated upstream
                     <tr>
                         <td>
                             <a href="<c:url value="/board/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">
@@ -138,6 +147,35 @@
 
 
 
+=======
+
+
+<div class="board-container">
+    <div class="search-container">
+        <form action="<c:url value="/notice/noticeList"/>" class="search-form" method="get">
+
+            <div>
+                <select class="search-option" name="option">
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                    <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+                </select>
+
+            </div>
+
+            <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                   placeholder="검색어를 입력해주세요">
+            <input type="submit" class="search-button" value="검색">
+
+
+        </form>
+        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i
+                class="fa fa-pencil"></i> 글쓰기
+        </button>
+
+    </div>
+
+>>>>>>> Stashed changes
     <table>
         <tr>
 <%--            <th class="notcNo">번호</th>--%>
@@ -206,14 +244,89 @@
 
         </div>
     </div>
+<<<<<<< Updated upstream
 
 </div>
 
 
+=======
+</div>
+
+
+<section id="sectionForm">
+    <div id ="first_div" style="text-align:center">
+            <div class="board-container">
+                    <span class="search-container">
+                            <form action="<c:url value='/notice/noticeList'/>" class="search-form" method="get">
+
+                                <div class="logo_notice">공지사항</div>
+
+                                <span class="notice_count">총 ${ph.totalCnt} 개 </span>
+
+                                    <div class="search_filter">
+                                        <select class="search-option" name="option">
+                                            <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                                            <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                                            <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+                                        </select>
+                                    </div>
+
+
+
+                                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                                       placeholder="검색어를 입력해주세요">
+                                <input type="submit" class="search-button" value="검색">
+
+<%--                                <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value='/notice/write'/>' "><i--%>
+<%--                                        class="fa fa-pencil"></i> 글쓰기--%>
+<%--                                </button>--%>
+                            </form>
+                    </span>
+                    </div>
+>>>>>>> Stashed changes
 
 
 
 
+<<<<<<< Updated upstream
+=======
+
+
+            <br>
+
+                            <div class="paging-container">
+                                    <div class="paging">
+                                                <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
+                                                <div> 게시물이 없습니다.</div>
+                                                </c:if>
+                                            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
+
+                                                <c:if test="${ph.showPrev}">
+                                                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.beginPage-1)}'/>">&lt;</a>
+                                                </c:if>
+
+                                                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                                                     <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(i)}'/>">${i}</a>
+                                                </c:forEach>
+
+                                                <c:if test="${ph.showNext}">
+                                                <a class="page"
+                                                   href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.endPage+1)}'/>">&gt;</a>
+                                                </c:if>
+
+                                            </c:if>
+
+                                    </div>
+                            </div>
+
+
+            </div>
+
+    </div>
+ </section>
+
+
+>>>>>>> Stashed changes
 <jsp:include page="../common/footer.jsp"/>
 
 </body>
