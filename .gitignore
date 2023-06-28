@@ -6,6 +6,11 @@
 classes/
 META-INF/
 
+# scss #
+*.css
+*.css.map
+
+
 # OS Files #
 .DS_Store
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <!-- ?? ???? -->
+    <definition name="defaultLayout" template="/WEB-INF/views/fos/layout/defaultLayout.jsp">
+        <put-attribute name="title" expression="${title}"/>
+        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp" />
+        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp" />
+        <put-attribute name="header" expression="${commonLayoutFos}/header.jsp"/>
+        <put-attribute name="footer" expression="${commonLayoutFos}/footer.jsp"/>
+    </definition>
+    <definition name=".tiles/*" extends="defaultLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}.jsp"/>
+    </definition>
+    <definition name=".tiles/*/*" extends="defaultLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}.jsp"/>
+    </definition>
+    <definition name=".tiles/*/*/*" extends="defaultLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+    </definition>
+    <definition name=".tiles/*/*/*/*" extends="defaultLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
+    </definition>
+
+    <!-- ????? ???? -->
+    <definition name="mypageLayout" template="/WEB-INF/views/fos/layout/mypageLayout.jsp">
+        <put-attribute name="title" expression="${title}"/>
+        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp" />
+        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp" />
+        <put-attribute name="header" expression="${commonLayoutFos}/header.jsp"/>
+        <put-attribute name="mypageLeft" expression="${commonLayoutFos}/mypageLeft.jsp" />
+        <put-attribute name="mypageInfo" expression="${commonLayoutFos}/mypageInfo.jsp" />
+        <put-attribute name="footer" expression="${commonLayoutFos}/footer.jsp"/>
+    </definition>
+    <definition name=".mypage/*" extends="mypageLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}.jsp"/>
+    </definition>
+    <definition name=".mypage/*/*" extends="mypageLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}.jsp"/>
+    </definition>
+    <definition name=".mypage/*/*/*" extends="mypageLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+    </definition>
+    <definition name=".mypage/*/*/*/*" extends="mypageLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
+    </definition>
+
+    <!-- tiles ??? -->
+</tiles-definitions>

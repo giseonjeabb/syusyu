@@ -1,3 +1,5 @@
+@import "../common/variables";
+
 .container {
     display: flex;
     justify-content: center;
@@ -16,7 +18,7 @@ aside {
     margin-top: 2.8vh;
     padding-bottom: 1vh;
     border-bottom: 0.1em solid black;
-    font-family: var(--bold-font);
+    font-family: $bold-font;
 }
 
 
@@ -28,13 +30,13 @@ aside {
     padding-left:1vh;
     list-style-type: none;
     padding-top: 2vh;
-    font-size: var(--aside-font-size);
-    color:var(--black-text-color);
+    font-size: $aside-font-size;
+    color:$black-text-color;
 }
 .aside_menu_item, .aside_submenu>li>a {
     text-decoration: none;
-    color: var(--black-text-color);
-    font-size: var(--aside-font-size);
+    color: $black-text-color;
+    font-size: $aside-font-size;
 }
 
 .aside_menu>li{
@@ -49,7 +51,7 @@ aside {
 
 .aside_menu .aside_menu_item:hover, .aside_submenu>li>a:hover{
     text-decoration-line: underline ;
-    text-decoration-color: var(--black-text-color);
+    text-decoration-color: $black-text-color;
     text-decoration-thickness: 0.1vh;
     font-family: var(--bold-font);
 }
