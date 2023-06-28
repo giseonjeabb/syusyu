@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.dao;
 
-import com.teamProject.syusyu.domain.*;
+import com.teamProject.syusyu.domain.User;
 
 public interface UserDao {
     User selectUser(String id) throws Exception;

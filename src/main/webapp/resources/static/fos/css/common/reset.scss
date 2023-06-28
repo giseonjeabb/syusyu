@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+article,
+aside,
+hgroup,
+header,
+footer,
+figure,
+figcaption,
+nav,
+section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+address {
+    display: inline-block;
+    font-style: normal;
+}
+
+main,
+article,
+aside,
+hgroup,
+header,
+footer,
+figure,
+figcaption,
+nav,
+section {
+    display: block;
+}
+
+img,
+video {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+img {
+    image-rendering: -webkit-optimize-contrast;
+    vertical-align: middle;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+em {
+    font-style: normal;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+}
+
+
+html {
+    height: auto;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    position: relative;
+    min-width: 1410px;
+    height: auto;
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    color: #1d1d1b;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    letter-spacing: -0.4px;
+}
+
+/* 검색 폼 */
+html.active {
+    position: fixed;
+    overflow: hidden;
+    touch-action: none;
+    /* height: 100vh; */
+}
+body.active {
+    position: fixed;
+    width: 100%;
+    /* height: 100vh; */
+    touch-action: none;
+    overflow: hidden;
+}
+
+body.normal {
+    min-width: 0;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 100%;
+    border-color: inherit;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    margin: 0;
+}
+
+select {
+    cursor: pointer;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari and Chrome */
+    appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+button {
+    padding: 0;
+    line-height: inherit;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+}
+
+:-moz-ui-invalid {
+    box-shadow: none;
+}
+
+input,
+button,
+textarea,
+select {
+    outline: none;
+}
+
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+label {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* placeholder */
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: -0.4px;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: -0.4px;
+}
+
+::-moz-placeholder {
+    /* Firefox 18- */
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: -0.4px;
+}
+
+input:-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 16px;
+    color: #aaa !important;
+    letter-spacing: -0.4px;
+}
+
+textarea:-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 16px;
+    color: #aaa !important;
+    letter-spacing: -0.4px;
+}
+
+::-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 16px;
+    color: #aaa;
+    letter-spacing: -0.4px;
+}
+
+::-ms-clear {
+    display: none;
+}
+
+::-ms-reveal {
+    display: none;
+}
