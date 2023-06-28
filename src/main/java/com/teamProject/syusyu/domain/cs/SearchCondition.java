@@ -1,15 +1,16 @@
-package com.teamProject.syusyu.domain;
+package com.teamProject.syusyu.domain.cs;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class SearchCondition {
-    Integer page = 1;
-    Integer pageSize = 10;
-//    Integer offset = 0;
-    String keyword = "";
-    String option = "";
+    private Integer page = 1;
+    private Integer pageSize = 10;
+    //    private Integer offset = 0;
+    private String keyword = "";
+    private String option = "";
 
-    public SearchCondition() {}
+
+    public SearchCondition(){}
 
     public SearchCondition(Integer page, Integer pageSize) {
         this.page = page;
@@ -23,19 +24,25 @@ public class SearchCondition {
         this.option = option;
     }
 
-
-    public String getQueryString(Integer page) {
-        return UriComponentsBuilder.newInstance()
-                .queryParam("page", page)
-                .queryParam("pageSize", pageSize)
-                .queryParam("option", option)
-                .queryParam("keyword", keyword)
-                .build().toString();
-    }
-
-    public String getQueryString() {
+    public String getQueryString(){
         return getQueryString(page);
     }
+
+
+    public String getQueryString(Integer page){
+        //page?=1&pageSize=10&option=T&keyword="title"
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page",page)
+                .queryParam("pageSize",pageSize)
+                .queryParam("option",option)
+                .queryParam("keyword",keyword)
+                .build().toString();
+
+    }
+
+
+
+
 
     public Integer getPage() {
         return page;
@@ -54,8 +61,12 @@ public class SearchCondition {
     }
 
     public Integer getOffset() {
-        return (page - 1) * pageSize;
+        return (page-1) * pageSize;
     }
+
+//    public void setOffset(Integer offset) {
+//        this.offset = offset;
+//    }
 
     public String getKeyword() {
         return keyword;
@@ -78,6 +89,7 @@ public class SearchCondition {
         return "SearchCondition{" +
                 "page=" + page +
                 ", pageSize=" + pageSize +
+                ", offset=" + getOffset() +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +
                 '}';

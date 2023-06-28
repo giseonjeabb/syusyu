@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.domain;
+package com.teamProject.syusyu.domain.cs;
 
 import java.util.Date;
 import java.util.Objects;
@@ -21,6 +21,7 @@ public class NoticeDto {
     private Integer delrId;
     private char delYn;
 
+    public NoticeDto(){}
 
     public NoticeDto(Integer notcNo, String notcTp, String title) {
         this.notcNo = notcNo;
