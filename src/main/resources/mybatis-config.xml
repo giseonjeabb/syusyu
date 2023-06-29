@@ -12,5 +12,6 @@
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
         <typeAlias alias="MemberDto" type="com.teamProject.syusyu.domain.member.MemberDto"/>
+        <typeAlias alias="CartProduct" type="com.teamProject.syusyu.domain.order.CartProductDTO"/>
     </typeAliases>
 </configuration>
