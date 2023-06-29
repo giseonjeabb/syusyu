@@ -128,12 +128,21 @@ public class NoticeController {
 
 
     @GetMapping("/read")
-    public String read(Integer notcNo, Integer page, Integer pageSize, Model m) throws Exception {
+    public String read(Integer notcNo,String prevTitle, Integer page, Integer pageSize, Model m) throws Exception {
         try {
             NoticeDto noticeDto = noticeService.read(notcNo);
+
+            // 이전 글과 다음 글의 제목 가져오기
+            NoticeDto prevNotice = noticeService.getPrevTitle(notcNo);
+            NoticeDto nextNotice = noticeService.getNextTitle(notcNo);
+            // 이전 글과 다음 글의 제목을 모델에 추가
+            m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
+            m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
+
             m.addAttribute("noticeDto", noticeDto);
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,6 +9,10 @@ import java.util.Map;
 public interface NoticeDao {
     NoticeDto select(Integer notcNo) throws Exception;
 
+    NoticeDto selectPrev(Integer notcNo)throws Exception;
+
+    NoticeDto selectNext(Integer notcNo)throws Exception;
+
     List<NoticeDto> selectAll() throws Exception;
 
     int count() throws Exception;
@@ -28,4 +32,7 @@ public interface NoticeDao {
     List<NoticeDto> searchSelectPage(SearchCondition sc) throws Exception;
 
     int searchResultCnt(SearchCondition sc) throws Exception;
+
+
+
 }

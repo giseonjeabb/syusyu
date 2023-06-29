@@ -109,4 +109,25 @@
         WHERE TRUE
         <include refid="searchCondition" />
     </select>
+
+    <select id="selectPrev" parameterType="int" resultType="NoticeDto">
+        SELECT TITLE ,NOTC_NO
+        FROM notice
+        WHERE NOTC_NO = #{notcNo} - 1
+    </select>
+
+    <select id="selectNext" parameterType="int" resultType="NoticeDto">
+        select TITLE ,NOTC_NO
+        from notice
+        where NOTC_NO = #{notcNo} + 1
+    </select>
+
+
+<!--    select title-->
+<!--    from notice-->
+<!--    where notc_no = (select notc_no-->
+<!--                        from notice-->
+<!--                    where notc_no = #{notc_no} -1)-->
+
+
 </mapper>

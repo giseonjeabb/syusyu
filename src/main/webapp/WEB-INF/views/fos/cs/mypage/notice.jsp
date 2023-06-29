@@ -25,7 +25,7 @@
     <form id="tbl ty1" class="frm" action="" method="post">
 
 
-<%-- ======================       경계선-=========================--%>
+<%-- ===============================경계선-=========================--%>
         <input type="hidden" name="notcNo" value="${noticeDto.notcNo}">
         <colgroup>
             <col style="width: 105px">
@@ -39,37 +39,24 @@
         <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
 
 
+<%--    하단 이전글 다음글 선택--%>
+    <nav class ="detail_nav">
+    <ul>
+        <li class="detail__nav-next">
+            <span>다음 글</span>
+            <a href="/notice/read?notcNo=${noticeDto.notcNo+1}">${noticeDto.nextTitle}다음글</a>
+        </li>
 
-    <table>
-            <colgroup>
-                <col style="width: 105px">
-                <col style="width: auto">
-                <col style="width: 110px">
-            </colgroup>
 
-            <tbody>
+        <li class="detail__nav-prev">
+            <span>이전 글</span>
 
-                <%-- 이전글--%>
-                <tr>
-                    <td>
-                        <span class="prev">이전 글</span>
-                    </td>
-                    <td>
-                        <a href= "${noticeDto.notcNo}-1">${noticeDto.title} </a>
-                    </td>
-                </tr>
-                 <%--다음글--%>
-                <tr>
-                    <td>
-                        <span class="next">다음 글</span>
-                    </td>
-                    <td>
-                        <a href = "${noticeDto.notcNo}+1">${noticeDto.title}</a>
-                    </td>
-                </tr>
-            </tbody>
+            <a href="/notice/read?notcNo=${noticeDto.notcNo-1}">${noticeDto.prevTitle}이전글</a>
+        </li>
 
-    </table>
+
+    </ul>
+    </nav>
 
 <%--        < 버튼- 등록 수정 삭제> 다른 게시판에서 사용예정--%>
 <%--        <c:if test="${mode eq 'new'}">--%>
@@ -88,6 +75,8 @@
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>
 </div>
+
+
 
 
 

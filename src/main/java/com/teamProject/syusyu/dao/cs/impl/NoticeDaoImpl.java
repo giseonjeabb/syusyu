@@ -1,6 +1,5 @@
 package com.teamProject.syusyu.dao.cs.impl;
 
-import com.teamProject.syusyu.domain.BoardDto;
 import com.teamProject.syusyu.domain.cs.NoticeDto;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -21,6 +20,14 @@ public class NoticeDaoImpl implements NoticeDao {
     @Override
     public NoticeDto select(Integer notcNo) throws Exception{
         return  session.selectOne(namespace+"select",notcNo);
+    }
+
+    public NoticeDto selectPrev(Integer notcNo)throws Exception{
+        return  session.selectOne(namespace+"selectPrev"+notcNo);
+    }
+
+    public NoticeDto selectNext(Integer notcNo)throws Exception{
+        return  session.selectOne(namespace+"selectNext"+notcNo);
     }
 
     @Override

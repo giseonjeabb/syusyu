@@ -11,10 +11,11 @@
     <!-- Root Context: defines shared resources visible to all other web components -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-        <property name="url" value="jdbc:log4jdbc:mysql://121.128.157.121:3306/syusyu?useUnicode=true&amp;characterEncoding=utf8" />
+        <property name="url" value="jdbc:log4jdbc:mysql://121.128.157.121:7010/syusyu?useUnicode=true&amp;characterEncoding=utf8" />
 <!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
-<!--        <property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"/>-->
         <property name="username" value="syur1" />
+<!--        <property name="username" value="Han" />-->
         <property name="password" value="1234" />
     </bean>
 
