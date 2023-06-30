@@ -128,7 +128,7 @@ public class NoticeController {
 
 
     @GetMapping("/read")
-    public String read(Integer notcNo,String prevTitle, Integer page, Integer pageSize, Model m) throws Exception {
+    public String read(Integer notcNo, Integer page, Integer pageSize, Model m) throws Exception {
         try {
             NoticeDto noticeDto = noticeService.read(notcNo);
 

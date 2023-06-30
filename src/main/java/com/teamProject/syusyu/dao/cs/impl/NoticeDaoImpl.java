@@ -23,11 +23,12 @@ public class NoticeDaoImpl implements NoticeDao {
     }
 
     public NoticeDto selectPrev(Integer notcNo)throws Exception{
-        return  session.selectOne(namespace+"selectPrev"+notcNo);
+        return  session.selectOne(namespace+"selectPrev",notcNo);
     }
 
+
     public NoticeDto selectNext(Integer notcNo)throws Exception{
-        return  session.selectOne(namespace+"selectNext"+notcNo);
+        return  session.selectOne(namespace+"selectNext",notcNo);
     }
 
     @Override

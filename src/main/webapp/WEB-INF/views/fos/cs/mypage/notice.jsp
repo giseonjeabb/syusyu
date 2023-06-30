@@ -44,15 +44,29 @@
     <ul>
         <li class="detail__nav-next">
             <span>다음 글</span>
-            <a href="/notice/read?notcNo=${noticeDto.notcNo+1}">${noticeDto.nextTitle}다음글</a>
+            <c:if test="${not empty nextTitle}">
+                <a href="/notice/read?notcNo=${noticeDto.notcNo + 1}">${nextTitle}</a>
+            </c:if>
+            <c:if test="${empty nextTitle}">
+                <span>다음 글이 존재하지 않습니다</span>
+            </c:if>
         </li>
+
+
 
 
         <li class="detail__nav-prev">
             <span>이전 글</span>
-
-            <a href="/notice/read?notcNo=${noticeDto.notcNo-1}">${noticeDto.prevTitle}이전글</a>
+            <c:if test="${not empty prevTitle}">
+                <a href="/notice/read?notcNo=${noticeDto.notcNo - 1}">${prevTitle}</a>
+            </c:if>
+            <c:if test = "${empty prevTitle}">
+                <span>이전 글이 존재 하지 않습니다.</span>
+            </c:if>
         </li>
+
+
+
 
 
     </ul>
