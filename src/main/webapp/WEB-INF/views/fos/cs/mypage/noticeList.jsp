@@ -9,6 +9,7 @@
 <head>
         <style>
             @import url(${cssUrlFos}/cs/noticeList.scss);
+
         </style>
 </head>
 
@@ -22,81 +23,101 @@
         if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
         if (msg == "MOD_OK") alert("성공적으로 수정되었습니다.");
     </script>
-
+<header class="fb__bbs__header">
         <h3 class="title-t ty3 mb-30">공지사항</h3>
-        <span class="notice_count">총 ${ph.totalCnt} 개 </span>
+<%--  게시글 갯수 카운팅 <span class="notice_count">총 ${ph.totalCnt} 개 </span>--%>
+        <br>
         <br>
 
+
+<%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
 
 <div class="board-container">
     <div class="search-container">
         <form action="<c:url value="/notice/noticeList"/>" class="search-form" method="get">
 
-            <div>
-                <select class="search-option" name="option">
-                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
-                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
-                    <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
-                </select>
+            <div class="fb__bbs__header__filter">
+                    <div>
+                        <select id = "sType"class="search-option" name="option">
+                            <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                            <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                            <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
+<%--   지우면 안되요~         <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
+                        </select>
+
+
+                        <input type="text" id = "noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                               placeholder="검색어 입력">
+                        <input type="submit" id = "btnSearch" class="search-button" value="검색">
+                    </div>
 
             </div>
-
-            <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
-                   placeholder="검색어를 입력해주세요">
-            <input type="submit" class="search-button" value="검색">
-
         </form>
 
-        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i
-                class="fa fa-pencil"></i> 글쓰기
-        </button>
+<%-- 글쓰기 버튼--%>
+<%--        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i--%>
+<%--                class="fa fa-pencil"></i> 글쓰기--%>
+<%--        </button>--%>
 
     </div>
+
+
 </div>
+</header>
+
+        <%--테이블 정보--%>
+        <div id="ux_page_list">
+            <div class="tbl ty1">
+                <table>
+                        <colgroup>
+                            <col style="width: auto">
+                            <col style="width: 120px">
+                        </colgroup>
+                    <tbody>
+                    <tr>
+            <%--        <th class="notcNo">번호</th>--%>
+            <%--            <th class="notcTp">분류</th>--%>
+                        <th class="notice-title">제목</th>
+                        <th class="regDttm">등록일</th>
+            <%--            <th class="viewCnt">조회수</th>--%>
+                    </tr>
 
 
+                    <c:forEach var="noticeDto" items="${list}">
+                        <tr>
+            <%--글 번호--%>
+            <%--                <td class="notcNo">${noticeDto.notcNo}</td>--%>
+            <%--타입--%>
+            <%--                <td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>--%>
+            <%--제목--%>
+                            <td class="fw-7"><a href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a></td>
+            <%--등록날짜--%>
+                            <c:choose>
+                                <c:when test="${noticeDto.regDttm.time >= startOfToday}">
+                                    <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm" type="time"/></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                                </c:otherwise>
+                            </c:choose>
+            <%--조회수--%>
+            <%--                <td class="viewCnt">${noticeDto.viewCnt}</td>--%>
 
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <table>
-        <tr>
-<%--        <th class="notcNo">번호</th>--%>
-            <th class="notcTp">분류</th>
-            <th class="title">제목</th>
-<%--        <th class="regDttm">등록일</th>--%>
-            <th class="viewCnt">조회수</th>
-        </tr>
-
-
-        <c:forEach var="noticeDto" items="${list}">
-            <tr>
-                <td class="notcNo">${noticeDto.notcNo}</td>
-<%--타입--%>
-                <td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>
-<%--제목--%>
-                <td class="title"><a href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a></td>
-<%--등록날짜--%>
-                <c:choose>
-                    <c:when test="${noticeDto.regDttm.time >= startOfToday}">
-                        <td class="regDttm"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm" type="time"/></td>
-                    </c:when>
-                    <c:otherwise>
-                        <td class="regDttm"><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                    </c:otherwise>
-                </c:choose>
-<%--조회수--%>
-<%--                <td class="viewCnt">${noticeDto.viewCnt}</td>--%>
-
-            </tr>
-        </c:forEach>
-
-    </table>
+<%--페이지 이동 페이지 핸들링--%>
             <br>
-
-            <div class="paging-container">
-                    <div class="paging">
+            <div id="devPageWrap">
+                <div class="wrap-pagination">
                         <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
                             <div> 게시물이 없습니다.</div>
                         </c:if>
+
                         <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
                             <c:if test="${ph.showPrev}">
                                 <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.beginPage-1)}'/>">&lt;</a>
