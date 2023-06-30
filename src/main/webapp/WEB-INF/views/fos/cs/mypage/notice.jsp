@@ -3,14 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true"%>
 
-<head>
-
+<head>`
     <style>
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
-
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-
+    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>" defer></script>
 </head>
 
 
@@ -43,7 +40,7 @@
     <nav class ="detail_nav">
     <ul>
         <li class="detail__nav-next">
-            <span>다음 글</span>
+            <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
             <c:if test="${not empty nextTitle}">
                 <a href="/notice/read?notcNo=${noticeDto.notcNo + 1}">${nextTitle}</a>
             </c:if>
@@ -53,10 +50,10 @@
         </li>
 
 
-
+<br>
 
         <li class="detail__nav-prev">
-            <span>이전 글</span>
+            <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
             <c:if test="${not empty prevTitle}">
                 <a href="/notice/read?notcNo=${noticeDto.notcNo - 1}">${prevTitle}</a>
             </c:if>
