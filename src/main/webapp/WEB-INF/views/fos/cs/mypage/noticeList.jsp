@@ -43,10 +43,10 @@
                             <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
                             <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
 <%--   지우면 안되요~         <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
-                        </select>
+                        </select><i class="fa-solid fa-caret-down"></i>
 
 
-                        <input type="text" id = "noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                    <input type="text" id = "noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
                                placeholder="검색어 입력">
                         <input type="submit" id = "btnSearch" class="search-button" value="검색">
                     </div>
@@ -111,28 +111,37 @@
         </div>
 
 <%--페이지 이동 페이지 핸들링--%>
-            <br>
-            <div id="devPageWrap">
-                <div class="wrap-pagination">
-                        <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
-                            <div> 게시물이 없습니다.</div>
-                        </c:if>
+<br>
+<div id="devPageWrap">
+    <div class="wrap-pagination">
+        <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
+            <div> 게시물이 없습니다.</div>
+        </c:if>
 
-                        <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
-                            <c:if test="${ph.showPrev}">
-                                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.beginPage-1)}'/>">&lt;</a>
-                            </c:if>
+        <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
 
-                            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                                 <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(i)}'/>">${i}</a>
-                            </c:forEach>
+            <c:if test="${ph.showFirst}">
+                <a class="page" href="<c:url value='/notice/noticeList${pg.sc.getQueryString(ph.beginPage)}'/>">&lt;&lt;</a>
+            </c:if>
 
-                            <c:if test="${ph.showNext}">
-                                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.endPage+1)}'/>">&gt;</a>
-                            </c:if>
+            <c:if test="${ph.showPrev}">
+                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.beginPage-1)}'/>">&lt;</a>
+            </c:if>
 
-                        </c:if>
+            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(i)}'/>">${i}</a>
+            </c:forEach>
 
-                    </div>
-            </div>
+            <c:if test="${ph.showNext}">
+                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.endPage+1)}'/>">&gt;</a>
+            </c:if>
+
+            <c:if test="${ph.showLast}">
+                <a class="page" href="<c:url value='/notice/noticeList${ph.sc.getQueryString(ph.totalPage)}'/>">&gt;&gt;</a>
+            </c:if>
+
+        </c:if>
+
+    </div>
+</div>
 
