@@ -125,8 +125,6 @@ public class NoticeController {
     }
 
 
-
-
     @GetMapping("/read")
     public String read(Integer notcNo, Integer page, Integer pageSize, Model m) throws Exception {
         try {
@@ -146,7 +144,6 @@ public class NoticeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return ViewPath.MYPAGE+"notice";
 
