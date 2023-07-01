@@ -3,11 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true"%>
 
-<head>`
+<head>
+    <%----SCSS 파일 주입--%>
     <style>
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
-    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>" defer></script>
+    <%-- JS 파일 주입--%>
+    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"></script>
+
 </head>
 
 
