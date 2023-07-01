@@ -31,6 +31,13 @@ public class NoticeDto {
 
     public NoticeDto(){}
 
+    public NoticeDto(String notcTp, String title, String content, Integer regrId) {
+        this.notcTp = notcTp;
+        this.title = title;
+        this.content = content;
+        this.regrId = regrId;
+    }
+
     public NoticeDto(Integer notcNo, String title) {
         this.notcNo = notcNo;
         this.title = title;
@@ -50,6 +57,12 @@ public class NoticeDto {
         this.updrId = updrId;
     }
 
+    public NoticeDto(String notcTp, String title, String content) {
+        this.notcTp = notcTp;
+        this.title = title;
+        this.content = content;
+    }
+
     public NoticeDto(Integer notcNo, String notcTp, String title) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
@@ -63,7 +76,10 @@ public class NoticeDto {
         this.content = content;
     }
 
-    public NoticeDto(Integer notcNo, String notcTp, String title, String content, Integer viewCnt, char fixYn, Date startDttm, Date endDttm, Date regDttm, Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId, char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
+    public NoticeDto(Integer notcNo, String notcTp, String title, String content,
+                     Integer viewCnt, char fixYn, Date startDttm, Date endDttm, Date regDttm,
+                     Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId,
+                     char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
         this.title = title;
