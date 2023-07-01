@@ -17,10 +17,8 @@
     </delete>
 
     <insert id="insert" parameterType="NoticeDto">
-        INSERT INTO notice
-            (TITLE, CONTENT)
-        VALUES
-            (#{title}, #{content})
+        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, REGR_ID)
+        VALUES (#{notcTp}, #{title}, #{content}, #{regrId})
     </insert>
 
 
