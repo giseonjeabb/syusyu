@@ -68,4 +68,5 @@
     <definition name=".dashboard/*/*/*/*" extends="dashboardLayout">
         <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
     </definition>
+
 </tiles-definitions>

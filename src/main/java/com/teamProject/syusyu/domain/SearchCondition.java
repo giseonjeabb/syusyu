@@ -11,12 +11,18 @@ public class SearchCondition {
 
     public SearchCondition() {}
 
+    public SearchCondition(Integer page, Integer pageSize) {
+        this.page = page;
+        this.pageSize = pageSize;
+    }
+
     public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {
         this.page = page;
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
     }
+
 
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
@@ -72,6 +78,7 @@ public class SearchCondition {
         return "SearchCondition{" +
                 "page=" + page +
                 ", pageSize=" + pageSize +
+                ", offset=" + getOffset() +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +
                 '}';

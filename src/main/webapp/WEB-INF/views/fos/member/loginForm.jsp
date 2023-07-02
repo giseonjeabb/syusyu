@@ -1,17 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!DOCTYPE html>
-<html>
 <head>
     <script src="<c:url value="${jsUrlFos}/member/loginForm.js"/>"></script>
     <style>
         @import url(${cssUrlFos}/member/login.css);
     </style>
 </head>
-<body>
-<jsp:include page="../common/header.jsp"/>
-
 <div class="login_container">
     <div class="login_area">
         <h2 class="login_title">syusyu</h2>
@@ -33,13 +28,10 @@
             <a disabled="disabled" href="#" id="btn_login" class="btn full solid disabled"> 로그인</a>
         </div>
         <ul class="look_box">
-            <li class="look_list"><a href="<c:url value="/register/register"/>" class="look_link">회원가입</a></li>
+            <li class="look_list"><a href="<c:url value="/register/add"/>" class="look_link">회원가입</a></li>
             <li class="look_list"><a href="" class="look_link">아이디 찾기</a></li>
             <li class="look_list"><a href="" class="look_link">비밀번호 찾기</a></li>
         </ul>
         <div class="social_login"></div>
     </div>
 </div>
-<jsp:include page="../common/footer.jsp"/>
-</body>
-</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12.479" height="10.145" viewBox="0 0 12.479 10.145">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #ddd;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <path id="check" class="cls-1" d="M5603.212,2335l-4.212,3.977,8,7.023" transform="translate(-2334.273 5607.66) rotate(-90)"/>
+</svg>

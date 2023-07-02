@@ -19,6 +19,7 @@ public class MyServletContextListener implements ServletContextListener {
         // tiles
         sc.setAttribute("commonLayoutFos", "/WEB-INF/views/fos/common");
         sc.setAttribute("commonLayoutBos", "/WEB-INF/views/bos/dashboard");
+
         sc.setAttribute("title", "syusyu");
 
     }
