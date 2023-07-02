@@ -8,7 +8,6 @@ public class ViewPath {
     public static final String MYPAGE = ".mypage/fos/cs/mypage/";
     public static final String HELP = ".help/fos/cs/help/";
 
-
     //  bos
     public static final String BOS_MEMBER = ".tiles/bos/member/";
     public static final String BOS_PRODUCT = ".tiles/bos/product/";
