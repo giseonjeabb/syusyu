@@ -3,11 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const orderBtn = document.getElementById('btn_order');
     const removeSelectedBtn = document.getElementById("btn_remove_selected");
+    const chkAll = document.querySelector('.chk-all');
 
     orderBtn.addEventListener('click', order);
 
     removeSelectedBtn.addEventListener('click', () => remove(getCheckedItem()));
+
+    chkAll.addEventListener('click', (e) => checkAll(e.target.checked));
 });
+
+const checkAll = (checked) => {
+    const chks = document.getElementsByName('chk');
+
+    for (let i = 0; i < chks.length; i++)
+        chks[i].checked =  checked;
+}
 
 const getCartProductList = () => {
     $.ajax({
@@ -16,6 +26,7 @@ const getCartProductList = () => {
         contentType: 'application/json; charset=utf-8',
         success: (result) => {
             showCartProductList(result);
+            checkAll(true);
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
