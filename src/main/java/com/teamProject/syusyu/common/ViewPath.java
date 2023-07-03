@@ -9,10 +9,10 @@ public class ViewPath {
     public static final String HELP = ".help/fos/cs/help/";
 
     //  bos
-    public static final String BOS_MEMBER = ".tiles/bos/member/";
-    public static final String BOS_PRODUCT = ".tiles/bos/product/";
-    public static final String BOS_ORDER = ".tiles/bos/order/";
-    public static final String BOS_CS = ".tiles/bos/cs/";
+    public static final String BOS_MEMBER = ".dashboard/bos/member/";
+    public static final String BOS_PRODUCT = ".dashboard/bos/product/";
+    public static final String BOS_ORDER = ".dashboard/bos/order/";
+    public static final String BOS_CS = ".dashboard/bos/cs/";
     public static final String BOS_DASHBOARD = ".dashboard/bos/dashboard/";
 
 }

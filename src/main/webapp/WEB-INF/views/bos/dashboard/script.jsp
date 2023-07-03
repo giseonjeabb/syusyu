@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://kit.fontawesome.com/4fb73240ec.js" crossorigin="anonymous"></script>
@@ -19,3 +20,7 @@
 <%--DataTable 게시판 js--%>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="<c:url value="${jsUrlBos}/common/dashboard_demo.js"/>"></script>
+
+
+<%--상품등록--%>
+<script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
