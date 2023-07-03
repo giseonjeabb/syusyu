@@ -47,5 +47,26 @@
         <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
     </definition>
 
-    <!-- tiles ??? -->
+    <!-- ?????? -->
+    <definition name="dashboardLayout" template="/WEB-INF/views/bos/layout/dashboardLayout.jsp">
+        <put-attribute name="title" expression="${title}"/>
+        <put-attribute name="css" expression="${commonLayoutBos}/css.jsp" />
+        <put-attribute name="script" expression="${commonLayoutBos}/script.jsp" />
+        <put-attribute name="header" expression="${commonLayoutBos}/header.jsp"/>
+        <put-attribute name="dashboardLeft" expression="${commonLayoutBos}/dashboardLeft.jsp"/>
+        <put-attribute name="footer" expression="${commonLayoutBos}/footer.jsp"/>
+    </definition>
+    <definition name=".dashboard/*" extends="dashboardLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}.jsp"/>
+    </definition>
+    <definition name=".dashboard/*/*" extends="dashboardLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}.jsp"/>
+    </definition>
+    <definition name=".dashboard/*/*/*" extends="dashboardLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+    </definition>
+    <definition name=".dashboard/*/*/*/*" extends="dashboardLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
+    </definition>
+
 </tiles-definitions>
