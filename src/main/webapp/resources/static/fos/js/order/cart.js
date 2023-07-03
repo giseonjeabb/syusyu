@@ -6,17 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const chkAll = document.querySelector('.chk-all');
 
     orderBtn.addEventListener('click', order);
-
     removeSelectedBtn.addEventListener('click', () => remove(getCheckedItem()));
-
     chkAll.addEventListener('click', (e) => checkAll(e.target.checked));
 });
 
 const checkAll = (checked) => {
-    const chks = document.getElementsByName('chk');
+    document.querySelector('.chk-all').checked = checked;
 
+    const chks = document.getElementsByName('chk');
     for (let i = 0; i < chks.length; i++)
-        chks[i].checked =  checked;
+        chks[i].checked = checked;
+}
+
+const updateCartStatus = (isCartExist) => {
+    const listNone = document.querySelector('.list-none');
+    const orderBtn = document.querySelector('#btn_order');
+
+    if (isCartExist) {
+        listNone.style.display = 'block';
+        orderBtn.disabled = true;
+    } else {
+        listNone.style.display = 'none';
+        orderBtn.disabled = false;
+        checkAll(true);
+    }
 }
 
 const getCartProductList = () => {
@@ -27,7 +40,7 @@ const getCartProductList = () => {
         success: (result) => {
             showCartProductList(result.cartProduct);
             showCartTotal(result.cartTotal);
-            checkAll(true);
+            updateCartStatus(result.cartProduct.length === 0);
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
@@ -36,26 +49,51 @@ const getCartProductList = () => {
 }
 
 const showCartTotal = (cartTotal) => {
-    // 1. 총 상품금액
-    const cartTotPrc = document.getElementById('cartTotPrc');
-    // 2. 총 할인금액
-    const cartTotDcPrc = document.getElementById('cartTotDcPrc');
-    // 3. 배송비
-    const dlvFee = document.getElementById('dlvFee');
-    // 4. 결제예상금액
-    const cartPayAmt = document.getElementById('cartPayAmt');
+    const cartTotPrc = document.getElementById('cartTotPrc'); // 총 상품금액
+    const cartTotDcPrc = document.getElementById('cartTotDcPrc'); // 총 할인금액
+    const dlvFee = document.getElementById('dlvFee'); // 배송비
+    const cartPayAmt = document.getElementById('cartPayAmt'); // 결제예상금액
     const finalAmt = document.getElementById('finalAmt');
 
     cartTotPrc.innerHTML = formatPrice(cartTotal.cartTotPrc);
     cartTotDcPrc.innerHTML = formatPrice(cartTotal.cartTotDcPrc);
-    dlvFee.innerHTML = formatPrice(cartTotal.dlvFee);
+    dlvFee.innerHTML = formatPrice(cartTotal.cartTotPrc === 0 ? 0 : cartTotal.dlvFee);
     cartPayAmt.innerHTML = formatPrice(cartTotal.cartPayAmt);
     finalAmt.innerHTML = formatPrice(cartTotal.cartPayAmt) + '원 주문하기';
 }
 
+
+// 분리한 이벤트 핸들러 함수들
+const handleRemoveBtnClick = (e) => {
+    let cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+    remove([cartProdNo]);
+};
+
+const handleQtyBtnClick = (e) => {
+    // 1. 수량을 변경한다.
+    const ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
+    updateQty(e.target, ordQtyInput);
+
+    // 2. 변경된 수량과 장바구니상품코드를 넘겨서 DB쪽에 업데이트해야 함
+    const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+    modify(cartProdNo, ordQtyInput.value);
+};
+
+const handleQtyInputChange = (e) => {
+    // 1보다 작은 값을 입력했을 경우 수량을 1로 변경한다.
+    if (e.target.value < 1)
+        e.target.value = 1;
+
+    const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+    modify(cartProdNo, e.target.value);
+};
+
+// 상품 리스트를 표시하는 함수
 const showCartProductList = (cartProductList) => {
+
+
     // 1. 기존에 보여지고 있던 장바구니 목록을 초기화한다.
-    const cart = document.querySelectorAll('.prd-brd-list')[0];
+    const cart = document.querySelector('.prd-brd-list');
     cart.innerHTML = '';
 
     // 2. 요소를 동적으로 생성해서 화면에 보여준다.
@@ -63,7 +101,6 @@ const showCartProductList = (cartProductList) => {
         const cartProductLi = document.createElement('li');
 
         const totOptPrc = cartProduct.totOptPrc > 0 ? ` (+${formatPrice(cartProduct.totOptPrc)}원) ` : '';
-
         const result = `
             <div class="chk-area">
                 <div class="chkbox single">
@@ -107,37 +144,26 @@ const showCartProductList = (cartProductList) => {
             </div>
             <div class="price-arae">
                 <p class="amount">${formatPrice(cartProduct.totDcAplPrc)}<span class="won">원</span></p>
-                <del>${formatPrice(cartProduct.totPrc)}<span class="won">원</span></del>
+                ${cartProduct.totDcAplPrc !== cartProduct.totPrc ? `<del>${formatPrice(cartProduct.totPrc)}<span class="won">원</span></del>` : ''}
             </div>
             <div class="remove-area">
                 <button type="button" class="btn icon remove_20 btn_remove"><span class="text">삭제</span></button>
-            </div>
-        `;
+            </div>`;
 
         cartProductLi.innerHTML += result;
 
-        cartProductLi.querySelector('.remove-area button').addEventListener('click', (e) => {
-            let cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-            remove([cartProdNo]);
+        const removeButton = cartProductLi.querySelector('.remove-area button');
+        removeButton.addEventListener('click', handleRemoveBtnClick);
+
+        const qtyButtons = cartProductLi.querySelectorAll('.item-qty .btn');
+        qtyButtons.forEach((btn) => {
+            btn.addEventListener('click', handleQtyBtnClick);
         });
 
-        cartProductLi.querySelector('.item-qty').addEventListener('click', (e) => {
-            // 1. 수량을 변경한다.
-            const ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
-            updateQty(e.target, ordQtyInput);
-
-            // 2. 변경된 수량과 장바구니상품코드를 넘겨서 DB쪽에 업데이트해야 함
-            const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-            modify(cartProdNo, ordQtyInput.value);
-        });
-
-        cartProductLi.querySelector('input[name="ordQty"]').addEventListener('focusout', (e) => {
-            const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-            modify(cartProdNo, e.target.value);
-        });
+        const qtyInput = cartProductLi.querySelector('input[name="ordQty"]');
+        qtyInput.addEventListener('change', handleQtyInputChange);
 
         cart.appendChild(cartProductLi);
-
     });
 }
 

@@ -7,8 +7,8 @@
 </head>
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
-        <a href="/">홈</a>
-        <a href="/cart" onclick="location.reload();">장바구니</a>
+        <a href="<c:url value="/"/>">홈</a>
+        <a href="<c:url value="/cart"/>" onclick="location.reload();">장바구니</a>
     </div>
 </div>
 <div class="content-title">
@@ -24,7 +24,7 @@
             <div class="all-option-box">
                 <div class="chkbox">
                     <label>
-                        <input type="checkbox" class="chk-all" checked="">
+                        <input type="checkbox" class="chk-all" >
                         <span class="text fw-7">전체선택</span>
                     </label>
                 </div>
@@ -32,6 +32,13 @@
                         <span>
                             <button type="button" class="btn btn-text-type btt1" id="btn_remove_selected">선택삭제</button>
                         </span>
+                </div>
+            </div>
+            <div class="list-none etc-ty1" style="display: none">
+                <p class="msg-text icon-ty1">장바구니에 담긴 상품이 없습니다.</p>
+                <div class="btn-area">
+                    <a href="https://www.ottogimall.co.kr/front/product/best"
+                       class="btn ty4 c-ty2"><span>상품 담으러 가기</span></a>
                 </div>
             </div>
             <input type="hidden" id="totFinalNormalProdPrice" value="90640.00">
@@ -77,7 +84,6 @@
                 </ul>
             </div>
         </div>
-        <button type="button" id="btn_order" class="btn ty5 c-ty1 w-full"><span
-                id="finalAmt">90,640원 주문하기</span></button>
+        <button type="button" id="btn_order" class="btn ty5 c-ty1 w-full"><span id="finalAmt"></span></button>
     </div>
 </div>

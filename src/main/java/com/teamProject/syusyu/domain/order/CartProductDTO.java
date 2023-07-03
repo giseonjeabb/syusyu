@@ -177,7 +177,7 @@ public class CartProductDTO {
                 ", optPrc=" + optPrc +
                 ", totOptPrc=" + totOptPrc +
                 ", totPrc=" + totPrc +
-                ", totDcPrc=" + totDcAplPrc +
+                ", totDcAplPrc=" + totDcAplPrc +
                 ", invQty=" + invQty +
                 ", repImg='" + repImg + '\'' +
                 ", regrId=" + regrId +
