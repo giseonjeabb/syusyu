@@ -4,3 +4,13 @@ function validatePassword(password) {
 
     return regex.test(password);
 }
+
+function updateQty(button, input) {
+    let quantity = Number(input.value);
+    if (button.classList.contains('minus') && quantity > 0) {
+        quantity--;
+    } else if (button.classList.contains('plus')) {
+        quantity++;
+    }
+    input.value = quantity;
+}
