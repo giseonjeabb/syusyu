@@ -14,8 +14,9 @@ public class CartProductDTO {
     private String opt;
     private int optPrc;
     private int totOptPrc;
-    private int invQty;
     private int totPrc;
+    private int totDcAplPrc;
+    private int invQty;
     private String repImg;
     private int regrId;
 
@@ -122,20 +123,28 @@ public class CartProductDTO {
         this.totOptPrc = totOptPrc;
     }
 
-    public int getInvQty() {
-        return invQty;
-    }
-
-    public void setInvQty(int invQty) {
-        this.invQty = invQty;
-    }
-
     public int getTotPrc() {
         return totPrc;
     }
 
     public void setTotPrc(int totPrc) {
         this.totPrc = totPrc;
+    }
+
+    public int getTotDcAplPrc() {
+        return totDcAplPrc;
+    }
+
+    public void setTotDcAplPrc(int totDcAplPrc) {
+        this.totDcAplPrc = totDcAplPrc;
+    }
+
+    public int getInvQty() {
+        return invQty;
+    }
+
+    public void setInvQty(int invQty) {
+        this.invQty = invQty;
     }
 
     public String getRepImg() {
@@ -167,8 +176,9 @@ public class CartProductDTO {
                 ", opt='" + opt + '\'' +
                 ", optPrc=" + optPrc +
                 ", totOptPrc=" + totOptPrc +
-                ", invQty=" + invQty +
                 ", totPrc=" + totPrc +
+                ", totDcPrc=" + totDcAplPrc +
+                ", invQty=" + invQty +
                 ", repImg='" + repImg + '\'' +
                 ", regrId=" + regrId +
                 '}';

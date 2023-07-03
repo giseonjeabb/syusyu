@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.dao.order;
 
 import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartTotalDTO;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface CartProdDAO {
     int delete(int[] cartProdId) throws Exception;
 
     int deleteAll() throws Exception;
+
+    CartTotalDTO selectCartTotal(int mbrId) throws Exception;
+
+
 }

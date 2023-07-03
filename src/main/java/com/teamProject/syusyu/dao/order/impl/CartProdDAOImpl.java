@@ -2,6 +2,7 @@ package com.teamProject.syusyu.dao.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
 import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartTotalDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,11 @@ public class CartProdDAOImpl implements CartProdDAO {
     @Override
     public int deleteAll() throws Exception {
         return session.delete(namespace + "deleteAll");
+    }
+
+    @Override
+    public CartTotalDTO selectCartTotal(int mbrId) throws Exception {
+        return session.selectOne(namespace + "selectCartTotal", mbrId);
     }
 
 }

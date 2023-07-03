@@ -19,7 +19,8 @@
     <select id="select" parameterType="int" resultType="CartProductDTO">
         SELECT T.*
              , T.OPT_PRC * T.QTY              AS TOT_OPT_PRC
-             , (T.DC_PRC + T.OPT_PRC) * T.QTY AS TOT_PRC
+             , (T.PRICE + T.OPT_PRC) * T.QTY  AS TOT_PRC
+             , (T.DC_PRC + T.OPT_PRC) * T.QTY AS TOT_DC_APL_PRC
         FROM (SELECT CP.CART_ID
                    , CP.CART_PROD_NO
                    , P.PROD_ID
@@ -57,13 +58,38 @@
         UPDATE CART_PROD
         SET DEL_YN = 'Y'
         WHERE CART_PROD_NO IN
-            <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
-                #{cartProdNo}
-            </foreach>
+        <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
+            #{cartProdNo}
+        </foreach>
     </update>
 
     <update id="deleteAll">
         UPDATE CART_PROD
         SET DEL_YN = 'Y'
     </update>
+
+    <select id="selectCartTotal" parameterType="int" resultType="CartTotalDTO">
+        SELECT SUM(A_PRICE)                                                AS CART_TOT_PRC        # 총 상품금액
+             , SUM(A_DC_PRC)                                               AS CART_TOT_DC_PRC     # 총 할인금액
+             , SUM(A_DC_APL_PRC)                                           AS CART_TOT_DC_APL_PRC # 총 할인적용상품금액
+             , IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000)                     AS DLV_FEE             # 배송비
+             , SUM(A_DC_APL_PRC) + IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000) AS CART_PAY_AMT        # 결제예상금액(총 상품금액 - 총 할인금액 + 배송비)
+        FROM (SELECT (PRICE + OPT_PRC) * QTY      AS A_PRICE
+                   , DC_PRC * QTY                 AS A_DC_PRC
+                   , (DC_APL_PRC + OPT_PRC) * QTY AS A_DC_APL_PRC
+              FROM (SELECT P.PRICE                                            # 상품금액
+                         , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
+                         , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
+                         , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC    # 옵션가
+                         , CP.QTY
+                    FROM CART_PROD CP
+                             JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
+                             LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
+                    WHERE CP.DEL_YN = 'N'
+                      AND CP.CART_ID = (SELECT CART_ID
+                                        FROM CART
+                                        WHERE MBR_CD = #{mbrId})) T) A
+    </select>
+
+
 </mapper>

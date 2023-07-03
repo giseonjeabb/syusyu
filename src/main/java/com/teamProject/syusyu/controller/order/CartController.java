@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.controller.order;
 
 import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.domain.order.CartInfoDTO;
 import com.teamProject.syusyu.domain.order.CartProductDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 public class CartController {
@@ -41,23 +40,22 @@ public class CartController {
 
     @GetMapping("/cartList")
     @ResponseBody
-    public ResponseEntity<List<CartProductDTO>> list(@SessionAttribute int mbrId) {
-        List<CartProductDTO> list = null;
+    public ResponseEntity<CartInfoDTO> list(@SessionAttribute int mbrId) {
+        CartInfoDTO cartInfo = null;
+
         try {
-            list = service.getList(mbrId);
+            cartInfo = service.getCartInfo(mbrId);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(cartInfo, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(cartInfo, HttpStatus.OK);
     }
 
     @PatchMapping("/cart/{cartProdNo}")
     @ResponseBody
     public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProductDTO cartProductDTO) {
-        System.out.println("cartProdNo = " + cartProdNo);
-        System.out.println("cartProductDTO = " + cartProductDTO);
         try {
             // TODO 그냥 올려주면 안 되고 재고수량 확인하고 올려줘야 함
             cartProductDTO.setCartProdNo(cartProdNo);
@@ -82,8 +80,6 @@ public class CartController {
 
         return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
     }
-
-
 
 //    @PostMapping("/cartOrder")
 //    @ResponseBody

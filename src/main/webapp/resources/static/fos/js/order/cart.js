@@ -25,13 +25,32 @@ const getCartProductList = () => {
         url: '/cartList',
         contentType: 'application/json; charset=utf-8',
         success: (result) => {
-            showCartProductList(result);
+            showCartProductList(result.cartProduct);
+            showCartTotal(result.cartTotal);
             checkAll(true);
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
         }
     });
+}
+
+const showCartTotal = (cartTotal) => {
+    // 1. 총 상품금액
+    const cartTotPrc = document.getElementById('cartTotPrc');
+    // 2. 총 할인금액
+    const cartTotDcPrc = document.getElementById('cartTotDcPrc');
+    // 3. 배송비
+    const dlvFee = document.getElementById('dlvFee');
+    // 4. 결제예상금액
+    const cartPayAmt = document.getElementById('cartPayAmt');
+    const finalAmt = document.getElementById('finalAmt');
+
+    cartTotPrc.innerHTML = formatPrice(cartTotal.cartTotPrc);
+    cartTotDcPrc.innerHTML = formatPrice(cartTotal.cartTotDcPrc);
+    dlvFee.innerHTML = formatPrice(cartTotal.dlvFee);
+    cartPayAmt.innerHTML = formatPrice(cartTotal.cartPayAmt);
+    finalAmt.innerHTML = formatPrice(cartTotal.cartPayAmt) + '원 주문하기';
 }
 
 const showCartProductList = (cartProductList) => {
@@ -87,7 +106,8 @@ const showCartProductList = (cartProductList) => {
                 </div>
             </div>
             <div class="price-arae">
-                <p class="amount">${formatPrice(cartProduct.totPrc)}<span class="won">원</span></p>
+                <p class="amount">${formatPrice(cartProduct.totDcAplPrc)}<span class="won">원</span></p>
+                <del>${formatPrice(cartProduct.totPrc)}<span class="won">원</span></del>
             </div>
             <div class="remove-area">
                 <button type="button" class="btn icon remove_20 btn_remove"><span class="text">삭제</span></button>
@@ -96,7 +116,7 @@ const showCartProductList = (cartProductList) => {
 
         cartProductLi.innerHTML += result;
 
-        cartProductLi.querySelector('.remove-area button').addEventListener('click', () => {
+        cartProductLi.querySelector('.remove-area button').addEventListener('click', (e) => {
             let cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
             remove([cartProdNo]);
         });
@@ -145,7 +165,7 @@ const remove = (cartProdNoArr) => {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(cartProdNoArr),
         success: () => {
-            getList();
+            getCartProductList();
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
@@ -157,10 +177,6 @@ const getCheckedItem = () => {
     const checkedItems = document.querySelectorAll("input[name='chk']:checked");
     return Array.from(checkedItems).map((item) => item.closest('li').querySelector('input[name="cartProdNo"]').value);
 };
-
-const getList = () => {
-    location.href = '/cart';
-}
 
 const order = () => {
     const checkedItem = getCheckedItem();
