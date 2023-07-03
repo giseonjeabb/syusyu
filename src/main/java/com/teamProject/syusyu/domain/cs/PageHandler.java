@@ -32,10 +32,11 @@ public class PageHandler {
 
     public void doPaging(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
+        this.sc = sc;
 //      this.page = page;
 //      this.pageSize = pageSize;
 
-        totalPage = (int) Math.ceil(totalCnt / (double) sc.getPage());
+        totalPage = (int)Math.ceil(totalCnt / (double) sc.getPageSize());
         beginPage = (sc.getPage() - 1) / naviSize * naviSize + 1;
 
 
@@ -139,7 +140,7 @@ public class PageHandler {
         this.showFirst = showFirst;
     }
 
-    void print() {
+    public void print() {
         System.out.println("page = " + sc.getPage());
 
         System.out.print(showFirst ? "[First] " : "");

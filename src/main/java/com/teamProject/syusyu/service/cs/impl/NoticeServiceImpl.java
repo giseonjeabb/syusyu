@@ -61,6 +61,7 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeDto;
     }
 
+
     @Override
     public List<NoticeDto> getPage(Map map) throws Exception {
         return noticeDao.selectPage(map);
@@ -71,5 +72,12 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeDao.update(noticeDto);
     }
 
+    @Override
+   public NoticeDto getPrevTitle(Integer notcNo)throws Exception{
+        return noticeDao.selectPrev(notcNo);
+    }
 
+    public NoticeDto getNextTitle(Integer notcNo)throws Exception{
+        return noticeDao.selectNext(notcNo);
+    }
 }

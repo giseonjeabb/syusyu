@@ -17,6 +17,7 @@ public interface NoticeService {
 
     NoticeDto read(Integer notcNo) throws Exception;
 
+
     List<NoticeDto> getPage(Map map) throws Exception;
 
     int modify(NoticeDto noticeDto) throws Exception;
@@ -24,4 +25,8 @@ public interface NoticeService {
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
     List<NoticeDto> getSearchResultPage(SearchCondition sc) throws Exception;
+
+    NoticeDto getPrevTitle(Integer notcNo)throws Exception;
+
+    NoticeDto getNextTitle(Integer notcNo) throws Exception;
 }
