@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.controller.member;
 
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.member.MemberDto;
+import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.domain.member.MemberValidator;
 import com.teamProject.syusyu.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class RegisterController {
     * */
     @PostMapping("/add")
     @ResponseBody
-    public String register(@RequestBody MemberDto memberDto) {
+    public String register(@RequestBody MemberDTO memberDTO) {
         try {
-            boolean result = memberService.register(memberDto);
+            boolean result = memberService.register(memberDTO);
 
             if (!result)
                 throw new Exception("register failed");
