@@ -14,3 +14,7 @@ function updateQty(button, input) {
     }
     input.value = quantity;
 }
+
+const formatPrice = (price) => {
+    return price.toLocaleString();
+}
