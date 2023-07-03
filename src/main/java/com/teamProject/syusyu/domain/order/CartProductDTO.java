@@ -10,17 +10,21 @@ public class CartProductDTO {
     private String prodNm;
     private int qty;
     private int salePrc;
+    private Integer optCombNo;
+    private String opt;
+    private int optPrc;
+    private int totOptPrc;
+    private int invQty;
+    private int totPrc;
     private String repImg;
+    private int regrId;
 
-    public CartProductDTO() {}
-
-    public CartProductDTO(int cartId, int prodId, String prodNm, int qty, int salePrc, String repImg) {
+    public CartProductDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId) {
         this.cartId = cartId;
         this.prodId = prodId;
-        this.prodNm = prodNm;
         this.qty = qty;
-        this.salePrc = salePrc;
-        this.repImg = repImg;
+        this.optCombNo = optCombNo;
+        this.regrId = regrId;
     }
 
     @Override
@@ -28,13 +32,15 @@ public class CartProductDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProductDTO that = (CartProductDTO) o;
-        return cartProdNo == that.cartProdNo && cartId == that.cartId && prodId == that.prodId && qty == that.qty && salePrc == that.salePrc && Objects.equals(prodNm, that.prodNm) && Objects.equals(repImg, that.repImg);
+        return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartProdNo, cartId, prodId, prodNm, qty, salePrc, repImg);
+        return Objects.hash(cartId, prodId, qty, optCombNo, regrId);
     }
+
+    public CartProductDTO() {}
 
     public int getCartProdNo() {
         return cartProdNo;
@@ -84,12 +90,68 @@ public class CartProductDTO {
         this.salePrc = salePrc;
     }
 
+    public Integer getOptCombNo() {
+        return optCombNo;
+    }
+
+    public void setOptCombNo(Integer optCombNo) {
+        this.optCombNo = optCombNo;
+    }
+
+    public String getOpt() {
+        return opt;
+    }
+
+    public void setOpt(String opt) {
+        this.opt = opt;
+    }
+
+    public int getOptPrc() {
+        return optPrc;
+    }
+
+    public void setOptPrc(int optPrc) {
+        this.optPrc = optPrc;
+    }
+
+    public int getTotOptPrc() {
+        return totOptPrc;
+    }
+
+    public void setTotOptPrc(int totOptPrc) {
+        this.totOptPrc = totOptPrc;
+    }
+
+    public int getInvQty() {
+        return invQty;
+    }
+
+    public void setInvQty(int invQty) {
+        this.invQty = invQty;
+    }
+
+    public int getTotPrc() {
+        return totPrc;
+    }
+
+    public void setTotPrc(int totPrc) {
+        this.totPrc = totPrc;
+    }
+
     public String getRepImg() {
         return repImg;
     }
 
     public void setRepImg(String repImg) {
         this.repImg = repImg;
+    }
+
+    public int getRegrId() {
+        return regrId;
+    }
+
+    public void setRegrId(int regrId) {
+        this.regrId = regrId;
     }
 
     @Override
@@ -101,7 +163,14 @@ public class CartProductDTO {
                 ", prodNm='" + prodNm + '\'' +
                 ", qty=" + qty +
                 ", salePrc=" + salePrc +
+                ", optCombNo=" + optCombNo +
+                ", opt='" + opt + '\'' +
+                ", optPrc=" + optPrc +
+                ", totOptPrc=" + totOptPrc +
+                ", invQty=" + invQty +
+                ", totPrc=" + totPrc +
                 ", repImg='" + repImg + '\'' +
+                ", regrId=" + regrId +
                 '}';
     }
 }
