@@ -732,7 +732,7 @@
             height: 24px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            background: #fff url(../images/icon_check_gray.svg) no-repeat 5px 7px;
+            background: #fff url("../../../image/icon_check_gray.svg") no-repeat 5px 7px;
             transition: 0.3s;
           }
           &.sun {
@@ -746,7 +746,7 @@
           /* 빈 체크박쇼 */
           &.ty2{
             &::before {
-              background: #fff url(../images/icon_check_w.svg) no-repeat 5px 7px;
+              background: #fff url("../../../image/icon_check_w.svg") no-repeat 5px 7px;
             }
           }
         }
@@ -754,7 +754,7 @@
           & + .text {
             &::before {
               border-color:#ddd;
-              background: #f8f8f8 url(../images/icon_check_gray.svg) no-repeat 5px 7px;
+              background: #f8f8f8 url("../../../image/icon_check_gray.svg") no-repeat 5px 7px;
             }
           }
         }
@@ -762,7 +762,7 @@
           & + .text {
             &::before {
               border-color:#d3233a;
-              background: #d3233a url(../images/icon_check_w.svg) no-repeat 5px 7px;
+              background: #d3233a url("../../../image/icon_check_w.svg") no-repeat 5px 7px;
             }
           }
           &:disabled {
@@ -1359,7 +1359,7 @@
     &.minus {
       width: 40px;
       height: 40px;
-      background: #fff url(../images/icon_minus.png) no-repeat center center;
+      background: #fff url("../../../image/icon_minus.png") no-repeat center center;
       &:disabled {
         background: #fff url(../images/icon_minus_disabled.png) no-repeat center center;
       }
@@ -1367,7 +1367,7 @@
     &.plus {
       width: 40px;
       height: 40px;
-      background: #fff url(../images/icon_plus.png) no-repeat center center;
+      background: #fff url("../../../image/icon_plus.png") no-repeat center center;
       &:disabled {
         background: #fff url(../images/icon_plus_disabled.png) no-repeat center center;
       }
@@ -1466,7 +1466,7 @@
     &.remove_20 {
       width: 20px;
       height: 20px;
-      background: url(../images/icon_remove_20.svg) no-repeat center center;
+      background: url("../../../image/icon_remove_20.svg") no-repeat center center;
     }
     &.pw-view {
       width: 24px;
@@ -3310,7 +3310,7 @@
       right: -22px;
       width: 12px;
       height: 12px;
-      background-image: url(../images/icon_arrow_right_12.png);
+      background-image: url("../../../image/icon_arrow_right_12.png");
       transform: translateY(-50%);
     }
     & + a {
