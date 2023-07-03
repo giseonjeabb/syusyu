@@ -28,12 +28,13 @@ const showCartProductList = (cartProductList) => {
     const cart = document.querySelectorAll('.prd-brd-list')[0];
     cart.innerHTML = '';
 
-    let result = ``;
     // 2. 요소를 동적으로 생성해서 화면에 보여준다.
     cartProductList.forEach(cartProduct => {
         const cartProductLi = document.createElement('li');
 
-        result = `
+        const totOptPrc = cartProduct.totOptPrc > 0 ? ` (+${formatPrice(cartProduct.totOptPrc)}원) ` : '';
+
+        const result = `
             <div class="chk-area">
                 <div class="chkbox single">
                     <label>
@@ -60,7 +61,7 @@ const showCartProductList = (cartProductList) => {
                             <div class="option">
                                 <p>
                                     ${cartProduct.opt}
-                                    ${cartProduct.totOptPrc > 0 ? '(+' + cartProduct.totOptPrc + '원)' : ''}
+                                    ${totOptPrc}
                                 </p>
                             </div>
                         </a>
@@ -75,7 +76,7 @@ const showCartProductList = (cartProductList) => {
                 </div>
             </div>
             <div class="price-arae">
-                <p class="amount">${cartProduct.totPrc}<span class="won">원</span></p>
+                <p class="amount">${formatPrice(cartProduct.totPrc)}<span class="won">원</span></p>
             </div>
             <div class="remove-area">
                 <button type="button" class="btn icon remove_20 btn_remove"><span class="text">삭제</span></button>
@@ -143,13 +144,8 @@ const remove = (cartProdNoArr) => {
 
 const getCheckedItem = () => {
     const checkedItems = document.querySelectorAll("input[name='chk']:checked");
-    let cartProdNoArr = [];
-    checkedItems.forEach(item => {
-        const cartProdNoInput = item.closest('li').querySelector('input[name="cartProdNo"]');
-        cartProdNoArr.push(cartProdNoInput.value);
-    });
-    return cartProdNoArr;
-}
+    return Array.from(checkedItems).map((item) => item.closest('li').querySelector('input[name="cartProdNo"]').value);
+};
 
 const getList = () => {
     location.href = '/cart';

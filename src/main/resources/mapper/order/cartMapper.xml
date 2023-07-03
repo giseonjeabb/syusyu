@@ -28,7 +28,7 @@
                    , P.PRICE
                    , P.PRICE - (P.PRICE * (DC_PER / 100))                           AS DC_PRC
                    , CP.OPT_COMB_NO
-                   , (SELECT GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', ')
+                   , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                       FROM OPT_GRP OG
                                JOIN OPT_ITEM OI ON OI.OPT_GRP_ID = OG.OPT_GRP_ID
                       WHERE OI.OPT_ITEM_ID IN (SELECT OPT_ITEM_ID
