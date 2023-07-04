@@ -1,8 +1,9 @@
 package com.teamProject.syusyu.service.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
+import com.teamProject.syusyu.dao.product.ProductDAO;
 import com.teamProject.syusyu.domain.order.CartInfoDTO;
-import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.domain.order.CartTotalDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,20 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int add(CartProductDTO cartProductDTO) throws Exception {
+    public int add(CartProdDTO cartProductDTO) throws Exception {
         return cartProdDAO.insert(cartProductDTO);
     }
 
     @Override
     public CartInfoDTO getCartInfo(int mbrId) throws Exception {
-        List<CartProductDTO> cartProductList = cartProdDAO.select(mbrId);
+        List<CartProdDTO> cartProductList = cartProdDAO.select(mbrId);
         CartTotalDTO cartTotal = cartProdDAO.selectCartTotal(mbrId);
 
         return new CartInfoDTO(cartProductList, cartTotal);
     }
 
     @Override
-    public int modify(CartProductDTO cartProductDTO) throws Exception {
+    public int modify(CartProdDTO cartProductDTO) throws Exception {
         return cartProdDAO.update(cartProductDTO);
     }
 

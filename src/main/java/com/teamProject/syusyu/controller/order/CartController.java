@@ -2,7 +2,7 @@ package com.teamProject.syusyu.controller.order;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.order.CartInfoDTO;
-import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class CartController {
 
     @PostMapping("/cart")
     @ResponseBody
-    public ResponseEntity<String> add(@RequestBody CartProductDTO cartProductDTO) {
+    public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO) {
         try {
             // 1. 재고수량이 있는지 체크한다.
             // 1-1. 재고수량이 없다면 리턴
@@ -55,7 +55,7 @@ public class CartController {
 
     @PatchMapping("/cart/{cartProdNo}")
     @ResponseBody
-    public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProductDTO cartProductDTO) {
+    public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO) {
         try {
             // TODO 그냥 올려주면 안 되고 재고수량 확인하고 올려줘야 함
             cartProductDTO.setCartProdNo(cartProdNo);

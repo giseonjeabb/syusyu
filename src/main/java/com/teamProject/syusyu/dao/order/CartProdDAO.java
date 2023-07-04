@@ -1,16 +1,16 @@
 package com.teamProject.syusyu.dao.order;
 
-import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.domain.order.CartTotalDTO;
 
 import java.util.List;
 
 public interface CartProdDAO {
-    int insert(CartProductDTO cartProductDTO) throws Exception;
+    int insert(CartProdDTO cartProductDTO) throws Exception;
 
-    List<CartProductDTO> select(int mbrCd) throws Exception;
+    List<CartProdDTO> select(int mbrCd) throws Exception;
 
-    int update(CartProductDTO cartProductDTO) throws Exception;
+    int update(CartProdDTO cartProductDTO) throws Exception;
 
     /*
     * 장바구니에 담긴 상품들을 제거한다.

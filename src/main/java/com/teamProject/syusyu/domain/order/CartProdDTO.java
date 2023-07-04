@@ -3,7 +3,7 @@ package com.teamProject.syusyu.domain.order;
 
 import java.util.Objects;
 
-public class CartProductDTO {
+public class CartProdDTO {
     private int cartProdNo;
     private int cartId;
     private int prodId;
@@ -20,7 +20,7 @@ public class CartProductDTO {
     private String repImg;
     private int regrId;
 
-    public CartProductDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId) {
+    public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId) {
         this.cartId = cartId;
         this.prodId = prodId;
         this.qty = qty;
@@ -32,7 +32,7 @@ public class CartProductDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CartProductDTO that = (CartProductDTO) o;
+        CartProdDTO that = (CartProdDTO) o;
         return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo);
     }
 
@@ -41,7 +41,7 @@ public class CartProductDTO {
         return Objects.hash(cartId, prodId, qty, optCombNo, regrId);
     }
 
-    public CartProductDTO() {}
+    public CartProdDTO() {}
 
     public int getCartProdNo() {
         return cartProdNo;

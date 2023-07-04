@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class CartInfoDTO {
-    private List<CartProductDTO> cartProduct;
+    private List<CartProdDTO> cartProduct;
     private CartTotalDTO cartTotal;
 
     public CartInfoDTO() {}
 
-    public CartInfoDTO(List<CartProductDTO> cartProducts, CartTotalDTO cartTotal) {
+    public CartInfoDTO(List<CartProdDTO> cartProducts, CartTotalDTO cartTotal) {
         this.cartProduct = cartProducts;
         this.cartTotal = cartTotal;
     }
@@ -27,11 +27,11 @@ public class CartInfoDTO {
         return Objects.hash(cartProduct, cartTotal);
     }
 
-    public List<CartProductDTO> getCartProduct() {
+    public List<CartProdDTO> getCartProduct() {
         return cartProduct;
     }
 
-    public void setCartProduct(List<CartProductDTO> cartProduct) {
+    public void setCartProduct(List<CartProdDTO> cartProduct) {
         this.cartProduct = cartProduct;
     }
 

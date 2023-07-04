@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.dao.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
-import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,22 +27,22 @@ public class CartProdDAOImplTest extends TestCase {
     @Test
     public void testInsert() throws Exception {
         // 장바구니를 하나 추가한다.
-        CartProductDTO cartProductDTO = new CartProductDTO(1, 10001, 3, 1, 80001);
+        CartProdDTO cartProductDTO = new CartProdDTO(1, 10001, 3, 1, 80001);
         cartProdDAO.insert(cartProductDTO);
         assertEquals(1, cartProdDAO.select(80001).size());
 
-        CartProductDTO cartProductDTO2 = new CartProductDTO(1, 10007, 2, null, 80001);
+        CartProdDTO cartProductDTO2 = new CartProdDTO(1, 10007, 2, null, 80001);
         cartProdDAO.insert(cartProductDTO2);
         assertEquals(2, cartProdDAO.select(80001).size());
     }
 
     @Test
     public void testSelect() throws Exception {
-        CartProductDTO cartProductDTO = new CartProductDTO(1, 10001, 3, 1, 80001);
+        CartProdDTO cartProductDTO = new CartProdDTO(1, 10001, 3, 1, 80001);
         cartProdDAO.insert(cartProductDTO);
 
         assertEquals(0, cartProdDAO.select(80001).size());
-        CartProductDTO result = cartProdDAO.select(80001).get(0);
+        CartProdDTO result = cartProdDAO.select(80001).get(0);
 
 //        int price = result.getPrice();
 //        int dcPer = result.getd
@@ -52,14 +52,14 @@ public class CartProdDAOImplTest extends TestCase {
 
     @Test
     public void testUpdate() throws Exception {
-        CartProductDTO cartProductDTO = new CartProductDTO(1, 10001, 3, 1, 80001);
+        CartProdDTO cartProductDTO = new CartProdDTO(1, 10001, 3, 1, 80001);
         cartProdDAO.insert(cartProductDTO);
         assertEquals(1, cartProdDAO.select(80001).size());
 
         cartProductDTO.setQty(2);
         cartProdDAO.update(cartProductDTO);
 
-        CartProductDTO result = cartProdDAO.select(80001)
+        CartProdDTO result = cartProdDAO.select(80001)
                 .stream()
                 .filter(cartProductDTO1 -> cartProductDTO.getCartProdNo() == cartProductDTO.getCartProdNo())
                 .collect(Collectors.toList())
@@ -73,7 +73,7 @@ public class CartProdDAOImplTest extends TestCase {
 
     @Test
     public void testDelete() throws Exception {
-        CartProductDTO cartProductDTO = new CartProductDTO(1, 10001, 3, 1, 80001);
+        CartProdDTO cartProductDTO = new CartProdDTO(1, 10001, 3, 1, 80001);
         cartProdDAO.insert(cartProductDTO);
         assertEquals(1, cartProdDAO.select(80001).size());
 
