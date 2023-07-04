@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.controller.cs;
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.dao.cs.impl.NoticeDao;
-import com.teamProject.syusyu.domain.cs.NoticeDto;
+import com.teamProject.syusyu.dao.cs.NoticeDAO;
+import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import com.teamProject.syusyu.service.cs.NoticeService;
@@ -28,18 +28,18 @@ public class NoticeController {
     NoticeService noticeService;
 
     @Autowired
-    NoticeDao noticeDao;
+    NoticeDAO noticeDao;
 
 
     // 만약 일반 게시판에서 글을 써야한다면 밑에 처럼 바꿔야함
 //    Dto를 memberDto로 바꿔야 하고 String writer = (String)session.getAttribute("id");
 //    memberDto.setlginId(writer);
     // 현재 기능은 했지만 버튼 자체를 주석 처리해서 다른 이들이 사용 할수 없게 했음.
-    // 주석 해제시 관리자, 모든사용자 전부가 공지사항에 글을 쓸수 있게됨. 2023.06.28
+    // 주석 해제시 관리자, 모든사용자 전부가 공지사항에 글을 쓸수 있게됨.
 
 
     @PostMapping("/modify")
-    public String modify( NoticeDto noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
+    public String modify(NoticeDTO noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
         int writer = (int) session.getAttribute("id");
         noticeDto.setRegrId(writer);
 //        memberDto.setLginId(writer);
@@ -65,7 +65,7 @@ public class NoticeController {
 
 
     @PostMapping("/write")
-    public String write(NoticeDto noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
+    public String write(NoticeDTO noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
         int writer = (int) session.getAttribute("id");
         noticeDto.setRegrId(writer);
 
@@ -118,8 +118,6 @@ public class NoticeController {
             rattr.addFlashAttribute("msg", "DEL_ERR");
         }
 
-
-
         return "redirect:/notice/noticeList";
 
     }
@@ -128,11 +126,11 @@ public class NoticeController {
     @GetMapping("/read")
     public String read(Integer notcNo, Integer page, Integer pageSize, Model m) throws Exception {
         try {
-            NoticeDto noticeDto = noticeService.read(notcNo);
+            NoticeDTO noticeDto = noticeService.read(notcNo);
 
             // 이전 글과 다음 글의 제목 가져오기
-            NoticeDto prevNotice = noticeService.getPrevTitle(notcNo);
-            NoticeDto nextNotice = noticeService.getNextTitle(notcNo);
+            NoticeDTO prevNotice = noticeService.getPrevTitle(notcNo);
+            NoticeDTO nextNotice = noticeService.getNextTitle(notcNo);
             // 이전 글과 다음 글의 제목을 모델에 추가
             m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
             m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
@@ -154,8 +152,8 @@ public class NoticeController {
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
 
-//        if (!loginCheck(request))
-//            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+        if (!loginCheck(request))
+            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
 
 
@@ -166,7 +164,7 @@ public class NoticeController {
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            List<NoticeDto> list = noticeService.getSearchResultPage(sc);
+            List<NoticeDTO> list = noticeService.getSearchResultPage(sc);
             System.out.println("list = " + list);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
