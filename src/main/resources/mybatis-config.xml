@@ -14,5 +14,9 @@
         <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
         <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProductDTO"/>
         <typeAlias alias="CartTotalDTO" type="com.teamProject.syusyu.domain.order.CartTotalDTO"/>
+
+        <!--product-->
+        <typeAlias alias="CategoryDto" type="com.teamProject.syusyu.domain.product.CategoryDTO"/>
+<!--        <typeAlias alias="ProductDto" type="com.teamProject.syusyu.domain.product.ProductDTO"/>-->
     </typeAliases>
 </configuration>

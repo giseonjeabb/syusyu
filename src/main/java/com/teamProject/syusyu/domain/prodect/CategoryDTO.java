@@ -1,102 +1,66 @@
-package com.teamProject.syusyu.domain.prodect;
+package com.teamProject.syusyu.domain.product;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CategoryDTO {
-    private int categoryId;
-    private String largeCategory;
-    private int largeCategoryNo;
-    private String middleCategory;
-    private int middleCategoryNo;
-    private String smallCategory;
-    private int smallCategoryNo;private int cateId;
-    private boolean displayYN;
-    private String registeredId;
-    private LocalDateTime registrationDateTime;
-    private String updatedId;
-    private LocalDateTime updateDateTime;
-    private LocalDateTime deletionDateTime;
-    private String deletedId;
-    private boolean deletionYN;
+    private int cateId;
+    private String largeNm;
+    private int largeNo;
+    private String middleNm;
+    private int middleNo;
+    private String smallNm;
+    private int smallNo;
+    private boolean dspyYn;
+    private String regrId;
+    private LocalDateTime regDttm;
+    private String updrId;
+    private LocalDateTime updDttm;
+    private LocalDateTime delDttm;
+    private String delrId;
+    private boolean deletionYn;
 
     public CategoryDTO() {
     }
 
+    public CategoryDTO(String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo) {
+        this.largeNm = largeNm;
+        this.largeNo = largeNo;
+        this.middleNm = middleNm;
+        this.middleNo = middleNo;
+        this.smallNm = smallNm;
+        this.smallNo = smallNo;
+    }
 
-    public CategoryDTO(int categoryId, String largeCategory, int largeCategoryNo, String middleCategory, int middleCategoryNo, String smallCategory, int smallCategoryNo, int cateId, boolean displayYN, String registeredId, LocalDateTime registrationDateTime, String updatedId, LocalDateTime updateDateTime, LocalDateTime deletionDateTime, String deletedId, boolean deletionYN) {
-        this.categoryId = categoryId;
-        this.largeCategory = largeCategory;
-        this.largeCategoryNo = largeCategoryNo;
-        this.middleCategory = middleCategory;
-        this.middleCategoryNo = middleCategoryNo;
-        this.smallCategory = smallCategory;
-        this.smallCategoryNo = smallCategoryNo;
+    public CategoryDTO(int cateId, String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo, boolean dspyYn, String regrId, LocalDateTime regDttm, String updrId, LocalDateTime updDttm, LocalDateTime delDttm, String delrId, boolean deletionYn) {
         this.cateId = cateId;
-        this.displayYN = displayYN;
-        this.registeredId = registeredId;
-        this.registrationDateTime = registrationDateTime;
-        this.updatedId = updatedId;
-        this.updateDateTime = updateDateTime;
-        this.deletionDateTime = deletionDateTime;
-        this.deletedId = deletedId;
-        this.deletionYN = deletionYN;
+        this.largeNm = largeNm;
+        this.largeNo = largeNo;
+        this.middleNm = middleNm;
+        this.middleNo = middleNo;
+        this.smallNm = smallNm;
+        this.smallNo = smallNo;
+        this.dspyYn = dspyYn;
+        this.regrId = regrId;
+        this.regDttm = regDttm;
+        this.updrId = updrId;
+        this.updDttm = updDttm;
+        this.delDttm = delDttm;
+        this.delrId = delrId;
+        this.deletionYn = deletionYn;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryDTO that = (CategoryDTO) o;
+        return cateId == that.cateId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && dspyYn == that.dspyYn && deletionYn == that.deletionYn && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(regrId, that.regrId) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updrId, that.updrId) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delrId, that.delrId);
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getLargeCategory() {
-        return largeCategory;
-    }
-
-    public void setLargeCategory(String largeCategory) {
-        this.largeCategory = largeCategory;
-    }
-
-    public int getLargeCategoryNo() {
-        return largeCategoryNo;
-    }
-
-    public void setLargeCategoryNo(int largeCategoryNo) {
-        this.largeCategoryNo = largeCategoryNo;
-    }
-
-    public String getMiddleCategory() {
-        return middleCategory;
-    }
-
-    public void setMiddleCategory(String middleCategory) {
-        this.middleCategory = middleCategory;
-    }
-
-    public int getMiddleCategoryNo() {
-        return middleCategoryNo;
-    }
-
-    public void setMiddleCategoryNo(int middleCategoryNo) {
-        this.middleCategoryNo = middleCategoryNo;
-    }
-
-    public String getSmallCategory() {
-        return smallCategory;
-    }
-
-    public void setSmallCategory(String smallCategory) {
-        this.smallCategory = smallCategory;
-    }
-
-    public int getSmallCategoryNo() {
-        return smallCategoryNo;
-    }
-
-    public void setSmallCategoryNo(int smallCategoryNo) {
-        this.smallCategoryNo = smallCategoryNo;
+    @Override
+    public int hashCode() {
+        return Objects.hash(cateId, largeNm, largeNo, middleNm, middleNo, smallNm, smallNo, dspyYn, regrId, regDttm, updrId, updDttm, delDttm, delrId, deletionYn);
     }
 
     public int getCateId() {
@@ -107,102 +71,136 @@ public class CategoryDTO {
         this.cateId = cateId;
     }
 
-    public boolean isDisplayYN() {
-        return displayYN;
+    public String getLargeNm() {
+        return largeNm;
     }
 
-    public void setDisplayYN(boolean displayYN) {
-        this.displayYN = displayYN;
+    public void setLargeNm(String largeNm) {
+        this.largeNm = largeNm;
     }
 
-    public String getRegisteredId() {
-        return registeredId;
+    public int getLargeNo() {
+        return largeNo;
     }
 
-    public void setRegisteredId(String registeredId) {
-        this.registeredId = registeredId;
+    public void setLargeNo(int largeNo) {
+        this.largeNo = largeNo;
     }
 
-    public LocalDateTime getRegistrationDateTime() {
-        return registrationDateTime;
+    public String getMiddleNm() {
+        return middleNm;
     }
 
-    public void setRegistrationDateTime(LocalDateTime registrationDateTime) {
-        this.registrationDateTime = registrationDateTime;
+    public void setMiddleNm(String middleNm) {
+        this.middleNm = middleNm;
     }
 
-    public String getUpdatedId() {
-        return updatedId;
+    public int getMiddleNo() {
+        return middleNo;
     }
 
-    public void setUpdatedId(String updatedId) {
-        this.updatedId = updatedId;
+    public void setMiddleNo(int middleNo) {
+        this.middleNo = middleNo;
     }
 
-    public LocalDateTime getUpdateDateTime() {
-        return updateDateTime;
+    public String getSmallNm() {
+        return smallNm;
     }
 
-    public void setUpdateDateTime(LocalDateTime updateDateTime) {
-        this.updateDateTime = updateDateTime;
+    public void setSmallNm(String smallNm) {
+        this.smallNm = smallNm;
     }
 
-    public LocalDateTime getDeletionDateTime() {
-        return deletionDateTime;
+    public int getSmallNo() {
+        return smallNo;
     }
 
-    public void setDeletionDateTime(LocalDateTime deletionDateTime) {
-        this.deletionDateTime = deletionDateTime;
+    public void setSmallNo(int smallNo) {
+        this.smallNo = smallNo;
     }
 
-    public String getDeletedId() {
-        return deletedId;
+    public boolean isDspyYn() {
+        return dspyYn;
     }
 
-    public void setDeletedId(String deletedId) {
-        this.deletedId = deletedId;
+    public void setDspyYn(boolean dspyYn) {
+        this.dspyYn = dspyYn;
     }
 
-    public boolean isDeletionYN() {
-        return deletionYN;
+    public String getRegrId() {
+        return regrId;
     }
 
-    public void setDeletionYN(boolean deletionYN) {
-        this.deletionYN = deletionYN;
+    public void setRegrId(String regrId) {
+        this.regrId = regrId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CategoryDTO that = (CategoryDTO) o;
-        return categoryId == that.categoryId && largeCategoryNo == that.largeCategoryNo && middleCategoryNo == that.middleCategoryNo && smallCategoryNo == that.smallCategoryNo && cateId == that.cateId && displayYN == that.displayYN && deletionYN == that.deletionYN && Objects.equals(largeCategory, that.largeCategory) && Objects.equals(middleCategory, that.middleCategory) && Objects.equals(smallCategory, that.smallCategory) && Objects.equals(registeredId, that.registeredId) && Objects.equals(registrationDateTime, that.registrationDateTime) && Objects.equals(updatedId, that.updatedId) && Objects.equals(updateDateTime, that.updateDateTime) && Objects.equals(deletionDateTime, that.deletionDateTime) && Objects.equals(deletedId, that.deletedId);
+    public LocalDateTime getRegDttm() {
+        return regDttm;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(categoryId, largeCategory, largeCategoryNo, middleCategory, middleCategoryNo, smallCategory, smallCategoryNo, cateId, displayYN, registeredId, registrationDateTime, updatedId, updateDateTime, deletionDateTime, deletedId, deletionYN);
+    public void setRegDttm(LocalDateTime regDttm) {
+        this.regDttm = regDttm;
+    }
+
+    public String getUpdrId() {
+        return updrId;
+    }
+
+    public void setUpdrId(String updrId) {
+        this.updrId = updrId;
+    }
+
+    public LocalDateTime getUpdDttm() {
+        return updDttm;
+    }
+
+    public void setUpdDttm(LocalDateTime updDttm) {
+        this.updDttm = updDttm;
+    }
+
+    public LocalDateTime getDelDttm() {
+        return delDttm;
+    }
+
+    public void setDelDttm(LocalDateTime delDttm) {
+        this.delDttm = delDttm;
+    }
+
+    public String getDelrId() {
+        return delrId;
+    }
+
+    public void setDelrId(String delrId) {
+        this.delrId = delrId;
+    }
+
+    public boolean isDeletionYn() {
+        return deletionYn;
+    }
+
+    public void setDeletionYn(boolean deletionYn) {
+        this.deletionYn = deletionYn;
     }
 
     @Override
     public String toString() {
-        return "CategoryDto{" +
-                "categoryId=" + categoryId +
-                ", largeCategory='" + largeCategory + '\'' +
-                ", largeCategoryNo=" + largeCategoryNo +
-                ", middleCategory='" + middleCategory + '\'' +
-                ", middleCategoryNo=" + middleCategoryNo +
-                ", smallCategory='" + smallCategory + '\'' +
-                ", smallCategoryNo=" + smallCategoryNo +
-                ", cateId=" + cateId +
-                ", displayYN=" + displayYN +
-                ", registeredId='" + registeredId + '\'' +
-                ", registrationDateTime=" + registrationDateTime +
-                ", updatedId='" + updatedId + '\'' +
-                ", updateDateTime=" + updateDateTime +
-                ", deletionDateTime=" + deletionDateTime +
-                ", deletedId='" + deletedId + '\'' +
-                ", deletionYN=" + deletionYN +
+        return "CategoryDTO{" +
+                "cateId=" + cateId +
+                ", largeNm='" + largeNm + '\'' +
+                ", largeNo=" + largeNo +
+                ", middleNm='" + middleNm + '\'' +
+                ", middleNo=" + middleNo +
+                ", smallNm='" + smallNm + '\'' +
+                ", smallNo=" + smallNo +
+                ", dspyYn=" + dspyYn +
+                ", regrId='" + regrId + '\'' +
+                ", regDttm=" + regDttm +
+                ", updrId='" + updrId + '\'' +
+                ", updDttm=" + updDttm +
+                ", delDttm=" + delDttm +
+                ", delrId='" + delrId + '\'' +
+                ", deletionYn=" + deletionYn +
                 '}';
     }
 }

@@ -2,27 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-    <script src="${jsUrlFos}/product/prodList.js"></script>
+    <script src="${jsUrlFos}/product/prodList.js" type="text/javascript"></script>
 </head>
+
+
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
-        <a href="https://www.ottogimall.co.kr/front">홈</a>
+        <a href="<c:url value="/product/prodList"/>">신발</a>
 
+        <%--   추후 카테고리 삽입하면 경로바꿀 예정임   --%>
+        <a href="<c:url value="/product/prodList"/>">운동화</a>
 
-        <a href="https://www.ottogimall.co.kr/front/product/category/2">밥/죽/누룽지</a>
-
-
-        <a href="javascript:">잡곡밥</a>
-
+        <%--<a href="javascript:">스니커즈</a>--%>
+        <a href="#">스니커즈</a>
 
     </div>
 </div>
 <div class="content-title">
     <div class="inner-content">
-        <h2 class="title-t ty2">잡곡밥</h2>
+        <h2 class="title-t ty2">스니커즈</h2>
     </div>
 </div>
-
 
 <div class="inner-content">
     <div class="tab-wrap">
@@ -30,43 +30,16 @@
 
         <div class="tab ty1">
             <div class="inner">
-                <a href="https://www.ottogimall.co.kr/front/product/category/2" class="">전체</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/23" class="">즉석밥</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/24" class="">컵밥</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/25" class="">죽</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/26" class="active">잡곡밥</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/27" class="">누룽지</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/28" class="">냉동볶음밥</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/29" class="">밥친구</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/30" class="">곤약밥</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/31" class="">오뚜기쌀</a>
-
-
-                <a href="https://www.ottogimall.co.kr/front/product/category/32" class="">주먹밥/무스비</a>
+                <a href="#" class="">전체</a>
+                <c:forEach var="item" items="${cateList}">
+<%--                    <a href="<c:url value="/product/prodList"/>" class="">${catecoryList.samllNm}</a>--%>
+                    <a href="#" class="">${item.smallNm}</a>
+                </c:forEach>
 
             </div>
         </div>
 
         <form name="FrmProdFilter" id="frm_prod_filter">
-
             <input type="hidden" name="scate" id="qx_cate_idx" value="26">
             <input type="hidden" name="sbrand" id="qx_brand_idx" value="0">
             <input type="hidden" name="keyword" id="qx_keyword" value="">
@@ -84,13 +57,6 @@
                         <a href="#" name="disc">할인순</a>
                         <a href="#" name="lowp">낮은가격순</a>
                         <a href="#" name="highp">높은가격순</a>
-                    </div>
-                    <div class="r-side-items">
-                        <select name="ptype" class="selectbox ty2">
-                            <option value="0" selected="">배송전체</option>
-                            <option value="1">실온</option>
-                            <option value="2">냉장&amp;냉동</option>
-                        </select>
                     </div>
                     <div class="r-side-items">
                         <select name="pageSize" id="pageSize" class="selectbox ty2">
@@ -205,63 +171,7 @@
 </div>
 <!--//inner-content-->
 
-<script type="text/javascript">
 
-    //<![CDATA[
-    $(function () {
-        const $pageList = $("#prd-list-wrap");
-        bta.prodSearchPager.bind({
-            urlProduct: "https://www.ottogimall.co.kr/front/product/product_list.ajax",
-            onload: function (result) {
-                $pageList.children().remove().end()
-                    .append(result);
-
-                let listCnt = 0;
-                if ($(".prd-lists").attr("total-size") != undefined) {
-                    listCnt = $(".prd-lists").attr("total-size");
-                }
-                $(".prd-counter strong").text(listCnt);
-
-            }
-        }).init();
-
-        $("select[name='ptype'], select[name='pageSize']", ".content-top").on('change', function () {
-            if ($(this).attr("name") == "ptype") {
-                $("#qx_ptype").val($(this).val());
-            }
-            bta.prodSearchPager.setChange();
-        });
-
-        $(".r-side .tab a", ".content-top").on("click", function () {
-            if ($(this).hasClass("active")) return false;
-
-            $("#qx_sort").val($(this).attr("name"));
-            $(".r-side .tab a").removeClass("active");
-            $(this).addClass("active");
-            bta.prodSearchPager.setChange();
-        });
-
-        $(document).on('click', '#prd-list-wrap .pagination a', function () {
-            var page = $(this).attr('page');
-            if ($("#prd-list-wrap .prd-lists").attr('page-no') == page) {
-                return false;
-            }
-            bta.prodSearchPager.setPage(page);
-            $('html, body').scrollTop('0');
-            return false;
-        });
-
-        $(document).on('click', '#listBtn', function () {
-            if ($("#qx_listBtn").val() == 0) {
-                $("#qx_listBtn").val(1);
-            } else {
-                $("#qx_listBtn").val(0);
-            }
-        });
-
-    });
-    //]]>
-</script>
 
 
 <!-- 상품 옵션 팝업 -->
