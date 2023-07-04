@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="move-container-left">
     <div class="inner">
         <h3 class="title-t ty3">마이페이지</h3>
@@ -22,8 +23,8 @@
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/cs_inquiry" class="">1:1문의</a></dd>
             <dd><a href="https://www.ottogimall.co.kr/front/help/bulk_purchase" class="">대량주문문의</a></dd>
             <dt class="title-t ty7">공지</dt>
-            <dd><a href="https://www.ottogimall.co.kr/front/help/notice" class="">공지사항</a></dd>
-            <dd><a href="https://www.ottogimall.co.kr/front/help/faq" class="">자주 묻는 질문</a></dd>
+            <dd><a href="<c:url value='/notice/noticeList'/>" class="">공지사항</a></dd>
+            <dd><a href="<c:url value='/faq/faqList'/>" class="">자주 묻는 질문</a></dd>
         </dl>
     </div>
 </div>
