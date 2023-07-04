@@ -15,7 +15,7 @@
                P.PRICE,
                P.DC_PER,
                P.REP_IMG,
-               P.SALE_STUS,
+               P.STATUS,
                P.SALE_ST_DTTM,
                P.SALE_ED_DTTM,
                P.DC_ST_DTTM,
@@ -25,8 +25,11 @@
                P.DEL_YN
         FROM PRODUCT P JOIN PROD_CATE PC ON P.CATE_ID=PC.CATE_ID
               JOIN BRAND B ON P.BRND_ID = B.BRND_ID
-        WHERE SALE_STUS=601 AND P.DEL_YN='N' AND
-             (PC.MIDDLE_NM, PC.SMALL_NM) IN(select MIDDLE_NM, SMALL_NM from prod_cate where MIDDLE_NO=#{middleNo} and PC.SMALL_NO=#{smallNo})
+        WHERE STATUS=601 AND P.DEL_YN='N' AND
+             (PC.MIDDLE_NM, PC.SMALL_NM) IN(SELECT MIDDLE_NM, SMALL_NM
+                                            FROM prod_cate
+                                            WHERE MIDDLE_NO=#{middleNo}
+                                            AND PC.SMALL_NO=#{smallNo})
     </select>
 </mapper>
 
