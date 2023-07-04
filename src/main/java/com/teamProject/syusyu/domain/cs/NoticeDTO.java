@@ -3,7 +3,7 @@ package com.teamProject.syusyu.domain.cs;
 import java.util.Date;
 import java.util.Objects;
 
-public class NoticeDto {
+public class NoticeDTO {
 
     private Integer notcNo;
     private String notcTp;
@@ -29,21 +29,21 @@ public class NoticeDto {
 
 
 
-    public NoticeDto(){}
+    public NoticeDTO(){}
 
-    public NoticeDto(String notcTp, String title, String content, Integer regrId) {
+    public NoticeDTO(String notcTp, String title, String content, Integer regrId) {
         this.notcTp = notcTp;
         this.title = title;
         this.content = content;
         this.regrId = regrId;
     }
 
-    public NoticeDto(Integer notcNo, String title) {
+    public NoticeDTO(Integer notcNo, String title) {
         this.notcNo = notcNo;
         this.title = title;
     }
 
-    public NoticeDto(Integer notcNo, String title, Integer prevNo, String prevTitle, Integer nextNo, String nextTitle) {
+    public NoticeDTO(Integer notcNo, String title, Integer prevNo, String prevTitle, Integer nextNo, String nextTitle) {
         this.notcNo = notcNo;
         this.title = title;
         this.prevNo = notcNo;
@@ -52,31 +52,31 @@ public class NoticeDto {
         this.nextTitle = nextTitle;
     }
 
-    public NoticeDto(String title, Integer updrId) {
+    public NoticeDTO(String title, Integer updrId) {
         this.title = title;
         this.updrId = updrId;
     }
 
-    public NoticeDto(String notcTp, String title, String content) {
+    public NoticeDTO(String notcTp, String title, String content) {
         this.notcTp = notcTp;
         this.title = title;
         this.content = content;
     }
 
-    public NoticeDto(Integer notcNo, String notcTp, String title) {
+    public NoticeDTO(Integer notcNo, String notcTp, String title) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
         this.title = title;
     }
 
-    public NoticeDto(Integer notcNo, String notcTp, String title, String content) {
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
         this.title = title;
         this.content = content;
     }
 
-    public NoticeDto(Integer notcNo, String notcTp, String title, String content,
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content,
                      Integer viewCnt, char fixYn, Date startDttm, Date endDttm, Date regDttm,
                      Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId,
                      char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
@@ -132,7 +132,7 @@ public class NoticeDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NoticeDto noticeDto = (NoticeDto) o;
+        NoticeDTO noticeDto = (NoticeDTO) o;
         return fixYn == noticeDto.fixYn && delYn == noticeDto.delYn && Objects.equals(notcNo, noticeDto.notcNo) && Objects.equals(notcTp, noticeDto.notcTp) && Objects.equals(title, noticeDto.title) && Objects.equals(content, noticeDto.content) && Objects.equals(viewCnt, noticeDto.viewCnt) && Objects.equals(startDttm, noticeDto.startDttm) && Objects.equals(endDttm, noticeDto.endDttm) && Objects.equals(regDttm, noticeDto.regDttm) && Objects.equals(regrId, noticeDto.regrId) && Objects.equals(updDttm, noticeDto.updDttm) && Objects.equals(updrId, noticeDto.updrId) && Objects.equals(delDttm, noticeDto.delDttm) && Objects.equals(delrId, noticeDto.delrId) && Objects.equals(prevTitle, noticeDto.prevTitle) && Objects.equals(nextTitle, noticeDto.nextTitle) && Objects.equals(prevNo, noticeDto.prevNo) && Objects.equals(nextNo, noticeDto.nextNo);
     }
 
