@@ -9,16 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("product")
-public class ProdListController {
+public class ProductController {
 
     @Autowired
     CategoryService categoryService;
+    @Autowired
     ProductService productService;
 
     @GetMapping("prodList")
@@ -34,7 +33,7 @@ public class ProdListController {
 
 
             List<ProductDTO> productList=productService.getProductList(middleNo, smallNo);
-            m.addAttribute("prodList");
+            m.addAttribute("productList", productList);
             System.out.println("-------->"+m);
 
         }catch (Exception e) {

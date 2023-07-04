@@ -32,7 +32,7 @@
             <li><a href="#">신발</a></li>
             <li><a href="#">남성</a></li>
             <li><a href="#">여성</a></li>
-            <li><a href="<c:url value="/product/prodList"/>">신발</a></li>
+            <li><a href="<c:url value="/prodList"/>">신발</a></li>
 
             <li><a href="#">발견</a></li>
         </ul>
