@@ -15,13 +15,13 @@ import static org.junit.Assert.assertTrue;
 public class CategoryDAOImplTest {
 
     @Autowired
-    CategoryDAO categoryDao;
+    CategoryDAO categoryDAO;
     @Test
     public void select() throws Exception{
-        assertTrue(categoryDao!=null);
-        System.out.println("catecoryDAO = "+categoryDao);
-        CategoryDTO categoryDTO = (CategoryDTO) categoryDao.getCategory(1);
-        System.out.println("categoryDTO = "+ categoryDao);
+        assertTrue(categoryDAO!=null);
+        System.out.println("catecoryDAO = "+categoryDAO);
+        CategoryDTO categoryDTO = (CategoryDTO) categoryDAO.getCategory(1);
+        System.out.println("categoryDTO = "+ categoryDTO);
 
     }
 }

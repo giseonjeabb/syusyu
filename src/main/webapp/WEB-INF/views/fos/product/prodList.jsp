@@ -73,6 +73,9 @@
                 </div><!--//r-side-->
             </div><!--//content-top-->
         </form>
+        
+        
+   
         <div id="prd-list-wrap">
 
 
@@ -82,6 +85,57 @@
             <div class="prd-lists n4 " page-no="1" total-size="16" total-page="1">
 
 
+                <c:forEach var="item" items="${prodList}">
+                    <div class="prd-item ">
+                        <div class="thumbs hover">
+                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">
+                                <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/list/20221125/19210047_1.jpg"
+                                     alt="${item.prodNm}">
+                            </a>
+                        </div>
+                        <div class="desc">
+                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">
+                                <p class="name">${item.prodNm}</p>
+    
+                                <div class="price">
+                                    
+                                    <c:choose>
+                                        <c:when test="${item.dcPer > 0}">
+                                            <!-- 할인율 있는 경우 -->
+                                            <p class="amount">
+<%--                                                <span class="per">${item.dcPer}%</span>&{item.price * (item.dcPer/100)}<span class="won">원</span>--%>
+<%--                                                <del>${item.price}원</del>--%>
+                                            </p>
+                                        </c:when>
+                                        <c:when test="${item.dcPer=0}">
+                                            <!-- 할인율 없는 경우 -->
+                                            <p class="amount">
+
+                                                ${item.price}<span class="won">원</span>
+                                            </p>
+                                        </c:when>
+                                    </c:choose>
+                                </div><!--//price-->
+    
+                                <div class="grade">
+                                    <strong>4.9</strong>
+                                    <span>(15)</span><!-- 리뷰 -->
+                                </div><!-- // grade -->
+                            </a>
+
+                            <div class="prd-item-btn">
+    
+                                <button type="button" class="btn icon cart add-cart-bt" pno="706"><span
+                                        class="text">장바구니 담기</span></button>
+    
+    
+                            </div>
+                        </div><!--//desc-->
+                    </div><!--//prd-item -->
+                </c:forEach>
+                
+                
+                
                 <div class="prd-item ">
                     <div class="thumbs hover">
                         <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">

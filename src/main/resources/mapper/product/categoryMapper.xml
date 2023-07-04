@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.categoryMapper">
-    <select id="getCategory" parameterType="int" resultType="CategoryDto">
+    <select id="getCategory" parameterType="int" resultType="CategoryDTO">
         SELECT LARGE_NO
              , LARGE_NM
              , MIDDLE_NO
