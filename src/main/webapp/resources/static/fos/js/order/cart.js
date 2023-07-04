@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chkAll = document.querySelector('.chk-all');
 
     orderBtn.addEventListener('click', order);
-    removeSelectedBtn.addEventListener('click', () => remove(getCheckedItem()));
+    removeSelectedBtn.addEventListener('click', () => remove(getCheckedCartProdNoArr()));
     chkAll.addEventListener('click', (e) => checkAll(e.target.checked));
 });
 
@@ -113,6 +113,7 @@ const showCartProductList = (cartProductList) => {
             <div class="item-area">
                 <div class="prd-item etc-ty1 ">
                     <input type="hidden" name="cartProdNo" value="${cartProduct.cartProdNo}">
+                    <input type="hidden" name="prodId" value="${cartProduct.prodId}">
                     <input type="hidden" name="orderPrice" value="28480.00">
                     <input type="hidden" name="discEventPrice" value="0.00">
                     <input type="hidden" name="dlvrPolicyFee" value="3000.00">
@@ -191,7 +192,7 @@ const remove = (cartProdNoArr) => {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(cartProdNoArr),
         success: () => {
-            getCartProductList();
+            // getCartProductList();
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
@@ -199,26 +200,51 @@ const remove = (cartProdNoArr) => {
     });
 }
 
-const getCheckedItem = () => {
+const getCheckedCartProdNoArr = () => getCheckedItem('cartProdNo');
+const getCheckedProdIdArr = () => getCheckedItem('prodId');
+
+const getCheckedItem = (target) => {
     const checkedItems = document.querySelectorAll("input[name='chk']:checked");
-    return Array.from(checkedItems).map((item) => item.closest('li').querySelector('input[name="cartProdNo"]').value);
+    return Array.from(checkedItems).map((item) => item.closest('li').querySelector('input[name="' + target + '"]').value);
 };
 
-const order = () => {
-    const checkedItem = getCheckedItem();
+
+const checkProductStatus = () => {
+    const checkedProdIdArr = getCheckedProdIdArr();
 
     $.ajax({
-        type: 'POST',
-        url: '/order/cartOrder',
+        type: 'GET',
+        url: '/productStatus',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: JSON.stringify(checkedItem),
+        traditional: true, // 배열 파라미터를 prodIdArr=1&prodIdArr=2&prodIdArr=3과 같은 형태로 직렬화
+        data: { 'prodIdArr': checkedProdIdArr },
         success: (result) => {
-            let cartOrderNos = result.map((item) => `cartOrderNo=${item}`).join('&');
-            location.href = '/order/orderSheet?' + cartOrderNos;
+            debugger;
         },
         error: (jqXHR, textStatus, errorThrown) => {
             alert("An error occurred: " + textStatus + " - " + errorThrown);
         }
     });
+}
+
+const order = () => {
+    // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
+    // const checkedItem = getCheckedCartProdNoArr();
+    checkProductStatus();
+
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '/order/cartOrder',
+    //     contentType: 'application/json; charset=utf-8',
+    //     dataType: 'json',
+    //     data: JSON.stringify(checkedItem),
+    //     success: (result) => {
+    //         let cartOrderNos = result.map((item) => `cartOrderNo=${item}`).join('&');
+    //         location.href = '/order/orderSheet?' + cartOrderNos;
+    //     },
+    //     error: (jqXHR, textStatus, errorThrown) => {
+    //         alert("An error occurred: " + textStatus + " - " + errorThrown);
+    //     }
+    // });
 }

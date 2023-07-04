@@ -23,13 +23,24 @@
                P.REG_DTTM,
                P.REGR_ID,
                P.DEL_YN
-        FROM PRODUCT P JOIN PROD_CATE PC ON P.CATE_ID=PC.CATE_ID
-              JOIN BRAND B ON P.BRND_ID = B.BRND_ID
-        WHERE STATUS=601 AND P.DEL_YN='N' AND
-             (PC.MIDDLE_NM, PC.SMALL_NM) IN(SELECT MIDDLE_NM, SMALL_NM
-                                            FROM prod_cate
-                                            WHERE MIDDLE_NO=#{middleNo}
-                                            AND PC.SMALL_NO=#{smallNo})
+        FROM PRODUCT P
+                 JOIN PROD_CATE PC ON P.CATE_ID = PC.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+        WHERE STATUS = 601
+          AND P.DEL_YN = 'N'
+          AND (PC.MIDDLE_NM, PC.SMALL_NM) IN (SELECT MIDDLE_NM, SMALL_NM
+                                              FROM prod_cate
+                                              WHERE MIDDLE_NO = #{middleNo}
+                                                AND PC.SMALL_NO = #{smallNo})
+    </select>
+
+    <select id="selectProductStatus" parameterType="int" resultType="ProductDTO">
+        SELECT PROD_ID, STATUS
+        FROM PRODUCT
+        WHERE PROD_ID IN
+        <foreach collection="array" item="prodIdArr" open="(" close=")" separator=",">
+            #{prodIdArr}
+        </foreach>
     </select>
 </mapper>
 

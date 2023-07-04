@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.dao.product.impl;
 
+import com.teamProject.syusyu.dao.product.ProductDAO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ProductDAOImpl implements com.teamProject.syusyu.dao.product.ProductDAO {
+public class ProductDAOImpl implements ProductDAO {
 
     @Autowired
     private SqlSession session;
@@ -23,4 +24,10 @@ public class ProductDAOImpl implements com.teamProject.syusyu.dao.product.Produc
         map.put("smallNo", smallNo);
         return session.selectList(namespace + "getProductList", map);
     }
+
+    @Override
+    public List<ProductDTO> selectProductStatus(int[] prodIdArr) {
+        return session.selectList(namespace + "selectProductStatus", prodIdArr);
+    }
+
 }

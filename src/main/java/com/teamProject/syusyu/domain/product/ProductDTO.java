@@ -268,11 +268,11 @@ public class ProductDTO {
         this.repImg = repImg;
     }
 
-    public int getSaleStus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setSaleStus(int status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
