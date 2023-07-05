@@ -3,11 +3,11 @@ package com.teamProject.syusyu.domain.cs;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class SearchCondition {
-    private Integer page = 1;
-    private Integer pageSize = 10;
+    private Integer page = 1; // 페이지
+    private Integer pageSize = 10;  // 페이지 크기
     //    private Integer offset = 0;
-    private String keyword = "";
-    private String option = "";
+    private String keyword = "";  // 검색 키워드
+    private String option = "";    // 검색 항목 기준
 
 
     public SearchCondition(){}

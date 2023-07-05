@@ -13,6 +13,7 @@ import java.util.Map;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
+    // DAO 주입시 생성자로 주입 받기!!!
     NoticeDAO noticeDao;
 
     @Autowired

@@ -1,10 +1,12 @@
 package com.teamProject.syusyu.domain.cs;
 
 public class PageHandler {
-    //    private int page;      // 현재 페이지
-//     private int pageSize; // 한 페이지의 크기
+//    private int page;      현재 페이지
+//    private int pageSize;   페이지의 크기
 //    private String option;
 //    private String keyword;
+    // 위 4개를 SearchCondition 클래스를 만들어서 그곳으로 이동 .
+    // sc만 사용할 예정
     private SearchCondition sc;
 
     private int totalCnt; // 총 게시물의 갯수
