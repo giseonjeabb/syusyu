@@ -15,9 +15,9 @@
 
 
         <script>
-            let msg = ${msg};
-            if(msg == "Write_Error") alert("글 등록 실패 했습니다.");
-            if(msg == "Modify_Error") alert("글 수정 실패 했습니다.");
+            let msg = "${msg}";
+            if(msg == "WRT_ERR") alert("글 등록 실패 했습니다.");
+            if(msg == "MOD_ERR") alert("글 수정 실패 했습니다.");
         </script>
 
 <div class="container">
@@ -112,47 +112,6 @@
             return true;
         }
 
-        $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/notice/write'/>";
-        });
-
-        $("#writeBtn").on("click", function(){
-            let form = $("#form");
-            form.attr("action", "<c:url value='/notice/write'/>");
-            form.attr("method", "post");
-
-            if(formCheck())
-                form.submit();
-        });
-
-        $("#modifyBtn").on("click", function(){
-            let form = $("#form");
-            let isReadonly = $("input[name=title]").attr('readonly');
-
-            // 1. 읽기 상태이면, 수정 상태로 변경
-            if(isReadonly=='readonly') {
-                $(".writing-header").html("게시판 수정");
-                $("input[name=title]").attr('readonly', false);
-                $("textarea").attr('readonly', false);
-                $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
-                return;
-            }
-
-            // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/notice/modify${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            if(formCheck())
-                form.submit();
-        });
-
-        $("#removeBtn").on("click", function(){
-            if(!confirm("정말로 삭제하시겠습니까?")) return;
-
-            let form = $("#form");
-            form.attr("action", "<c:url value='/notice/remove${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            form.submit();
-        });
 
         $("#listBtn").on("click", function(){
 
