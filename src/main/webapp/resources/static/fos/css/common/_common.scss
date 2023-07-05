@@ -1341,7 +1341,7 @@
 
   &.icon {
     height: auto;
-    font-size: 0;
+    font-size: 20px;
     border-radius: 0;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1399,7 +1399,7 @@
       &.big {
         width: 24px;
         height: 24px;
-        background-image: url(../images/icon_search_24.png);
+        background-image: url(..resources/static/image/icon_search_24.jpg);
       }
     }
     &.mypage {

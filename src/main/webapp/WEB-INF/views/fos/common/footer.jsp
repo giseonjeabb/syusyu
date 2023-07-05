@@ -21,7 +21,7 @@
                 <div class="footer_quickLink_list">
                     <strong class="footer_quickLink_title">NOTICE</strong>
                     <ul class="footer_quickLink_sub">
-                        <li class="footer_quickLink_subList">공지사항</li>
+                        <li class="footer_quickLink_subList"><a href="<c:url value='/notice/noticeList'/>">공지사항</a></li>
                         <li class="footer_quickLink_subList">이용약관</li>
                         <li class="footer_quickLink_subList">개인정보처리방침</li>
                     </ul>
