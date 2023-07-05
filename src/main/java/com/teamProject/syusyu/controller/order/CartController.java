@@ -1,7 +1,6 @@
 package com.teamProject.syusyu.controller.order;
 
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.order.CartInfoDTO;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CartController {
@@ -40,24 +41,25 @@ public class CartController {
 
     @GetMapping("/cartList")
     @ResponseBody
-    public ResponseEntity<CartInfoDTO> list(@SessionAttribute int mbrId) {
-        CartInfoDTO cartInfo = null;
+    public ResponseEntity<List<CartProdDTO>> list(@SessionAttribute int mbrId) {
+        List<CartProdDTO> cartProdList = null;
 
         try {
-            cartInfo = service.getCartInfo(mbrId);
+            cartProdList = service.getCartInfo(mbrId);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(cartInfo, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(cartProdList, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(cartInfo, HttpStatus.OK);
+        return new ResponseEntity<>(cartProdList, HttpStatus.OK);
     }
 
     @PatchMapping("/cart/{cartProdNo}")
     @ResponseBody
-    public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO) {
+    public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {
         try {
             cartProductDTO.setCartProdNo(cartProdNo);
+            cartProductDTO.setUpdrId(mbrId);
             service.modify(cartProductDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,9 +71,9 @@ public class CartController {
 
     @DeleteMapping("/cart")
     @ResponseBody
-    public ResponseEntity<String> remove(@RequestBody int[] cartProdIdArr) {
+    public ResponseEntity<String> remove(@RequestBody int[] cartProdNoArr, @SessionAttribute int mbrId) {
         try {
-            service.remove(cartProdIdArr);
+            service.remove(cartProdNoArr, mbrId);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);

@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class CartProdDAOImpl implements CartProdDAO {
@@ -21,8 +21,8 @@ public class CartProdDAOImpl implements CartProdDAO {
     }
 
     @Override
-    public List<CartProdDTO> select(int mbrId) throws Exception {
-        return session.selectList(namespace + "select", mbrId);
+    public List<CartProdDTO> selectAll(int mbrId) throws Exception {
+        return session.selectList(namespace + "selectAll", mbrId);
     }
 
     @Override
@@ -31,8 +31,12 @@ public class CartProdDAOImpl implements CartProdDAO {
     }
 
     @Override
-    public int delete(int[] cartProdId) throws Exception {
-        return session.delete(namespace + "delete", cartProdId);
+    public int delete(int[] cartProdNo, int delrId) throws Exception {
+        Map<String, Object> deleteParam = new HashMap<>();
+        deleteParam.put("cartProdNo", cartProdNo);
+        deleteParam.put("delrId", delrId + "");
+
+        return session.delete(namespace + "delete", deleteParam);
     }
 
     @Override
