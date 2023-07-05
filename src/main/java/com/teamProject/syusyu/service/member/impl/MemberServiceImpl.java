@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.service.member.impl;
 
 import com.teamProject.syusyu.dao.member.MemberDao;
-import com.teamProject.syusyu.domain.member.MemberDto;
+import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int loginCheck(MemberDto memberDto) throws Exception {
-        return memberDao.loginCheck(memberDto);
+    public MemberDTO loginCheck(MemberDTO memberDTO) throws Exception {
+        return memberDao.loginCheck(memberDTO);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean register(MemberDto memberDto) throws Exception {
-        int result = memberDao.memberInsert(memberDto);
-        int result2 = memberDao.memberInfoInsert(memberDto);
+    public boolean register(MemberDTO memberDTO) throws Exception {
+        int result = memberDao.memberInsert(memberDTO);
+        int result2 = memberDao.memberInfoInsert(memberDTO);
 
         return result > 0 && result2 > 0;
     }

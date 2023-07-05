@@ -8,10 +8,12 @@
     <nav id="main_gnb">
         <ul>
 
+            <li><a href="<c:url value="/admin/dashboard"/>">관리자페이지</a></li>
             <li><a href="<c:url value='/notice/noticeList'/>">고객센터</a></li>
             <li><a href="<c:url value="/mypage/main"/>">마이페이지</a></li>
+
             <li><a href="#">관심상품</a></li>
-            <li><a href="<c:url value="/order/cart"/>">장바구니</a></li>
+            <li><a href="<c:url value="/cart"/>">장바구니</a></li>
             <li><a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a></li>
         </ul>
     </nav>
@@ -31,6 +33,7 @@
             <li><a href="#">남성</a></li>
             <li><a href="#">여성</a></li>
             <li><a href="<c:url value="/prodList"/>">신발</a></li>
+
             <li><a href="#">발견</a></li>
         </ul>
     </nav>

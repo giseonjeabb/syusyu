@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.productMapper">
+    <select id="getProductList" parameterType="map" resultType="ProductDTO">
+        SELECT P.PROD_ID,
+               P.CATE_ID,
+               PC.MIDDLE_NM,
+               PC.SMALL_NM,
+               P.PROD_NM,
+               P.MODEL_NM,
+               P.BRND_ID,
+               B.BRND_NM,
+               P.PRICE,
+               P.DC_PER,
+               P.REP_IMG,
+               P.STATUS,
+               P.SALE_ST_DTTM,
+               P.SALE_ED_DTTM,
+               P.DC_ST_DTTM,
+               P.DC_ED_DTTM,
+               P.REG_DTTM,
+               P.REGR_ID,
+               P.DEL_YN
+        FROM PRODUCT P
+                 JOIN PROD_CATE PC ON P.CATE_ID = PC.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+        WHERE STATUS = 601
+          AND P.DEL_YN = 'N'
+          AND (PC.MIDDLE_NM, PC.SMALL_NM) IN (SELECT MIDDLE_NM, SMALL_NM
+                                              FROM prod_cate
+                                              WHERE MIDDLE_NO = #{middleNo}
+                                                AND PC.SMALL_NO = #{smallNo})
+    </select>
+
+    <select id="selectProductStatus" parameterType="int" resultType="ProductDTO">
+        SELECT PROD_ID, STATUS
+        FROM PRODUCT
+        WHERE PROD_ID IN
+        <foreach collection="array" item="prodIdArr" open="(" close=")" separator=",">
+            #{prodIdArr}
+        </foreach>
+    </select>
+</mapper>
+
