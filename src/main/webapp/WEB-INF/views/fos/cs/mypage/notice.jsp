@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true"%>
@@ -9,7 +8,8 @@
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
     <%-- JS 파일 주입--%>
-    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"defer></script>
 
 </head>
 
@@ -25,23 +25,25 @@
     <form id="tbl ty1" class="frm" action="" method="post">
 
 
-<%-- ===============================경계선-=========================--%>
-        <input type="hidden" name="notcNo" value="${noticeDto.notcNo}">
-        <colgroup>
-            <col style="width: 105px">
-            <col style="width: auto">
-            <col style="width: 110px">
-        </colgroup>
+
+            <input type="hidden" name="notcNo" value="${noticeDto.notcNo}">
+            <colgroup>
+                <col style="width: 105px">
+                <col style="width: auto">
+                <col style="width: 110px">
+            </colgroup>
 
         <tr>
-        <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
+            <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
         </tr>
-        <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
+            <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
 
 
-<%--    하단 이전글 다음글 선택--%>
+<%-- 하단 이전글 다음글 선택--%>
     <nav class ="detail_nav">
     <ul>
+<%--        다음글  : 다음글 제목--%>
+<%--            다음글이 없다면 empty nextTitle--%>
         <li class="detail__nav-next">
             <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
             <c:if test="${not empty nextTitle}">
@@ -52,9 +54,9 @@
             </c:if>
         </li>
 
-
 <br>
-
+<%--        이전글 :  이전글 제목--%>
+<%--        이전글이 없다면 emptyprevTitle--%>
         <li class="detail__nav-prev">
             <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
             <c:if test="${not empty prevTitle}">
@@ -65,14 +67,10 @@
             </c:if>
         </li>
 
-
-
-
-
     </ul>
     </nav>
 
-<%--        < 버튼- 등록 수정 삭제> 다른 게시판에서 사용예정--%>
+<%--        < 버튼- 등록 수정 삭제>--%>
 <%--        <c:if test="${mode eq 'new'}">--%>
 <%--            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>--%>
 <%--        </c:if>--%>
@@ -93,9 +91,9 @@
 
 
 
-
 <script>
     $(document).ready(function(){
+        // 제목과 내용이 있는지 없는지 확인함
         let formCheck = function() {
             let form = document.getElementById("form");
             if(form.title.value=="") {
@@ -103,7 +101,6 @@
                 form.title.focus();
                 return false;
             }
-
             if(form.content.value=="") {
                 alert("내용을 입력해 주세요.");
                 form.content.focus();
@@ -112,52 +109,8 @@
             return true;
         }
 
-        $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/notice/write'/>";
-        });
-
-        $("#writeBtn").on("click", function(){
-            let form = $("#form");
-            form.attr("action", "<c:url value='/notice/write'/>");
-            form.attr("method", "post");
-
-            if(formCheck())
-                form.submit();
-        });
-
-        $("#modifyBtn").on("click", function(){
-            let form = $("#form");
-            let isReadonly = $("input[name=title]").attr('readonly');
-
-            // 1. 읽기 상태이면, 수정 상태로 변경
-            if(isReadonly=='readonly') {
-                $(".writing-header").html("게시판 수정");
-                $("input[name=title]").attr('readonly', false);
-                $("textarea").attr('readonly', false);
-                $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
-                return;
-            }
-
-            // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/notice/modify${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            if(formCheck())
-                form.submit();
-        });
-
-        $("#removeBtn").on("click", function(){
-            if(!confirm("정말로 삭제하시겠습니까?")) return;
-
-            let form = $("#form");
-            form.attr("action", "<c:url value='/notice/remove${searchCondition.queryString}'/>");
-            form.attr("method", "post");
-            form.submit();
-        });
-
         $("#listBtn").on("click", function(){
-
             location.href="<c:url value='/notice/noticeList${searchCondition.queryString}'/>";
-
         });
     });
 </script>

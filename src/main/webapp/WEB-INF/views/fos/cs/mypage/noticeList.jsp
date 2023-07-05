@@ -8,31 +8,30 @@
 
 <head>
     <style>
-        @import url(${cssUrlFos} /cs/noticeList.scss);
+        @import url(${cssUrlFos}/cs/noticeList.scss);
     </style>
 </head>
 
 <script>
-    let msg = "${msg}";
-    if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
-    if (msg == "READ_ERR") alert("삭제되었거나 없는 게시물입니다.");
-    if (msg == "DEL_ERR") alert("삭제되었거나 없는 게시물입니다.");
-
-    if (msg == "DEL_OK") alert("성공적으로 삭제되었습니다.");
-    if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
-    if (msg == "MOD_OK") alert("성공적으로 수정되었습니다.");
+        let msg = "${msg}";
+        if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
+        if (msg == "READ_ERR") alert("삭제되었거나 없는 게시물입니다.");
+        if (msg == "DEL_ERR") alert("삭제되었거나 없는 게시물입니다.");
 </script>
 
 
 <header class="fb__bbs__header">
     <h3 class="title-t ty3 mb-30">공지사항</h3>
-    <%--  게시글 갯수 카운팅 <span class="notice_count">총 ${ph.totalCnt} 개 </span>--%>
+
+    <%--  게시글 갯수 카운팅
+    <span class="notice_count">
+    총 ${ph.totalCnt} 개
+    </span>--%>
     <br>
     <br>
 
 
     <%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
-
     <div class="board-container">
         <div class="search-container">
             <form action="<c:url value="/notice/noticeList"/>" class="search-form">
@@ -43,8 +42,10 @@
                             <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
                             <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
                             <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
-                            <%--   지우면 안되요~         <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
-                        </select><i class="fa-solid fa-caret-down"></i>
+                            <%--<option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
+                        </select>
+                        <%-- 단순 아이콘 --%>
+                        <i class="fa-solid fa-caret-down"></i>
 
 
                         <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text"
@@ -52,14 +53,15 @@
                                placeholder="검색어 입력">
                         <input type="submit" id="btnSearch" class="search-button" value="검색">
                     </div>
-
                 </div>
+
             </form>
 
             <%-- 글쓰기 버튼--%>
-            <%--        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i--%>
-            <%--                class="fa fa-pencil"></i> 글쓰기--%>
-            <%--        </button>--%>
+
+            <%-- <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i--%>
+            <%-- class="fa fa-pencil"></i> 글쓰기--%>
+            <%-- </button>--%>
 
         </div>
 
@@ -77,24 +79,26 @@
             </colgroup>
             <tbody>
             <tr>
-                <%--        <th class="notcNo">번호</th>--%>
-                <%--            <th class="notcTp">분류</th>--%>
+                <%--<th class="notcNo">번호</th>--%>
+                <%--<th class="notcTp">분류</th>--%>
                 <th class="notice-title">제목</th>
                 <th class="regDttm">등록일</th>
-                <%--            <th class="viewCnt">조회수</th>--%>
+                <%--<th class="viewCnt">조회수</th>--%>
             </tr>
 
-
+<%--            list에다가 noticeDTO 내용 순차적으로 싹 담아줌--%>
             <c:forEach var="noticeDto" items="${list}">
                 <tr>
                         <%--글 번호--%>
-                        <%--                <td class="notcNo">${noticeDto.notcNo}</td>--%>
+                        <%--<td class="notcNo">${noticeDto.notcNo}</td>--%>
                         <%--타입--%>
-                        <%--                <td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>--%>
+                        <%--<td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>--%>
+
                         <%--제목--%>
                     <td class="fw-7"><a
                             href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
                     </td>
+
                         <%--등록날짜--%>
                     <c:choose>
                         <c:when test="${noticeDto.regDttm.time >= startOfToday}">
@@ -106,17 +110,19 @@
                                                                            pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-                        <%--조회수--%>
-                        <%--                <td class="viewCnt">${noticeDto.viewCnt}</td>--%>
 
+                        <%--조회수--%>
+                        <%--<td class="viewCnt">${noticeDto.viewCnt}</td>--%>
                 </tr>
             </c:forEach>
+
             </tbody>
         </table>
     </div>
 </div>
 
 <%--페이지 이동 페이지 핸들링--%>
+<%--  << <  1 2 3 4 5 6 7 8 9 10 > >>  --%>
 <br>
 <div id="devPageWrap">
     <div class="wrap-pagination">
