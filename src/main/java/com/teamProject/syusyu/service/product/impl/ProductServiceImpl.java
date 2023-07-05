@@ -5,18 +5,31 @@ import com.teamProject.syusyu.domain.product.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ProductServiceImpl implements com.teamProject.syusyu.service.product.ProductService {
 
     @Autowired
-    private ProductDAO productDAO;
+    ProductDAO productDAO;
 
     @Override
-    public List<ProductDTO> getProductList(int middleNo, int smallNo) throws Exception {
-        return productDAO.getProductList(middleNo, smallNo);
+    public Map<String, Object> getProductList(int middleNo, int smallNo) throws Exception {
+        List<ProductDTO> productList= productDAO.selectProductList(middleNo, smallNo);
+        int prodListTot= productList.size();
+        Map<String, Object> map= new HashMap<>();
+        map.put("productList",productList);
+        map.put("prodListTot",prodListTot);
+        return map;
     }
+
+    @Override
+    public List<ProductDTO> getProductAllList(int middleNo){
+        return productDAO.selectProductAllList(middleNo);
+    }
+
 
 }

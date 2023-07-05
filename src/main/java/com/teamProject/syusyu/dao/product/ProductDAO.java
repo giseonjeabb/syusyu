@@ -5,7 +5,7 @@ import com.teamProject.syusyu.domain.product.ProductDTO;
 import java.util.List;
 
 public interface ProductDAO {
-    List<ProductDTO> getProductList(int middleNo, int smallNo) throws Exception;
+    List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception;
 
-
+    List<ProductDTO> selectProductAllList(int middleNo);
 }

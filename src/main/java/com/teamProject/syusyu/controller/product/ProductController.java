@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProductController {
@@ -20,27 +21,41 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("prodList")
-    public String showPlodList(Model m){
+    @GetMapping("productList")
+    public String getProductList(Integer middleNo, Integer smallNo, Model m){
 
         try{
-            List<CategoryDTO> cateList = categoryService.getCategory(1);
-            m.addAttribute("cateList", cateList);
-            System.out.println(cateList);
 
-            int middleNo=1;
-            int smallNo=1;
+            if(middleNo ==null || smallNo ==null){
+                middleNo=1;
+                smallNo=1;
+            }
+
+            //카테고리 중분류별로 소분류 출력
+            List<CategoryDTO> categoryList = categoryService.getCategoryList(middleNo);
+            m.addAttribute("categoryList", categoryList);
 
 
-            List<ProductDTO> productList=productService.getProductList(middleNo, smallNo);
+            // getProductList(카테고리별 상품리스트)메소드의 반환 값을 Map<String, Object>으로 변경
+            Map<String, Object> productMap = productService.getProductList(middleNo, smallNo);
+
+
+            //카테고리별 상품리스트 조회 및 총갯수를 Map에서 꺼냄
+            List<ProductDTO> productList = (List<ProductDTO>) productMap.get("productList");
+            int prodListTot = (Integer) productMap.get("prodListTot");
             m.addAttribute("productList", productList);
-            System.out.println("-------->"+m);
+            m.addAttribute("prodListTot", prodListTot);
+
+            //카테고리 중분류별 총 상품리스트
+            List<ProductDTO> productAllList = productService.getProductAllList(middleNo);
+            m.addAttribute("productAllList", productAllList);
 
         }catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        return ViewPath.PRODUCT +"prodList";
+        return ViewPath.PRODUCT +"productList";
     }
+
 }

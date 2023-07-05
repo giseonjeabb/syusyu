@@ -16,11 +16,11 @@ public class CategoryDAOImplTest {
 
     @Autowired
     CategoryDAO categoryDAO;
-    @Test
-    public void select() throws Exception{
+    @Test //카테고리 리스트 테스트
+    public void getCategoryList() throws Exception{
         assertTrue(categoryDAO!=null);
         System.out.println("catecoryDAO = "+categoryDAO);
-        CategoryDTO categoryDTO = (CategoryDTO) categoryDAO.getCategory(1);
+        CategoryDTO categoryDTO = (CategoryDTO) categoryDAO.selectCategoryList(1);
         System.out.println("categoryDTO = "+ categoryDTO);
 
     }
