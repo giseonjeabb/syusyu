@@ -2,15 +2,15 @@ package com.teamProject.syusyu.domain.cs;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class SearchCondition {
-    private Integer page = 1;
-    private Integer pageSize = 10;
+public class SearchCondition {  // 페이징에 필요한 클래스
+    private Integer page = 1;   // 페이지
+    private Integer pageSize = 10; // 한번에 보여줄 게시물의 갯수
     //    private Integer offset = 0;
-    private String keyword = "";
-    private String option = "";
+    private String keyword = ""; // 검색어
+    private String option = "";  // 검색 종류
 
 
-    public SearchCondition(){}
+    public SearchCondition() {}
 
     public SearchCondition(Integer page, Integer pageSize) {
         this.page = page;
@@ -24,24 +24,21 @@ public class SearchCondition {
         this.option = option;
     }
 
-    public String getQueryString(){
+    public String getQueryString() {
         return getQueryString(page);
     }
 
 
-    public String getQueryString(Integer page){
+    public String getQueryString(Integer page) {
         //page?=1&pageSize=10&option=T&keyword="title"
         return UriComponentsBuilder.newInstance()
-                .queryParam("page",page)
-                .queryParam("pageSize",pageSize)
-                .queryParam("option",option)
-                .queryParam("keyword",keyword)
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
                 .build().toString();
 
     }
-
-
-
 
 
     public Integer getPage() {
@@ -61,7 +58,7 @@ public class SearchCondition {
     }
 
     public Integer getOffset() {
-        return (page-1) * pageSize;
+        return (page - 1) * pageSize;
     }
 
 //    public void setOffset(Integer offset) {
