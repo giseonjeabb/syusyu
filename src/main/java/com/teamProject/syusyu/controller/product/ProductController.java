@@ -44,7 +44,7 @@ public class ProductController {
         }
 
 
-        return ViewPath.PRODUCT +"prodList";
+        return ViewPath.FOS_PRODUCT +"prodList";
     }
 
     @GetMapping("productStatus")

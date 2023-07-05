@@ -35,7 +35,7 @@ public class CartController {
 
     @GetMapping("/cart")
     public String cartView() {
-        return ViewPath.ORDER + "cart";
+        return ViewPath.FOS_ORDER + "cart";
     }
 
     @GetMapping("/cartList")
@@ -57,7 +57,6 @@ public class CartController {
     @ResponseBody
     public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO) {
         try {
-            // TODO 그냥 올려주면 안 되고 재고수량 확인하고 올려줘야 함
             cartProductDTO.setCartProdNo(cartProdNo);
             service.modify(cartProductDTO);
         } catch (Exception e) {

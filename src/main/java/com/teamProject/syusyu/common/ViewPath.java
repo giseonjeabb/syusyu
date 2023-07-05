@@ -1,14 +1,15 @@
 package com.teamProject.syusyu.common;
 
 public class ViewPath {
-    public static final String MEMBER = ".tiles/fos/member/";
-    public static final String PRODUCT = ".tiles/fos/product/";
-    public static final String ORDER = ".tiles/fos/order/";
-    public static final String CS = ".tiles/fos/cs/";
-    public static final String MYPAGE = ".mypage/fos/cs/mypage/";
-    public static final String HELP = ".help/fos/cs/help/";
+    // FOS
+    public static final String FOS_MEMBER = ".tiles/fos/member/";
+    public static final String FOS_PRODUCT = ".tiles/fos/product/";
+    public static final String FOS_ORDER = ".tiles/fos/order/";
+    public static final String FOS_CS = ".tiles/fos/cs/";
+    public static final String FOS_MYPAGE = ".mypage/fos/cs/mypage/";
+    public static final String FOS_HELP = ".help/fos/cs/help/";
 
-    //  bos
+    //  BOS
     public static final String BOS_MEMBER = ".dashboard/bos/member/";
     public static final String BOS_PRODUCT = ".dashboard/bos/product/";
     public static final String BOS_ORDER = ".dashboard/bos/order/";
