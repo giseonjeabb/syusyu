@@ -35,6 +35,7 @@ public class NoticeController {
         int writer = (int) session.getAttribute("id");
         noticeDto.setRegrId(writer);
 //        memberDto.setLginId(writer);
+
         try {
             int rowCnt = noticeService.modify(noticeDto);
 
