@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.teamProject.syusyu.FaqMapper">
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM faq
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM faq
+    </delete>
+
+    <delete id="deleteFaq" parameterType="map">
+        DELETE
+        FROM faq
+        WHERE FAQ_NO = #{faqNo} and REGR_ID = #{regrId}
+    </delete>
+
+    <insert id="insertFaq" parameterType="FaqDTO">
+        INSERT INTO faq (FAQ_TP, TITLE, CONTENT, REGR_ID)
+        VALUES (#{faqTp}, #{title}, #{content}, #{regrId})
+    </insert>
+
+    <select id="selectAll" resultType="FaqDTO">
+        SELECT FAQ_NO, FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM
+        FROM faq
+        ORDER BY REG_DTTM DESC, NOTC_NO DESC
+    </select>
+
+    <sql id="selectFromFaq">
+        SELECT FAQ_NO, TITLE, CONTENT, REGR_ID,  REG_DTTM
+        FROM faq
+    </sql>
+
+    <select id="selectFaq" parameterType="int" resultType="FaqDTO">
+        SELECT FAQ_NO, TITLE, CONTENT, REGR_ID, REG_DTTM
+        from faq
+        WHERE FAQ_NO = #{faqNo}
+    </select>
+
+
+
+    <!--    <select id="selectPage" parameterType="map" resultType="FaqDTO">-->
+    <!--        <include refid="selectFromFaq"/>-->
+    <!--        ORDER BY reg_date DESC, bno DESC-->
+    <!--        LIMIT #{offset}, #{pageSize}-->
+    <!--    </select>-->
+
+    <select id="selectPageFaq" parameterType="map" resultType="FaqDTO">
+        SELECT FAQ_NO , FAQ_TP ,TITLE , CONTENT , REG_DTTM
+        FROM faq
+        ORDER BY REG_DTTM DESC, FAQ_NO DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="updateFaq" parameterType="FaqDTO">
+        UPDATE faq
+        SET   TITLE = #{title}
+          , CONTENT = #{content}
+          , UPD_DTTM = now()
+        WHERE FAQ_NO = #{faqNo} and REGR_ID = #{regrId}
+    </update>
+
+    <!--    코멘트 필요없어서 일단 주석 처리함 나중에 리뷰에서 써야지-->
+    <!--    <update id="updateCommentCnt" parameterType="map">-->
+    <!--        UPDATE notice-->
+    <!--        SET   comment_cnt = comment_cnt + #{cnt}-->
+    <!--        WHERE bno = #{bno}-->
+    <!--    </update>-->
+
+<!--    <update id="increaseViewCntFaq" parameterType="int">-->
+<!--        UPDATE faq-->
+<!--        SET   VIEW_CNT = VIEW_CNT + 1-->
+<!--        WHERE FAQ_NO = #{faqNo}-->
+<!--    </update>-->
+
+
+<!--    <sql id="searchConditionFaq">-->
+<!--        <choose>-->
+<!--            <when test='option=="T"'>-->
+<!--                AND TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            </when>-->
+<!--            <when test='option=="W"'>-->
+<!--                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            </when>-->
+<!--            <when test='option=="C"'>-->
+<!--                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+<!--    </sql>-->
+
+    <sql id="searchConditionFaq">
+                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+    </sql>
+
+
+    <select id="searchSelectPageFaq" parameterType="SearchCondition" resultType="FaqDTO">
+        SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM
+        FROM faq
+        WHERE TRUE
+        <include refid="searchConditionFaq" />
+        ORDER BY REG_DTTM DESC, FAQ_NO DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCntFaq" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM faq
+        WHERE TRUE
+        <include refid="searchConditionFaq" />
+    </select>
+
+
+    <select id="selectPrevFaq" parameterType="int" resultType="FaqDTO">
+        SELECT FAQ_NO , TITLE
+        FROM faq
+        WHERE FAQ_NO = #{faqNo} - 1
+    </select>
+
+    <select id="selectNextFaq" parameterType="int" resultType="FaqDTO">
+        select FAQ_NO , TITLE
+        from faq
+        where FAQ_NO = #{faqNo} + 1
+    </select>
+
+
+</mapper>

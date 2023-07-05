@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.service.cs;
 
-import com.teamProject.syusyu.domain.cs.NoticeDto;
+import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 
 import java.util.List;
@@ -11,22 +11,22 @@ public interface NoticeService {
 
     int remove(Integer notcNo, String writer) throws Exception;
 
-    int write(NoticeDto noticeDto) throws Exception;
+    int write(NoticeDTO noticeDto) throws Exception;
 
-    List<NoticeDto> getList() throws Exception;
+    List<NoticeDTO> getList() throws Exception;
 
-    NoticeDto read(Integer notcNo) throws Exception;
+    NoticeDTO read(Integer notcNo) throws Exception;
 
 
-    List<NoticeDto> getPage(Map map) throws Exception;
+    List<NoticeDTO> getPage(Map map) throws Exception;
 
-    int modify(NoticeDto noticeDto) throws Exception;
+    int modify(NoticeDTO noticeDto) throws Exception;
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
-    List<NoticeDto> getSearchResultPage(SearchCondition sc) throws Exception;
+    List<NoticeDTO> getSearchResultPage(SearchCondition sc) throws Exception;
 
-    NoticeDto getPrevTitle(Integer notcNo)throws Exception;
+    NoticeDTO getPrevTitle(Integer notcNo) throws Exception;
 
-    NoticeDto getNextTitle(Integer notcNo) throws Exception;
+    NoticeDTO getNextTitle(Integer notcNo) throws Exception;
 }

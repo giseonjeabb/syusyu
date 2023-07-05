@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.service.cs.impl;
 
-import com.teamProject.syusyu.dao.cs.impl.NoticeDao;
-import com.teamProject.syusyu.domain.cs.NoticeDto;
+import com.teamProject.syusyu.dao.cs.NoticeDAO;
+import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import com.teamProject.syusyu.service.cs.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +13,20 @@ import java.util.Map;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-    NoticeDao noticeDao;
+    NoticeDAO noticeDao;
 
     @Autowired
-    public NoticeServiceImpl(NoticeDao noticeDao) {
+    public NoticeServiceImpl(NoticeDAO noticeDao) {
         this.noticeDao = noticeDao;
     }
 
     @Override
-    public List<NoticeDto> getSearchResultPage(SearchCondition sc)throws Exception{
+    public List<NoticeDTO> getSearchResultPage(SearchCondition sc) throws Exception {
         return noticeDao.searchSelectPage(sc);
     }
 
     @Override
-    public int getSearchResultCnt(SearchCondition sc)throws Exception{
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
         return noticeDao.searchResultCnt(sc);
     }
 
@@ -42,20 +42,20 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public int write(NoticeDto noticeDto) throws Exception {
+    public int write(NoticeDTO noticeDto) throws Exception {
         return noticeDao.insert(noticeDto);
     }
 
     @Override
-    public List<NoticeDto> getList() throws Exception {
+    public List<NoticeDTO> getList() throws Exception {
         System.out.println("NoticeServiceImpl.getList");
         return noticeDao.selectAll();
 
-          }
+    }
 
     @Override
-    public NoticeDto read(Integer notcNo) throws Exception {
-        NoticeDto noticeDto = noticeDao.select(notcNo);
+    public NoticeDTO read(Integer notcNo) throws Exception {
+        NoticeDTO noticeDto = noticeDao.select(notcNo);
         noticeDao.increaseViewCnt(notcNo);
 
         return noticeDto;
@@ -63,21 +63,21 @@ public class NoticeServiceImpl implements NoticeService {
 
 
     @Override
-    public List<NoticeDto> getPage(Map map) throws Exception {
+    public List<NoticeDTO> getPage(Map map) throws Exception {
         return noticeDao.selectPage(map);
     }
 
     @Override
-    public int modify(NoticeDto noticeDto) throws Exception {
+    public int modify(NoticeDTO noticeDto) throws Exception {
         return noticeDao.update(noticeDto);
     }
 
     @Override
-   public NoticeDto getPrevTitle(Integer notcNo)throws Exception{
+    public NoticeDTO getPrevTitle(Integer notcNo) throws Exception {
         return noticeDao.selectPrev(notcNo);
     }
 
-    public NoticeDto getNextTitle(Integer notcNo)throws Exception{
+    public NoticeDTO getNextTitle(Integer notcNo) throws Exception {
         return noticeDao.selectNext(notcNo);
     }
 }
