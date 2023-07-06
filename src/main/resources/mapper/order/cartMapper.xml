@@ -4,11 +4,11 @@
 
 <mapper namespace="com.teamProject.syusyu.cartMapper">
     <insert id="insert" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
-        INSERT INTO cart_prod ( CART_ID
-                              , PROD_ID
-                              , QTY
-                              , OPT_COMB_NO
-                              , REGR_ID)
+        INSERT INTO cart_prod ( CART_ID     # 회원장바구니번호
+                              , PROD_ID     # 상품아이디
+                              , QTY         # 수량
+                              , OPT_COMB_NO # 옵션조합번호
+                              , REGR_ID)    # 등록자
         VALUES ( #{cartId}
                , #{prodId}
                , #{qty}
@@ -16,30 +16,33 @@
                , #{regrId})
     </insert>
 
+    <!-- 장바구니 리스트를 가져오는 쿼리. 장바구니 내의 상품 정보와 금액 정보를 가져온다.
+    각 상품의 금액, 할인 금액, 할인 적용 금액 등을 계산한다.
+    또한, 각 상품의 옵션 정보를 조합하여 가져온다. -->
     <select id="selectAll" parameterType="int" resultType="CartProductDTO">
         SELECT T.*
              , (PRICE + OPT_PRC) * QTY      AS TOT_PRC        # 총 상품금액
              , OPT_PRC * QTY                AS TOT_OPT_PRC    # 총 옵션가
              , DC_PRC * QTY                 AS TOT_DC_PRC     # 총 할인금액
              , (DC_APL_PRC + OPT_PRC) * QTY AS TOT_DC_APL_PRC # 총 할인적용금액
-        FROM (SELECT CP.CART_ID
-                   , CP.CART_PROD_NO
-                   , P.PROD_ID
-                   , P.PROD_NM
-                   , CP.QTY
-                   , P.PRICE
+        FROM (SELECT CP.CART_ID                                         # 회원장바구니번호
+                   , CP.CART_PROD_NO                                    # 장바구니상품번호
+                   , P.PROD_ID                                          # 상품아이디
+                   , P.PROD_NM                                          # 상품명
+                   , CP.QTY                                             # 장바구니에 담긴 상품의 수량
+                   , P.PRICE                                            # 상품가격
                    , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
                    , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
-                   , CP.OPT_COMB_NO
+                   , CP.OPT_COMB_NO                                     # 옵션조합번호(고객이 선택한 옵션)
                    , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                       FROM OPT_GRP OG
                                JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
                                JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
-                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT
-                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC
-                   , PO.INV_QTY
-                   , P.REP_IMG
-                   , CP.REGR_ID
+                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT        # 옵션
+                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC    # 옵션가
+                   , PO.INV_QTY                                         # 재고수량
+                   , P.REP_IMG                                          # 상품대표이미지
+                   , CP.REGR_ID                                         # 등록자
               FROM CART_PROD CP
                        JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
                        LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
@@ -64,7 +67,7 @@
           , DELR_ID = #{delrId}
         WHERE CART_PROD_NO IN
         <foreach collection="cartProdNo" item="cartProdNo" open="(" close=")" separator=",">
-            #{cartProdNo}
+            #{cartProdNo}바
         </foreach>
     </update>
 
@@ -72,29 +75,4 @@
         UPDATE CART_PROD
         SET DEL_YN = 'Y'
     </update>
-
-    <select id="selectCartTotal" parameterType="int" resultType="CartTotalDTO">
-        SELECT SUM(A_PRICE)                                                AS CART_TOT_PRC        # 총 상품금액
-             , SUM(A_DC_PRC)                                               AS CART_TOT_DC_PRC     # 총 할인금액
-             , SUM(A_DC_APL_PRC)                                           AS CART_TOT_DC_APL_PRC # 총 할인적용상품금액
-             , IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000)                     AS DLV_FEE             # 배송비
-             , SUM(A_DC_APL_PRC) + IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000) AS CART_PAY_AMT        # 결제예상금액(총 상품금액 - 총 할인금액 + 배송비)
-        FROM (SELECT (PRICE + OPT_PRC) * QTY      AS A_PRICE
-                   , DC_PRC * QTY                 AS A_DC_PRC
-                   , (DC_APL_PRC + OPT_PRC) * QTY AS A_DC_APL_PRC
-              FROM (SELECT P.PRICE                                            # 상품금액
-                         , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
-                         , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
-                         , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC    # 옵션가
-                         , CP.QTY
-                    FROM CART_PROD CP
-                             JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
-                             LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
-                    WHERE CP.DEL_YN = 'N'
-                      AND CP.CART_ID = (SELECT CART_ID
-                                        FROM CART
-                                        WHERE MBR_CD = #{mbrId})) T) A
-    </select>
-
-
 </mapper>
