@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.domain.order;
 
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CartProdDTO {
@@ -12,20 +13,30 @@ public class CartProdDTO {
     private int salePrc;
     private Integer optCombNo;
     private String opt;
-    private int optPrc;
-    private int totOptPrc;
     private int totPrc;
+    private int totOptPrc;
+    private int totDcPrc;
     private int totDcAplPrc;
     private int invQty;
     private String repImg;
     private int regrId;
+    private LocalDateTime regDttm;
+    private Integer updrId;
+    private LocalDateTime updDttm;
+    private Integer delrId;
+    private LocalDateTime delDttm;
 
-    public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId) {
+    public CartProdDTO() {
+    }
+
+    public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId, Integer updrId, Integer delrId) {
         this.cartId = cartId;
         this.prodId = prodId;
         this.qty = qty;
         this.optCombNo = optCombNo;
         this.regrId = regrId;
+        this.updrId = updrId;
+        this.delrId = delrId;
     }
 
     @Override
@@ -33,15 +44,13 @@ public class CartProdDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProdDTO that = (CartProdDTO) o;
-        return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo);
+        return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && updrId == that.updrId && Objects.equals(optCombNo, that.optCombNo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, prodId, qty, optCombNo, regrId);
+        return Objects.hash(cartId, prodId, qty, optCombNo, regrId, updrId);
     }
-
-    public CartProdDTO() {}
 
     public int getCartProdNo() {
         return cartProdNo;
@@ -107,14 +116,6 @@ public class CartProdDTO {
         this.opt = opt;
     }
 
-    public int getOptPrc() {
-        return optPrc;
-    }
-
-    public void setOptPrc(int optPrc) {
-        this.optPrc = optPrc;
-    }
-
     public int getTotOptPrc() {
         return totOptPrc;
     }
@@ -163,9 +164,49 @@ public class CartProdDTO {
         this.regrId = regrId;
     }
 
+    public Integer getUpdrId() {
+        return updrId;
+    }
+
+    public void setUpdrId(Integer updrId) {
+        this.updrId = updrId;
+    }
+
+    public Integer getDelrId() {
+        return delrId;
+    }
+
+    public void setDelrId(Integer delrId) {
+        this.delrId = delrId;
+    }
+
+    public LocalDateTime getRegDttm() {
+        return regDttm;
+    }
+
+    public void setRegDttm(LocalDateTime regDttm) {
+        this.regDttm = regDttm;
+    }
+
+    public LocalDateTime getUpdDttm() {
+        return updDttm;
+    }
+
+    public void setUpdDttm(LocalDateTime updDttm) {
+        this.updDttm = updDttm;
+    }
+
+    public LocalDateTime getDelDttm() {
+        return delDttm;
+    }
+
+    public void setDelDttm(LocalDateTime delDttm) {
+        this.delDttm = delDttm;
+    }
+
     @Override
     public String toString() {
-        return "CartProductDTO{" +
+        return "CartProdDTO{" +
                 "cartProdNo=" + cartProdNo +
                 ", cartId=" + cartId +
                 ", prodId=" + prodId +
@@ -174,13 +215,26 @@ public class CartProdDTO {
                 ", salePrc=" + salePrc +
                 ", optCombNo=" + optCombNo +
                 ", opt='" + opt + '\'' +
-                ", optPrc=" + optPrc +
-                ", totOptPrc=" + totOptPrc +
                 ", totPrc=" + totPrc +
+                ", totOptPrc=" + totOptPrc +
+                ", totDcPrc=" + totDcPrc +
                 ", totDcAplPrc=" + totDcAplPrc +
                 ", invQty=" + invQty +
                 ", repImg='" + repImg + '\'' +
                 ", regrId=" + regrId +
+                ", regDttm=" + regDttm +
+                ", updrId=" + updrId +
+                ", updDttm=" + updDttm +
+                ", delrId=" + delrId +
+                ", delDttm=" + delDttm +
                 '}';
+    }
+
+    public int getTotDcPrc() {
+        return totDcPrc;
+    }
+
+    public void setTotDcPrc(int totDcPrc) {
+        this.totDcPrc = totDcPrc;
     }
 }

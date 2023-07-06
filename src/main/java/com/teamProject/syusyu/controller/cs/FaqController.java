@@ -61,7 +61,7 @@ public class FaqController {
             m.addAttribute("totalCnt", 0);
         }
 
-        return ViewPath.MYPAGE+"faqList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+        return ViewPath.FOS_MYPAGE +"faqList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
 
     }
 

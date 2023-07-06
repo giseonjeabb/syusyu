@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,10 +26,6 @@ public class NoticeController {
 
     @Autowired
     NoticeService noticeService;
-
-    @Autowired
-    NoticeDAO noticeDao;
-
 
     // List/read?page=?&pageSize=?
     // 공지사항 글 읽기
@@ -53,7 +51,7 @@ public class NoticeController {
             e.printStackTrace();
         }
 
-        return ViewPath.MYPAGE+"notice";
+        return ViewPath.FOS_MYPAGE+"notice";
         // ViewPath : public static final String MYPAGE = ".mypage/fos/cs/mypage/";
 
     }
@@ -61,9 +59,6 @@ public class NoticeController {
     // 공지사항 전체 목록 보기
     @GetMapping("/noticeList")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
-        // 로그인을 안했으면 로그인 화면으로 이동
-        if (!loginCheck(request))
-            return "redirect:/login/login?toURL=" + request.getRequestURL();
 
         try {
             // 페이지 핸들러  << < 1,2,3,4,5,6,7,8,9,10 > >>
@@ -88,16 +83,7 @@ public class NoticeController {
             m.addAttribute("totalCnt", 0);
         }
 
-        return ViewPath.MYPAGE+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+        return ViewPath.FOS_MYPAGE+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
         // ViewPath : public static final String MYPAGE = ".mypage/fos/cs/mypage/";
     }
-
-    private boolean loginCheck(HttpServletRequest request) {
-        // 1. 세션을 얻어서
-        HttpSession session = request.getSession();
-        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-        return session.getAttribute("id") != null;
-    }
-
-
 }

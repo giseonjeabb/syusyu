@@ -5,5 +5,5 @@ import com.teamProject.syusyu.domain.product.CategoryDTO;
 import java.util.List;
 
 public interface CategoryService {
-    List<CategoryDTO> getCategory(int middleNo) throws Exception;
+    List<CategoryDTO> getCategoryList(int middleNo) throws Exception;
 }

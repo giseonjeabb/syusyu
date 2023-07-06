@@ -5,5 +5,5 @@ import com.teamProject.syusyu.domain.product.CategoryDTO;
 import java.util.List;
 
 public interface CategoryDAO {
-    List<CategoryDTO> getCategory(int middleNo);
+    List<CategoryDTO> selectCategoryList(int middleNo);
 }

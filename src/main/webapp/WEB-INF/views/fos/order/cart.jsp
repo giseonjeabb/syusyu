@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <head>
-    <script src="<c:url value="${jsUrlFos}/order/cart.js"/>"></script>
+    <script src="<c:url value="${jsUrlFos}/order/cart.js?dd"/>"></script>
 </head>
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
@@ -24,7 +24,7 @@
             <div class="all-option-box">
                 <div class="chkbox">
                     <label>
-                        <input type="checkbox" class="chk-all" >
+                        <input type="checkbox" name="chk" class="chk-all" >
                         <span class="text fw-7">전체선택</span>
                     </label>
                 </div>

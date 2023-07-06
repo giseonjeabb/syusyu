@@ -3,35 +3,89 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.productMapper">
-    <select id="getProductList" parameterType="map" resultType="ProductDTO">
-        SELECT P.PROD_ID,
-               P.CATE_ID,
-               PC.MIDDLE_NM,
-               PC.SMALL_NM,
-               P.PROD_NM,
-               P.MODEL_NM,
-               P.BRND_ID,
-               B.BRND_NM,
-               P.PRICE,
-               P.DC_PER,
-               P.REP_IMG,
-               P.STATUS,
-               P.SALE_ST_DTTM,
-               P.SALE_ED_DTTM,
-               P.DC_ST_DTTM,
-               P.DC_ED_DTTM,
-               P.REG_DTTM,
-               P.REGR_ID,
-               P.DEL_YN
+    <!--카테고리별 상품 리스트 출력    -->
+    <select id="selectProductList" parameterType="map" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.CATE_ID
+             , C.MIDDLE_NO
+             , C.MIDDLE_NM
+             , C.SMALL_NO
+             , C.SMALL_NM
+             , P.PROD_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , B.BRND_NM
+             , P.PRICE
+             , P.DC_PER
+             , TRUNCATE(P.PRICE - (P.PRICE * (P.DC_PER / 100)), -1) AS DC_PRC
+             , P.REP_IMG
+             , P.STATUS
+             , P.SALE_ST_DTTM
+             , P.SALE_ED_DTTM
+             , P.DC_ST_DTTM
+             , P.DC_ED_DTTM
+             , P.REG_DTTM
+             , P.REGR_ID
+             , P.DEL_YN
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                     AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                          AS REVW_CNT
         FROM PRODUCT P
-                 JOIN PROD_CATE PC ON P.CATE_ID = PC.CATE_ID
+                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
                  JOIN BRAND B ON P.BRND_ID = B.BRND_ID
-        WHERE STATUS = 601
+                 LEFT JOIN (SELECT prod_id,
+                                   ROUND(AVG(STAR_RATING), 1)  AS AVG_STAR_RATING,
+                                   COUNT(REVW_NO) AS REVW_CNT
+                            FROM review
+                            GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
+        WHERE P.STATUS = 601       /* 판매중 */
           AND P.DEL_YN = 'N'
-          AND (PC.MIDDLE_NM, PC.SMALL_NM) IN (SELECT MIDDLE_NM, SMALL_NM
-                                              FROM prod_cate
-                                              WHERE MIDDLE_NO = #{middleNo}
-                                                AND PC.SMALL_NO = #{smallNo})
+          AND (C.MIDDLE_NM, C.SMALL_NM) IN (SELECT MIDDLE_NM,
+                                                   SMALL_NM
+                                            FROM CATEGORY SC
+                                            WHERE MIDDLE_NO = #{middleNo}
+                                              AND SMALL_NO = #{smallNo})
+
+    </select>
+    <!--중분류에 따른 전체 상품 리스트-->
+    <select id="selectProductAllList" parameterType="int" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.CATE_ID
+             , C.MIDDLE_NO
+             , C.MIDDLE_NM
+             , C.SMALL_NO
+             , C.SMALL_NM
+             , P.PROD_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , B.BRND_NM
+             , P.PRICE
+             , P.DC_PER
+             , TRUNCATE(P.PRICE - (P.PRICE * (P.DC_PER / 100)), -1) AS DC_PRC
+             , P.REP_IMG
+             , P.STATUS
+             , P.SALE_ST_DTTM
+             , P.SALE_ED_DTTM
+             , COALESCE(P.DC_ST_DTTM, '-')                          AS DC_ST_DTTM
+             , COALESCE(P.DC_ED_DTTM, '-')                          AS DC_ED_DTTM
+             , P.REG_DTTM
+             , P.REGR_ID
+             , P.DEL_YN
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                     AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                            AS REVW_CNT
+        FROM PRODUCT P
+                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 LEFT JOIN (SELECT prod_id,
+                                   ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
+                                   COUNT(REVW_NO)             AS REVW_CNT
+                            FROM review
+                            GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
+        WHERE P.STATUS = 601
+          AND P.DEL_YN = 'N'
+          AND (C.MIDDLE_NM, C.SMALL_NM) IN (SELECT MIDDLE_NM,
+                                                   SMALL_NM
+                                            FROM CATEGORY SC
+                                            WHERE MIDDLE_NO = #{middleNo})
     </select>
 
     <select id="selectProductStatus" parameterType="int" resultType="ProductDTO">

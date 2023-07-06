@@ -1,10 +1,7 @@
 package com.teamProject.syusyu.service.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
-import com.teamProject.syusyu.dao.product.ProductDAO;
-import com.teamProject.syusyu.domain.order.CartInfoDTO;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
-import com.teamProject.syusyu.domain.order.CartTotalDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +23,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartInfoDTO getCartInfo(int mbrId) throws Exception {
-        List<CartProdDTO> cartProductList = cartProdDAO.select(mbrId);
-        CartTotalDTO cartTotal = cartProdDAO.selectCartTotal(mbrId);
-
-        return new CartInfoDTO(cartProductList, cartTotal);
+    public List<CartProdDTO> getCartInfo(int mbrId) throws Exception {
+        return cartProdDAO.selectAll(mbrId);
     }
 
     @Override
@@ -39,7 +33,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int remove(int[] cartProdId) throws Exception {
-        return cartProdDAO.delete(cartProdId);
+    public int remove(int[] cartProdNo, int delrId) throws Exception {
+        return cartProdDAO.delete(cartProdNo, delrId);
     }
 }
