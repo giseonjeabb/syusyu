@@ -86,7 +86,7 @@ public class FaqController {
             e.printStackTrace();
         }
 
-        return ViewPath.MYPAGE+"faq";
+        return ViewPath.FOS_MYPAGE+"faq";
 
     }
 
