@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true"%>
@@ -8,16 +9,15 @@
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
     <%-- JS 파일 주입--%>
-        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-        <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"defer></script>
+    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"></script>
 
 </head>
 
 
         <script>
-            let msg = ${msg};
-            if(msg == "Write_Error") alert("글 등록 실패 했습니다.");
-            if(msg == "Modify_Error") alert("글 수정 실패 했습니다.");
+            let msg = "${msg}";
+            if(msg == "WRT_ERR") alert("글 등록 실패 했습니다.");
+            if(msg == "MOD_ERR") alert("글 수정 실패 했습니다.");
         </script>
 
 <div class="container">
@@ -54,6 +54,7 @@
             </c:if>
         </li>
 
+
 <br>
 <%--        이전글 :  이전글 제목--%>
 <%--        이전글이 없다면 emptyprevTitle--%>
@@ -70,7 +71,7 @@
     </ul>
     </nav>
 
-<%--        < 버튼- 등록 수정 삭제>--%>
+<%--        < 버튼- 등록 수정 삭제> 다른 게시판에서 사용예정--%>
 <%--        <c:if test="${mode eq 'new'}">--%>
 <%--            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>--%>
 <%--        </c:if>--%>
@@ -87,7 +88,6 @@
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>
 </div>
-
 
 
 

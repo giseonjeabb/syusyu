@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teamProject.syusyu.MemberMapper">
+<mapper namespace="com.teamProject.syusyu.memberMapper">
     <!--
     로그인 체크를 한다.
-    매개변수 : MemberDto
+    매개변수 : MemberDTO
     반화타입 : int
      -->
-    <select id="loginCheck" parameterType="MemberDto" resultType="int">
-        SELECT COUNT(*)
+    <select id="loginCheck" parameterType="MemberDTO" resultType="MemberDTO">
+        SELECT *
         FROM MEMBER
         WHERE LGIN_ID = #{lginId}
           AND LGIN_PWD = #{lginPwd};
     </select>
 
-    <insert id="memberInsert" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="mbrId">
+    <insert id="memberInsert" parameterType="MemberDTO" useGeneratedKeys="true" keyProperty="mbrId">
         INSERT INTO member ( LGIN_ID
                            , LGIN_PWD
                            , NAME
@@ -28,7 +28,7 @@
                , #{role})
     </insert>
 
-    <insert id="memberInfoInsert" parameterType="MemberDto">
+    <insert id="memberInfoInsert" parameterType="MemberDTO">
         INSERT INTO mbr_info ( MBR_ID
                              , SHOE_SIZE
                              , MP_NO

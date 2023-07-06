@@ -8,17 +8,17 @@ public class MemberValidator implements Validator {
     @Override
     // 이 검증기로 검증 가능한 객체인지 알려주는 메서드
     public boolean supports(Class<?> aClass) {
-        return MemberDto.class.equals(aClass);
+        return MemberDTO.class.equals(aClass);
     }
 
     @Override
     // 객체를 검증하는 메서드 - target : 검증할 객체, errors : 검증 시 발생한 에러 저장소
     public void validate(Object target, Errors errors) {
-        System.out.println("MemberDtoValidator.validate() is called");
-        MemberDto memberDto = (MemberDto) target;
-        String id = memberDto.getLginId();
+        System.out.println("MemberDTOValidator.validate() is called");
+        MemberDTO memberDTO = (MemberDTO) target;
+        String id = memberDTO.getLginId();
 
-        // MemberDto객체를 검증한다는 건 이런 것. id가 null인지, 빈문자열인지 검증
+        // MemberDTO객체를 검증한다는 건 이런 것. id가 null인지, 빈문자열인지 검증
         if (id == null || "".equals(id.trim())) {
             errors.rejectValue("id", "required"); // 필수 값인데 저장 안 했다고 에러를 저장
         }

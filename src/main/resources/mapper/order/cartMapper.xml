@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.cartMapper">
+    <insert id="insert" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+        INSERT INTO cart_prod ( CART_ID
+                              , PROD_ID
+                              , QTY
+                              , OPT_COMB_NO
+                              , REGR_ID)
+        VALUES ( #{cartId}
+               , #{prodId}
+               , #{qty}
+               , #{optCombNo}
+               , #{regrId})
+    </insert>
+
+    <select id="select" parameterType="int" resultType="CartProductDTO">
+        SELECT T.*
+             , T.OPT_PRC * T.QTY              AS TOT_OPT_PRC
+             , (T.PRICE + T.OPT_PRC) * T.QTY  AS TOT_PRC
+             , (T.DC_PRC + T.OPT_PRC) * T.QTY AS TOT_DC_APL_PRC
+        FROM (SELECT CP.CART_ID
+                   , CP.CART_PROD_NO
+                   , P.PROD_ID
+                   , P.PROD_NM
+                   , CP.QTY
+                   , P.PRICE
+                   , P.PRICE - (P.PRICE * (DC_PER / 100))                           AS DC_PRC
+                   , CP.OPT_COMB_NO
+                   , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                      FROM OPT_GRP OG
+                               JOIN OPT_ITEM OI ON OI.OPT_GRP_ID = OG.OPT_GRP_ID
+                      WHERE OI.OPT_ITEM_ID IN (SELECT OPT_ITEM_ID
+                                               FROM PROD_OPT_COMB
+                                               WHERE OPT_COMB_NO = CP.OPT_COMB_NO)) AS OPT
+                   , IFNULL(PO.OPT_PRC, 0)                                          AS OPT_PRC
+                   , PO.INV_QTY
+                   , P.REP_IMG
+                   , CP.REGR_ID
+              FROM CART_PROD CP
+                       JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
+                       LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
+              WHERE CP.DEL_YN = 'N'
+                AND CP.CART_ID = (SELECT CART_ID
+                                  FROM CART
+                                  WHERE MBR_CD = #{mbrId})) AS T
+    </select>
+
+    <update id="update" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+        UPDATE CART_PROD
+        SET QTY = #{qty}
+        WHERE CART_PROD_NO = #{cartProdNo}
+    </update>
+
+    <update id="delete" parameterType="int">
+        UPDATE CART_PROD
+        SET DEL_YN = 'Y'
+        WHERE CART_PROD_NO IN
+        <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
+            #{cartProdNo}
+        </foreach>
+    </update>
+
+    <update id="deleteAll">
+        UPDATE CART_PROD
+        SET DEL_YN = 'Y'
+    </update>
+
+    <select id="selectCartTotal" parameterType="int" resultType="CartTotalDTO">
+        SELECT SUM(A_PRICE)                                                AS CART_TOT_PRC        # 총 상품금액
+             , SUM(A_DC_PRC)                                               AS CART_TOT_DC_PRC     # 총 할인금액
+             , SUM(A_DC_APL_PRC)                                           AS CART_TOT_DC_APL_PRC # 총 할인적용상품금액
+             , IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000)                     AS DLV_FEE             # 배송비
+             , SUM(A_DC_APL_PRC) + IF(SUM(A_DC_APL_PRC) >= 50000, 0, 3000) AS CART_PAY_AMT        # 결제예상금액(총 상품금액 - 총 할인금액 + 배송비)
+        FROM (SELECT (PRICE + OPT_PRC) * QTY      AS A_PRICE
+                   , DC_PRC * QTY                 AS A_DC_PRC
+                   , (DC_APL_PRC + OPT_PRC) * QTY AS A_DC_APL_PRC
+              FROM (SELECT P.PRICE                                            # 상품금액
+                         , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
+                         , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
+                         , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC    # 옵션가
+                         , CP.QTY
+                    FROM CART_PROD CP
+                             JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
+                             LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
+                    WHERE CP.DEL_YN = 'N'
+                      AND CP.CART_ID = (SELECT CART_ID
+                                        FROM CART
+                                        WHERE MBR_CD = #{mbrId})) T) A
+    </select>
+
+
+</mapper>

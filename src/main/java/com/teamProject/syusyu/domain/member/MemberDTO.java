@@ -3,7 +3,7 @@ package com.teamProject.syusyu.domain.member;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class MemberDto {
+public class MemberDTO {
     // member 테이블의 컬럼
     private Integer mbrId;
     private String lginId;
@@ -33,9 +33,9 @@ public class MemberDto {
     private String zzzMbrYn;
     private LocalDateTime zzzProcDttm;
 
-    public MemberDto() { }
+    public MemberDTO() { }
 
-    public MemberDto(String lginId, String lginPwd, String name, String email, String role, Integer shoeSize, String mpNo, String birth, String sex) {
+    public MemberDTO(String lginId, String lginPwd, String name, String email, String role, Integer shoeSize, String mpNo, String birth, String sex) {
         this.lginId = lginId;
         this.lginPwd = lginPwd;
         this.name = name;
@@ -51,8 +51,8 @@ public class MemberDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MemberDto memberDto = (MemberDto) o;
-        return totPnt == memberDto.totPnt && Objects.equals(mbrId, memberDto.mbrId) && Objects.equals(lginId, memberDto.lginId) && Objects.equals(lginPwd, memberDto.lginPwd) && Objects.equals(name, memberDto.name) && Objects.equals(email, memberDto.email) && Objects.equals(role, memberDto.role) && Objects.equals(nickNm, memberDto.nickNm) && Objects.equals(profPic, memberDto.profPic) && Objects.equals(height, memberDto.height) && Objects.equals(shoeSize, memberDto.shoeSize) && Objects.equals(mpNo, memberDto.mpNo) && Objects.equals(birth, memberDto.birth) && Objects.equals(sex, memberDto.sex) && Objects.equals(grdCd, memberDto.grdCd) && Objects.equals(adSmsYn, memberDto.adSmsYn) && Objects.equals(adEmailYn, memberDto.adEmailYn) && Objects.equals(agrePsnlInfoYn, memberDto.agrePsnlInfoYn) && Objects.equals(agre3rdOfrYn, memberDto.agre3rdOfrYn) && Objects.equals(zzzMbrYn, memberDto.zzzMbrYn) && Objects.equals(zzzProcDttm, memberDto.zzzProcDttm);
+        MemberDTO memberDTO = (MemberDTO) o;
+        return totPnt == memberDTO.totPnt && Objects.equals(mbrId, memberDTO.mbrId) && Objects.equals(lginId, memberDTO.lginId) && Objects.equals(lginPwd, memberDTO.lginPwd) && Objects.equals(name, memberDTO.name) && Objects.equals(email, memberDTO.email) && Objects.equals(role, memberDTO.role) && Objects.equals(nickNm, memberDTO.nickNm) && Objects.equals(profPic, memberDTO.profPic) && Objects.equals(height, memberDTO.height) && Objects.equals(shoeSize, memberDTO.shoeSize) && Objects.equals(mpNo, memberDTO.mpNo) && Objects.equals(birth, memberDTO.birth) && Objects.equals(sex, memberDTO.sex) && Objects.equals(grdCd, memberDTO.grdCd) && Objects.equals(adSmsYn, memberDTO.adSmsYn) && Objects.equals(adEmailYn, memberDTO.adEmailYn) && Objects.equals(agrePsnlInfoYn, memberDTO.agrePsnlInfoYn) && Objects.equals(agre3rdOfrYn, memberDTO.agre3rdOfrYn) && Objects.equals(zzzMbrYn, memberDTO.zzzMbrYn) && Objects.equals(zzzProcDttm, memberDTO.zzzProcDttm);
     }
 
     @Override
@@ -262,7 +262,7 @@ public class MemberDto {
 
     @Override
     public String toString() {
-        return "MemberDto{" +
+        return "MemberDTO{" +
                 "memberId=" + mbrId +
                 ", lginId='" + lginId + '\'' +
                 ", lginPwd='" + lginPwd + '\'' +

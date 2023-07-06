@@ -1,11 +1,11 @@
 package com.teamProject.syusyu.service.member;
 
-import com.teamProject.syusyu.domain.member.MemberDto;
+import com.teamProject.syusyu.domain.member.MemberDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface MemberService {
-    int loginCheck(MemberDto memberDto) throws Exception;
+    MemberDTO loginCheck(MemberDTO memberDTO) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)
-    boolean register(MemberDto memberDto) throws Exception;
+    boolean register(MemberDTO memberDTO) throws Exception;
 }

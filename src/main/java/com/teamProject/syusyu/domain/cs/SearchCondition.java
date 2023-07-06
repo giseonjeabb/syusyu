@@ -10,7 +10,7 @@ public class SearchCondition {  // 페이징에 필요한 클래스
     private String option = "";  // 검색 종류
 
 
-    public SearchCondition() {}
+    public SearchCondition(){}
 
     public SearchCondition(Integer page, Integer pageSize) {
         this.page = page;
@@ -24,7 +24,7 @@ public class SearchCondition {  // 페이징에 필요한 클래스
         this.option = option;
     }
 
-    public String getQueryString() {
+    public String getQueryString(){
         return getQueryString(page);
     }
 

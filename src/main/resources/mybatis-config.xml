@@ -12,7 +12,12 @@
 <!--        <typeAlias alias="BoardDto" type="com.teamProject.syusyu.domain.cs.BoardDto"/>-->
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
-        <typeAlias alias="MemberDto" type="com.teamProject.syusyu.domain.member.MemberDto"/>
-        <typeAlias alias="CartProduct" type="com.teamProject.syusyu.domain.order.CartProductDTO"/>
+        <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
+        <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
+        <typeAlias alias="CartTotalDTO" type="com.teamProject.syusyu.domain.order.CartTotalDTO"/>
+
+        <!--product-->
+        <typeAlias alias="CategoryDTO" type="com.teamProject.syusyu.domain.product.CategoryDTO"/>
+        <typeAlias alias="ProductDTO" type="com.teamProject.syusyu.domain.product.ProductDTO"/>
     </typeAliases>
 </configuration>
