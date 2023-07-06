@@ -8,17 +8,17 @@ import java.util.List;
 public interface CartProdDAO {
     int insert(CartProdDTO cartProductDTO) throws Exception;
 
-    List<CartProdDTO> select(int mbrCd) throws Exception;
+    List<CartProdDTO> selectAll(int mbrCd) throws Exception;
 
     int update(CartProdDTO cartProductDTO) throws Exception;
 
     /*
     * 장바구니에 담긴 상품들을 제거한다.
     * 메서드명 : delete
-    * 매개변수 : int[] cartProdId
+    * 매개변수 : int[] cartProdNo
     * 반환타입 : int(영향을 받은 row의 수)
     * */
-    int delete(int[] cartProdId) throws Exception;
+    int delete(int[] cartProdNo, int delrId) throws Exception;
 
     int deleteAll() throws Exception;
 

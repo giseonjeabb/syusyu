@@ -24,24 +24,21 @@ public class SearchCondition {
         this.option = option;
     }
 
-    public String getQueryString(){
+    public String getQueryString() {
         return getQueryString(page);
     }
 
 
-    public String getQueryString(Integer page){
+    public String getQueryString(Integer page) {
         //page?=1&pageSize=10&option=T&keyword="title"
         return UriComponentsBuilder.newInstance()
-                .queryParam("page",page)
-                .queryParam("pageSize",pageSize)
-                .queryParam("option",option)
-                .queryParam("keyword",keyword)
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
                 .build().toString();
 
     }
-
-
-
 
 
     public Integer getPage() {
@@ -61,7 +58,7 @@ public class SearchCondition {
     }
 
     public Integer getOffset() {
-        return (page-1) * pageSize;
+        return (page - 1) * pageSize;
     }
 
 //    public void setOffset(Integer offset) {

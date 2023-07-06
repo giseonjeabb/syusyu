@@ -20,7 +20,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm() {
-        return ViewPath.MEMBER + "loginForm";
+        return ViewPath.FOS_MEMBER + "loginForm";
     }
 
     @GetMapping("/logout")

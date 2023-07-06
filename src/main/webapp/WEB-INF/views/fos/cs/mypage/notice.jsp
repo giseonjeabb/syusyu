@@ -9,7 +9,8 @@
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
     <%-- JS 파일 주입--%>
-    <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"defer></script>
 
 </head>
 
@@ -42,6 +43,8 @@
 <%--    하단 이전글 다음글 선택--%>
     <nav class ="detail_nav">
     <ul>
+<%--        다음글  : 다음글 제목--%>
+<%--            다음글이 없다면 empty nextTitle--%>
         <li class="detail__nav-next">
             <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
             <c:if test="${not empty nextTitle}">
@@ -52,9 +55,9 @@
             </c:if>
         </li>
 
-
 <br>
-
+<%--        이전글 :  이전글 제목--%>
+<%--        이전글이 없다면 emptyprevTitle--%>
         <li class="detail__nav-prev">
             <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
             <c:if test="${not empty prevTitle}">
@@ -65,14 +68,10 @@
             </c:if>
         </li>
 
-
-
-
-
     </ul>
     </nav>
 
-<%--        < 버튼- 등록 수정 삭제> 다른 게시판에서 사용예정--%>
+<%--        < 버튼- 등록 수정 삭제>--%>
 <%--        <c:if test="${mode eq 'new'}">--%>
 <%--            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>--%>
 <%--        </c:if>--%>
@@ -93,9 +92,9 @@
 
 
 
-
 <script>
     $(document).ready(function(){
+        // 제목과 내용이 있는지 없는지 확인함
         let formCheck = function() {
             let form = document.getElementById("form");
             if(form.title.value=="") {
@@ -103,7 +102,6 @@
                 form.title.focus();
                 return false;
             }
-
             if(form.content.value=="") {
                 alert("내용을 입력해 주세요.");
                 form.content.focus();
@@ -114,9 +112,7 @@
 
 
         $("#listBtn").on("click", function(){
-
             location.href="<c:url value='/notice/noticeList${searchCondition.queryString}'/>";
-
         });
     });
 </script>
