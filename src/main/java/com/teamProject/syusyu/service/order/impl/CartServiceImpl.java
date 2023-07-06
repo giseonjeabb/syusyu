@@ -1,9 +1,7 @@
 package com.teamProject.syusyu.service.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
-import com.teamProject.syusyu.domain.order.CartInfoDTO;
-import com.teamProject.syusyu.domain.order.CartProductDTO;
-import com.teamProject.syusyu.domain.order.CartTotalDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.service.order.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,25 +18,22 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int add(CartProductDTO cartProductDTO) throws Exception {
+    public int add(CartProdDTO cartProductDTO) throws Exception {
         return cartProdDAO.insert(cartProductDTO);
     }
 
     @Override
-    public CartInfoDTO getCartInfo(int mbrId) throws Exception {
-        List<CartProductDTO> cartProductList = cartProdDAO.select(mbrId);
-        CartTotalDTO cartTotal = cartProdDAO.selectCartTotal(mbrId);
-
-        return new CartInfoDTO(cartProductList, cartTotal);
+    public List<CartProdDTO> getCartInfo(int mbrId) throws Exception {
+        return cartProdDAO.selectAll(mbrId);
     }
 
     @Override
-    public int modify(CartProductDTO cartProductDTO) throws Exception {
+    public int modify(CartProdDTO cartProductDTO) throws Exception {
         return cartProdDAO.update(cartProductDTO);
     }
 
     @Override
-    public int remove(int[] cartProdId) throws Exception {
-        return cartProdDAO.delete(cartProdId);
+    public int remove(int[] cartProdNo, int delrId) throws Exception {
+        return cartProdDAO.delete(cartProdNo, delrId);
     }
 }

@@ -16,7 +16,7 @@
                , #{regrId})
     </insert>
 
-    <select id="select" parameterType="int" resultType="CartProductDTO">
+    <select id="selectAll" parameterType="int" resultType="CartProductDTO">
         SELECT T.*
              , T.OPT_PRC * T.QTY              AS TOT_OPT_PRC
              , (T.PRICE + T.OPT_PRC) * T.QTY  AS TOT_PRC
@@ -27,15 +27,14 @@
                    , P.PROD_NM
                    , CP.QTY
                    , P.PRICE
-                   , P.PRICE - (P.PRICE * (DC_PER / 100))                           AS DC_PRC
+                   , TRUNCATE(P.PRICE - (P.PRICE * (DC_PER / 100)), 0) AS DC_PRC
                    , CP.OPT_COMB_NO
                    , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                       FROM OPT_GRP OG
-                               JOIN OPT_ITEM OI ON OI.OPT_GRP_ID = OG.OPT_GRP_ID
-                      WHERE OI.OPT_ITEM_ID IN (SELECT OPT_ITEM_ID
-                                               FROM PROD_OPT_COMB
-                                               WHERE OPT_COMB_NO = CP.OPT_COMB_NO)) AS OPT
-                   , IFNULL(PO.OPT_PRC, 0)                                          AS OPT_PRC
+                               JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                               JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO)              AS OPT
+                   , IFNULL(PO.OPT_PRC, 0)                             AS OPT_PRC
                    , PO.INV_QTY
                    , P.REP_IMG
                    , CP.REGR_ID
@@ -45,20 +44,26 @@
               WHERE CP.DEL_YN = 'N'
                 AND CP.CART_ID = (SELECT CART_ID
                                   FROM CART
-                                  WHERE MBR_CD = #{mbrId})) AS T
+                                  WHERE MBR_CD = #{mbrId})) AS T;
+
+
     </select>
 
     <update id="update" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
         UPDATE CART_PROD
         SET QTY = #{qty}
+          , UPD_DTTM = now()
+          , UPDR_ID = #{updrId}
         WHERE CART_PROD_NO = #{cartProdNo}
     </update>
 
-    <update id="delete" parameterType="int">
+    <update id="delete" parameterType="Map">
         UPDATE CART_PROD
         SET DEL_YN = 'Y'
+          , DEL_DTTM = now()
+          , DELR_ID = #{delrId}
         WHERE CART_PROD_NO IN
-        <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
+        <foreach collection="cartProdNo" item="cartProdNo" open="(" close=")" separator=",">
             #{cartProdNo}
         </foreach>
     </update>

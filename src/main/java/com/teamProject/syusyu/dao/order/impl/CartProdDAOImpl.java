@@ -1,13 +1,13 @@
 package com.teamProject.syusyu.dao.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
-import com.teamProject.syusyu.domain.order.CartProductDTO;
+import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.domain.order.CartTotalDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class CartProdDAOImpl implements CartProdDAO {
@@ -16,23 +16,27 @@ public class CartProdDAOImpl implements CartProdDAO {
     private static final String namespace = "com.teamProject.syusyu.cartMapper.";
 
     @Override
-    public int insert(CartProductDTO cartProductDTO) throws Exception {
+    public int insert(CartProdDTO cartProductDTO) throws Exception {
         return session.insert(namespace + "insert", cartProductDTO);
     }
 
     @Override
-    public List<CartProductDTO> select(int mbrId) throws Exception {
-        return session.selectList(namespace + "select", mbrId);
+    public List<CartProdDTO> selectAll(int mbrId) throws Exception {
+        return session.selectList(namespace + "selectAll", mbrId);
     }
 
     @Override
-    public int update(CartProductDTO cartProductDTO) throws Exception {
+    public int update(CartProdDTO cartProductDTO) throws Exception {
         return session.update(namespace + "update", cartProductDTO);
     }
 
     @Override
-    public int delete(int[] cartProdId) throws Exception {
-        return session.delete(namespace + "delete", cartProdId);
+    public int delete(int[] cartProdNo, int delrId) throws Exception {
+        Map<String, Object> deleteParam = new HashMap<>();
+        deleteParam.put("cartProdNo", cartProdNo);
+        deleteParam.put("delrId", delrId + "");
+
+        return session.delete(namespace + "delete", deleteParam);
     }
 
     @Override

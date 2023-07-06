@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.productMapper">
-<!--카테고리별 상품 리스트 출력    -->
+    <!--카테고리별 상품 리스트 출력    -->
     <select id="selectProductList" parameterType="map" resultType="ProductDTO">
         SELECT P.PROD_ID
              , P.CATE_ID
@@ -46,7 +46,7 @@
                                               AND SMALL_NO = #{smallNo})
 
     </select>
-<!--중분류에 따른 전체 상품 리스트-->
+    <!--중분류에 따른 전체 상품 리스트-->
     <select id="selectProductAllList" parameterType="int" resultType="ProductDTO">
         SELECT P.PROD_ID
              , P.CATE_ID
@@ -86,6 +86,15 @@
                                                    SMALL_NM
                                             FROM CATEGORY SC
                                             WHERE MIDDLE_NO = #{middleNo})
+    </select>
+
+    <select id="selectProductStatus" parameterType="int" resultType="ProductDTO">
+        SELECT PROD_ID, STATUS
+        FROM PRODUCT
+        WHERE PROD_ID IN
+        <foreach collection="array" item="prodIdArr" open="(" close=")" separator=",">
+            #{prodIdArr}
+        </foreach>
     </select>
 </mapper>
 

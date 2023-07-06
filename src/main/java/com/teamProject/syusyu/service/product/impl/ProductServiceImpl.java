@@ -2,6 +2,7 @@ package com.teamProject.syusyu.service.product.impl;
 
 import com.teamProject.syusyu.dao.product.ProductDAO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class ProductServiceImpl implements com.teamProject.syusyu.service.product.ProductService {
-
+public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductDAO productDAO;
 
@@ -31,5 +31,10 @@ public class ProductServiceImpl implements com.teamProject.syusyu.service.produc
         return productDAO.selectProductAllList(middleNo);
     }
 
+
+    @Override
+    public List<ProductDTO> getProductStatus(int[] prodIdArr) throws Exception {
+        return productDAO.selectProductStatus(prodIdArr);
+    }
 
 }

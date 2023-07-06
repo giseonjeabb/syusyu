@@ -7,12 +7,13 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias alias="NoticeDto" type="com.teamProject.syusyu.domain.cs.NoticeDto"/>
+        <typeAlias alias="NoticeDTO" type="com.teamProject.syusyu.domain.cs.NoticeDTO"/>
+        <typeAlias alias="FaqDTO" type="com.teamProject.syusyu.domain.cs.FaqDTO"/>
 <!--        <typeAlias alias="BoardDto" type="com.teamProject.syusyu.domain.cs.BoardDto"/>-->
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
         <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
-        <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProductDTO"/>
+        <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
         <typeAlias alias="CartTotalDTO" type="com.teamProject.syusyu.domain.order.CartTotalDTO"/>
 
         <!--product-->

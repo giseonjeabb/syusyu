@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.dao.cs.impl;
 
-import com.teamProject.syusyu.domain.cs.NoticeDto;
+import com.teamProject.syusyu.dao.cs.NoticeDAO;
+import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +12,28 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class NoticeDaoImpl implements NoticeDao {
+public class NoticeDAOImpl implements NoticeDAO {
     @Autowired
     SqlSession session;
 
     String namespace = "com.teamProject.syusyu.NoticeMapper.";
 
     @Override
-    public NoticeDto select(Integer notcNo) throws Exception{
+    public NoticeDTO select(Integer notcNo) throws Exception{
         return  session.selectOne(namespace+"select",notcNo);
     }
 
-    public NoticeDto selectPrev(Integer notcNo)throws Exception{
+    public NoticeDTO selectPrev(Integer notcNo)throws Exception{
         return  session.selectOne(namespace+"selectPrev",notcNo);
     }
 
 
-    public NoticeDto selectNext(Integer notcNo)throws Exception{
+    public NoticeDTO selectNext(Integer notcNo)throws Exception{
         return  session.selectOne(namespace+"selectNext",notcNo);
     }
 
     @Override
-    public List<NoticeDto> selectAll() throws Exception{
+    public List<NoticeDTO> selectAll() throws Exception{
         return session.selectList(namespace+"selectAll");
     }
 
@@ -42,12 +43,12 @@ public class NoticeDaoImpl implements NoticeDao {
     }
 
     @Override
-    public int insert(NoticeDto dto) throws Exception{
+    public int insert(NoticeDTO dto) throws Exception{
         return session.insert(namespace+"insert",dto);
     }
 
     @Override
-    public int update(NoticeDto dto) throws Exception{
+    public int update(NoticeDTO dto) throws Exception{
         return session.update(namespace+"update",dto);
     }
 
@@ -70,13 +71,13 @@ public class NoticeDaoImpl implements NoticeDao {
     }
 
     @Override
-    public List<NoticeDto> selectPage(Map map) throws Exception{
+    public List<NoticeDTO> selectPage(Map map) throws Exception{
         return session.selectList(namespace + "selectPage", map);
     }
 
     @Override
-    public List<NoticeDto> searchSelectPage(SearchCondition sc) throws Exception{
-        List<NoticeDto> test = session.selectList(namespace+"searchSelectPage", sc);
+    public List<NoticeDTO> searchSelectPage(SearchCondition sc) throws Exception{
+        List<NoticeDTO> test = session.selectList(namespace+"searchSelectPage", sc);
         System.out.println("test = " + test);
         return test;
     }

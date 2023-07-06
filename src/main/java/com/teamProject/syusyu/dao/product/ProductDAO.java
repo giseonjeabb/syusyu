@@ -8,4 +8,8 @@ public interface ProductDAO {
     List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception;
 
     List<ProductDTO> selectProductAllList(int middleNo);
+
+    List<ProductDTO> selectProductStatus(int[] prodId) throws Exception;
+
+
 }
