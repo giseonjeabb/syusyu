@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.cartMapper">
-    <insert id="insert" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+    <insert id="insert" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
         INSERT INTO cart_prod ( CART_ID     # 회원장바구니번호
                               , PROD_ID     # 상품아이디
                               , QTY         # 수량
@@ -19,7 +19,7 @@
     <!-- 장바구니 리스트를 가져오는 쿼리. 장바구니 내의 상품 정보와 금액 정보를 가져온다.
     각 상품의 금액, 할인 금액, 할인 적용 금액 등을 계산한다.
     또한, 각 상품의 옵션 정보를 조합하여 가져온다. -->
-    <select id="selectAll" parameterType="int" resultType="CartProductDTO">
+    <select id="selectAll" parameterType="int" resultType="CartProdDTO">
         SELECT T.*
              , (PRICE + OPT_PRC) * QTY      AS TOT_PRC        # 총 상품금액
              , OPT_PRC * QTY                AS TOT_OPT_PRC    # 총 옵션가
@@ -52,7 +52,7 @@
                                   WHERE MBR_CD = #{mbrId})) AS T;
     </select>
 
-    <update id="update" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+    <update id="update" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
         UPDATE CART_PROD
         SET QTY = #{qty}
           , UPD_DTTM = now()
@@ -67,12 +67,30 @@
           , DELR_ID = #{delrId}
         WHERE CART_PROD_NO IN
         <foreach collection="cartProdNo" item="cartProdNo" open="(" close=")" separator=",">
-            #{cartProdNo}바
+            #{cartProdNo}
         </foreach>
     </update>
 
-    <update id="deleteAll">
-        UPDATE CART_PROD
-        SET DEL_YN = 'Y'
-    </update>
+    <select id="selectOneTest" parameterType="int" resultType="CartProdDTO">
+        SELECT *
+        FROM CART_PROD
+        WHERE CART_PROD_NO = #{cartProdNo}
+    </select>
+
+    <delete id="deleteAllTest">
+        DELETE FROM CART_PROD
+    </delete>
+
+    <delete id="deleteTest" parameterType="int">
+        DELETE FROM CART_PROD
+        WHERE CART_PROD_NO IN
+        <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
+            #{cartProdNo}
+        </foreach>
+    </delete>
+
+    <select id="selectAllTest" resultType="CartProdDTO">
+        select *
+          from cart_prod
+    </select>
 </mapper>

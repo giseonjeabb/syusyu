@@ -78,6 +78,10 @@ public class CartProdDAOImpl implements CartProdDAO {
         return session.delete(namespace + "delete", deleteParam);
     }
 
+    @Override
+    public int deleteTest(int[] cartProdNoArr) throws Exception {
+        return session.delete(namespace + "deleteTest", cartProdNoArr);
+    }
     /**
      * 장바구니의 모든 상품을 제거한다.
      *
@@ -87,7 +91,17 @@ public class CartProdDAOImpl implements CartProdDAO {
      * @since  2023/07/03
      */
     @Override
-    public int deleteAll() throws Exception {
-        return session.delete(namespace + "deleteAll");
+    public int deleteAllTest() throws Exception {
+        return session.delete(namespace + "deleteAllTest");
+    }
+
+    @Override
+    public List<CartProdDTO> selectAllTest() throws Exception {
+        return session.selectList(namespace + "selectAllTest");
+    }
+
+    @Override
+    public CartProdDTO selectOneTest(int cartProdNo) throws Exception {
+        return session.selectOne(namespace + "selectOneTest", cartProdNo);
     }
 }

@@ -19,5 +19,10 @@ public interface CartProdDAO {
     * */
     int delete(int[] cartProdNo, int delrId) throws Exception;
 
-    int deleteAll() throws Exception;
+    int deleteTest(int[] cartProdNoArr) throws Exception;
+    int deleteAllTest() throws Exception;
+
+    List<CartProdDTO> selectAllTest() throws Exception;
+
+    CartProdDTO selectOneTest(int cartProdNo) throws Exception;
 }

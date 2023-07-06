@@ -44,12 +44,12 @@ public class CartProdDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProdDTO that = (CartProdDTO) o;
-        return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && updrId == that.updrId && Objects.equals(optCombNo, that.optCombNo);
+        return cartProdNo == that.cartProdNo && cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo) && Objects.equals(updrId, that.updrId) && Objects.equals(delrId, that.delrId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, prodId, qty, optCombNo, regrId, updrId);
+        return Objects.hash(cartProdNo, cartId, prodId, qty, optCombNo, regrId, updrId, delrId);
     }
 
     public int getCartProdNo() {
@@ -204,31 +204,7 @@ public class CartProdDTO {
         this.delDttm = delDttm;
     }
 
-    @Override
-    public String toString() {
-        return "CartProdDTO{" +
-                "cartProdNo=" + cartProdNo +
-                ", cartId=" + cartId +
-                ", prodId=" + prodId +
-                ", prodNm='" + prodNm + '\'' +
-                ", qty=" + qty +
-                ", salePrc=" + salePrc +
-                ", optCombNo=" + optCombNo +
-                ", opt='" + opt + '\'' +
-                ", totPrc=" + totPrc +
-                ", totOptPrc=" + totOptPrc +
-                ", totDcPrc=" + totDcPrc +
-                ", totDcAplPrc=" + totDcAplPrc +
-                ", invQty=" + invQty +
-                ", repImg='" + repImg + '\'' +
-                ", regrId=" + regrId +
-                ", regDttm=" + regDttm +
-                ", updrId=" + updrId +
-                ", updDttm=" + updDttm +
-                ", delrId=" + delrId +
-                ", delDttm=" + delDttm +
-                '}';
-    }
+
 
     public int getTotDcPrc() {
         return totDcPrc;
@@ -236,5 +212,19 @@ public class CartProdDTO {
 
     public void setTotDcPrc(int totDcPrc) {
         this.totDcPrc = totDcPrc;
+    }
+
+    @Override
+    public String toString() {
+        return "CartProdDTO{" +
+                "cartProdNo=" + cartProdNo +
+                ", cartId=" + cartId +
+                ", prodId=" + prodId +
+                ", qty=" + qty +
+                ", optCombNo=" + optCombNo +
+                ", regrId=" + regrId +
+                ", updrId=" + updrId +
+                ", delrId=" + delrId +
+                '}';
     }
 }
