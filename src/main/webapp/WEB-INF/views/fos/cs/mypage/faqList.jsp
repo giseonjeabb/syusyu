@@ -14,6 +14,7 @@
 </head>
 
 
+
 <div class="content-mini right-case" id="ux_page_list">
   <form id="frm_search" action= "<c:url value="/faq/faqList"/>" >
 
@@ -31,23 +32,23 @@
 
 
     <div class="tab ty6 mt-20 sclassify">
-      <a href="#" class="active sclassify_children">전체</a>
+      <a href="#" class="active sclassify_children" data-type = "00">전체</a>
 
-      <a href="#" class="sclassify_children " classify="">회원</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "10">회원</a>
 
-      <a href="#" class="sclassify_children " classify="">배송</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "20">배송</a>
 
-      <a href="#" class="sclassify_children " classify="">주문결제</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "30">주문결제</a>
 
-      <a href="#" class="sclassify_children " classify="">교환/반품</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "40">교환/반품</a>
 
-      <a href="#" class="sclassify_children " classify="">이벤트</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "50">이벤트</a>
 
-      <a href="#" class="sclassify_children " classify="">취소/환불</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "60">취소/환불</a>
 
-      <a href="#" class="sclassify_children " classify="">이용안내</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "70">이용안내</a>
 
-      <a href="#" class="sclassify_children " classify="">쿠폰/포인트</a>
+      <a href="#" class="sclassify_children " classify="" data-type = "80">쿠폰/포인트</a>
     </div>
 
 
@@ -59,51 +60,94 @@
 
 
   <div class="board_list">
+      <div class="slide-wrap slide-ty2">
+            <c:forEach var="faqDto" items="${list}">
+              <div class="slide-title">
+                <button type="button" class="slide-trg" data-type="${faqDto.faqTp}" idx="${faqDto.faqNo}">
+                  <em>Q.</em>
+                  <strong>${faqDto.faqTp} ${faqDto.title}</strong>
+                </button>
+              </div>
 
-
-    <div class="slide-wrap slide-ty2">
-
-
-      <div class="slide-title">
-        <button type="button" class="slide-trg" data-type="list-chk" idx="16">
-          <em>Q.</em>
-          <strong>[배송] 송장번호를 확인하고 싶어요.</strong>
-        </button>
+              <div class="slide-cont">
+                <div class="inner">
+                  <div class="answer">
+                    <em class="ia">A.</em>
+                    <div class="cont">${faqDto.content}</div>
+                  </div>
+                </div>
+              </div>
+            </c:forEach>
       </div>
-      <div class="slide-cont">
-        <div class="inner">
-          <div class="answer">
-            <em class="ia">A.</em>
-            <div class="cont"><p>송장번호는 배송 시작 시 발송되는 알림톡에&nbsp;</p><p>함께 보내드리고 있습니다.</p><p>오뚜기몰이 보낸 카카오톡을 참고해보세요!</p><p>&nbsp;</p><p>카카오톡 사용이 어렵다면</p><p>고객센터로 문의주세요!</p></div>
-          </div>
-        </div>
-      </div>
-
-
-
-      <c:forEach items="${list}" var="faqDto">
-        <div class="slide-title">
-          <button type="button" class="slide-trg" data-type="list-chk" idx="${faqDto.faqNo}">
-            <em>Q.</em>
-            <strong>${faqDto.faqTp} ${faqDto.title}</strong>
-          </button>
-        </div>
-
-        <div class="slide-cont">
-          <div class="inner">
-            <div class="answer">
-              <em class="ia">A.</em>
-              <div class="cont">${faqDto.content}</div>
-            </div>
-          </div>
-        </div>
-      </c:forEach>
-
-
-    </div>
-
-
   </div>
+
+  <script>
+    const acc = document.getElementsByClassName("slide-trg");
+    const type = document.getElementsByClassName("sclassify_children");
+    let i;
+
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        const inner = this.parentElement.nextElementSibling.querySelector('.inner');
+
+        if(inner){
+          inner.style.display = inner.style.display === "block" ? "none" : "block";
+        }
+      });
+    }
+
+    // const acc = document.getElementsByClassName("slide-trg");
+    // let i;
+    //
+    // for (i = 0; i < acc.length; i++) {
+    //   acc[i].addEventListener("click", function() {
+    //     this.classList.toggle("active");
+    //     const inner = this.nextElementSibling.querySelector('.inner');
+    //     if (inner) {
+    //       inner.style.display = inner.style.display === "none" ? "block" : "none";
+    //     }
+    //   });
+    // }
+
+
+
+
+
+
+    // 클릭된 글 이외의 모든 글의 내용을 자동으로 닫도록 구현
+    // $(document).ready(function () {
+    //   $('.slide-trg').each(function () {
+    //     let $trg = $(this);
+    //     if ($trg.hasClass('active')) {
+    //       $(this).closest('.slide-title').next('.slide-cont').find('.inner').css('display', 'block');
+    //     } else {
+    //       $trg.closest('.slide-wrap').find('.slide-cont').find('.inner').css('display', 'none');
+    //     }
+    //   });
+    //
+    //   $(document).on('click', '.slide-wrap .slide-trg', function (e) {
+    //     let slideTime = 200;
+    //     e.preventDefault();
+    //     if ($(this).closest('.slide-title').next('.slide-cont').find('.inner').css('display') === 'block') {
+    //       $(this).closest('.slide-wrap').find('.slide-trg').removeClass('active');
+    //       $(this).closest('.slide-wrap').find('.slide-cont').find('.inner').slideUp(slideTime);
+    //     } else {
+    //       $(this).closest('.slide-wrap').find('.slide-trg').removeClass('active');
+    //       $(this).addClass('active');
+    //       $(this).closest('.slide-wrap').find('.slide-cont').find('.inner').slideUp(slideTime);
+    //       $(this).closest('.slide-title').next('.slide-cont').find('.inner').slideDown(slideTime);
+    //     }
+    //   });
+    //   });
+
+
+
+
+
+  </script>
+
 
 
   <br>
@@ -137,10 +181,10 @@
 
       </c:if>
 
-    </div>
-  </div>
+    </div>   <%--  <div class="wrap-pagination"> --%>
+</div>  <%--<div id="devPageWrap">--%>
 
 
 
-
+</div>
 
