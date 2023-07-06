@@ -13,9 +13,9 @@ public class CartProdDTO {
     private int salePrc;
     private Integer optCombNo;
     private String opt;
-    private int optPrc;
-    private int totOptPrc;
     private int totPrc;
+    private int totOptPrc;
+    private int totDcPrc;
     private int totDcAplPrc;
     private int invQty;
     private String repImg;
@@ -26,7 +26,8 @@ public class CartProdDTO {
     private Integer delrId;
     private LocalDateTime delDttm;
 
-    public CartProdDTO() {}
+    public CartProdDTO() {
+    }
 
     public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId, Integer updrId, Integer delrId) {
         this.cartId = cartId;
@@ -113,14 +114,6 @@ public class CartProdDTO {
 
     public void setOpt(String opt) {
         this.opt = opt;
-    }
-
-    public int getOptPrc() {
-        return optPrc;
-    }
-
-    public void setOptPrc(int optPrc) {
-        this.optPrc = optPrc;
     }
 
     public int getTotOptPrc() {
@@ -222,9 +215,9 @@ public class CartProdDTO {
                 ", salePrc=" + salePrc +
                 ", optCombNo=" + optCombNo +
                 ", opt='" + opt + '\'' +
-                ", optPrc=" + optPrc +
-                ", totOptPrc=" + totOptPrc +
                 ", totPrc=" + totPrc +
+                ", totOptPrc=" + totOptPrc +
+                ", totDcPrc=" + totDcPrc +
                 ", totDcAplPrc=" + totDcAplPrc +
                 ", invQty=" + invQty +
                 ", repImg='" + repImg + '\'' +
@@ -235,5 +228,13 @@ public class CartProdDTO {
                 ", delrId=" + delrId +
                 ", delDttm=" + delDttm +
                 '}';
+    }
+
+    public int getTotDcPrc() {
+        return totDcPrc;
+    }
+
+    public void setTotDcPrc(int totDcPrc) {
+        this.totDcPrc = totDcPrc;
     }
 }
