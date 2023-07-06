@@ -1,4 +1,4 @@
-var g_cartProductList;
+let g_cartProductList;
 
 document.addEventListener("DOMContentLoaded", () => {
     getCartProductList();
@@ -79,15 +79,26 @@ const handleRemoveBtnClick = (e) => {
     remove([cartProdNo]);
 };
 
-const handleQtyBtnClick = (e) => {
+// 화면에서 수량 변경을 담당하는 이벤트 핸들러
+const handleQtyChange = (e) => {
     // 1. 수량을 변경한다.
     const ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
     updateQty(e.target, ordQtyInput);
+};
 
+// 변경된 수량 서버 업데이트
+const handleQtyUpdate = (e) => {
     // 2. 변경된 수량과 장바구니상품코드를 넘겨서 DB쪽에 업데이트해야 함
+    const ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
     const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+
     modify(cartProdNo, ordQtyInput.value);
 };
+
+// 이벤트 핸들러에 디바운싱 적용
+const debouncedHandler = _.debounce((e) => {
+    handleQtyUpdate(e);
+}, 500, false);
 
 const handleQtyInputChange = (e) => {
     // 1보다 작은 값을 입력했을 경우 수량을 1로 변경한다.
@@ -99,6 +110,7 @@ const handleQtyInputChange = (e) => {
 };
 
 const handleChkBtnClick = () => {
+    debugger;
     // 1. 전역으로 저장해뒀던 장바구니 상품 리스트에서 체크된 것만 filter로 걸려야 한다.
     // 그런데 전역으로 저장해둔 장바구니 상품리스트에는 Html 요소 정보가 아니기 때문에 chk 정보가 없고
     // 그렇다고 html 요소만 가져오기에는 가격 정보가 없다
@@ -108,7 +120,7 @@ const handleChkBtnClick = () => {
     const checkedCartProductNoArr = getCheckedCartProdNoArr();
 
     // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.
-    const result = g_cartProductList.filter(cartProduct => checkedCartProductNoArr.some(chk => chk === cartProduct.cartProdNo))
+    const result = g_cartProductList.filter(cartProduct => checkedCartProductNoArr.some(chk => chk == cartProduct.cartProdNo))
     showCartTotal(result);
 
     // 만약 모든 상품이 체크되어있지 않다면 전체체크 해제해야 함
@@ -196,7 +208,8 @@ const showCartProductList = (cartProductList) => {
 
         const qtyBtns = cartProductLi.querySelectorAll('.item-qty .btn');
         qtyBtns.forEach((btn) => {
-            btn.addEventListener('click', handleQtyBtnClick);
+            btn.addEventListener('click', handleQtyChange); // 수량 변경
+            btn.addEventListener('click', debouncedHandler); // 서버 업데이트
         });
 
         const qtyInput = cartProductLi.querySelector('input[name="ordQty"]');
