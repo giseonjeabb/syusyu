@@ -1,6 +1,5 @@
 package com.teamProject.syusyu.controller.cs;
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.dao.cs.NoticeDAO;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,91 +25,8 @@ public class NoticeController {
     NoticeService noticeService;
 
 
-
-    @PostMapping("/modify")
-    public String modify(NoticeDTO noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
-        int writer = (int) session.getAttribute("id");
-        noticeDto.setRegrId(writer);
-//        memberDto.setLginId(writer);
-        try {
-            int rowCnt = noticeService.modify(noticeDto);
-
-            if (rowCnt != 1)
-                throw new Exception("Modify failed");
-
-            rattr.addFlashAttribute("msg", "MOD_OK");
-
-
-            return "redirect:/notice/noticeList";
-
-             } catch (Exception e) {
-                        e.printStackTrace();
-                        m.addAttribute("noticeDto", noticeDto);
-                        m.addAttribute("msg", "MOD_ERR");
-
-                         return ViewPath.MYPAGE+"notice";
-                }
-            }
-
-
-    @PostMapping("/write")
-    public String write(NoticeDTO noticeDto, HttpSession session, Model m, RedirectAttributes rattr) {
-        int writer = (int) session.getAttribute("id");
-        noticeDto.setRegrId(writer);
-
-        try {
-            int rowCnt = noticeService.write(noticeDto);
-
-            if (rowCnt != 1)
-                throw new Exception("write failed");
-
-            rattr.addFlashAttribute("msg", "WRT_OK");
-
-            return "redirect:/notice/noticeList";
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            m.addAttribute("noticeDto", noticeDto);
-            m.addAttribute("msg", "WRT_ERR");
-
-            return ViewPath.MYPAGE+"notice";
-
-        }
-
-    }
-
-
-    @GetMapping("/write")
-    public String write(Model m) {
-        m.addAttribute("mode", "new");
-
-        return ViewPath.CS+"notice"; // 읽기와 쓰기에 사용 , 쓰기에 사용할때는 mode = new
-    }
-
-
-    @PostMapping("/remove")
-    public String remove(Integer notcNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-        String writer = (String) session.getAttribute("id");
-        try {
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
-
-            int rowCnt = noticeService.remove(notcNo, writer);
-
-            if (rowCnt != 1)
-                throw new Exception("board remove error");
-
-            rattr.addFlashAttribute("msg", "DEL_OK");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg", "DEL_ERR");
-        }
-
-        return "redirect:/notice/noticeList";
-
-    }
-
-
+    // List/read?page=?&pageSize=?
+    // 공지사항 글 읽기
     @GetMapping("/read")
     public String read(Integer notcNo, SearchCondition sc, Model m) throws Exception {
         try {
@@ -135,7 +49,7 @@ public class NoticeController {
             e.printStackTrace();
         }
 
-        return ViewPath.MYPAGE+"notice";
+        return ViewPath.FOS_MYPAGE+"notice";
         // ViewPath : public static final String MYPAGE = ".mypage/fos/cs/mypage/";
 
     }
@@ -171,7 +85,7 @@ public class NoticeController {
             m.addAttribute("totalCnt", 0);
         }
 
-        return ViewPath.MYPAGE+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
+        return ViewPath.FOS_MYPAGE+"noticeList"; // 로그인을 한 상태이면, 공지사항 화면으로 이동
         // ViewPath : public static final String MYPAGE = ".mypage/fos/cs/mypage/";
     }
 

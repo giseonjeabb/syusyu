@@ -18,12 +18,20 @@ public class ProductDAOImpl implements ProductDAO {
     private static final String namespace = "com.teamProject.syusyu.productMapper.";
 
     @Override
-    public List<ProductDTO> getProductList(int middleNo, int smallNo){
+    public List<ProductDTO> selectProductList(int middleNo, int smallNo){
         Map map = new HashMap<>();
         map.put("middleNo", middleNo);
         map.put("smallNo", smallNo);
-        return session.selectList(namespace + "getProductList", map);
+        return session.selectList(namespace + "selectProductList", map);
+
     }
+
+    @Override
+    public List<ProductDTO> selectProductAllList(int middleNo){
+        return session.selectList(namespace + "selectProductList", middleNo);
+
+    }
+
 
     @Override
     public List<ProductDTO> selectProductStatus(int[] prodIdArr) {

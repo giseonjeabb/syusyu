@@ -14,7 +14,7 @@ public class CategoryDAOImpl implements com.teamProject.syusyu.dao.product.Categ
     private static final String namespace = "com.teamProject.syusyu.categoryMapper.";
 
     @Override
-    public List<CategoryDTO> getCategory(int middleNo){
-        return session.selectList(namespace + "getCategory", middleNo);
+    public List<CategoryDTO> selectCategoryList(int middleNo){
+        return session.selectList(namespace + "selectCategoryList", middleNo);
     }
 }

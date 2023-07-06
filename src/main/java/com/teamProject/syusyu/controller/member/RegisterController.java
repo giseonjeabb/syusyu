@@ -28,7 +28,7 @@ public class RegisterController {
 
     @GetMapping("/add")
     public String registerForm() {
-        return ViewPath.MEMBER + "registerForm";
+        return ViewPath.FOS_MEMBER + "registerForm";
     }
 
     /*

@@ -102,7 +102,6 @@
                     <td class="fw-7"><a
                             href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
                     </td>
-
                         <%--등록날짜--%>
                     <c:choose>
                         <c:when test="${noticeDto.regDttm.time >= startOfToday}">
@@ -114,12 +113,10 @@
                                                                            pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-
                         <%--조회수--%>
                         <%--<td class="viewCnt">${noticeDto.viewCnt}</td>--%>
                 </tr>
             </c:forEach>
-
             </tbody>
         </table>
     </div>

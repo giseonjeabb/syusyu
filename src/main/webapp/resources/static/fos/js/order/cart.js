@@ -1,3 +1,5 @@
+var g_cartProductList;
+
 document.addEventListener("DOMContentLoaded", () => {
     getCartProductList();
 
@@ -11,8 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const checkAll = (checked) => {
-    document.querySelector('.chk-all').checked = checked;
-
     const chks = document.getElementsByName('chk');
     for (let i = 0; i < chks.length; i++)
         chks[i].checked = checked;
@@ -23,12 +23,13 @@ const updateCartStatus = (isCartExist) => {
     const orderBtn = document.querySelector('#btn_order');
 
     if (isCartExist) {
-        listNone.style.display = 'block';
-        orderBtn.disabled = true;
-    } else {
         listNone.style.display = 'none';
         orderBtn.disabled = false;
         checkAll(true);
+    } else {
+        listNone.style.display = 'block';
+        orderBtn.disabled = true;
+        checkAll(false);
     }
 }
 
@@ -38,9 +39,12 @@ const getCartProductList = () => {
         url: '/cartList',
         contentType: 'application/json; charset=utf-8',
         success: (result) => {
-            showCartProductList(result.cartProduct);
-            showCartTotal(result.cartTotal);
-            updateCartStatus(result.cartProduct.length === 0);
+            // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
+            g_cartProductList = result;
+
+            showCartProductList(result);
+            showCartTotal(result);
+            updateCartStatus(result.length > 0);
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
@@ -48,20 +52,26 @@ const getCartProductList = () => {
     });
 }
 
-const showCartTotal = (cartTotal) => {
-    const cartTotPrc = document.getElementById('cartTotPrc'); // 총 상품금액
-    const cartTotDcPrc = document.getElementById('cartTotDcPrc'); // 총 할인금액
-    const dlvFee = document.getElementById('dlvFee'); // 배송비
-    const cartPayAmt = document.getElementById('cartPayAmt'); // 결제예상금액
-    const finalAmt = document.getElementById('finalAmt');
+// 장바구니 화면 오른쪽에 위치한 총 금액을 계산해서 보여주기 위한 함수(총 상품금액, 총 할인금액, 배송비, 결제예상금액)
+const showCartTotal = (cartProdList) => {
+    const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
+    const cartTotDcPrc = cartProdList.reduce((acc, cur) => acc + cur.totDcPrc, 0); // 총 할인금액
+    const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
+    const cartPayAmt = cartTotPrc - cartTotDcPrc + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
 
-    cartTotPrc.innerHTML = formatPrice(cartTotal.cartTotPrc);
-    cartTotDcPrc.innerHTML = formatPrice(cartTotal.cartTotDcPrc);
-    dlvFee.innerHTML = formatPrice(cartTotal.cartTotPrc === 0 ? 0 : cartTotal.dlvFee);
-    cartPayAmt.innerHTML = formatPrice(cartTotal.cartPayAmt);
-    finalAmt.innerHTML = formatPrice(cartTotal.cartPayAmt) + '원 주문하기';
+    // TODO 변수에 $ 어떨 때 붙이는 건지...
+    const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액
+    const $cartTotDcPrc = document.getElementById('cartTotDcPrc');  // 총 할인금액
+    const $dlvFee = document.getElementById('dlvFee');              // 배송비
+    const $cartPayAmt = document.getElementById('cartPayAmt');      // 결제예상금액
+    const $finalAmt = document.getElementById('finalAmt');
+
+    $cartTotPrc.innerHTML = formatPrice(cartTotPrc);
+    $cartTotDcPrc.innerHTML = formatPrice(cartTotDcPrc);
+    $dlvFee.innerHTML = formatPrice(dlvFee);
+    $cartPayAmt.innerHTML = formatPrice(cartPayAmt);
+    $finalAmt.innerHTML = formatPrice(cartPayAmt) + '원 주문하기';
 }
-
 
 // 분리한 이벤트 핸들러 함수들
 const handleRemoveBtnClick = (e) => {
@@ -87,6 +97,31 @@ const handleQtyInputChange = (e) => {
     const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
     modify(cartProdNo, e.target.value);
 };
+
+const handleChkBtnClick = () => {
+    // 1. 전역으로 저장해뒀던 장바구니 상품 리스트에서 체크된 것만 filter로 걸려야 한다.
+    // 그런데 전역으로 저장해둔 장바구니 상품리스트에는 Html 요소 정보가 아니기 때문에 chk 정보가 없고
+    // 그렇다고 html 요소만 가져오기에는 가격 정보가 없다
+    // 그렇다면 html요소에서 체크된 장바구니상품아이디만 가져오게 한 뒤에 그 객체와 g_cartProductList만 일치하는 걸 거르면 될듯?
+
+    // 1. 현재 체크된 장바구니상품아이디를 가져온다.
+    const checkedCartProductNoArr = getCheckedCartProdNoArr();
+
+    // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.
+    const result = g_cartProductList.filter(cartProduct => checkedCartProductNoArr.some(chk => chk === cartProduct.cartProdNo))
+    showCartTotal(result);
+
+    // 만약 모든 상품이 체크되어있지 않다면 전체체크 해제해야 함
+    // chk된 거랑 모든 요소 개수가 다르면 전체 체크 해제하기
+
+    // 1. chk된 요소 개수 가져오기
+    const chkCnt = getCheckedCartProdNoArr().length;
+
+    // 2. 전체 요소 개수 가져오기
+    const totalCnt = g_cartProductList.length;
+
+    document.querySelector('.chk-all').checked = chkCnt === totalCnt;
+}
 
 // 상품 리스트를 표시하는 함수
 const showCartProductList = (cartProductList) => {
@@ -153,11 +188,14 @@ const showCartProductList = (cartProductList) => {
 
         cartProductLi.innerHTML += result;
 
-        const removeButton = cartProductLi.querySelector('.remove-area button');
-        removeButton.addEventListener('click', handleRemoveBtnClick);
+        const chkBtn = cartProductLi.querySelector('input[name="chk"]');
+        chkBtn.addEventListener('click', handleChkBtnClick);
 
-        const qtyButtons = cartProductLi.querySelectorAll('.item-qty .btn');
-        qtyButtons.forEach((btn) => {
+        const removeBtn = cartProductLi.querySelector('.remove-area button');
+        removeBtn.addEventListener('click', handleRemoveBtnClick);
+
+        const qtyBtns = cartProductLi.querySelectorAll('.item-qty .btn');
+        qtyBtns.forEach((btn) => {
             btn.addEventListener('click', handleQtyBtnClick);
         });
 
@@ -192,7 +230,7 @@ const remove = (cartProdNoArr) => {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(cartProdNoArr),
         success: () => {
-            // getCartProductList();
+            getCartProductList();
         },
         error: (jqXHR, textStatus, errorThrown) => {
             console.error("Error in remove:", textStatus, errorThrown);
@@ -204,10 +242,12 @@ const getCheckedCartProdNoArr = () => getCheckedItem('cartProdNo');
 const getCheckedProdIdArr = () => getCheckedItem('prodId');
 
 const getCheckedItem = (target) => {
-    const checkedItems = document.querySelectorAll("input[name='chk']:checked");
-    return Array.from(checkedItems).map((item) => item.closest('li').querySelector('input[name="' + target + '"]').value);
-};
+    let checkedItems = document.querySelectorAll("input[name='chk']:checked");
+    // TODO querySelectorAll 반환 값이 왜 nodelist인지 거기서 왜 filter 호출할 수 없는지?
+    checkedItems = Array.from(checkedItems).filter(item => !item.classList.contains('chk-all'));
 
+    return checkedItems.map((item) => item.closest('li').querySelector('input[name="' + target + '"]').value);
+};
 
 const checkProductStatus = () => {
     const checkedProdIdArr = getCheckedProdIdArr();
@@ -218,9 +258,16 @@ const checkProductStatus = () => {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         traditional: true, // 배열 파라미터를 prodIdArr=1&prodIdArr=2&prodIdArr=3과 같은 형태로 직렬화
-        data: { 'prodIdArr': checkedProdIdArr },
+        data: {'prodIdArr': checkedProdIdArr},
         success: (result) => {
-            debugger;
+            // 1. 판매상태가 601이 아닌 상품들을 찾는다.
+            const tmp = result.filter(product => product.status !== 601);
+
+            // 2. TODO tmp에 객체가 하나라도 있으면 그 name을 합쳐서 alert 띄워주고 return 하기
+            if (tmp.length !== 0) {
+                const prodNm = tmp.map(product => product.prodNm).join(',');
+                alert(prodNm + "는 구매가 불가능한 상품입니다.");
+            }
         },
         error: (jqXHR, textStatus, errorThrown) => {
             alert("An error occurred: " + textStatus + " - " + errorThrown);

@@ -11,11 +11,11 @@ import java.util.List;
 public class CategoryServiceImpl implements com.teamProject.syusyu.service.product.CategoryService {
 
     @Autowired
-    private CategoryDAO categoryDAO;
+    CategoryDAO categoryDAO;
 
     @Override
-    public List<CategoryDTO> getCategory(int middleNo) throws Exception{
-        List<CategoryDTO> categoryDto= categoryDAO.getCategory(middleNo);
-        return categoryDAO.getCategory(middleNo);
+    public List<CategoryDTO> getCategoryList(int middleNo) throws Exception {
+        List<CategoryDTO> getCategoryList = categoryDAO.selectCategoryList(middleNo);
+        return categoryDAO.selectCategoryList(middleNo);
     }
 }
