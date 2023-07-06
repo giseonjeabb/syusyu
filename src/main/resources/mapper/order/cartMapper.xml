@@ -18,23 +18,25 @@
 
     <select id="selectAll" parameterType="int" resultType="CartProductDTO">
         SELECT T.*
-             , T.OPT_PRC * T.QTY              AS TOT_OPT_PRC
-             , (T.PRICE + T.OPT_PRC) * T.QTY  AS TOT_PRC
-             , (T.DC_PRC + T.OPT_PRC) * T.QTY AS TOT_DC_APL_PRC
+             , (PRICE + OPT_PRC) * QTY      AS TOT_PRC        # 총 상품금액
+             , OPT_PRC * QTY                AS TOT_OPT_PRC    # 총 옵션가
+             , DC_PRC * QTY                 AS TOT_DC_PRC     # 총 할인금액
+             , (DC_APL_PRC + OPT_PRC) * QTY AS TOT_DC_APL_PRC # 총 할인적용금액
         FROM (SELECT CP.CART_ID
                    , CP.CART_PROD_NO
                    , P.PROD_ID
                    , P.PROD_NM
                    , CP.QTY
                    , P.PRICE
-                   , TRUNCATE(P.PRICE - (P.PRICE * (DC_PER / 100)), 0) AS DC_PRC
+                   , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
+                   , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
                    , CP.OPT_COMB_NO
                    , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                       FROM OPT_GRP OG
                                JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
                                JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
-                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO)              AS OPT
-                   , IFNULL(PO.OPT_PRC, 0)                             AS OPT_PRC
+                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT
+                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC
                    , PO.INV_QTY
                    , P.REP_IMG
                    , CP.REGR_ID
@@ -45,8 +47,6 @@
                 AND CP.CART_ID = (SELECT CART_ID
                                   FROM CART
                                   WHERE MBR_CD = #{mbrId})) AS T;
-
-
     </select>
 
     <update id="update" parameterType="CartProductDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
