@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,16 +27,12 @@ public class FaqController {
     @Autowired
     FaqService faqService;
 
-    @Autowired
-    FaqDAO faqDAO;
-
-
 
     @GetMapping("/faqList")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
-        if (!loginCheck(request))
-            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+//        if (!loginCheck(request))
+//            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
         try {
             // 페이지 핸들러  << < 1,2,3,4,5,6,7,8,9,10 > >>
@@ -52,12 +49,14 @@ public class FaqController {
             m.addAttribute("ph", pageHandler);
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+            m.addAttribute("sc",sc);
 //           m.addAttribute("page",page);
 //           m.addAttribute("pageSize",pageSize);
 
+
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute("msg", "LIST_ERROR");
+            m.addAttribute("msg", "LIST_ERR");
             m.addAttribute("totalCnt", 0);
         }
 
@@ -67,36 +66,36 @@ public class FaqController {
 
 
 
-//    @GetMapping("/read")
-//    public String read(Integer faqNo, Integer page, Integer pageSize, Model m) throws Exception {
-//        try {
-//            FaqDTO faqDto = faqService.read(faqNo);
-//
-//            // 이전 글과 다음 글의 제목 가져오기
-//            FaqDTO prevNotice = faqService.getPrevTitle(faqNo);
-//            FaqDTO nextNotice = faqService.getNextTitle(faqNo);
-//            // 이전 글과 다음 글의 제목을 모델에 추가
-//            m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
-//            m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
-//
-//            m.addAttribute("faqDto", faqDto);
-//            m.addAttribute("page", page);
-//            m.addAttribute("pageSize", pageSize);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ViewPath.MYPAGE+"faq";
-//
-//    }
+    @GetMapping("/read")
+    public String read(Integer faqNo, Integer page, Integer pageSize, Model m) throws Exception {
+        try {
+            FaqDTO faqDto = faqService.read(faqNo);
 
-    private boolean loginCheck(HttpServletRequest request) {
-        // 1. 세션을 얻어서
-        HttpSession session = request.getSession();
-        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-        return session.getAttribute("id") != null;
+            // 이전 글과 다음 글의 제목 가져오기
+            FaqDTO prevNotice = faqService.getPrevTitle(faqNo);
+            FaqDTO nextNotice = faqService.getNextTitle(faqNo);
+            // 이전 글과 다음 글의 제목을 모델에 추가
+            m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
+            m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
+
+            m.addAttribute("faqDto", faqDto);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize", pageSize);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ViewPath.FOS_MYPAGE+"faq";
+
     }
+
+//    private boolean loginCheck(HttpServletRequest request) {
+//        // 1. 세션을 얻어서
+//        HttpSession session = request.getSession();
+//        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
+//        return session.getAttribute("id") != null;
+//    }
 
 
 

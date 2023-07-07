@@ -13,7 +13,7 @@
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
         <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
-        <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
+        <typeAlias alias="CartProdDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
         <typeAlias alias="CartTotalDTO" type="com.teamProject.syusyu.domain.order.CartTotalDTO"/>
 
         <!--product-->

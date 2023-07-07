@@ -30,7 +30,7 @@
                     <strong class="footer_quickLink_title">SUPPORT</strong>
                     <ul class="footer_quickLink_sub">
                         <li class="footer_quickLink_subList">고객센터</li>
-                        <li class="footer_quickLink_subList">FAQ</li>
+                        <li class="footer_quickLink_subList"><a href="<c:url value='/faq/faqList'/>">FAQ</a></li>
                         <li class="footer_quickLink_subList">교환 & 반품문의</li>
                     </ul>
                 </div>
