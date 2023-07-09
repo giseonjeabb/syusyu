@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" %>
 <head>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="<c:url value="${jsUrlFos}/order/orderSheet.js"/>"></script>
 </head>
 <form name="FrmOrder" id="frm_order" method="post">
