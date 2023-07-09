@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <head>
-    <script src="<c:url value="${jsUrlFos}/order/cart.js?dd"/>"></script>
+    <script src="<c:url value="${jsUrlFos}/order/cart.js?dddd"/>"></script>
 </head>
 <div class="breadcrumb">
     <div class="breadcrumb-inner">

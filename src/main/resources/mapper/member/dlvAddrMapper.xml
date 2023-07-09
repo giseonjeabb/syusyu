@@ -6,6 +6,9 @@
     <select id="selectDefaultDlvAddr" parameterType="int" resultType="DlvAddrDTO">
         SELECT DLV_ADDR_NO
              , RECIPIENT
+             , ZIPCODE
+             , DFLT_ADDR
+             , DTL_ADDR
              , CONCAT(DFLT_ADDR, DTL_ADDR) AS ADDR
              , MP_NO
              , DLV_REQ_COMT

@@ -195,7 +195,7 @@ const showCartProductList = (cartProdList) => {
                     <input type="hidden" name="itemQtyCount" value="2">
                     <div class="thumbs hover">
                         <a href="https://www.ottogimall.co.kr/front/product/2254">
-                            <img src="/static/image/product/${cartProd.repImg}" alt="이미지">
+                            <img src="${cartProd.repImg}" alt="이미지">
                         </a>
                     </div>
                     <div class="desc">
@@ -357,23 +357,55 @@ const checkProductStatus = () => {
     });
 }
 
-const order = () => {
-    // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
-    // const checkedItem = getCheckedCartProdNoArr();
-    checkProductStatus();
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/order/cartOrder',
-    //     contentType: 'application/json; charset=utf-8',
-    //     dataType: 'json',
-    //     data: JSON.stringify(checkedItem),
-    //     success: (result) => {
-    //         let cartOrderNos = result.map((item) => `cartOrderNo=${item}`).join('&');
-    //         location.href = '/order/orderSheet?' + cartOrderNos;
-    //     },
-    //     error: (jqXHR, textStatus, errorThrown) => {
-    //         alert("An error occurred: " + textStatus + " - " + errorThrown);
-    //     }
-    // });
+
+function validateCartProducts(callback) {
+    // AJAX 호출을 통해 유효성 검사를 수행
+    $.ajax({
+        url: "validateCartProducts",
+        method: "POST",
+        data: {
+            // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
+            // mbrId: mbrId                  // 사용자 아이디
+        },
+        success: function(response) {
+            var success = response.success;
+            callback(success);  // 콜백 함수를 호출하여 결과 전달
+        },
+        error: function() {
+            // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
+            callback(true);
+        }
+    });
+}
+
+
+const getOrderSheetData = () => {
+    // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
+    // checkProductStatus();
+
+    const cartProdNoArr = getCheckedCartProdNoArr();
+
+    // 주문서 데이터를 성공적으로 가져왔을 때, 페이지 리디렉션을 수행한다.
+    location.href = '/orderSheet?cartProdNoArr=' + JSON.stringify(cartProdNoArr);
+
+    // 선택한 장바구니 상품 아이디 배열을 쿼리 문자열로 변환
+    const queryString = 'cartProdNoArr=' + cartProdNoArr.join('&cartProdNoArr=');
+
+    // 주문서 화면으로 이동
+    window.location.href = '/orderSheet?' + queryString;
+}
+
+
+const order = () => {
+    // 1. 유효성 검사를 수행한다.
+    validateCartProducts(function(success) {
+        if (success) {
+            // 유효성 검사가 성공한 경우, 데이터를 조회하여 주문/결제 화면에 표시한다.
+            getOrderSheetData();
+        } else {
+            // 유효성 검사가 실패한 경우, 구매 불가능한 상품에 대한 알림을 표시한다.
+            showErrorMessage("Some products are not eligible for purchase.");
+        }
+    });
 }
