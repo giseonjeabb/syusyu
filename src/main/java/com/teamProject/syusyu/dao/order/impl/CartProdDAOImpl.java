@@ -14,7 +14,7 @@ import java.util.Map;
 public class CartProdDAOImpl implements CartProdDAO {
     @Autowired
     private SqlSession session;
-    private static final String namespace = "com.teamProject.syusyu.cartMapper.";
+    private static final String namespace = "com.teamProject.syusyu.cartProdMapper.";
 
     /**
      * 장바구니에 상품을 추가한다.
