@@ -19,6 +19,7 @@
         <typeAlias alias="CartProdDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
         <typeAlias alias="OrdDTO" type="com.teamProject.syusyu.domain.order.OrdDTO"/>
         <typeAlias alias="OrdDtlDTO" type="com.teamProject.syusyu.domain.order.OrdDtlDTO"/>
+        <typeAlias alias="PayDTO" type="com.teamProject.syusyu.domain.order.PayDTO"/>
 
         <!-- cs -->
         <typeAlias alias="NoticeDTO" type="com.teamProject.syusyu.domain.cs.NoticeDTO"/>

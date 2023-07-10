@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordDtlMapper">
+    <insert id="insertPay" parameterType="com.example.payapp.domain.PayDTO">
+        INSERT INTO PAY ( PAY_NO
+                        , PAYER_ID
+                        , ORD_NO
+                        , PAY_STUS
+                        , PAY_TP
+                        , ORD_AMT
+                        , DLV_FEE
+                        , CPN_ISS_NO
+                        , ORGN_PAY_AMT
+                        , PNT_USE_AMT
+                        , REAL_PAY_AMT
+                        , REGR)
+        VALUES (#{payNo}
+             , #{payerId}
+             , #{ordNo}
+             , #{payStus}
+             , #{payTp}
+             , #{ordAmt}
+             , #{dlvFee}
+             , #{cpnIssNo}
+             , #{orgnPayAmt}
+             , #{pntUseAmt}
+             , #{realPayAmt}
+             , #{regr})
+    </insert>
+
+    <select id="selectPay" parameterType="int" resultType="PayDTO">
+        SELECT PAY_NO,
+               PAYER_ID,
+               ORD_NO,
+               PAY_STUS,
+               PAY_TP,
+               ORD_AMT,
+               DLV_FEE,
+               CPN_ISS_NO,
+               ORGN_PAY_AMT,
+               PNT_USE_AMT,
+               REAL_PAY_AMT,
+               REG_DTTM,
+               REGR,
+               UPD_DTTM,
+               UPDR
+        FROM PAY
+        WHERE PAY_NO = #{payNo}
+    </select>
+
+    <delete id="deleteAllPay">
+        DELETE
+        FROM PAY
+    </delete>
+
+    <select id="countPay" resultType="int">
+        SELECT COUNT(*)
+        FROM PAY
+    </select>
+
+</mapper>
