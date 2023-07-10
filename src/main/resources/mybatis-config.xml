@@ -17,7 +17,6 @@
 
         <!-- order -->
         <typeAlias alias="CartProdDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
-        <typeAlias alias="CartTotalDTO" type="com.teamProject.syusyu.domain.order.CartTotalDTO"/>
         <typeAlias alias="OrdDTO" type="com.teamProject.syusyu.domain.order.OrdDTO"/>
         <typeAlias alias="OrdDtlDTO" type="com.teamProject.syusyu.domain.order.OrdDtlDTO"/>
 
