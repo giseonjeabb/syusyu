@@ -98,7 +98,7 @@ public class OrdDtlDAOImplTest {
         assertTrue(cnt == 0);
     }
 
-    // 주문상세(ORD_DTL) DB에 저장된 주문 상세 정보의 총 갯수 조회
+    // 주문상세(ORD_DTL) DB에 저장된 주문 상세 정보의 총 개수 조회
     @Test
     public void countOrderDetail() throws Exception {
         int result;

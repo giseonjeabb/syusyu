@@ -56,9 +56,9 @@ public class OrdDtlDAOImpl implements OrdDtlDAO {
     }
 
     /**
-     * DB에 저장된 주문 상세 정보의 총 갯수를 조회한다.
+     * DB에 저장된 주문 상세 정보의 총 개수를 조회한다.
      *
-     * @return DB에 저장된 주문 상세 정보의 총 갯수
+     * @return DB에 저장된 주문 상세 정보의 총 개수
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
      * @since 2023/07/10
