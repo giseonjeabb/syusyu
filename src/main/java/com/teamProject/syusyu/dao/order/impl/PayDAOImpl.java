@@ -20,6 +20,7 @@ public class PayDAOImpl implements PayDAO {
      * @param payDTO 삽입할 결제 정보를 담은 DTO
      * @return DB에 성공적으로 삽입된 row의 수
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
+     * @author min
      * @since 2023/07/10
      */
     @Override
@@ -33,6 +34,7 @@ public class PayDAOImpl implements PayDAO {
      * @param payNo 조회할 결제 정보의 결제번호
      * @return 조회된 결제 정보를 담은 DTO
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
      * @since 2023/07/10
      */
     @Override
@@ -45,6 +47,7 @@ public class PayDAOImpl implements PayDAO {
      *
      * @return DB에서 성공적으로 삭제된 row의 수
      * @throws Exception DB 삭제 도중 발생할 수 있는 예외
+     * @author min
      * @since 2023/07/10
      */
     @Override
@@ -57,6 +60,7 @@ public class PayDAOImpl implements PayDAO {
      *
      * @return DB에 저장된 결제 정보의 총 개수
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
      * @since 2023/07/10
      */
     @Override
