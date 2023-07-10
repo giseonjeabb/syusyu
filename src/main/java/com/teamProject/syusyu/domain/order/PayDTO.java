@@ -11,44 +11,28 @@ public class PayDTO {
     private int payTp;
     private int ordAmt;
     private int dlvFee;
-    private String cpnIssNo;
+    private Integer cpnIssNo;
     private int orgnPayAmt;
     private Integer pntUseAmt;
     private int realPayAmt;
     private LocalDateTime regDttm;
-    private int regr;
+    private int regrId;
     private LocalDateTime updDttm;
-    private Integer updr;
+    private Integer updrId;
 
     public PayDTO() {}
-
-    public PayDTO(int payNo, int payerId, int ordNo, int payStus, int payTp, int ordAmt, int dlvFee, String cpnIssNo, int orgnPayAmt, Integer pntUseAmt, int realPayAmt, int regr, Integer updr) {
-        this.payNo = payNo;
-        this.payerId = payerId;
-        this.ordNo = ordNo;
-        this.payStus = payStus;
-        this.payTp = payTp;
-        this.ordAmt = ordAmt;
-        this.dlvFee = dlvFee;
-        this.cpnIssNo = cpnIssNo;
-        this.orgnPayAmt = orgnPayAmt;
-        this.pntUseAmt = pntUseAmt;
-        this.realPayAmt = realPayAmt;
-        this.regr = regr;
-        this.updr = updr;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PayDTO payDTO = (PayDTO) o;
-        return payNo == payDTO.payNo && payerId == payDTO.payerId && ordNo == payDTO.ordNo && payStus == payDTO.payStus && payTp == payDTO.payTp && ordAmt == payDTO.ordAmt && dlvFee == payDTO.dlvFee && orgnPayAmt == payDTO.orgnPayAmt && realPayAmt == payDTO.realPayAmt && regr == payDTO.regr && Objects.equals(cpnIssNo, payDTO.cpnIssNo) && Objects.equals(pntUseAmt, payDTO.pntUseAmt) && Objects.equals(regDttm, payDTO.regDttm) && Objects.equals(updDttm, payDTO.updDttm) && Objects.equals(updr, payDTO.updr);
+        return payNo == payDTO.payNo && payerId == payDTO.payerId && ordNo == payDTO.ordNo && payStus == payDTO.payStus && payTp == payDTO.payTp && ordAmt == payDTO.ordAmt && dlvFee == payDTO.dlvFee && orgnPayAmt == payDTO.orgnPayAmt && realPayAmt == payDTO.realPayAmt && regrId == payDTO.regrId && Objects.equals(cpnIssNo, payDTO.cpnIssNo) && Objects.equals(pntUseAmt, payDTO.pntUseAmt) && Objects.equals(regDttm, payDTO.regDttm) && Objects.equals(updDttm, payDTO.updDttm) && Objects.equals(updrId, payDTO.updrId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(payNo, payerId, ordNo, payStus, payTp, ordAmt, dlvFee, cpnIssNo, orgnPayAmt, pntUseAmt, realPayAmt, regDttm, regr, updDttm, updr);
+        return Objects.hash(payNo, payerId, ordNo, payStus, payTp, ordAmt, dlvFee, cpnIssNo, orgnPayAmt, pntUseAmt, realPayAmt, regDttm, regrId, updDttm, updrId);
     }
 
     public int getPayNo() {
@@ -107,11 +91,11 @@ public class PayDTO {
         this.dlvFee = dlvFee;
     }
 
-    public String getCpnIssNo() {
+    public Integer getCpnIssNo() {
         return cpnIssNo;
     }
 
-    public void setCpnIssNo(String cpnIssNo) {
+    public void setCpnIssNo(Integer cpnIssNo) {
         this.cpnIssNo = cpnIssNo;
     }
 
@@ -147,12 +131,12 @@ public class PayDTO {
         this.regDttm = regDttm;
     }
 
-    public int getRegr() {
-        return regr;
+    public int getRegrId() {
+        return regrId;
     }
 
-    public void setRegr(int regr) {
-        this.regr = regr;
+    public void setRegrId(int regrId) {
+        this.regrId = regrId;
     }
 
     public LocalDateTime getUpdDttm() {
@@ -163,12 +147,12 @@ public class PayDTO {
         this.updDttm = updDttm;
     }
 
-    public Integer getUpdr() {
-        return updr;
+    public Integer getUpdrId() {
+        return updrId;
     }
 
-    public void setUpdr(Integer updr) {
-        this.updr = updr;
+    public void setUpdrId(Integer updrId) {
+        this.updrId = updrId;
     }
 
     @Override
@@ -186,9 +170,115 @@ public class PayDTO {
                 ", pntUseAmt=" + pntUseAmt +
                 ", realPayAmt=" + realPayAmt +
                 ", regDttm=" + regDttm +
-                ", regr=" + regr +
+                ", regr=" + regrId +
                 ", updDttm=" + updDttm +
-                ", updr=" + updr +
+                ", updr=" + updrId +
                 '}';
+    }
+
+    public static final class Builder {
+        private int payNo;
+        private int payerId;
+        private int ordNo;
+        private int payStus;
+        private int payTp;
+        private int ordAmt;
+        private int dlvFee;
+        private Integer cpnIssNo;
+        private int orgnPayAmt;
+        private Integer pntUseAmt;
+        private int realPayAmt;
+        private int regrId;
+        private Integer updrId;
+
+        private Builder() {
+        }
+
+        public static Builder aPayDTO() {
+            return new Builder();
+        }
+
+        public Builder payNo(int payNo) {
+            this.payNo = payNo;
+            return this;
+        }
+
+        public Builder payerId(int payerId) {
+            this.payerId = payerId;
+            return this;
+        }
+
+        public Builder ordNo(int ordNo) {
+            this.ordNo = ordNo;
+            return this;
+        }
+
+        public Builder payStus(int payStus) {
+            this.payStus = payStus;
+            return this;
+        }
+
+        public Builder payTp(int payTp) {
+            this.payTp = payTp;
+            return this;
+        }
+
+        public Builder ordAmt(int ordAmt) {
+            this.ordAmt = ordAmt;
+            return this;
+        }
+
+        public Builder dlvFee(int dlvFee) {
+            this.dlvFee = dlvFee;
+            return this;
+        }
+
+        public Builder cpnIssNo(Integer cpnIssNo) {
+            this.cpnIssNo = cpnIssNo;
+            return this;
+        }
+
+        public Builder orgnPayAmt(int orgnPayAmt) {
+            this.orgnPayAmt = orgnPayAmt;
+            return this;
+        }
+
+        public Builder pntUseAmt(Integer pntUseAmt) {
+            this.pntUseAmt = pntUseAmt;
+            return this;
+        }
+
+        public Builder realPayAmt(int realPayAmt) {
+            this.realPayAmt = realPayAmt;
+            return this;
+        }
+
+        public Builder regrId(int regrId) {
+            this.regrId = regrId;
+            return this;
+        }
+
+        public Builder updrId(Integer updrId) {
+            this.updrId = updrId;
+            return this;
+        }
+
+        public PayDTO build() {
+            PayDTO payDTO = new PayDTO();
+            payDTO.setPayNo(payNo);
+            payDTO.setPayerId(payerId);
+            payDTO.setOrdNo(ordNo);
+            payDTO.setPayStus(payStus);
+            payDTO.setPayTp(payTp);
+            payDTO.setOrdAmt(ordAmt);
+            payDTO.setDlvFee(dlvFee);
+            payDTO.setCpnIssNo(cpnIssNo);
+            payDTO.setOrgnPayAmt(orgnPayAmt);
+            payDTO.setPntUseAmt(pntUseAmt);
+            payDTO.setRealPayAmt(realPayAmt);
+            payDTO.setRegrId(regrId);
+            payDTO.setUpdrId(updrId);
+            return payDTO;
+        }
     }
 }

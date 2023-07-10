@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teamProject.syusyu.ordDtlMapper">
-    <insert id="insertPay" parameterType="com.example.payapp.domain.PayDTO">
+<mapper namespace="com.teamProject.syusyu.payMapper">
+    <insert id="insertPay" parameterType="PayDTO" useGeneratedKeys="true" keyProperty="payNo">
         INSERT INTO PAY ( PAY_NO
                         , PAYER_ID
                         , ORD_NO
@@ -15,7 +15,7 @@
                         , ORGN_PAY_AMT
                         , PNT_USE_AMT
                         , REAL_PAY_AMT
-                        , REGR)
+                        , REGR_ID)
         VALUES (#{payNo}
              , #{payerId}
              , #{ordNo}
@@ -27,7 +27,7 @@
              , #{orgnPayAmt}
              , #{pntUseAmt}
              , #{realPayAmt}
-             , #{regr})
+             , #{regrId})
     </insert>
 
     <select id="selectPay" parameterType="int" resultType="PayDTO">
@@ -43,9 +43,9 @@
                PNT_USE_AMT,
                REAL_PAY_AMT,
                REG_DTTM,
-               REGR,
+               REGR_ID,
                UPD_DTTM,
-               UPDR
+               UPDR_ID
         FROM PAY
         WHERE PAY_NO = #{payNo}
     </select>

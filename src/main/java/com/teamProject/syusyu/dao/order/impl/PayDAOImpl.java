@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PayDAOImpl implements PayDAO {
     private final SqlSession session;
-    private static final String namespace = "com.example.payapp.payMapper.";
+    private static final String namespace = "com.teamProject.syusyu.payMapper.";
 
     public PayDAOImpl(SqlSession session) {
         this.session = session;
