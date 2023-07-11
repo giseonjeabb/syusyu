@@ -1,17 +1,16 @@
 package com.teamProject.syusyu.controller.order;
 
 import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.*;
 import com.teamProject.syusyu.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -52,15 +51,26 @@ public class OrderController {
     /**
      * 주문을 생성한다.
      *
-     * @param
-     * @return
-     * @throws
+     * @param orderRequestDTO 주문 요청 DTO
+     * @param mbrId           주문자 아이디
+     * @return 주문 생성 결과 메시지
      * @author min
      * @since 2023/07/11
      */
-    public String order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) throws Exception {
+    @PostMapping("/order")
+    @ResponseBody
+    public ResponseEntity<String> order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) {
+        System.out.println("orderRequestDTO = " + orderRequestDTO);
+        System.out.println("orderRequestDTO.getOrderProductList() = " + orderRequestDTO.getOrderProductList());
+
         Order order = new Order(orderRequestDTO, mbrId);
-        service.order(order);
-        return null;
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
     }
 }

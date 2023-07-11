@@ -28,7 +28,7 @@
                , #{cpnDcAmt}
                , #{qty}
                , #{prodTotalPayAmt}
-               , #{sendDdln}
+               , DATE_ADD(NOW(), INTERVAL 7 DAY)
                , #{regrId})
     </insert>
 

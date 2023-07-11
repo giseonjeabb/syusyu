@@ -3,7 +3,7 @@ package com.teamProject.syusyu.domain.order;
 import java.util.List;
 
 public class OrderRequestDTO {
-    private List<OrderProduct> orderProductList;
+    private List<OrderProductRequestDTO> orderProductList;
     private String payTp;
     private int dlvFee;
     private Integer cpnIssNo;
@@ -16,11 +16,11 @@ public class OrderRequestDTO {
     private String dtlAddr;
     private String dlvReqComt;
 
-    public List<OrderProduct> getOrderProductList() {
+    public List<OrderProductRequestDTO> getOrderProductList() {
         return orderProductList;
     }
 
-    public void setOrderProductList(List<OrderProduct> orderProductList) {
+    public void setOrderProductList(List<OrderProductRequestDTO> orderProductList) {
         this.orderProductList = orderProductList;
     }
 

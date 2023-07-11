@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.domain.order;
 
-public class OrderProduct {
+public class OrderProductRequestDTO {
     private int prodId;
     private String prodNm;
     private Integer optCombNo;

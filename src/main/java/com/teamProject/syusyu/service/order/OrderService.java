@@ -1,9 +1,8 @@
 package com.teamProject.syusyu.service.order;
 
-import com.teamProject.syusyu.domain.order.*;
+import com.teamProject.syusyu.domain.order.Order;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Map;
 
 public interface OrderService {

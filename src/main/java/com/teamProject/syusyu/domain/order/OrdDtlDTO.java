@@ -9,7 +9,7 @@ public class OrdDtlDTO {
     private int prodId;
     private String prodNm;
     private Integer optCombNo;
-    private int ordStus;
+    private String ordStus;
     private int prodAmt;
     private Integer prodDcPer;
     private Integer prodDcAmt;
@@ -24,7 +24,7 @@ public class OrdDtlDTO {
 
     public OrdDtlDTO() {}
 
-    public OrdDtlDTO(int ordNo, int prodId, String prodNm, Integer optCombNo, int ordStus, int prodAmt, Integer prodDcPer, Integer prodDcAmt, Integer cpnDcAmt, int qty, int prodTotalPayAmt, LocalDateTime sendDdln, int regrId, Integer updrId) {
+    public OrdDtlDTO(int ordNo, int prodId, String prodNm, Integer optCombNo, String ordStus, int prodAmt, Integer prodDcPer, Integer prodDcAmt, Integer cpnDcAmt, int qty, int prodTotalPayAmt, LocalDateTime sendDdln, int regrId, Integer updrId) {
         this.ordNo = ordNo;
         this.prodId = prodId;
         this.prodNm = prodNm;
@@ -86,11 +86,11 @@ public class OrdDtlDTO {
         this.prodNm = prodNm;
     }
 
-    public int getOrdStus() {
+    public String getOrdStus() {
         return ordStus;
     }
 
-    public void setOrdStus(int ordStus) {
+    public void setOrdStus(String ordStus) {
         this.ordStus = ordStus;
     }
 
@@ -212,12 +212,13 @@ public class OrdDtlDTO {
         this.optCombNo = optCombNo;
     }
 
+
     public static final class Builder {
         private int ordNo;
         private int prodId;
         private String prodNm;
         private Integer optCombNo;
-        private int ordStus;
+        private String ordStus;
         private int prodAmt;
         private Integer prodDcPer;
         private Integer prodDcAmt;
@@ -255,7 +256,7 @@ public class OrdDtlDTO {
             return this;
         }
 
-        public Builder ordStus(int ordStus) {
+        public Builder ordStus(String ordStus) {
             this.ordStus = ordStus;
             return this;
         }

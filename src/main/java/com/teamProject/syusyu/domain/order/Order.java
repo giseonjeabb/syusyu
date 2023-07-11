@@ -61,11 +61,12 @@ public class Order {
      */
     private List<OrdDtlDTO> createOrderDetails(OrderRequestDTO orderRequestDTO, int mbrId) {
         List<OrdDtlDTO> ordDtlList = new ArrayList<>();
-        for (OrderProduct orderProduct : orderRequestDTO.getOrderProductList()) {
+        for (OrderProductRequestDTO orderProduct : orderRequestDTO.getOrderProductList()) {
             OrdDtlDTO ordDtl = OrdDtlDTO.Builder.anOrdDtlDTO()
                     .prodId(orderProduct.getProdId())       // 상품아아디
                     .prodNm(orderProduct.getProdNm())       // 상품명
                     .optCombNo(orderProduct.getOptCombNo()) // 옵션조합번호
+                    .ordStus("10")                          // 주문상태
                     .prodAmt(orderProduct.getProdAmt())     // 상품금액
                     .prodDcPer(orderProduct.getDcPer())     // 상품할인율
                     .qty(orderProduct.getQty())             // 수량
@@ -87,9 +88,10 @@ public class Order {
      */
     private List<OrdStusHistDTO> createOrderStatusHistories(OrderRequestDTO orderRequestDTO, int mbrId) {
         List<OrdStusHistDTO> ordStusHistList = new ArrayList<>();
-        for (OrderProduct orderProduct : orderRequestDTO.getOrderProductList()) {
+        for (OrderProductRequestDTO orderProduct : orderRequestDTO.getOrderProductList()) {
             OrdStusHistDTO ordStusHist = OrdStusHistDTO.Builder.anOrdStusHistDTO()
-                    .regrId(mbrId) // 등록자
+                    .nowOrdStus("10") // 현재주문상태
+                    .regrId(mbrId)    // 등록자
                     .build();
             ordStusHistList.add(ordStusHist);
         }

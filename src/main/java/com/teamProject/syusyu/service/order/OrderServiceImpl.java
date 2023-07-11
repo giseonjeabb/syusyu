@@ -3,6 +3,7 @@ package com.teamProject.syusyu.service.order;
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.dao.order.*;
+import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.domain.order.*;
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String order(Order order) throws Exception {ㅊ
+    public String order(Order order) throws Exception {
 //        public String order(OrdDTO ord, List<OrdDtlDTO> ordDtlList, List<OrdStusHistDTO> ordStusHistList, PayDTO pay, PayRsltDTO payRslt, OrdDlvAddrDTO ordDlvAddr, int mbrId) throws Exception {
         // 1. 주문 정보를 DB에 삽입한다.
         createOrder(order.getOrd());
@@ -206,8 +207,6 @@ public class OrderServiceImpl implements OrderService {
         // ordDlvAddr insert
         ordDlvAddrDAO.insertOrdDlvAddr(ordDlvAddr);
     }
-
-    // TODO 여기에도 Transactional을 걸어야 하나?
 
     /**
      * 주문 상세 정보와 주문 상태 이력 정보를 동시에 DB에 삽입한다.
