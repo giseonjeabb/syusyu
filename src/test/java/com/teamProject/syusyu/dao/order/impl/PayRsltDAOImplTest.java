@@ -34,7 +34,7 @@ public class PayRsltDAOImplTest {
 
         // 테스트에 사용할 PayRsltDTO 객체를 생성한다.
         payRsltDTO = PayRsltDTO.Builder.aPayRsltDTO()
-                .payNo("1234567890123456")
+                .payNo(123456789)
                 .aprvNo("12345678")
                 .aprvDttm(LocalDateTime.now())
                 .cardNum("1234567812345678")

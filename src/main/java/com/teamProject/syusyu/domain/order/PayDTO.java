@@ -8,7 +8,7 @@ public class PayDTO {
     private int payerId;
     private int ordNo;
     private int payStus;
-    private int payTp;
+    private String payTp;
     private int ordAmt;
     private int dlvFee;
     private Integer cpnIssNo;
@@ -67,11 +67,11 @@ public class PayDTO {
         this.payStus = payStus;
     }
 
-    public int getPayTp() {
+    public String getPayTp() {
         return payTp;
     }
 
-    public void setPayTp(int payTp) {
+    public void setPayTp(String payTp) {
         this.payTp = payTp;
     }
 
@@ -181,7 +181,7 @@ public class PayDTO {
         private int payerId;
         private int ordNo;
         private int payStus;
-        private int payTp;
+        private String payTp;
         private int ordAmt;
         private int dlvFee;
         private Integer cpnIssNo;
@@ -218,7 +218,7 @@ public class PayDTO {
             return this;
         }
 
-        public Builder payTp(int payTp) {
+        public Builder payTp(String payTp) {
             this.payTp = payTp;
             return this;
         }

@@ -11,13 +11,13 @@
                                    CARD_PRTC_CODE, CARD_BANK_CODE, CARD_SRC_CODE, CARD_POINT,
                                    CARD_USE_POINT, CARD_COUPON_PRICE, CARD_COUPON_DISCOUNT,
                                    NAVERPOINT_USE_FREE_POINT, NAVERPOINT_CSHR_APPL_YN,
-                                   PCO_ORDER_NO, CURRENCY, ORG_PRICE, REG_DTTM, REGR_ID, UPD_DTTM, UPDR_ID)
+                                   PCO_ORDER_NO, CURRENCY, ORG_PRICE, REGR_ID)
         VALUES (#{payNo}, #{aprvNo}, #{aprvDttm}, #{cardNum}, #{cardInterest},
                 #{cardQuota}, #{cardCode}, #{cardCorpFlag}, #{cardCheckFlag},
                 #{cardPrtcCode}, #{cardBankCode}, #{cardSrcCode}, #{cardPoint},
                 #{cardUsePoint}, #{cardCouponPrice}, #{cardCouponDiscount},
                 #{naverpointUseFreePoint}, #{naverpointCshrApplYn},
-                #{pcoOrderNo}, #{currency}, #{orgPrice}, #{regDttm}, #{regrId}, #{updDttm}, #{updrId})
+                #{pcoOrderNo}, #{currency}, #{orgPrice}, #{regrId})
     </insert>
 
     <!-- 결제번호에 해당하는 결제 승인 결과를 가져오는 쿼리 -->

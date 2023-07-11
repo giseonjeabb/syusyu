@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class PayRsltDTO {
-    private String payNo;
+    private int payNo;
     private String aprvNo;
     private LocalDateTime aprvDttm;
     private String cardNum;
@@ -43,11 +43,11 @@ public class PayRsltDTO {
         return Objects.hash(payNo, aprvNo, cardNum, cardInterest, cardQuota, cardCode, cardCorpFlag, cardCheckFlag, cardPrtcCode, cardBankCode, cardSrcCode, cardPoint, cardUsePoint, cardCouponPrice, cardCouponDiscount, naverpointUseFreePoint, naverpointCshrApplYn, pcoOrderNo, currency, orgPrice, regrId, updrId);
     }
 
-    public String getPayNo() {
+    public int getPayNo() {
         return payNo;
     }
 
-    public void setPayNo(String payNo) {
+    public void setPayNo(int payNo) {
         this.payNo = payNo;
     }
 
@@ -275,7 +275,7 @@ public class PayRsltDTO {
     }
 
     public static final class Builder {
-        private String payNo;
+        private int payNo;
         private String aprvNo;
         private LocalDateTime aprvDttm;
         private String cardNum;
@@ -308,7 +308,7 @@ public class PayRsltDTO {
             return new Builder();
         }
 
-        public Builder payNo(String payNo) {
+        public Builder payNo(int payNo) {
             this.payNo = payNo;
             return this;
         }

@@ -38,7 +38,7 @@ public class PayRsltDAOImpl implements PayRsltDAO {
      * @since 2023/07/10
      */
     @Override
-    public PayRsltDTO selectPayResult(String payNo) throws Exception {
+    public PayRsltDTO selectPayResult(int payNo) throws Exception {
         return session.selectOne(namespace + "selectPayRslt", payNo);
     }
 
@@ -66,7 +66,7 @@ public class PayRsltDAOImpl implements PayRsltDAO {
      * @since 2023/07/10
      */
     @Override
-    public int deletePayResult(String payNo) throws Exception {
+    public int deletePayResult(int payNo) throws Exception {
         return session.delete(namespace + "deletePayRslt", payNo);
     }
 
