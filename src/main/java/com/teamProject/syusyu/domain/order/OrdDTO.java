@@ -91,4 +91,40 @@ public class OrdDTO {
                 ", updrId=" + updrId +
                 '}';
     }
+
+    public static final class Builder {
+        private int ordrId;
+        private int regrId;
+        private Integer updrId;
+
+        private Builder() {
+        }
+
+        public static Builder anOrdDTO() {
+            return new Builder();
+        }
+
+        public Builder ordrId(int ordrId) {
+            this.ordrId = ordrId;
+            return this;
+        }
+
+        public Builder regrId(int regrId) {
+            this.regrId = regrId;
+            return this;
+        }
+
+        public Builder updrId(Integer updrId) {
+            this.updrId = updrId;
+            return this;
+        }
+
+        public OrdDTO build() {
+            OrdDTO ordDTO = new OrdDTO();
+            ordDTO.setOrdrId(ordrId);
+            ordDTO.setRegrId(regrId);
+            ordDTO.setUpdrId(updrId);
+            return ordDTO;
+        }
+    }
 }

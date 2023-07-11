@@ -16,7 +16,6 @@
                             , QTY
                             , PROD_TOTAL_PAY_AMT
                             , SEND_DDLN
-                            , REG_DTTM
                             , REGR_ID)
         VALUES ( #{ordNo}
                , #{prodId}
@@ -30,7 +29,6 @@
                , #{qty}
                , #{prodTotalPayAmt}
                , #{sendDdln}
-               , now()
                , #{regrId})
     </insert>
 

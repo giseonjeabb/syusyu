@@ -211,4 +211,117 @@ public class OrdDtlDTO {
     public void setOptCombNo(Integer optCombNo) {
         this.optCombNo = optCombNo;
     }
+
+    public static final class Builder {
+        private int ordNo;
+        private int prodId;
+        private String prodNm;
+        private Integer optCombNo;
+        private int ordStus;
+        private int prodAmt;
+        private Integer prodDcPer;
+        private Integer prodDcAmt;
+        private Integer cpnDcAmt;
+        private int qty;
+        private int prodTotalPayAmt;
+        private LocalDateTime sendDdln;
+        private int regrId;
+        private Integer updrId;
+
+        private Builder() {
+        }
+
+        public static Builder anOrdDtlDTO() {
+            return new Builder();
+        }
+
+        public Builder ordNo(int ordNo) {
+            this.ordNo = ordNo;
+            return this;
+        }
+
+        public Builder prodId(int prodId) {
+            this.prodId = prodId;
+            return this;
+        }
+
+        public Builder prodNm(String prodNm) {
+            this.prodNm = prodNm;
+            return this;
+        }
+
+        public Builder optCombNo(Integer optCombNo) {
+            this.optCombNo = optCombNo;
+            return this;
+        }
+
+        public Builder ordStus(int ordStus) {
+            this.ordStus = ordStus;
+            return this;
+        }
+
+        public Builder prodAmt(int prodAmt) {
+            this.prodAmt = prodAmt;
+            return this;
+        }
+
+        public Builder prodDcPer(Integer prodDcPer) {
+            this.prodDcPer = prodDcPer;
+            return this;
+        }
+
+        public Builder prodDcAmt(Integer prodDcAmt) {
+            this.prodDcAmt = prodDcAmt;
+            return this;
+        }
+
+        public Builder cpnDcAmt(Integer cpnDcAmt) {
+            this.cpnDcAmt = cpnDcAmt;
+            return this;
+        }
+
+        public Builder qty(int qty) {
+            this.qty = qty;
+            return this;
+        }
+
+        public Builder prodTotalPayAmt(int prodTotalPayAmt) {
+            this.prodTotalPayAmt = prodTotalPayAmt;
+            return this;
+        }
+
+        public Builder sendDdln(LocalDateTime sendDdln) {
+            this.sendDdln = sendDdln;
+            return this;
+        }
+
+        public Builder regrId(int regrId) {
+            this.regrId = regrId;
+            return this;
+        }
+
+        public Builder updrId(Integer updrId) {
+            this.updrId = updrId;
+            return this;
+        }
+
+        public OrdDtlDTO build() {
+            OrdDtlDTO ordDtlDTO = new OrdDtlDTO();
+            ordDtlDTO.setOrdNo(ordNo);
+            ordDtlDTO.setProdId(prodId);
+            ordDtlDTO.setProdNm(prodNm);
+            ordDtlDTO.setOptCombNo(optCombNo);
+            ordDtlDTO.setOrdStus(ordStus);
+            ordDtlDTO.setProdAmt(prodAmt);
+            ordDtlDTO.setProdDcPer(prodDcPer);
+            ordDtlDTO.setProdDcAmt(prodDcAmt);
+            ordDtlDTO.setCpnDcAmt(cpnDcAmt);
+            ordDtlDTO.setQty(qty);
+            ordDtlDTO.setProdTotalPayAmt(prodTotalPayAmt);
+            ordDtlDTO.setSendDdln(sendDdln);
+            ordDtlDTO.setRegrId(regrId);
+            ordDtlDTO.setUpdrId(updrId);
+            return ordDtlDTO;
+        }
+    }
 }
