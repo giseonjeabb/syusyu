@@ -105,13 +105,13 @@
                         <%--등록날짜--%>
                     <c:choose>
                         <c:when test="${noticeDto.regDttm.time >= startOfToday}">
-                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm"
-                                                                           type="time"/></td>
+                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm" type="time"/></td>
                         </c:when>
+
                         <c:otherwise>
-                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}"
-                                                                           pattern="yyyy-MM-dd" type="date"/></td>
+                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
+
                     </c:choose>
                         <%--조회수--%>
                         <%--<td class="viewCnt">${noticeDto.viewCnt}</td>--%>

@@ -11,6 +11,7 @@
         <typeAlias alias="FaqDTO" type="com.teamProject.syusyu.domain.cs.FaqDTO"/>
 <!--        <typeAlias alias="BoardDto" type="com.teamProject.syusyu.domain.cs.BoardDto"/>-->
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition" />
+        <typeAlias alias="FaqSearchCondition" type="com.teamProject.syusyu.domain.cs.FaqSearchCondition" />
         <typeAlias alias="CommentDto" type="com.teamProject.syusyu.domain.CommentDto"/>
         <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
         <typeAlias alias="CartProductDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>
