@@ -85,11 +85,11 @@
             <when test='option=="T"'>
                 AND TITLE LIKE CONCAT('%', #{keyword}, '%')
             </when>
-            <when test='option=="W"'>
-                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')
-            </when>
             <when test='option=="C"'>
                 AND CONTENT LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="N"'>
+                AND NOTC_NO LIKE CONCAT('%', #{keyword}, '%')
             </when>
             <otherwise>
                 AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
