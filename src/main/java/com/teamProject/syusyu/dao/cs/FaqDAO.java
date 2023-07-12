@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.dao.cs;
 
 import com.teamProject.syusyu.domain.cs.FaqDTO;
+import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 
 import java.util.List;
@@ -27,7 +28,12 @@ public interface FaqDAO {
 
     List<FaqDTO> selectPage(Map map) throws Exception;
 
-    List<FaqDTO> searchSelectPage(SearchCondition sc) throws Exception;
+    List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception;
 
-    int searchResultCnt(SearchCondition sc) throws Exception;
+    int searchResultCnt(FaqSearchCondition fsc) throws Exception;
+
+    List<FaqDTO> selectFaqTp(String faqTp)throws Exception;
+
+
+
 }

@@ -2,6 +2,7 @@ package com.teamProject.syusyu.dao.cs.impl;
 
 import com.teamProject.syusyu.dao.cs.FaqDAO;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
+import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,15 +73,25 @@ public class FaqDAOImpl implements FaqDAO {
         return session.selectList(namespace + "selectPageFaq", map);
     }
 
-    public List<FaqDTO> searchSelectPage(SearchCondition sc) throws Exception{
-        List<FaqDTO> test = session.selectList(namespace+"searchSelectPageFaq", sc);
+    public List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception{
+        List<FaqDTO> test = session.selectList(namespace+"searchSelectPageFaq", fsc);
         System.out.println("test = " + test);
         return test;
     }
 
-    public int searchResultCnt(SearchCondition sc) throws Exception{
-        return session.selectOne(namespace+"searchResultCntFaq",sc);
+    public int searchResultCnt(FaqSearchCondition fsc) throws Exception{
+        return session.selectOne(namespace+"searchResultCntFaq", fsc);
     }
+
+    public List<FaqDTO> selectFaqTp(String faqTp)throws Exception{
+        return session.selectList(namespace+"selectFaqTp",faqTp);
+    }
+
+
+
+
+
+
 
 
 }
