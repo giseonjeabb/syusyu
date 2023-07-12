@@ -93,15 +93,13 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 주문을 생성한다.
      *
-     * @return 처리 결과 메시지
      * @throws Exception 주문 처리 도중 발생하는 예외
      * @author min
      * @since 2023/07/07
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String order(Order order) throws Exception {
-//        public String order(OrdDTO ord, List<OrdDtlDTO> ordDtlList, List<OrdStusHistDTO> ordStusHistList, PayDTO pay, PayRsltDTO payRslt, OrdDlvAddrDTO ordDlvAddr, int mbrId) throws Exception {
+    public void order(Order order) throws Exception {
         // 1. 주문 정보를 DB에 삽입한다.
         createOrder(order.getOrd());
 //        int ordNo = ord.getOrdNo();
@@ -117,8 +115,6 @@ public class OrderServiceImpl implements OrderService {
 
         // 5. 주문배송지 정보를 DB에 삽입한다.
         addDeliveryAddressForOrder(order.getOrdDlvAddr(), order.getOrd().getOrdNo());
-
-        return null;
     }
 
     /**

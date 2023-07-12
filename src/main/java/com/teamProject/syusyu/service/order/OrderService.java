@@ -9,5 +9,5 @@ public interface OrderService {
     Map<String, Object> orderSheet(int[] cartProdNoArr, int mbrId) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)
-    String order(Order order) throws Exception;
+    void order(Order order) throws Exception;
 }

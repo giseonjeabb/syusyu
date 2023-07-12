@@ -4,8 +4,7 @@
 
 <mapper namespace="com.teamProject.syusyu.payMapper">
     <insert id="insertPay" parameterType="PayDTO" useGeneratedKeys="true" keyProperty="payNo">
-        INSERT INTO PAY ( PAY_NO
-                        , PAYER_ID
+        INSERT INTO PAY ( PAYER_ID
                         , ORD_NO
                         , PAY_STUS
                         , PAY_TP
@@ -16,19 +15,24 @@
                         , PNT_USE_AMT
                         , REAL_PAY_AMT
                         , REGR_ID)
-        VALUES (#{payNo}
-             , #{payerId}
-             , #{ordNo}
-             , #{payStus}
-             , #{payTp}
-             , #{ordAmt}
-             , #{dlvFee}
-             , #{cpnIssNo}
-             , #{orgnPayAmt}
-             , #{pntUseAmt}
-             , #{realPayAmt}
-             , #{regrId})
+        SELECT #{payerId}                                     # 결제자아이디
+             , #{ordNo}                                       # 주문번호
+             , 10                                             # 결제상태(10 = 결제완료)
+             , #{payTp}                                       # 결제수단
+             , O.ORD_AMT                                      # 주문금액
+             , #{dlvFee}                                      # 배송비
+             , #{cpnIssNo}                                    # 쿠폰발행번호
+             , GET_ORGN_PAY_AMT(O.ORD_AMT, 2)                 # 원결제금액(주문금액에서 쿠폰할인 적용)
+             , #{pntUseAmt}                                   # 포인트사용금액
+             , GET_ORGN_PAY_AMT(O.ORD_AMT, 2) - P.PNT_USE_AMT # 실결제금액(원결제금액 - 포인트 사용금액)
+             , #{regrId}                                      # 등록자아이디
+        FROM PAY P
+                 JOIN (SELECT ORD_NO, SUM(GET_DC_PRC(PROD_PRC, PROD_DC_PER) * QTY) AS ORD_AMT
+                       FROM ORD_DTL
+                       GROUP BY ORD_NO) O ON O.ORD_NO = P.ORD_NO
+        WHERE P.ORD_NO = #{ordNo}
     </insert>
+
 
     <select id="selectPay" parameterType="int" resultType="PayDTO">
         SELECT PAY_NO,

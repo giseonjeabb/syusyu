@@ -9,10 +9,8 @@
                             , PROD_NM
                             , OPT_COMB_NO
                             , ORD_STUS
-                            , PROD_AMT
+                            , PROD_PRC
                             , PROD_DC_PER
-                            , PROD_DC_AMT
-                            , CPN_DC_AMT
                             , QTY
                             , PROD_TOTAL_PAY_AMT
                             , SEND_DDLN
@@ -22,10 +20,8 @@
                , #{prodNm}
                , #{optCombNo}
                , #{ordStus}
-               , #{prodAmt}
+               , #{prodPrc}
                , #{prodDcPer}
-               , #{prodDcAmt}
-               , #{cpnDcAmt}
                , #{qty}
                , #{prodTotalPayAmt}
                , DATE_ADD(NOW(), INTERVAL 7 DAY)

@@ -4,7 +4,7 @@ public class OrderProductRequestDTO {
     private int prodId;
     private String prodNm;
     private Integer optCombNo;
-    private int prodAmt;
+    private int prodPrc;
     private Integer dcPer;
     private int qty;
 
@@ -32,12 +32,12 @@ public class OrderProductRequestDTO {
         this.optCombNo = optCombNo;
     }
 
-    public int getProdAmt() {
-        return prodAmt;
+    public int getprodPrc() {
+        return prodPrc;
     }
 
-    public void setProdAmt(int prodAmt) {
-        this.prodAmt = prodAmt;
+    public void setprodPrc(int prodPrc) {
+        this.prodPrc = prodPrc;
     }
 
     public Integer getDcPer() {
@@ -62,7 +62,7 @@ public class OrderProductRequestDTO {
                 "prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
                 ", optCombNo=" + optCombNo +
-                ", prodAmt=" + prodAmt +
+                ", prodPrc=" + prodPrc +
                 ", dcPer=" + dcPer +
                 ", qty=" + qty +
                 '}';

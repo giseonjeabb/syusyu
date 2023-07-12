@@ -10,10 +10,8 @@ public class OrdDtlDTO {
     private String prodNm;
     private Integer optCombNo;
     private String ordStus;
-    private int prodAmt;
+    private int prodPrc;
     private Integer prodDcPer;
-    private Integer prodDcAmt;
-    private Integer cpnDcAmt;
     private int qty;
     private int prodTotalPayAmt;
     private LocalDateTime sendDdln;
@@ -24,16 +22,14 @@ public class OrdDtlDTO {
 
     public OrdDtlDTO() {}
 
-    public OrdDtlDTO(int ordNo, int prodId, String prodNm, Integer optCombNo, String ordStus, int prodAmt, Integer prodDcPer, Integer prodDcAmt, Integer cpnDcAmt, int qty, int prodTotalPayAmt, LocalDateTime sendDdln, int regrId, Integer updrId) {
+    public OrdDtlDTO(int ordNo, int prodId, String prodNm, Integer optCombNo, String ordStus, int prodPrc, Integer prodDcPer, int qty, int prodTotalPayAmt, LocalDateTime sendDdln, int regrId, Integer updrId) {
         this.ordNo = ordNo;
         this.prodId = prodId;
         this.prodNm = prodNm;
         this.optCombNo = optCombNo;
         this.ordStus = ordStus;
-        this.prodAmt = prodAmt;
+        this.prodPrc = prodPrc;
         this.prodDcPer = prodDcPer;
-        this.prodDcAmt = prodDcAmt;
-        this.cpnDcAmt = cpnDcAmt;
         this.qty = qty;
         this.prodTotalPayAmt = prodTotalPayAmt;
         this.sendDdln = sendDdln;
@@ -46,12 +42,12 @@ public class OrdDtlDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrdDtlDTO ordDtlDTO = (OrdDtlDTO) o;
-        return ordNo == ordDtlDTO.ordNo && prodId == ordDtlDTO.prodId && ordStus == ordDtlDTO.ordStus && prodAmt == ordDtlDTO.prodAmt && qty == ordDtlDTO.qty && prodTotalPayAmt == ordDtlDTO.prodTotalPayAmt && regrId == ordDtlDTO.regrId && Objects.equals(prodNm, ordDtlDTO.prodNm) && Objects.equals(optCombNo, ordDtlDTO.optCombNo) && Objects.equals(prodDcPer, ordDtlDTO.prodDcPer) && Objects.equals(prodDcAmt, ordDtlDTO.prodDcAmt) && Objects.equals(cpnDcAmt, ordDtlDTO.cpnDcAmt) && Objects.equals(updrId, ordDtlDTO.updrId);
+        return ordNo == ordDtlDTO.ordNo && prodId == ordDtlDTO.prodId && ordStus == ordDtlDTO.ordStus && prodPrc == ordDtlDTO.prodPrc && qty == ordDtlDTO.qty && prodTotalPayAmt == ordDtlDTO.prodTotalPayAmt && regrId == ordDtlDTO.regrId && Objects.equals(prodNm, ordDtlDTO.prodNm) && Objects.equals(optCombNo, ordDtlDTO.optCombNo) && Objects.equals(prodDcPer, ordDtlDTO.prodDcPer) && Objects.equals(updrId, ordDtlDTO.updrId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ordNo, prodId, prodNm, optCombNo, ordStus, prodAmt, prodDcPer, prodDcAmt, cpnDcAmt, qty, prodTotalPayAmt, regrId, updrId);
+        return Objects.hash(ordNo, prodId, prodNm, optCombNo, ordStus, prodPrc, prodDcPer, qty, prodTotalPayAmt, regrId, updrId);
     }
 
     public int getOrdDtlNo() {
@@ -94,12 +90,12 @@ public class OrdDtlDTO {
         this.ordStus = ordStus;
     }
 
-    public int getProdAmt() {
-        return prodAmt;
+    public int getprodPrc() {
+        return prodPrc;
     }
 
-    public void setProdAmt(int prodAmt) {
-        this.prodAmt = prodAmt;
+    public void setprodPrc(int prodPrc) {
+        this.prodPrc = prodPrc;
     }
 
     public Integer getProdDcPer() {
@@ -108,22 +104,6 @@ public class OrdDtlDTO {
 
     public void setProdDcPer(Integer prodDcPer) {
         this.prodDcPer = prodDcPer;
-    }
-
-    public Integer getProdDcAmt() {
-        return prodDcAmt;
-    }
-
-    public void setProdDcAmt(Integer prodDcAmt) {
-        this.prodDcAmt = prodDcAmt;
-    }
-
-    public Integer getCpnDcAmt() {
-        return cpnDcAmt;
-    }
-
-    public void setCpnDcAmt(Integer cpnDcAmt) {
-        this.cpnDcAmt = cpnDcAmt;
     }
 
     public int getQty() {
@@ -190,10 +170,8 @@ public class OrdDtlDTO {
                 ", prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
                 ", ordStus=" + ordStus +
-                ", prodAmt=" + prodAmt +
+                ", prodPrc=" + prodPrc +
                 ", prodDcPer=" + prodDcPer +
-                ", prodDcAmt=" + prodDcAmt +
-                ", cpnDcAmt=" + cpnDcAmt +
                 ", qty=" + qty +
                 ", prodTotalPayAmt=" + prodTotalPayAmt +
                 ", sendDdln='" + sendDdln + '\'' +
@@ -219,10 +197,8 @@ public class OrdDtlDTO {
         private String prodNm;
         private Integer optCombNo;
         private String ordStus;
-        private int prodAmt;
+        private int prodPrc;
         private Integer prodDcPer;
-        private Integer prodDcAmt;
-        private Integer cpnDcAmt;
         private int qty;
         private int prodTotalPayAmt;
         private LocalDateTime sendDdln;
@@ -261,23 +237,13 @@ public class OrdDtlDTO {
             return this;
         }
 
-        public Builder prodAmt(int prodAmt) {
-            this.prodAmt = prodAmt;
+        public Builder prodPrc(int prodPrc) {
+            this.prodPrc = prodPrc;
             return this;
         }
 
         public Builder prodDcPer(Integer prodDcPer) {
             this.prodDcPer = prodDcPer;
-            return this;
-        }
-
-        public Builder prodDcAmt(Integer prodDcAmt) {
-            this.prodDcAmt = prodDcAmt;
-            return this;
-        }
-
-        public Builder cpnDcAmt(Integer cpnDcAmt) {
-            this.cpnDcAmt = cpnDcAmt;
             return this;
         }
 
@@ -313,10 +279,8 @@ public class OrdDtlDTO {
             ordDtlDTO.setProdNm(prodNm);
             ordDtlDTO.setOptCombNo(optCombNo);
             ordDtlDTO.setOrdStus(ordStus);
-            ordDtlDTO.setProdAmt(prodAmt);
+            ordDtlDTO.setprodPrc(prodPrc);
             ordDtlDTO.setProdDcPer(prodDcPer);
-            ordDtlDTO.setProdDcAmt(prodDcAmt);
-            ordDtlDTO.setCpnDcAmt(cpnDcAmt);
             ordDtlDTO.setQty(qty);
             ordDtlDTO.setProdTotalPayAmt(prodTotalPayAmt);
             ordDtlDTO.setSendDdln(sendDdln);
