@@ -99,7 +99,7 @@
     </sql>
 
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDTO">
-        SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP
+        SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP ,START_DTTM , END_DTTM , UPD_DTTM
         FROM notice
         WHERE TRUE
         <include refid="searchCondition"/>
