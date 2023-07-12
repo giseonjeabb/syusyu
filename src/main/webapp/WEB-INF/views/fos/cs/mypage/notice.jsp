@@ -9,8 +9,8 @@
     </style>
     <%-- JS 파일 주입--%>
         <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-        <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"defer></script>
-
+        <script src="<c:url value='${jsUrlFos}/cs/mypage/notice.js'/>" ></script>
+        <%-- 이상하게 적용안되는중 하단에 적으면되는데 JS 파일로 따로 빼서 받으면 404뜸--%>
 </head>
 
 
