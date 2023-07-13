@@ -114,21 +114,13 @@ const updateCartStatus = (isCartExist) => {
  * @since  2023/07/03
  */
 const getCartProductList = () => {
-    $.ajax({
-        type: 'GET',
-        url: '/cartList',
-        contentType: 'application/json; charset=utf-8',
-        success: (result) => {
-            // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
-            g_cartProdList = result;
+    syusyu.common.Ajax.sendJSONRequest('GET', '/cartList', '', res => {
+        // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
+        g_cartProdList = res;
 
-            showCartProductList(result);
-            showCartTotal(result);
-            updateCartStatus(result.length > 0);
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
-        }
+        showCartProductList(res);
+        showCartTotal(res);
+        updateCartStatus(res.length > 0);
     });
 }
 
@@ -141,18 +133,18 @@ const getCartProductList = () => {
  */
 const showCartTotal = (cartProdList) => {
     const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
-    const cartTotDcPrc = cartProdList.reduce((acc, cur) => acc + cur.totDcPrc, 0); // 총 할인금액
+    const cartTotDcAmt = cartProdList.reduce((acc, cur) => acc + cur.totDcAmt, 0); // 총 할인금액
     const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
-    const cartPayAmt = cartTotPrc - cartTotDcPrc + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
+    const cartPayAmt = cartTotPrc - cartTotDcAmt + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
 
     const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액
-    const $cartTotDcPrc = document.getElementById('cartTotDcPrc');  // 총 할인금액
+    const $cartTotDcAmt = document.getElementById('cartTotDcAmt');  // 총 할인금액
     const $dlvFee = document.getElementById('dlvFee');              // 배송비
     const $cartPayAmt = document.getElementById('cartPayAmt');      // 결제예상금액
     const $finalAmt = document.getElementById('finalAmt');
 
     $cartTotPrc.innerHTML = formatPrice(cartTotPrc);
-    $cartTotDcPrc.innerHTML = formatPrice(cartTotDcPrc);
+    $cartTotDcAmt.innerHTML = formatPrice(cartTotDcAmt);
     $dlvFee.innerHTML = formatPrice(dlvFee);
     $cartPayAmt.innerHTML = formatPrice(cartPayAmt);
     $finalAmt.innerHTML = formatPrice(cartPayAmt) + '원 주문하기';
@@ -219,8 +211,8 @@ const showCartProductList = (cartProdList) => {
                 </div>
             </div>
             <div class="price-arae">
-                <p class="amount">${formatPrice(cartProd.totDcAplPrc)}<span class="won">원</span></p>
-                ${cartProd.totDcAplPrc !== cartProd.totPrc ? `<del>${formatPrice(cartProd.totPrc)}<span class="won">원</span></del>` : ''}
+                <p class="amount">${formatPrice(cartProd.totDcPrc)}<span class="won">원</span></p>
+                ${cartProd.totDcPrc !== cartProd.totPrc ? `<del>${formatPrice(cartProd.totPrc)}<span class="won">원</span></del>` : ''}
             </div>
             <div class="remove-area">
                 <button type="button" class="btn icon remove_20 btn_remove"><span class="text">삭제</span></button>
