@@ -249,18 +249,8 @@ const showCartProductList = (cartProdList) => {
  */
 const modify = (cartProdNo, ordQty) => {
     const param = {qty: ordQty};
-
-    $.ajax({
-        type: 'PATCH',
-        url: '/cart/' + cartProdNo,
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        success: () => {
-            getCartProductList();
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
-        }
+    syusyu.common.Ajax.sendJSONRequest('PATCH', '/cart/' + cartProdNo, param, () => {
+        getCartProductList();
     });
 }
 
@@ -272,17 +262,8 @@ const modify = (cartProdNo, ordQty) => {
  * @since 2023/07/03
  */
 const remove = (cartProdNoArr) => {
-    $.ajax({
-        type: 'DELETE',
-        url: '/cart',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(cartProdNoArr),
-        success: () => {
-            getCartProductList();
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
-        }
+    syusyu.common.Ajax.sendJSONRequest('DELETE', '/cart/', cartProdNoArr, () => {
+        getCartProductList();
     });
 }
 
@@ -326,27 +307,16 @@ const getCheckedItem = (target) => {
 const checkProductStatus = () => {
     const checkedProdIdArr = getCheckedProdIdArr();
 
-    $.ajax({
-        type: 'GET',
-        url: '/productStatus',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        traditional: true, // 배열 파라미터를 prodIdArr=1&prodIdArr=2&prodIdArr=3과 같은 형태로 직렬화
-        data: {'prodIdArr': checkedProdIdArr},
-        success: (result) => {
-            // 1. 판매상태가 601이 아닌 상품들을 찾는다.
-            const tmp = result.filter(product => product.status !== 601);
+    syusyu.common.Ajax.sendJSONRequest('GET', '/productStatus', {'prodIdArr': checkedProdIdArr}, () => {
+        // 1. 판매상태가 601이 아닌 상품들을 찾는다.
+        const tmp = result.filter(product => product.status !== 601);
 
-            // 2. TODO tmp에 객체가 하나라도 있으면 그 name을 합쳐서 alert 띄워주고 return 하기
-            if (tmp.length !== 0) {
-                const prodNm = tmp.map(product => product.prodNm).join(',');
-                alert(prodNm + "는 구매가 불가능한 상품입니다.");
-            }
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            alert("An error occurred: " + textStatus + " - " + errorThrown);
+        // 2. TODO tmp에 객체가 하나라도 있으면 그 name을 합쳐서 alert 띄워주고 return 하기
+        if (tmp.length !== 0) {
+            const prodNm = tmp.map(product => product.prodNm).join(',');
+            alert(prodNm + "는 구매가 불가능한 상품입니다.");
         }
-    });
+    }, null, true);
 }
 
 
