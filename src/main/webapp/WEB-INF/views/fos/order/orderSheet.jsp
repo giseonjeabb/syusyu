@@ -5,7 +5,13 @@
 <%@ page session="false" %>
 <head>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <script src="<c:url value="${jsUrlFos}/order/orderSheet.js"/>"></script>
+    <script src="<c:url value="${jsUrlFos}/order/orderSheet.js?ddfdafd"/>"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            orderSheet.initLoad();
+            orderSheet.bindButtonEvent();
+        });
+    </script>
 </head>
 <form name="FrmOrder" id="frm_order" method="post">
     <main>
@@ -14,6 +20,7 @@
                 <a href="https://www.ottogimall.co.kr/front">홈</a>
                 <a href="javascript:;" onclick="location.reload();">주문결제</a>
             </div>
+            <a onclick="test();">테스트</a>
         </div>
         <div class="content-title">
             <div class="inner-content">
@@ -35,6 +42,10 @@
                                 <div class="inner" style="display: block;">
                                     <ul class="prd-brd-list">
                                         <c:forEach var="cartProd" items="${cartProdList}">
+                                            <input type="hidden" name="prod_id" value="${cartProd.prodId}">
+                                            <input type="hidden" name="prod_nm" value="${cartProd.prodNm}">
+                                            <input type="hidden" name="opt_comb_no" value="${cartProd.optCombNo}">
+                                            <input type="hidden" name="qty" value="${cartProd.qty}">
                                             <li>
                                                 <div class="item-area">
                                                     <div class="prd-item etc-ty1">
@@ -61,8 +72,8 @@
                                                 </div>
                                                 <div class="item-cnt">${cartProd.qty}개</div>
                                                 <div class="price-arae">
-                                                    <p class="amount"><fmt:formatNumber value="${cartProd.totDcAplPrc}" type="number" pattern="#,###"/><span class="won">원</span></p>
-                                                    <c:if test="${cartProd.totDcAplPrc != cartProd.totPrc}">
+                                                    <p class="amount"><fmt:formatNumber value="${cartProd.totDcPrc}" type="number" pattern="#,###"/><span class="won">원</span></p>
+                                                    <c:if test="${cartProd.totDcPrc != cartProd.totPrc}">
                                                         <del><fmt:formatNumber value="${cartProd.totPrc}" type="number" pattern="#,###"/><span class="won">원</span></del>
                                                     </c:if>
                                                 </div>
@@ -73,12 +84,11 @@
                             </div>
                         </div>
                     </section>
-                    <!-- 주문상품 -->
 
                     <!-- 주문자 정보 -->
-                    <input type="hidden" id="ord_name" name="ordName" value="${memberInfo.name}">
-                    <input type="hidden" id="ord_mobile" name="ordMobile" value="${memberInfo.mpNo}">
-                    <input type="hidden" id="ord_email" name="ordEmail" value="${memberInfo.email}">
+                    <input type="hidden" id="ord_name" value="${memberInfo.name}">
+                    <input type="hidden" id="ord_mobile" value="${memberInfo.mpNo}">
+                    <input type="hidden" id="ord_email" value="${memberInfo.email}">
 
                     <section>
                         <div class="sub-content-head etc-ty2">
@@ -117,23 +127,19 @@
                     </section>
 
                     <!-- 배송지 정보 -->
-
-                    <input type="hidden" id="rcv_def_name" name="rcvName" value="${dlvAddr.recipient}">
-                    <input type="hidden" id="rcv_def_mobile" name="rcvMobile" value="${dlvAddr.mpNo}">
-                    <input type="hidden" id="rcv_def_post" name="rcvPost" value="${dlvAddr.zipcode}03328">
-                    <input type="hidden" id="rcv_def_addr_base" name="rcvAddrBase" value="${dlvAddr.dfltAddr}">
-                    <input type="hidden" id="rcv_def_addr_detail" name="rcvAddrDetail" value="${dlvAddr.dtlAddr}">
+                    <input type="hidden" id="recipient" value="${dlvAddr.recipient}">
+                    <input type="hidden" id="mpNo" value="${dlvAddr.mpNo}">
+                    <input type="hidden" id="zipcode" value="${dlvAddr.zipcode}">
+                    <input type="hidden" id="dfltAddr" value="${dlvAddr.dfltAddr}">
+                    <input type="hidden" id="dtlAddr" value="${dlvAddr.dtlAddr}">
 
                     <section>
                         <div class="sub-content-head etc-ty2">
                             <div class="inner">
                                 <h3 class="title-t ty5">배송지 정보</h3>
                                 <div class="r-side">
-                                    <button type="button" class="btn ty1 c-ty6" id="addrUpdateTxt" style="display: ">
-                                        <span>배송지변경</span></button>
-                                    <button type="button" class="btn ty1 c-ty6" id="addrInsertTxt"
-                                            style="display: none"><span>배송지등록</span></button>
-                                </div>
+                                    <button type="button" class="btn ty1 c-ty6" id="btn_addr_change"> <span>배송지변경</span></button>
+                                    <button type="button" class="btn ty1 c-ty6" id="addrInsertTxt" style="display: none"><span>배송지등록</span></button> </div>
                             </div>
                         </div>
 
@@ -144,17 +150,17 @@
                                     <col style="width:auto">
                                 </colgroup>
                                 <tbody>
-                                <tr class="defInfoTxt" style="display: ">
+                                <tr>
                                     <th>받는 분</th>
-                                    <td id="defNameTxt">${dlvAddr.recipient}<span class="color-1">(기본배송지)</span></td>
+                                    <td id="recipientTxt">${dlvAddr.recipient}<span class="color-1">(기본배송지)</span></td>
                                 </tr>
-                                <tr class="defInfoTxt" style="display: ">
+                                <tr>
                                     <th>배송지</th>
-                                    <td id="defAddrBaseTxt">${dlvAddr.addr}</td>
+                                    <td id="dlvAddrTxt">${dlvAddr.addr}</td>
                                 </tr>
-                                <tr class="defInfoTxt" style="display: ">
+                                <tr>
                                     <th>연락처</th>
-                                    <td id="defPhoneTxt">${dlvAddr.mpNo}</td>
+                                    <td id="mpNoTxt">${dlvAddr.mpNo}</td>
                                 </tr>
                                 <tr class="notDefnameTxt" style="display: none">
                                     <th>배송지</th>
@@ -230,7 +236,7 @@
                                             <div class="input etc-ty1 w-450">
                                                 <input type="hidden" name="hasSmoney" id="has_smoney" value="1000.00"
                                                        usablehas="1000.00" usablemin="1000.00" usablemax="0.00">
-                                                <input type="text" name="issueSmoney" id="issue_smoney"
+                                                <input type="text" name="pnt_use_amt" id="pnt_use_amt"
                                                        class="inp num-comma" value="0">
                                                 <span class="side">원</span>
                                             </div>
@@ -249,179 +255,178 @@
                         </div>
                     </section>
 
+<%--                    <div class="popup-wrap" id="popL" active-popup="true">--%>
+<%--                        <div class="popup-layer w-510">--%>
+<%--                            <div class="popup-head">--%>
+<%--                                <h4>배송지 목록</h4>--%>
+<%--                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>--%>
+<%--                                </button>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-fix-cont">--%>
+<%--                                <div class="chkbox">--%>
+<%--                                    <label>--%>
+<%--                                        <input type="checkbox" id="rcv_list_default_be" style="display: ">--%>
+<%--                                        <span class="text">기본 배송지로 설정</span>--%>
+<%--                                    </label>--%>
+<%--                                </div>--%>
+<%--                                <div class="r-side">--%>
+<%--                                    <a href="javascript:" class="btn ty1 c-ty2" id="addrAddTxt"><span>배송지 추가</span></a>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-content addr-ty">--%>
+<%--                                <div class="inner">--%>
+<%--                                    <ul class="addr-lists" id="addrList">--%>
 
-                    <div class="popup-wrap" id="popL" active-popup="true">
-                        <div class="popup-layer w-510">
-                            <div class="popup-head">
-                                <h4>배송지 목록</h4>
-                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>
-                                </button>
-                            </div>
-                            <div class="popup-fix-cont">
-                                <div class="chkbox">
-                                    <label>
-                                        <input type="checkbox" id="rcv_list_default_be" style="display: ">
-                                        <span class="text">기본 배송지로 설정</span>
-                                    </label>
-                                </div>
-                                <div class="r-side">
-                                    <a href="javascript:" class="btn ty1 c-ty2" id="addrAddTxt"><span>배송지 추가</span></a>
-                                </div>
-                            </div>
-                            <div class="popup-content addr-ty">
-                                <div class="inner">
-                                    <ul class="addr-lists" id="addrList">
+<%--                                    </ul>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-btn-area">--%>
+<%--                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="selectedAddrInfo();">--%>
+<%--                                    <span>확인</span></button>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
 
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="popup-btn-area">
-                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="selectedAddrInfo();">
-                                    <span>확인</span></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="popup-wrap" id="popIU" active-popup="true">
-                        <input type="hidden" id="rcv_idx" value="">
-                        <div class="popup-layer w-570">
-                            <div class="popup-head">
-                                <h4 id="addrHeaderTxt">배송지 등록</h4>
-                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>
-                                </button>
-                            </div>
-                            <div class="popup-fix-cont">
-                                <div class="chkbox">
-                                    <label>
-                                        <input type="checkbox" name="rcvDefaultBe" id="rcv_default_be" value="1">
-                                        <span class="text">기본 배송지로 설정</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="popup-content">
-                                <div class="inner">
-                                    <div class="tbl ty3 etc-ty1">
-                                        <table>
-                                            <colgroup>
-                                                <col style="width:130px">
-                                                <col style="width:auto">
-                                            </colgroup>
-                                            <tbody>
-                                            <tr>
-                                                <th>받는 분</th>
-                                                <td>
-                                                    <div class="input w-full">
-                                                        <input type="text" name="rcvName" id="rcv_name" class="inp"
-                                                               maxlength="100" placeholder="받는분을 입력해주세요" value="">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>휴대폰 번호</th>
-                                                <td>
-                                                    <div class="flex-wrap etc-ty1">
-                                                        <div>
-                                                            <select name="rcvMobile1" id="rcv_mobile1"
-                                                                    class="selectbox ty1">
-                                                                <option value="010">010</option>
-                                                                <option value="011">011</option>
-                                                                <option value="016">016</option>
-                                                                <option value="017">017</option>
-                                                                <option value="018">018</option>
-                                                                <option value="019">019</option>
-                                                                <option value="02">02</option>
-                                                                <option value="031">031</option>
-                                                                <option value="032">032</option>
-                                                                <option value="033">033</option>
-                                                                <option value="041">041</option>
-                                                                <option value="042">042</option>
-                                                                <option value="043">043</option>
-                                                                <option value="044">044</option>
-                                                                <option value="051">051</option>
-                                                                <option value="052">052</option>
-                                                                <option value="053">053</option>
-                                                                <option value="054">054</option>
-                                                                <option value="055">055</option>
-                                                                <option value="061">061</option>
-                                                                <option value="062">062</option>
-                                                                <option value="063">063</option>
-                                                                <option value="064">064</option>
-                                                                <option value="070">070</option>
-                                                                <option value="080">080</option>
-                                                                <option value="050">050</option>
-                                                                <option value="0501">0501</option>
-                                                                <option value="0502">0502</option>
-                                                                <option value="0503">0503</option>
-                                                                <option value="0504">0504</option>
-                                                                <option value="0505">0505</option>
-                                                                <option value="0507">0507</option>
-                                                                <option value="0508">0508</option>
-                                                                <option value="0509">0509</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="input">
-                                                            <input type="number" class="inp" name="rcvMobile2"
-                                                                   id="rcv_mobile2" pattern="\d*" max="4" maxlength="4">
-                                                        </div>
-                                                        <div class="input">
-                                                            <input type="number" class="inp" name="rcvMobile3"
-                                                                   id="rcv_mobile3" pattern="\d*" max="4" maxlength="4">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="top">주소검색</th>
-                                                <td>
-                                                    <div class="address-form">
-                                                        <div class="top">
-                                                            <div class="input">
-                                                                <input type="text" class="inp" name="rcvPost"
-                                                                       id="rcv_post" maxlength="5" placeholder="우편번호"
-                                                                       readonly="readonly">
-                                                            </div>
-                                                            <button type="button"
-                                                                    class="btn ty1 c-ty5 free w-90 zipcode-open"
-                                                                    zip-embed="1" zip-width="450" zip-height="600"
-                                                                    zip-post="#rcv_post" zip-addr-base="#rcv_addr_base"
-                                                                    zip-addr-detail="#rcv_addr_detail"><span>주소검색</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="input w-full">
-                                                            <input type="text" name="rcvAddrBase" id="rcv_addr_base"
-                                                                   class="inp" readonly="" value="" maxlength="100">
-                                                        </div>
-                                                        <div class="input w-full">
-                                                            <input type="text" name="rcvAddrDetail" id="rcv_addr_detail"
-                                                                   class="inp" value="" maxlength="100">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="popup-btn-area">
-                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="saveAddrInfo();">
-                                    <span>확인</span></button>
-                            </div>
-                        </div>
-                    </div>
+<%--                    <div class="popup-wrap" id="popIU" active-popup="true">--%>
+<%--                        <input type="hidden" id="rcv_idx" value="">--%>
+<%--                        <div class="popup-layer w-570">--%>
+<%--                            <div class="popup-head">--%>
+<%--                                <h4 id="addrHeaderTxt">배송지 등록</h4>--%>
+<%--                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>--%>
+<%--                                </button>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-fix-cont">--%>
+<%--                                <div class="chkbox">--%>
+<%--                                    <label>--%>
+<%--                                        <input type="checkbox" name="rcvDefaultBe" id="rcv_default_be" value="1">--%>
+<%--                                        <span class="text">기본 배송지로 설정</span>--%>
+<%--                                    </label>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-content">--%>
+<%--                                <div class="inner">--%>
+<%--                                    <div class="tbl ty3 etc-ty1">--%>
+<%--                                        <table>--%>
+<%--                                            <colgroup>--%>
+<%--                                                <col style="width:130px">--%>
+<%--                                                <col style="width:auto">--%>
+<%--                                            </colgroup>--%>
+<%--                                            <tbody>--%>
+<%--                                            <tr>--%>
+<%--                                                <th>받는 분</th>--%>
+<%--                                                <td>--%>
+<%--                                                    <div class="input w-full">--%>
+<%--                                                        <input type="text" name="rcvName" id="rcv_name" class="inp"--%>
+<%--                                                               maxlength="100" placeholder="받는분을 입력해주세요" value="">--%>
+<%--                                                    </div>--%>
+<%--                                                </td>--%>
+<%--                                            </tr>--%>
+<%--                                            <tr>--%>
+<%--                                                <th>휴대폰 번호</th>--%>
+<%--                                                <td>--%>
+<%--                                                    <div class="flex-wrap etc-ty1">--%>
+<%--                                                        <div>--%>
+<%--                                                            <select name="rcvMobile1" id="rcv_mobile1"--%>
+<%--                                                                    class="selectbox ty1">--%>
+<%--                                                                <option value="010">010</option>--%>
+<%--                                                                <option value="011">011</option>--%>
+<%--                                                                <option value="016">016</option>--%>
+<%--                                                                <option value="017">017</option>--%>
+<%--                                                                <option value="018">018</option>--%>
+<%--                                                                <option value="019">019</option>--%>
+<%--                                                                <option value="02">02</option>--%>
+<%--                                                                <option value="031">031</option>--%>
+<%--                                                                <option value="032">032</option>--%>
+<%--                                                                <option value="033">033</option>--%>
+<%--                                                                <option value="041">041</option>--%>
+<%--                                                                <option value="042">042</option>--%>
+<%--                                                                <option value="043">043</option>--%>
+<%--                                                                <option value="044">044</option>--%>
+<%--                                                                <option value="051">051</option>--%>
+<%--                                                                <option value="052">052</option>--%>
+<%--                                                                <option value="053">053</option>--%>
+<%--                                                                <option value="054">054</option>--%>
+<%--                                                                <option value="055">055</option>--%>
+<%--                                                                <option value="061">061</option>--%>
+<%--                                                                <option value="062">062</option>--%>
+<%--                                                                <option value="063">063</option>--%>
+<%--                                                                <option value="064">064</option>--%>
+<%--                                                                <option value="070">070</option>--%>
+<%--                                                                <option value="080">080</option>--%>
+<%--                                                                <option value="050">050</option>--%>
+<%--                                                                <option value="0501">0501</option>--%>
+<%--                                                                <option value="0502">0502</option>--%>
+<%--                                                                <option value="0503">0503</option>--%>
+<%--                                                                <option value="0504">0504</option>--%>
+<%--                                                                <option value="0505">0505</option>--%>
+<%--                                                                <option value="0507">0507</option>--%>
+<%--                                                                <option value="0508">0508</option>--%>
+<%--                                                                <option value="0509">0509</option>--%>
+<%--                                                            </select>--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="input">--%>
+<%--                                                            <input type="number" class="inp" name="rcvMobile2"--%>
+<%--                                                                   id="rcv_mobile2" pattern="\d*" max="4" maxlength="4">--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="input">--%>
+<%--                                                            <input type="number" class="inp" name="rcvMobile3"--%>
+<%--                                                                   id="rcv_mobile3" pattern="\d*" max="4" maxlength="4">--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </td>--%>
+<%--                                            </tr>--%>
+<%--                                            <tr>--%>
+<%--                                                <th class="top">주소검색</th>--%>
+<%--                                                <td>--%>
+<%--                                                    <div class="address-form">--%>
+<%--                                                        <div class="top">--%>
+<%--                                                            <div class="input">--%>
+<%--                                                                <input type="text" class="inp" name="rcvPost"--%>
+<%--                                                                       id="rcv_post" maxlength="5" placeholder="우편번호"--%>
+<%--                                                                       readonly="readonly">--%>
+<%--                                                            </div>--%>
+<%--                                                            <button type="button"--%>
+<%--                                                                    class="btn ty1 c-ty5 free w-90 zipcode-open"--%>
+<%--                                                                    zip-embed="1" zip-width="450" zip-height="600"--%>
+<%--                                                                    zip-post="#rcv_post" zip-addr-base="#rcv_addr_base"--%>
+<%--                                                                    zip-addr-detail="#rcv_addr_detail"><span>주소검색</span>--%>
+<%--                                                            </button>--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="input w-full">--%>
+<%--                                                            <input type="text" name="rcvAddrBase" id="rcv_addr_base"--%>
+<%--                                                                   class="inp" readonly="" value="" maxlength="100">--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="input w-full">--%>
+<%--                                                            <input type="text" name="rcvAddrDetail" id="rcv_addr_detail"--%>
+<%--                                                                   class="inp" value="" maxlength="100">--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </td>--%>
+<%--                                            </tr>--%>
+<%--                                            </tbody>--%>
+<%--                                        </table>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="popup-btn-area">--%>
+<%--                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="saveAddrInfo();">--%>
+<%--                                    <span>확인</span></button>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
 
 
-                    <script>
-                        var basketKind = 1;
-                        var isMember = true;
-                        var progressing = 0;
+<%--                    <script>--%>
+<%--                        var basketKind = 1;--%>
+<%--                        var isMember = true;--%>
+<%--                        var progressing = 0;--%>
 
-                        onload = function () {
-                            if (nvl($("#issue_smoney").val(), '0') > '0') {
-                                $("#issue_smoney").val(0);
-                            }
-                        }
-                    </script>
+<%--                        onload = function () {--%>
+<%--                            if (nvl($("#pnt_use_amt").val(), '0') > '0') {--%>
+<%--                                $("#pnt_use_amt").val(0);--%>
+<%--                            }--%>
+<%--                        }--%>
+<%--                    </script>--%>
 
                     <input type="hidden" id="totFinalNormalProdPrice" value="127480.00">
                     <input type="hidden" id="totFinalColdProdPrice" value="0">
@@ -487,29 +492,14 @@
                                     <td>
                                         <div class="pay-wrap">
                                             <div class="pay-choice">
-                                                <button type="button" data-type="1" class="pay-choice-btn ty1 active"
-                                                        id="pay_card" data-payway="1" data-sign="nice">신용카드
-                                                </button>
-                                                <button type="button" data-type="2" class="pay-choice-btn ty2"
-                                                        id="pay_ezkakao" data-payway="32" data-sign="nice"><img
-                                                        src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_kakaopay.png"
-                                                        alt="kakaopay"></button>
-                                                <button type="button" data-type="8" class="pay-choice-btn ty3"
-                                                        id="pay_eznaver" data-payway="256" data-sign="nice"><img
-                                                        src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_npay.png"
-                                                        alt="네이버페이"></button>
-                                                <button type="button" data-type="3" class="pay-choice-btn ty4"
-                                                        id="pay_ezpayco" data-payway="64" data-sign="nice"><img
-                                                        src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_payco.png"
-                                                        alt="PAYCO"></button>
+                                                <button type="button" data-type="1" class="pay-choice-btn ty1 active" id="pay_card" data-payway="1" data-sign="nice">신용카드 </button>
+                                                <button type="button" data-type="2" class="pay-choice-btn ty2" id="pay_ezkakao" data-payway="32" data-sign="nice"><img src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_kakaopay.png" alt="kakaopay"> </button>
+                                                <button type="button" data-type="8" class="pay-choice-btn ty3" id="pay_eznaver" data-payway="256" data-sign="nice"><img src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_npay.png" alt="네이버페이"></button>
+                                                <button type="button" data-type="3" class="pay-choice-btn ty4" id="pay_ezpayco" data-payway="64" data-sign="nice"><img src="//www.ottogimall.co.kr/static/imgs/front/cw/images/icon_payco.png" alt="PAYCO"></button>
 
-                                                <button type="button" data-type="5" class="pay-choice-btn ty1"
-                                                        id="pay_virtual" data-payway="4" data-sign="nice">가상계좌
-                                                </button>
+                                                <button type="button" data-type="5" class="pay-choice-btn ty1" id="pay_virtual" data-payway="4" data-sign="nice">가상계좌 </button>
 
-                                                <button type="button" data-type="7" class="pay-choice-btn ty1"
-                                                        id="pay_bank" data-payway="2" data-sign="nice">실시간계좌이체
-                                                </button>
+                                                <button type="button" data-type="7" class="pay-choice-btn ty1" id="pay_bank" data-payway="2" data-sign="nice">실시간계좌이체 </button>
                                             </div>
                                             <div class="pay-type">
                                                 <ul class="list ty2 mt-20 active" data-type="1">
@@ -669,11 +659,6 @@
 
                     </section>
                     <!-- 동의 -->
-
-                    <div class="btn-area mt-40">
-                        <button type="button" class="btn ty5 c-ty1 w-390 free" data-type="payment"><span
-                                id="finalAmount2">126,480원 주문하기</span></button>
-                    </div>
                 </div>
             </div>
             <div class="move-container-right">
