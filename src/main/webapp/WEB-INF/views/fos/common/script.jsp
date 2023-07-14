@@ -11,3 +11,5 @@
 <script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlFos}/common/ajax.js"/>"></script>
+<%--팝업 공통 함수 라이브러리--%>
+<script src="<c:url value="${jsUrlFos}/common/popup.js"/>"></script>

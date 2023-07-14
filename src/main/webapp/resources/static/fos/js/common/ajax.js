@@ -14,7 +14,7 @@ syusyu.common.Ajax = {
      * @author min
      * @since 2023/07/07
      */
-    sendJSONRequest: function (_method, _url, _data, _callback, _async, _traditional = false) {
+    sendJSONRequest: (_method, _url, _data, _callback, _async, _traditional = false) => {
         _async = _async === true || _async === false ? _async : true;
 
         $.ajax({
@@ -31,6 +31,25 @@ syusyu.common.Ajax = {
             error : function(jqXHR, error, errorThrown) {
                 // that.error(jqXHR, error, errorThrown);
                 alert("에러");
+            }
+        });
+    },
+
+    sendPOPRequest : (_method, _url, _data, _callback, _async) => {
+        _async = _async === true || _async === false ? _async : true;
+
+        $.ajax({
+            type : _method,
+            url : _url,
+            contentType : "application/json",
+            data : _method !== "GET" ? JSON.stringify(_data) : _data,
+            async : _async,
+            dataType : "text",
+            success : function(response) {
+                _callback(response);
+            },
+            error : function(jqXHR, error, errorThrown) {
+                alert("에러")
             }
         });
     },
