@@ -23,34 +23,34 @@
 
 
 <div class="content-mini right-case" id="ux_page_list">
-  <form id="frm_search" action= "<c:url value="/faq/faqList"/>">
+    <form id="frm_search" action= "<c:url value='/faq/faqList'/>"method="get">
 
 
-    <h3 class="title-t ty3 mb-30">자주 묻는 질문</h3>
-      <%--  게시글 갯수 카운팅--%>
+        <h3 class="title-t ty3 mb-30"><a href="<c:url value='/faq/faqList'/>">자주 묻는 질문</a></h3>
+        <%--  게시글 갯수 카운팅--%>
 
-          <div class="input etc-ty4 w-full">
-                <input type="text" id="faqSearchText" name="keyword" class="inp" placeholder="궁금하신 내용을 입력해 주세요." value="${fsc.keyword}">
+        <div class="input etc-ty4 w-full">
+            <input type="text" id="faqSearchText" name="keyword" class="inp" placeholder="궁금하신 내용을 입력해 주세요." value="${fsc.keyword}">
 
-                <button type="submit" class="btn icon search big">
-                  <span><i class="fa fa-search"></i></span>
-                </button>
-          </div>
+            <button type="submit" class="btn icon search big">
+                <span><i class="fa fa-search"></i></span>
+            </button>
+        </div>
 
 
-    <div class="faqType-middle">
+        <div class="faqType-middle">
+            <input class="faqType-small" type="button" key = "00" value="전체">
+            <input class="faqType-small" type="button" key = "10" value="회원">
+            <input class="faqType-small" type="button" key = "20" value="배송">
+            <input class="faqType-small" type="button" key = "30" value="주문 / 결제">
+            <input class="faqType-small" type="button" key = "40" value="교환 / 반품">
+            <input class="faqType-small" type="button" key = "50" value="이벤트">
+            <input class="faqType-small" type="button" key = "60" value="취소 / 환불">
+            <input class="faqType-small" type="button" key = "70" value="이용 안내">
+            <input class="faqType-small" type="button" key = "80" value="쿠폰 / 포인트">
+        </div>
 
-        <input class="faqType-small" type="button" name="faqTp" key = "00" value="전체">
-        <input class="faqType-small" type="button" name="faqTp" key = "10" value="회원">
-        <input class="faqType-small" type="button" name="faqTp" key = "20" value="배송">
-        <input class="faqType-small" type="button" name="faqTp" key = "30" value="주문 / 결제">
-        <input class="faqType-small" type="button" name="faqTp" key = "40" value="교환 / 반품">
-        <input class="faqType-small" type="button" name="faqTp" key = "50" value="이벤트">
-        <input class="faqType-small" type="button" name="faqTp" key = "60" value="취소 / 환불">
-        <input class="faqType-small" type="button" name="faqTp" key = "70" value="이용 안내">
-        <input class="faqType-small" type="button" name="faqTp" key = "80" value="쿠폰 / 포인트">
-    </div>
-  </form>
+    </form>
 
     <div class="board_list">
         <div class="slide-wrap slide-ty2">
@@ -75,101 +75,50 @@
     </div>
 
 
+    <br>
 
+    <%--    페이징 처리후 , 해당 타입의 글만 검색 하는 기능이 안되서 일단 주석 처리함--%>
+    <%--    <div id="devPageWrap">--%>
+    <%--        <div class="wrap-pagination">--%>
+    <%--            <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">--%>
+    <%--                <div> 게시물이 없습니다.</div>--%>
+    <%--            </c:if>--%>
 
-<%--  <script>--%>
+    <%--            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">--%>
 
-<%--      /**--%>
-<%--       * FAQ 목록에서 제목 클릭하게되면 내용 보이게--%>
-<%--       * display : none 에서 클릭시 display : block로 변경됨--%>
-<%--       *--%>
-<%--       * @author han--%>
-<%--       * @since  2023-07-11--%>
-<%--       */--%>
+    <%--                <c:if test="${ph.showFirst}">--%>
+    <%--                    <a class="page"--%>
+    <%--                       href="<c:url value='/faq/faqList${pg.fsc11.getQueryString(ph.beginPage)}'/>">&lt;&lt;</a>--%>
+    <%--                </c:if>--%>
 
-<%--      // FAQ 글 제목 클릭시 내용 보이게 display : none -> block--%>
-<%--      const acc = document.getElementsByClassName("slide-trg");--%>
-<%--      let i;--%>
+    <%--                <c:if test="${ph.showPrev}">--%>
+    <%--                    <a class="page"--%>
+    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.beginPage-1)}'/>">&lt;</a>--%>
+    <%--                </c:if>--%>
 
-<%--      for (i = 0; i < acc.length; i++) {--%>
-<%--          acc[i].addEventListener("click", function() {--%>
-<%--              this.classList.toggle("active");--%>
+    <%--                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">--%>
+    <%--                    <a class="page ${i==ph.fsc11.page? "paging-active" : ""}"--%>
+    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(i)}'/>">${i}</a>--%>
+    <%--                </c:forEach>--%>
 
-<%--              const inner =--%>
-<%--              this.parentElement.nextElementSibling.querySelector('.inner');--%>
-<%--              // this.closest(".slide-title").nextElementSibling.querySelector('.inner');--%>
-<%--              if(inner){--%>
-<%--                  inner.style.display = inner.style.display === "block" ? "none" : "block";--%>
-<%--              }--%>
-<%--          });--%>
-<%--      }--%>
+    <%--                <c:if test="${ph.showNext}">--%>
+    <%--                    <a class="page" href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.endPage+1)}'/>">&gt;</a>--%>
+    <%--                </c:if>--%>
 
-<%--      /**--%>
-<%--       * FAQ 타입 분류버튼 클릭시 이벤트 발생 시키기--%>
-<%--       * 버튼에 key 값으로 목록에서 faqTp 분류 하려고 만듬--%>
-<%--       *--%>
-<%--       * 첫 로딩 시 전체 FAQ 항목 보여주기--%>
-<%--       *    filterFAQs("00");--%>
-<%--       *--%>
-<%--       * @author han--%>
-<%--       * @since  2023-07-11--%>
-<%--       */--%>
+    <%--                <c:if test="${ph.showLast}">--%>
+    <%--                    <a class="page"--%>
+    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.totalPage)}'/>">&gt;&gt;</a>--%>
+    <%--                </c:if>--%>
 
-<%--      // FAQ 분류 버튼 클릭이벤트--%>
-<%--      const faqTpButtons = document.querySelectorAll(".faqType-small");--%>
-<%--      faqTpButtons.forEach(button => {--%>
-<%--          button.addEventListener("click", function(event) {--%>
-<%--              event.preventDefault();--%>
+    <%--            </c:if>--%>
 
-<%--              // 클릭한 FAQ 타입 값 가져오기--%>
-<%--              const faqType = this.getAttribute("key");--%>
-
-<%--              // 전체 페이지에서 해당 FAQ 타입 필터링--%>
-<%--              filterFAQs(faqType);--%>
-<%--              // active 된 버튼 표시 하기--%>
-<%--              setActiveButton(this);--%>
-
-<%--          });--%>
-<%--      });--%>
-
-
-<%--      // 활성화된 버튼 표시--%>
-<%--      function setActiveButton(button) {--%>
-<%--          const type = document.getElementsByClassName("faqType-small");--%>
-<%--          for (let i = 0; i < type.length; i++) {--%>
-<%--              if (type[i] !== button) {--%>
-<%--                  type[i].classList.remove("active"); // 다른 버튼 active 제거--%>
-<%--              }--%>
-<%--          }--%>
-<%--          button.classList.add("active"); // 클릭한 버튼 active 추가--%>
-<%--      }--%>
-
-<%--      // 초기 로딩 시 전체 FAQ 항목 보여주기--%>
-<%--      filterFAQs("00");--%>
-<%--      setActiveButton(document.querySelector('input[name="faqTp"][key="00"]'));--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
 
 
 
 
-<%--      // FAQ 타입 필터링--%>
-<%--      function filterFAQs(faqType) {--%>
-<%--          const faqItems = document.querySelectorAll(".slide-title");--%>
-<%--          faqItems.forEach(item => {--%>
-<%--              const faqTp = item.querySelector(".slide-trg").getAttribute("faqTp");--%>
 
-<%--              // 클릭한 FAQ 타입과 일치하는 항목은 보여주고 그외는 숨김처리--%>
-<%--              if (faqType === "00" || faqTp === faqType) {--%>
-<%--                  item.style.display = "block"; // 보임 FAQ--%>
-<%--              } else {--%>
-<%--                  item.style.display = "none"; // 숨김 FAQ--%>
-<%--              }--%>
-<%--          });--%>
-<%--      }--%>
-
-
-<%--  </script>--%>
-
-
-  <br>
+    <br>
 
 </div>

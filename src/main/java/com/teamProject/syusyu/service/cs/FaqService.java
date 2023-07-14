@@ -27,6 +27,9 @@ public interface FaqService {
     List<FaqDTO> getSearchResultPage(FaqSearchCondition fsc) throws Exception;
 
 
-    List<FaqDTO> getFaqTp(String faqTp) throws Exception;
+
+
+
+
 
 }

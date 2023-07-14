@@ -50,30 +50,45 @@ public class FaqController {
 
 
 
+//    페이징처리시 사용할 list()
 
 //    @GetMapping("/faqList")
-//    public String list( SearchCondition sc, Model m) {
+//    public String list(FaqSearchCondition11 fsc11,Model m) {
 //
 ////        if (!loginCheck(request))
 ////            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 //        try {
-//            int totalCnt = faqService.getSearchResultCnt(sc);
+//
+//            // 검색결과 총 게시물 수를 가져옴
+//            int totalCnt = faqService.getSearchResultCnt(fsc11);
 //            m.addAttribute("totalCnt", totalCnt);
 //
-//            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+//            // FAQ 페이지 핸들러 생성
+//            // 페이지 네비설정
+//            FaqPageHandler faqPageHandler = new FaqPageHandler(totalCnt, fsc11);
+//            faqPageHandler.doPaging(totalCnt, fsc11);
 //
-//            // 현재 페이지에서 해당 우형의 FAQ만 필터
-//            List<FaqDTO> list = faqService.getSearchResultPage(sc);
+//            // 현재 페이지에서 해당 유형의 FAQ만 필터
+//            // List<FaqDTO> list = faqService.getSearchResultPage(fsc11);
+//
+//
+//            // 전체 페이지에서 해당 유형의 FAQ만 필터
+//            List<FaqDTO> list = faqService.getselectFaqList(fsc11);
 //
 //
 //            // list에 제대로 담겨서 넘오올지 Test
-//            System.out.println("Faqlist = " + list);
+//            System.out.println("list = " + list);
 //
+//            // FAQ 목록과 페이지 핸들러를 모델에 추가
 //            m.addAttribute("list", list);
-//            m.addAttribute("ph", pageHandler);
+//            m.addAttribute("ph", faqPageHandler);
+//
+//            // 날짜를 모델에 추가함
 //            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
 //            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-//            m.addAttribute("sc",sc);
+//
+//            // 검색 조건을 모델에 추가
+//            m.addAttribute("fsc11",fsc11);
 ////           m.addAttribute("page",page);
 ////           m.addAttribute("pageSize",pageSize);
 //

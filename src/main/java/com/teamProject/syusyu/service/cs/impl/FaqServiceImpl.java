@@ -29,12 +29,12 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public int remove(Integer faqNo, String writer) throws Exception{
-        return faqDao.deleteFaq(faqNo,writer);
+        return faqDao.delete(faqNo,writer);
     }
 
     @Override
     public int write(FaqDTO faqDtO)throws Exception{
-        return faqDao.insertFaq(faqDtO);
+        return faqDao.insert(faqDtO);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public FaqDTO read(Integer faqNo) throws Exception{
-        FaqDTO faqDto = faqDao.selectFaq(faqNo);
+        FaqDTO faqDto = faqDao.select(faqNo);
         return faqDto;
     }
 
@@ -56,7 +56,7 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public int modify(FaqDTO faqDto)throws Exception{
-        return faqDao.updateFaq(faqDto);
+        return faqDao.update(faqDto);
     }
 
 
@@ -70,10 +70,7 @@ public class FaqServiceImpl implements FaqService {
         return faqDao.searchResultCnt(fsc);
     }
 
-    @Override
-    public List<FaqDTO> getFaqTp(String faqTp)throws Exception{
-        return faqDao.selectFaqTp(faqTp);
-    }
+
 
 
 }

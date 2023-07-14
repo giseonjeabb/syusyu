@@ -13,24 +13,17 @@
         DELETE FROM faq
     </delete>
 
-    <delete id="deleteFaq" parameterType="map">
+    <delete id="delete" parameterType="map">
         DELETE
         FROM faq
         WHERE FAQ_NO = #{faqNo} and REGR_ID = #{regrId}
     </delete>
 
-    <insert id="insertFaq" parameterType="FaqDTO">
+    <insert id="insert" parameterType="FaqDTO">
         INSERT INTO faq (FAQ_TP, TITLE, CONTENT, REGR_ID)
         VALUES (#{faqTp}, #{title}, #{content}, #{regrId})
     </insert>
 
-<!--    faqList.jsp 에서 faqTP클릭시 해당 하는 글만 출력-->
-    <select id="selectFaqTp" parameterType="String" resultType="FaqDTO">
-        select FAQ_TP , TITLE, CONTENT
-        from faq
-        where FAQ_TP = #{faqTp}
-        order by REG_DTTM DESC
-    </select>
 
     <select id="selectAll" resultType="FaqDTO">
         SELECT FAQ_NO, FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM
@@ -38,33 +31,26 @@
         ORDER BY REG_DTTM DESC, FAQ_NO DESC
     </select>
 
-    <sql id="selectFromFaq">
+    <sql id="selectFrom">
         SELECT FAQ_NO, FAQ_TP ,TITLE, CONTENT, REGR_ID,  REG_DTTM
         FROM faq
     </sql>
 
-    <select id="selectFaq" parameterType="int" resultType="FaqDTO">
+    <select id="select" parameterType="int" resultType="FaqDTO">
         SELECT FAQ_NO,FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM
         from faq
         WHERE FAQ_NO = #{faqNo}
     </select>
 
 
-
-    <!--    <select id="selectPage" parameterType="map" resultType="FaqDTO">-->
-    <!--        <include refid="selectFromFaq"/>-->
-    <!--        ORDER BY reg_date DESC, bno DESC-->
-    <!--        LIMIT #{offset}, #{pageSize}-->
-    <!--    </select>-->
-
-    <select id="selectPageFaq" parameterType="map" resultType="FaqDTO">
+    <select id="selectPage" parameterType="map" resultType="FaqDTO">
         SELECT FAQ_NO , FAQ_TP ,TITLE , CONTENT , REG_DTTM
         FROM faq
         ORDER BY REG_DTTM DESC, FAQ_NO DESC
             LIMIT #{offset}, #{pageSize}
     </select>
 
-    <update id="updateFaq" parameterType="FaqDTO">
+    <update id="update" parameterType="FaqDTO">
         UPDATE faq
         SET   TITLE = #{title}
           , CONTENT = #{content}
@@ -80,50 +66,91 @@
     <!--        WHERE bno = #{bno}-->
     <!--    </update>-->
 
-<!--    <update id="increaseViewCntFaq" parameterType="int">-->
-<!--        UPDATE faq-->
-<!--        SET   VIEW_CNT = VIEW_CNT + 1-->
-<!--        WHERE FAQ_NO = #{faqNo}-->
-<!--    </update>-->
+    <!--    <update id="increaseViewCntFaq" parameterType="int">-->
+    <!--        UPDATE faq-->
+    <!--        SET   VIEW_CNT = VIEW_CNT + 1-->
+    <!--        WHERE FAQ_NO = #{faqNo}-->
+    <!--    </update>-->
 
 
-<!--    <sql id="searchConditionFaq">-->
-<!--        <choose>-->
-<!--            <when test='option=="T"'>-->
-<!--                AND TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            </when>-->
-<!--            <when test='option=="W"'>-->
-<!--                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            </when>-->
-<!--            <when test='option=="C"'>-->
-<!--                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')-->
-<!--            </when>-->
-<!--            <otherwise>-->
-<!--                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))-->
-<!--            </otherwise>-->
-<!--        </choose>-->
-<!--    </sql>-->
+    <!--    <sql id="searchConditionFaq">-->
+    <!--        <choose>-->
+    <!--            <when test='option=="T"'>-->
+    <!--                AND TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+    <!--            </when>-->
+    <!--            <when test='option=="W"'>-->
+    <!--                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')-->
+    <!--            </when>-->
+    <!--            <when test='option=="C"'>-->
+    <!--                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')-->
+    <!--            </when>-->
+    <!--            <otherwise>-->
+    <!--                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+    <!--                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))-->
+    <!--            </otherwise>-->
+    <!--        </choose>-->
+    <!--    </sql>-->
 
-    <sql id="searchConditionFaq">
-                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
-                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+    <sql id="searchCondition">
+        AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+        OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
     </sql>
 
 
-    <select id="searchSelectPageFaq" parameterType="FaqSearchCondition" resultType="FaqDTO">
+    <sql id="selectSearchFaq">
+        <choose>
+            <when test='key == "10"'>
+                AND FAQ_TP = 10
+            </when>
+            <when test='key == "20"'>
+                AND FAQ_TP = 20
+            </when>
+            <when test='key == "30"'>
+                AND FAQ_TP = 30
+            </when>
+            <when test='key == "40"'>
+                AND FAQ_TP = 40
+            </when>
+            <when test='key == "50"'>
+                AND FAQ_TP = 50
+            </when>
+            <when test='key == "60"'>
+                AND FAQ_TP = 60
+            </when>
+            <when test='key == "70"'>
+                AND FAQ_TP = 70
+            </when>
+            <when test='key == "80"'>
+                AND FAQ_TP = 80
+            </when>
+            <otherwise>
+                AND FAQ_TP BETWEEN 10 AND 80
+            </otherwise>
+        </choose>
+    </sql>
+
+
+    <select id="selectFaqList" parameterType="FaqSearchCondition" resultType="FaqDTO">
+        select FAQ_TP, TITLE, CONTENT
+        from faq
+        where true
+        <include refid="selectSearchFaq" />
+    </select>
+
+    <select id="searchSelectPage" parameterType="FaqSearchCondition" resultType="FaqDTO">
         SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM
         FROM faq
         WHERE TRUE
-        <include refid="searchConditionFaq" />
-        ORDER BY REG_DTTM DESC, FAQ_NO DESC
+        <include refid="searchCondition" />
+        ORDER BY  FAQ_NO asc
+
     </select>
 
-    <select id="searchResultCntFaq" parameterType="FaqSearchCondition" resultType="int">
+    <select id="searchResultCnt" parameterType="FaqSearchCondition" resultType="int">
         SELECT count(*)
         FROM faq
         WHERE TRUE
-        <include refid="searchConditionFaq" />
+        <include refid="searchCondition" />
     </select>
 
 
