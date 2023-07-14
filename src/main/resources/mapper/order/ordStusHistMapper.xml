@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordStusHistMapper">
+    <insert id="insertOrdStusHist" parameterType="OrdStusHistDTO" useGeneratedKeys="true" keyProperty="ordStusHistNo">
+        INSERT INTO ORD_STUS_HIST ( ORD_DTL_NO
+                                         , NOW_ORD_STUS
+                                         , PROC_MEMO
+                                         , REGR_ID)
+        VALUES ( #{ordDtlNo}
+               , #{nowOrdStus}
+               , #{procMemo}
+               , #{regrId})
+    </insert>
+
+    <select id="selectOrdStusHist" parameterType="int" resultType="OrdStusHistDTO">
+        SELECT *
+        FROM ORD_STUS_HIST
+        WHERE ORD_STUS_HIST_NO = #{ordStusHistNo}
+    </select>
+
+    <delete id="deleteAllOrdStusHist">
+        DELETE FROM ORD_STUS_HIST
+    </delete>
+
+    <select id="countOrdStusHist" resultType="int">
+        SELECT COUNT(*)
+        FROM ORD_STUS_HIST
+    </select>
+</mapper>

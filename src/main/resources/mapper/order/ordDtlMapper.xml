@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordDtlMapper">
+    <insert id="insertOrdDtl" parameterType="OrdDtlDTO" useGeneratedKeys="true" keyProperty="ordDtlNo">
+        INSERT INTO ord_dtl ( ORD_NO
+                            , PROD_ID
+                            , PROD_NM
+                            , OPT_COMB_NO
+                            , ORD_STUS
+                            , PROD_PRC
+                            , PROD_DC_PER
+                            , QTY
+                            , PROD_TOTAL_PAY_AMT
+                            , SEND_DDLN
+                            , REGR_ID)
+        VALUES ( #{ordNo}
+               , #{prodId}
+               , #{prodNm}
+               , #{optCombNo}
+               , #{ordStus}
+               , #{prodPrc}
+               , #{prodDcPer}
+               , #{qty}
+               , #{prodTotalPayAmt}
+               , DATE_ADD(NOW(), INTERVAL 7 DAY)
+               , #{regrId})
+    </insert>
+
+    <select id="selectOrdDtl" parameterType="int" resultType="OrdDtlDTO">
+        SELECT *
+        FROM ORD_DTL
+        WHERE ORD_DTL_NO = #{ordDtlNo}
+    </select>
+
+    <delete id="deleteAllOrdDtl">
+        DELETE FROM ORD_DTL
+    </delete>
+
+    <select id="countOrdDtl" resultType="int">
+        SELECT COUNT(*)
+        FROM ORD_DTL
+    </select>
+</mapper>

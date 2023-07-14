@@ -4,7 +4,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class SearchCondition {  // 페이징에 필요한 클래스
     private Integer page = 1;   // 페이지
-    private Integer pageSize = 10; // 한번에 보여줄 게시물의 갯수
+    private Integer pageSize = 10; // 한번에 보여줄 게시물의 개수
     //    private Integer offset = 0;
     private String keyword = ""; // 검색어
     private String option = "";  // 검색 종류

@@ -3,11 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.memberMapper">
-    <!--
-    로그인 체크를 한다.
-    매개변수 : MemberDTO
-    반화타입 : int
-     -->
     <select id="loginCheck" parameterType="MemberDTO" resultType="MemberDTO">
         SELECT *
         FROM MEMBER
@@ -33,11 +28,34 @@
                              , SHOE_SIZE
                              , MP_NO
                              , BIRTH
-                             , SEX)
+                             , SEX
+                             , REGR_ID)
         VALUES ( #{mbrId}
                , #{shoeSize}
                , #{mpNo}
                , #{birth}
-               , #{sex})
+               , #{sex}
+               , #{regrId})
     </insert>
+
+    <select id="selectUserInfo" parameterType="int" resultType="MemberDTO">
+        SELECT NAME
+             , MI.MP_NO
+             , M.EMAIL
+        FROM MEMBER M
+                 JOIN MBR_INFO MI ON M.MBR_ID = MI.MBR_ID
+        WHERE M.MBR_ID = #{mbrId}
+    </select>
+
+    <select id="selectMemberTotalPoint" parameterType="int" resultType="int">
+        SELECT TOT_PNT
+        FROM MBR_INFO
+        WHERE MBR_ID = #{mbrId}
+    </select>
+
+    <select id="memberCouponCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM MBR_CPN
+        WHERE MBR_ID = #{mbrId}
+    </select>
 </mapper>

@@ -1395,7 +1395,7 @@
     &.search {
       width: 21px;
       height: 21px;
-      background-image: url(../images/icon_search_21.svg);
+      background-image: url("../../../image/icon_search_21.svg");
       &.big {
         width: 24px;
         height: 24px;
@@ -1405,13 +1405,13 @@
     &.mypage {
       width: 30px;
       height: 30px;
-      background: url(../images/icon_my.svg) no-repeat center top;
+      background: url("../../../image/icon_my.svg") no-repeat center top;
     }
     &.bag {
       width: 37px;
       height: 30px;
       overflow: visible;
-      background: url(../images/icon_bag.svg) no-repeat left top;
+      background: url("../../../image/icon_bag.svg") no-repeat left top;
       > .cnt {
         position: absolute;
         top: -6px;
@@ -1461,7 +1461,7 @@
     &.remove_19 {
       width: 19px;
       height: 19px;
-      background: url(../images/icon_remove_19.png) no-repeat center center;
+      background: url("../../../image/icon_remove_19.png") no-repeat center center;
     }
     &.remove_20 {
       width: 20px;

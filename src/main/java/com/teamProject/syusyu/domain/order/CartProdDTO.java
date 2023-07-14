@@ -15,8 +15,8 @@ public class CartProdDTO {
     private String opt;
     private int totPrc;
     private int totOptPrc;
+    private int totDcAmt;
     private int totDcPrc;
-    private int totDcAplPrc;
     private int invQty;
     private String repImg;
     private int regrId;
@@ -132,12 +132,12 @@ public class CartProdDTO {
         this.totPrc = totPrc;
     }
 
-    public int getTotDcAplPrc() {
-        return totDcAplPrc;
+    public int getTotDcPrc() {
+        return totDcPrc;
     }
 
-    public void setTotDcAplPrc(int totDcAplPrc) {
-        this.totDcAplPrc = totDcAplPrc;
+    public void setTotDcPrc(int totDcPrc) {
+        this.totDcPrc = totDcPrc;
     }
 
     public int getInvQty() {
@@ -206,12 +206,12 @@ public class CartProdDTO {
 
 
 
-    public int getTotDcPrc() {
-        return totDcPrc;
+    public int getTotDcAmt() {
+        return totDcAmt;
     }
 
-    public void setTotDcPrc(int totDcPrc) {
-        this.totDcPrc = totDcPrc;
+    public void setTotDcAmt(int totDcAmt) {
+        this.totDcAmt = totDcAmt;
     }
 
     @Override
