@@ -37,3 +37,10 @@
   border: 1px solid #d3233a;
   background-color: #d3233a;
 }
+.wrap-pagination .page.paging-active {
+  font-weight: bold;
+  color: #fff; /* 선택된 페이지 숫자의 글자색을 흰색으로 설정 */
+  background-color: #000; /* 선택된 페이지의 배경색을 검정색으로 설정 */
+  padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
+  border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
+}
