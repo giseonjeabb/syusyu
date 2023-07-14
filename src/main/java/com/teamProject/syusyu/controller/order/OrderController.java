@@ -60,12 +60,8 @@ public class OrderController {
     @PostMapping("/order")
     @ResponseBody
     public ResponseEntity<String> order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) {
-        System.out.println("orderRequestDTO = " + orderRequestDTO);
-        System.out.println("orderRequestDTO.getOrderProductList() = " + orderRequestDTO.getOrderProductList());
-
-        Order order = new Order(orderRequestDTO, mbrId);
         try {
-            service.order(order);
+            service.order(new Order(orderRequestDTO, mbrId));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);

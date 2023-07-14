@@ -41,14 +41,39 @@ public class OrdDtlDAOImplTest {
 
         // 1. positive 테스트
         // 1-1. 주문 상세 데이터 넣고 잘 들어가는지 확인
-        OrdDtlDTO ordDtlDTO = new OrdDtlDTO(8, 10001, "반스 올드스쿨", 1, "10", 89000, 20, 17800, 3560, 3, 213600, LocalDateTime.now(), 80001, null);
+        OrdDtlDTO ordDtlDTO = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
+
         result = dao.insertOrderDetail(ordDtlDTO);
         assertTrue(result == 1);
 
         // 2. negative 테스트
         // 2-1. TODO 중복된 값이거나
         // 2-2. 주문마스터가 존재하지 않으면 데이터가 insert 안 되어야 함
-        OrdDtlDTO ordDtlDTO2 = new OrdDtlDTO(1000, 10001, "반스 올드스쿨", 1, "10", 89000, 20, 17800, 3560, 3, 213600, LocalDateTime.now(), 80001, null);
+        OrdDtlDTO ordDtlDTO2 = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
         try {
             result = dao.insertOrderDetail(ordDtlDTO2);
             // 테스트가 예상한대로 작동하면 예외가 발생해야 하는데 그렇지 않으면 fail()문으로 테스트 실패처리
@@ -64,7 +89,19 @@ public class OrdDtlDAOImplTest {
     public void selectOrderDetail() throws Exception {
         int insertResult;
         int ordDtlNo;
-        OrdDtlDTO ordDtlDTO = new OrdDtlDTO(8, 10001, "반스 올드스쿨", 1, "10", 89000, 20, 17800, 3560, 3, 213600, LocalDateTime.now(), 80001, null);
+        OrdDtlDTO ordDtlDTO = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
         insertResult = dao.insertOrderDetail(ordDtlDTO);
         assertTrue(insertResult == 1);
 
@@ -84,7 +121,19 @@ public class OrdDtlDAOImplTest {
     // 주문상세(ORD_DTL) 데이터 전체 삭제 테스트
     @Test
     public void deleteAllOrderDetail() throws Exception {
-        OrdDtlDTO ordDtlDTO = new OrdDtlDTO(8, 10001, "반스 올드스쿨", 1, "10", 89000, 20, 17800, 3560, 3, 213600, LocalDateTime.now(), 80001, null);
+        OrdDtlDTO ordDtlDTO = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
         int result = dao.insertOrderDetail(ordDtlDTO);
         assertTrue(result == 1);
 
@@ -104,11 +153,35 @@ public class OrdDtlDAOImplTest {
         int result;
         // 1. positive 테스트
         // 1-1. 주문을 2건 넣고 count가 2인지 확인
-        OrdDtlDTO ordDtlDTO = new OrdDtlDTO(8, 10001, "반스 올드스쿨", 1, "10", 89000, 20, 17800, 3560, 3, 213600, LocalDateTime.now(), 80001, null);
+        OrdDtlDTO ordDtlDTO = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
         result = dao.insertOrderDetail(ordDtlDTO);
         assertTrue(result == 1);
 
-        ordDtlDTO = new OrdDtlDTO(8, 10007, "아딜렛 클로그", null, "10", 44000, 10, 4400, 1980, 6, 237600, LocalDateTime.now(), 80001, null);
+        ordDtlDTO = OrdDtlDTO.Builder.anOrdDtlDTO()
+                .ordNo(8)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(1)
+                .ordStus("10")
+                .prodPrc(89000)
+                .prodDcPer(20)
+                .qty(3)
+                .prodTotalPayAmt(213600)
+                .sendDdln(LocalDateTime.now())
+                .regrId(80001)
+                .build();
         result = dao.insertOrderDetail(ordDtlDTO);
         assertTrue(result == 1);
         // 1-2. 주문을 모두 삭제하고 count가 0인지 확인
