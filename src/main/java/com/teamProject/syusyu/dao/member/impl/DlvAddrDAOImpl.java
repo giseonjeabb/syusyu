@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DlvAddrDAOImpl implements DlvAddrDAO {
     private final SqlSession session;
@@ -28,6 +30,20 @@ public class DlvAddrDAOImpl implements DlvAddrDAO {
     @Override
     public DlvAddrDTO selectDefaultDlvAddr(int mbrId) throws Exception {
         return session.selectOne(namespace + "selectDefaultDlvAddr", mbrId);
+    }
+
+    /**
+     * 회원의 배송지 리스트를 조회해온다.
+     *
+     * @param mbrId 배송지 리스트를 조회할 사용자의 아이디
+     * @return 배송지 정보 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since  2023/07/14
+     */
+    @Override
+    public List<DlvAddrDTO> selectAllDlvAddr(int mbrId) throws Exception {
+        return session.selectList(namespace + "selectAllDlvAddr", mbrId);
     }
 
 }

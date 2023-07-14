@@ -16,4 +16,17 @@
         WHERE MBR_ID = #{mbrId}
           AND DFLT_DLV_ADDR_YN = 'Y'
     </select>
+
+    <select id="selectAllDlvAddr" parameterType="int" resultType="DlvAddrDTO">
+        SELECT DLV_ADDR_NO
+             , RECIPIENT
+             , ZIPCODE
+             , DFLT_ADDR
+             , DTL_ADDR
+             , CONCAT(DFLT_ADDR, DTL_ADDR) AS ADDR
+             , MP_NO
+             , DLV_REQ_COMT
+        FROM DLV_ADDR
+        WHERE MBR_ID = #{mbrId}
+    </select>
 </mapper>
