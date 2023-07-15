@@ -9,7 +9,6 @@
 <tiles:insertAttribute name="header"/>
 <main>
     <tiles:insertAttribute name="body"/>
-    <div class="popup-wrap"> </div>
 </main>
 <tiles:insertAttribute name="footer"/>
 </body>

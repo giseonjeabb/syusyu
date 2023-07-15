@@ -4,6 +4,7 @@
 <c:set var="loginOutText" value="${sessionScope.mbrId != null ? '로그아웃' : '로그인'}"/>
 <html>
 <body>
+<jsp:include page="layerPopup.jsp"/>
 <header>
     <div class="h-inner">
         <div class="header-top">
