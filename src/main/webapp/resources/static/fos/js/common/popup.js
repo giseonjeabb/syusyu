@@ -63,7 +63,11 @@ syusyu.common.Popup = {
     },
 
     close: (e) => {
-        e.target.closest('.popup-wrap').classList.remove('active');
+        if (e) {
+            e.target.closest('.popup-wrap').classList.remove('active');
+        } else {
+            document.querySelector('.popup-wrap').classList.toggle('active');
+        }
     },
 
 }
