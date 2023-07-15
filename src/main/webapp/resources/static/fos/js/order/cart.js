@@ -324,25 +324,54 @@ cart.function = {
         }, null, true);
     },
 
-    validateCartProducts: (callback) => {
-        // AJAX 호출을 통해 유효성 검사를 수행
-        $.ajax({
-            url: "validateCartProducts",
-            method: "POST",
-            data: {
-                // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
-                // mbrId: mbrId                  // 사용자 아이디
-            },
-            success: function (response) {
-                var success = response.success;
-                callback(success);  // 콜백 함수를 호출하여 결과 전달
-            },
-            error: function () {
-                // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
-                callback(true);
-            }
-        });
+    checkItemsSelected: () => {
+        return cart.function.getCheckedCartProdNoArr().length > 0;
     },
+
+
+    validateCartProducts: function () {
+        // 선택되어있는 상품이 존재하는지 검증한다.
+        if (!cart.function.checkItemsSelected())
+            return false;
+
+        // AJAX 호출을 통해 유효성 검사를 수행
+        // $.ajax({
+        //     url: "validateCartProducts",
+        //     method: "POST",
+        //     data: {
+        //         // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
+        //         // mbrId: mbrId                  // 사용자 아이디
+        //     },
+        //     success: function (response) {
+        //         var success = response.success;
+        //         callback(success);  // 콜백 함수를 호출하여 결과 전달
+        //     },
+        //     error: function () {
+        //         // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
+        //         callback(true);
+        //     }
+        // });
+    },
+
+    // validateCartProducts: (callback) => {
+    //     // AJAX 호출을 통해 유효성 검사를 수행
+    //     $.ajax({
+    //         url: "validateCartProducts",
+    //         method: "POST",
+    //         data: {
+    //             // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
+    //             // mbrId: mbrId                  // 사용자 아이디
+    //         },
+    //         success: function (response) {
+    //             var success = response.success;
+    //             callback(success);  // 콜백 함수를 호출하여 결과 전달
+    //         },
+    //         error: function () {
+    //             // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
+    //             callback(true);
+    //         }
+    //     });
+    // },
 
     getOrderSheetData: () => {
         // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
@@ -360,17 +389,21 @@ cart.function = {
         window.location.href = '/orderSheet?' + queryString;
     },
 
-    order: () => {
+    order: function () {
+        if (!cart.function.validateCartProducts())
+            syusyu.common.Popup.alert('주문 상품을 선택해 주세요.');
+            return false;
         // 1. 유효성 검사를 수행한다.
-        cart.function.validateCartProducts(function (success) {
-            if (success) {
-                // 유효성 검사가 성공한 경우, 데이터를 조회하여 주문/결제 화면에 표시한다.
-                cart.function.getOrderSheetData();
-            } else {
-                // 유효성 검사가 실패한 경우, 구매 불가능한 상품에 대한 알림을 표시한다.
-                showErrorMessage("Some products are not eligible for purchase.");
-            }
-        });
+        // cart.function.validateCartProducts(function (success) {
+        //     if (success) {
+        //         // 유효성 검사가 성공한 경우, 데이터를 조회하여 주문/결제 화면에 표시한다.
+        //         cart.function.getOrderSheetData();
+        //     } else {
+        //         // 유효성 검사가 실패한 경우, 구매 불가능한 상품에 대한 알림을 표시한다.
+        //         showErrorMessage("Some products are not eligible for purchase.");
+        //     }
+        // });
+
     }
 }
 
