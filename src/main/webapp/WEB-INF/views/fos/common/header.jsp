@@ -1,8 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="loginOutLink" value="${sessionScope.id != null ? '/login/logout' : '/login/login'}" />
-<c:set var="loginOutText" value="${sessionScope.id != null ? '로그아웃' : '로그인'}" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="loginOutLink" value="${sessionScope.id != null ? '/login/logout' : '/login/login'}"/>
+<c:set var="loginOutText" value="${sessionScope.id != null ? '로그아웃' : '로그인'}"/>
+<c:set var="categories" value="${sessionScope.categories}"/>
 <html>
+
 <body>
 <header id="main_header">
     <nav id="main_gnb">
@@ -27,16 +30,21 @@
     </div>
     <nav id="main_lnb">
         <ul>
+            <li class="category">
+
+                <c:forEach var="large" items="${categories.largeCategories}">
+                <a href="<c:url value="/productList"/>">${large.value}</a></li>
+            </c:forEach>
             <li><a href="#">추천</a></li>
             <li><a href="#">랭킹</a></li>
             <li><a href="#">신발</a></li>
             <li><a href="#">남성</a></li>
             <li><a href="#">여성</a></li>
-            <li><a href="<c:url value="/productList?middleNo=1&smallNo=1"/>">신발</a></li>
 
             <li><a href="#">발견</a></li>
         </ul>
     </nav>
 </header>
+<script src="<c:url value="${jsUrlFos}/common/header.js"/>"/>
 </body>
 </html>

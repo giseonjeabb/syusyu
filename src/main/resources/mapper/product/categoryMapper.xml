@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.categoryMapper">
-    <select id="selectCategoryList" parameterType="int" resultType="CategoryDTO">
+    <select id="selectCategoryAllList" resultType="CategoryDTO">
         SELECT LARGE_NO
              , LARGE_NM
              , MIDDLE_NO
@@ -11,7 +11,9 @@
              , SMALL_NO
              , SMALL_NM
         FROM CATEGORY
-        WHERE MIDDLE_NO=#{middleNo}
+        WHERE DEL_YN = 'N'
+          AND DSPY_YN = 'Y'
+        ORDER BY MIDDLE_NO asc, SMALL_NO asc
     </select>
 </mapper>
 
