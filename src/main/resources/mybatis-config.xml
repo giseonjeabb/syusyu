@@ -10,6 +10,8 @@
         <!-- member -->
         <typeAlias alias="MemberDTO" type="com.teamProject.syusyu.domain.member.MemberDTO"/>
         <typeAlias alias="DlvAddrDTO" type="com.teamProject.syusyu.domain.member.DlvAddrDTO"/>
+        <typeAlias alias="CouponDTO" type="com.teamProject.syusyu.domain.member.CouponDTO"/>
+        <typeAlias alias="MbrCpnDTO" type="com.teamProject.syusyu.domain.member.MbrCpnDTO"/>
 
         <!-- product -->
         <typeAlias alias="CategoryDTO" type="com.teamProject.syusyu.domain.product.CategoryDTO"/>

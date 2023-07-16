@@ -17,11 +17,29 @@
     </select>
 
     <delete id="deleteAllOrd">
-        DELETE FROM ORD
+        DELETE
+        FROM ORD
     </delete>
 
     <select id="countOrd" resultType="int">
         SELECT COUNT(*)
         FROM ORD
+    </select>
+
+    <select id="selectOrderCoupon" parameterType="Map" resultType="MbrCpnDTO">
+        <![CDATA[
+        SELECT MC.CPN_ISS_NO # 쿠폰발행번호
+             , C.CPN_NM      # 쿠폰명
+             , C.BNEF_TP     # 혜택타입(01=금액, 02=%)
+             , C.CPN_BNEF    # 쿠폰혜택
+             , C.MAX_DC_AMT  # 최대할인금액
+        FROM MBR_CPN MC
+                 JOIN COUPON C ON MC.CPN_ID = C.CPN_ID
+        WHERE MC.MBR_ID = #{mbrId}
+          AND MC.DEL_YN = 'N'
+          AND MC.USE_STUS = 01 # 01=적립
+          AND MC.END_DTTM >= NOW()
+          AND C.MIN_ORD_AMT <= #{totProdAmt};
+        ]]>
     </select>
 </mapper>

@@ -1,9 +1,14 @@
 package com.teamProject.syusyu.dao.order.impl;
 
 import com.teamProject.syusyu.dao.order.OrdDAO;
+import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.OrdDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class OrdDAOImpl implements OrdDAO {
@@ -66,5 +71,25 @@ public class OrdDAOImpl implements OrdDAO {
     @Override
     public int countOrd() throws Exception {
         return session.selectOne(namespace + "countOrd");
+    }
+
+    /**
+     * 사용자가 주문/결제 시 사용할 수 있는 쿠폰 리스트를 조회한다.
+     * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
+     *
+     * @param mbrId 쿠폰을 조회할 사용자의 아이디
+     * @param totProdAmt 총 상품금액
+     * @return 사용 가능한 쿠폰 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since  2023/07/16
+     */
+    @Override
+    public List<CouponDTO> selectOrderCoupon(int mbrId, int totProdAmt) throws Exception {
+        Map<String, Integer> param = new HashMap<>();
+        param.put("mbrId", mbrId);
+        param.put("totProdAmt", totProdAmt);
+
+        return session.selectList(namespace + "selectOrderCoupon", param);
     }
 }

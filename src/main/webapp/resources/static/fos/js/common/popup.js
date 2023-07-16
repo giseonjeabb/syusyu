@@ -11,6 +11,15 @@ syusyu.common.Popup = {
         syusyu.common.Ajax.sendPOPRequest('GET', _url, '', res => {
             const $popupWrap = document.querySelector('.popup-default');
             $(".popup-default").html(res);
+
+            const closeBtn = document.querySelector('.popup-default .close');
+            closeBtn.addEventListener('click', syusyu.common.Popup.close);
+
+            const module = _url.replaceAll('/', '');
+
+            window[module].initLoad();
+            window[module].bindButtonEvent();
+
             $popupWrap.classList.add('active');
         });
     },
