@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="move-container-left">
     <div class="inner">
@@ -9,7 +9,7 @@
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/order_claim" class="">취소/교환/반품 조회</a></dd>
             <dt class="title-t ty7">혜택정보</dt>
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/benefit_coupon" class="">쿠폰</a></dd>
-            <dd><a href="https://www.ottogimall.co.kr/front/mypage/benefit_smoney" class="active">마일리지</a></dd>
+            <dd><a href="https://www.ottogimall.co.kr/front/mypage/benefit_smoney" class="active">포인트</a></dd>
             <dt class="title-t ty7">쇼핑활동</dt>
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/shop_review" class="">상품후기</a></dd>
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/shop_wish" class="">찜리스트</a></dd>
