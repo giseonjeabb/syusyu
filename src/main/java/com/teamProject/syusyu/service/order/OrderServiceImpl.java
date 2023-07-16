@@ -3,7 +3,7 @@ package com.teamProject.syusyu.service.order;
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.dao.order.*;
-import com.teamProject.syusyu.domain.order.Order;
+import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.domain.order.*;
@@ -80,12 +80,18 @@ public class OrderServiceImpl implements OrderService {
         int couponCnt = memberDao.memberCouponCnt(mbrId);       // 쿠폰
         int totPoint = memberDao.selectMemberTotalPoint(mbrId); // 포인트
 
+        // 총 주문금액 계산을 위한 값
+        int totProdAmt = cartProdList.stream().mapToInt(CartProdDTO::getTotPrc).sum(); // 총 상품금액
+        int dlvFee = totProdAmt >= 50000 ? 0 : 3000;
+
         Map<String, Object> orderInfo = new HashMap<>();
         orderInfo.put("cartProdList", cartProdList);
         orderInfo.put("memberInfo", memberInfo);
         orderInfo.put("dlvAddr", dlvAddr);
         orderInfo.put("couponCnt", couponCnt);
         orderInfo.put("totPoint", totPoint);
+        orderInfo.put("totProdAmt", totProdAmt);
+        orderInfo.put("dlvFee", dlvFee);
 
         return orderInfo;
     }
@@ -221,6 +227,22 @@ public class OrderServiceImpl implements OrderService {
         ordStusHistDTO.setOrdDtlNo(ordDtlDTO.getOrdDtlNo());
         // 2. 주문 상태 이력 정보를 DB에 insert
         ordStusHistDAO.insertOrderStatusHistory(ordStusHistDTO);
+    }
+
+    /**
+     * 사용자가 주문/결제 시 사용할 수 있는 쿠폰 리스트를 조회한다.
+     * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
+     *
+     * @param mbrId 사용자의 아이디
+     * @param totProductPrice 총 상품금액
+     * @return 사용 가능한 쿠폰 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since  2023/07/16
+     */
+    @Override
+    public List<CouponDTO> getOrderCouponList(int mbrId, int totProdAmt) throws Exception {
+        return ordDAO.selectOrderCoupon(mbrId, totProdAmt);
     }
 
 }

@@ -331,8 +331,9 @@ cart.function = {
 
     validateCartProducts: function () {
         // 선택되어있는 상품이 존재하는지 검증한다.
-        if (!cart.function.checkItemsSelected())
-            return false;
+        return cart.function.checkItemsSelected();
+
+
 
         // AJAX 호출을 통해 유효성 검사를 수행
         // $.ajax({
@@ -390,14 +391,16 @@ cart.function = {
     },
 
     order: function () {
-        if (!cart.function.validateCartProducts())
+        if (!cart.function.validateCartProducts()) {
             syusyu.common.Popup.alert('주문 상품을 선택해 주세요.');
             return false;
+        }
+
+        cart.function.getOrderSheetData();
         // 1. 유효성 검사를 수행한다.
         // cart.function.validateCartProducts(function (success) {
         //     if (success) {
         //         // 유효성 검사가 성공한 경우, 데이터를 조회하여 주문/결제 화면에 표시한다.
-        //         cart.function.getOrderSheetData();
         //     } else {
         //         // 유효성 검사가 실패한 경우, 구매 불가능한 상품에 대한 알림을 표시한다.
         //         showErrorMessage("Some products are not eligible for purchase.");

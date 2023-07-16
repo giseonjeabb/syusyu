@@ -20,7 +20,6 @@
                 <a href="https://www.ottogimall.co.kr/front">홈</a>
                 <a href="javascript:;" onclick="location.reload();">주문결제</a>
             </div>
-            <a onclick="test();">테스트</a>
         </div>
         <div class="content-title">
             <div class="inner-content">
@@ -215,11 +214,10 @@
                                     <td>
                                         <div class="flex al-center">
                                             <div class="input etc-ty1 w-450">
-                                                <input type="text" id="paidCouponPriceValue" class="inp" value="0"
-                                                       readonly="">
+                                                <input type="text" id="couponDcAmtTxt" class="inp" value="0" readonly="">
                                                 <span class="side">원</span>
                                             </div>
-                                            <button type="button" class="btn ty2 c-ty5 w-90 free ml-10" id="couponOpen">
+                                            <button type="button" class="btn ty2 c-ty5 w-90 free ml-10" id="bnt_coupon_select">
                                                 <span>쿠폰선택</span></button>
                                             <span class="ml-20 color-5">사용가능 쿠폰 <span class="color-1"
                                                                                       id="useCouponCount">0장</span></span>
@@ -230,23 +228,22 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="top">마일리지 사용</th>
+                                    <th class="top">포인트 사용</th>
                                     <td>
                                         <div class="flex al-center">
                                             <div class="input etc-ty1 w-450">
-                                                <input type="hidden" name="hasSmoney" id="has_smoney" value="1000.00"
-                                                       usablehas="1000.00" usablemin="1000.00" usablemax="0.00">
-                                                <input type="text" name="pnt_use_amt" id="pnt_use_amt"
-                                                       class="inp num-comma" value="0">
+                                                <input type="hidden" name="hasSmoney" id="has_smoney" value="1000.00" usablehas="1000.00" usablemin="1000.00" usablemax="0.00">
+                                                <input type="text" name="pntUseAmt" id="pntUseAmt" class="inp num-comma" value="0">
                                                 <span class="side">원</span>
                                             </div>
                                             <button type="button" class="btn ty2 c-ty5 w-90 free ml-10 bt-smoney-whole">
                                                 <span>최대사용</span></button>
-                                            <span class="ml-20 color-5">보유 마일리지 <span
-                                                    class="color-1">1,000원</span></span>
+                                            <span class="ml-20 color-5">보유 포인트
+                                                <span class="color-1">1,000원</span>
+                                            </span>
                                         </div>
                                         <ul class="list ty2 mt-10">
-                                            <li>마일리지는 배송비를 제외한 결제 금액을 대체하여 사용하실 수 있습니다.</li>
+                                            <li>포인트는 배송비를 제외한 결제 금액을 대체하여 사용하실 수 있습니다.</li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -254,213 +251,53 @@
                             </table>
                         </div>
                     </section>
+                        <%-- 총 상품금액--%>
+<%--                        TODO 수정 필요 value에 값 박혀있음--%>
+                    <input type="hidden" id="totProdAmt" value="${totProdAmt}">
+<%--                    배송비--%>
+                    <input type="hidden" id="dlvFee" value="${dlvFee}">
 
-<%--                    <div class="popup-wrap" id="popL" active-popup="true">--%>
-<%--                        <div class="popup-layer w-510">--%>
-<%--                            <div class="popup-head">--%>
-<%--                                <h4>배송지 목록</h4>--%>
-<%--                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>--%>
-<%--                                </button>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-fix-cont">--%>
-<%--                                <div class="chkbox">--%>
-<%--                                    <label>--%>
-<%--                                        <input type="checkbox" id="rcv_list_default_be" style="display: ">--%>
-<%--                                        <span class="text">기본 배송지로 설정</span>--%>
-<%--                                    </label>--%>
-<%--                                </div>--%>
-<%--                                <div class="r-side">--%>
-<%--                                    <a href="javascript:" class="btn ty1 c-ty2" id="addrAddTxt"><span>배송지 추가</span></a>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-content addr-ty">--%>
-<%--                                <div class="inner">--%>
-<%--                                    <ul class="addr-lists" id="addrList">--%>
+                    <!-- 쿠폰 -->
+                    <input type="hidden" id="useCpnIssNo">
+                    <input type="hidden" id="couponDcAmt" value="0">
 
-<%--                                    </ul>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-btn-area">--%>
-<%--                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="selectedAddrInfo();">--%>
-<%--                                    <span>확인</span></button>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
+                    <input type="hidden" id="finalPayAmt">
 
-<%--                    <div class="popup-wrap" id="popIU" active-popup="true">--%>
-<%--                        <input type="hidden" id="rcv_idx" value="">--%>
-<%--                        <div class="popup-layer w-570">--%>
-<%--                            <div class="popup-head">--%>
-<%--                                <h4 id="addrHeaderTxt">배송지 등록</h4>--%>
-<%--                                <button type="button" class="btn icon remove_19 close"><span class="text">닫기</span>--%>
-<%--                                </button>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-fix-cont">--%>
-<%--                                <div class="chkbox">--%>
-<%--                                    <label>--%>
-<%--                                        <input type="checkbox" name="rcvDefaultBe" id="rcv_default_be" value="1">--%>
-<%--                                        <span class="text">기본 배송지로 설정</span>--%>
-<%--                                    </label>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-content">--%>
-<%--                                <div class="inner">--%>
-<%--                                    <div class="tbl ty3 etc-ty1">--%>
-<%--                                        <table>--%>
-<%--                                            <colgroup>--%>
-<%--                                                <col style="width:130px">--%>
-<%--                                                <col style="width:auto">--%>
-<%--                                            </colgroup>--%>
-<%--                                            <tbody>--%>
-<%--                                            <tr>--%>
-<%--                                                <th>받는 분</th>--%>
-<%--                                                <td>--%>
-<%--                                                    <div class="input w-full">--%>
-<%--                                                        <input type="text" name="rcvName" id="rcv_name" class="inp"--%>
-<%--                                                               maxlength="100" placeholder="받는분을 입력해주세요" value="">--%>
-<%--                                                    </div>--%>
-<%--                                                </td>--%>
-<%--                                            </tr>--%>
-<%--                                            <tr>--%>
-<%--                                                <th>휴대폰 번호</th>--%>
-<%--                                                <td>--%>
-<%--                                                    <div class="flex-wrap etc-ty1">--%>
-<%--                                                        <div>--%>
-<%--                                                            <select name="rcvMobile1" id="rcv_mobile1"--%>
-<%--                                                                    class="selectbox ty1">--%>
-<%--                                                                <option value="010">010</option>--%>
-<%--                                                                <option value="011">011</option>--%>
-<%--                                                                <option value="016">016</option>--%>
-<%--                                                                <option value="017">017</option>--%>
-<%--                                                                <option value="018">018</option>--%>
-<%--                                                                <option value="019">019</option>--%>
-<%--                                                                <option value="02">02</option>--%>
-<%--                                                                <option value="031">031</option>--%>
-<%--                                                                <option value="032">032</option>--%>
-<%--                                                                <option value="033">033</option>--%>
-<%--                                                                <option value="041">041</option>--%>
-<%--                                                                <option value="042">042</option>--%>
-<%--                                                                <option value="043">043</option>--%>
-<%--                                                                <option value="044">044</option>--%>
-<%--                                                                <option value="051">051</option>--%>
-<%--                                                                <option value="052">052</option>--%>
-<%--                                                                <option value="053">053</option>--%>
-<%--                                                                <option value="054">054</option>--%>
-<%--                                                                <option value="055">055</option>--%>
-<%--                                                                <option value="061">061</option>--%>
-<%--                                                                <option value="062">062</option>--%>
-<%--                                                                <option value="063">063</option>--%>
-<%--                                                                <option value="064">064</option>--%>
-<%--                                                                <option value="070">070</option>--%>
-<%--                                                                <option value="080">080</option>--%>
-<%--                                                                <option value="050">050</option>--%>
-<%--                                                                <option value="0501">0501</option>--%>
-<%--                                                                <option value="0502">0502</option>--%>
-<%--                                                                <option value="0503">0503</option>--%>
-<%--                                                                <option value="0504">0504</option>--%>
-<%--                                                                <option value="0505">0505</option>--%>
-<%--                                                                <option value="0507">0507</option>--%>
-<%--                                                                <option value="0508">0508</option>--%>
-<%--                                                                <option value="0509">0509</option>--%>
-<%--                                                            </select>--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="input">--%>
-<%--                                                            <input type="number" class="inp" name="rcvMobile2"--%>
-<%--                                                                   id="rcv_mobile2" pattern="\d*" max="4" maxlength="4">--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="input">--%>
-<%--                                                            <input type="number" class="inp" name="rcvMobile3"--%>
-<%--                                                                   id="rcv_mobile3" pattern="\d*" max="4" maxlength="4">--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </td>--%>
-<%--                                            </tr>--%>
-<%--                                            <tr>--%>
-<%--                                                <th class="top">주소검색</th>--%>
-<%--                                                <td>--%>
-<%--                                                    <div class="address-form">--%>
-<%--                                                        <div class="top">--%>
-<%--                                                            <div class="input">--%>
-<%--                                                                <input type="text" class="inp" name="rcvPost"--%>
-<%--                                                                       id="rcv_post" maxlength="5" placeholder="우편번호"--%>
-<%--                                                                       readonly="readonly">--%>
-<%--                                                            </div>--%>
-<%--                                                            <button type="button"--%>
-<%--                                                                    class="btn ty1 c-ty5 free w-90 zipcode-open"--%>
-<%--                                                                    zip-embed="1" zip-width="450" zip-height="600"--%>
-<%--                                                                    zip-post="#rcv_post" zip-addr-base="#rcv_addr_base"--%>
-<%--                                                                    zip-addr-detail="#rcv_addr_detail"><span>주소검색</span>--%>
-<%--                                                            </button>--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="input w-full">--%>
-<%--                                                            <input type="text" name="rcvAddrBase" id="rcv_addr_base"--%>
-<%--                                                                   class="inp" readonly="" value="" maxlength="100">--%>
-<%--                                                        </div>--%>
-<%--                                                        <div class="input w-full">--%>
-<%--                                                            <input type="text" name="rcvAddrDetail" id="rcv_addr_detail"--%>
-<%--                                                                   class="inp" value="" maxlength="100">--%>
-<%--                                                        </div>--%>
-<%--                                                    </div>--%>
-<%--                                                </td>--%>
-<%--                                            </tr>--%>
-<%--                                            </tbody>--%>
-<%--                                        </table>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="popup-btn-area">--%>
-<%--                                <button type="button" class="btn popup-btn ty4 c-ty9" onclick="saveAddrInfo();">--%>
-<%--                                    <span>확인</span></button>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
+<%--                    <input type="hidden" id="totFinalNormalProdPrice" value="127480.00">--%>
+<%--                    <input type="hidden" id="totFinalColdProdPrice" value="0">--%>
+
+<%--                    <input type="hidden" id="couponExcludes" value="Y">--%>
+<%--                    <input type="hidden" id="basketKind" name="basketKind" value="1">--%>
+<%--                    <input type="hidden" id="tempPaidPrice" value="127480.00">--%>
+<%--                    <input type="hidden" id="totFinalDlvrFee" value="0">--%>
+<%--                    <input type="hidden" id="use_coupon_count" value="0">--%>
+
+<%--                    <input type="hidden" id="baskets" name="baskets"--%>
+<%--                           value="34xRBwn2a0nj9M5aRamdvRtuAhIyxT2OFmzfVAmy9A8=">--%>
+<%--                    <input type="hidden" id="buyer_id" name="buyerId" value="2874133643">--%>
+
+<%--                    <input type="hidden" name="totOrderPrice" value="127480.00">--%>
+<%--                    <input type="hidden" id="totDlvrFee" name="totDlvrFee" value="0">--%>
+<%--                    <input type="hidden" id="totCouponProdDiscPrice" name="totCouponProdDiscPrice" value="0">--%>
+<%--                    <input type="hidden" id="totCouponOrderDiscPrice" name="totCouponOrderDiscPrice" value="0">--%>
+<%--                    <input type="hidden" id="totCouponDlvrDiscPrice" name="totCouponDlvrDiscPrice" value="0">--%>
+<%--                    <input type="hidden" id="paidPrice" name="paidPrice" value="126480">--%>
+
+<%--                    <input type="hidden" id="paidCouponPrice" name="totCouponDiscPrice" value="0">--%>
+
+<%--                    <input type="hidden" id="productCouponIdxs" name="productCouponIdxs" value="[]">--%>
+<%--                    <input type="hidden" id="basketCouponIdx" name="basketCouponIdx" value="{}">--%>
+<%--                    <input type="hidden" id="dlvrCouponIdx" name="dlvrCouponIdx" value="{}">--%>
+
+<%--                    <input type="hidden" id="payway" name="payway" value="">--%>
+<%--                    <input type="hidden" id="bill_reg_type" name="billRegType" value="">--%>
+<%--                    <input type="hidden" id="bill_reg_no" name="billRegNo" value="">--%>
+
+<%--                    <input type="hidden" id="dlvrIsolatedAreaPrice" name="dlvrIsolatedAreaPrice" value="0">--%>
+<%--                    <input type="hidden" id="dlvrIsolatedArea" name="dlvrIsolatedArea" value="false">--%>
+<%--                    <input type="hidden" id="couponDuplicateBe" value="0">--%>
 
 
-<%--                    <script>--%>
-<%--                        var basketKind = 1;--%>
-<%--                        var isMember = true;--%>
-<%--                        var progressing = 0;--%>
-
-<%--                        onload = function () {--%>
-<%--                            if (nvl($("#pnt_use_amt").val(), '0') > '0') {--%>
-<%--                                $("#pnt_use_amt").val(0);--%>
-<%--                            }--%>
-<%--                        }--%>
-<%--                    </script>--%>
-
-                    <input type="hidden" id="totFinalNormalProdPrice" value="127480.00">
-                    <input type="hidden" id="totFinalColdProdPrice" value="0">
-
-                    <input type="hidden" id="couponExcludes" value="Y">
-                    <input type="hidden" id="basketKind" name="basketKind" value="1">
-                    <input type="hidden" id="tempPaidPrice" value="127480.00">
-                    <input type="hidden" id="totFinalDlvrFee" value="0">
-                    <input type="hidden" id="use_coupon_count" value="0">
-
-                    <input type="hidden" id="baskets" name="baskets"
-                           value="34xRBwn2a0nj9M5aRamdvRtuAhIyxT2OFmzfVAmy9A8=">
-                    <input type="hidden" id="buyer_id" name="buyerId" value="2874133643">
-
-                    <input type="hidden" name="totOrderPrice" value="127480.00">
-                    <input type="hidden" id="totDlvrFee" name="totDlvrFee" value="0">
-                    <input type="hidden" id="totCouponProdDiscPrice" name="totCouponProdDiscPrice" value="0">
-                    <input type="hidden" id="totCouponOrderDiscPrice" name="totCouponOrderDiscPrice" value="0">
-                    <input type="hidden" id="totCouponDlvrDiscPrice" name="totCouponDlvrDiscPrice" value="0">
-                    <input type="hidden" id="paidPrice" name="paidPrice" value="126480">
-
-                    <input type="hidden" id="paidCouponPrice" name="totCouponDiscPrice" value="0">
-
-                    <input type="hidden" id="productCouponIdxs" name="productCouponIdxs" value="[]">
-                    <input type="hidden" id="basketCouponIdx" name="basketCouponIdx" value="{}">
-                    <input type="hidden" id="dlvrCouponIdx" name="dlvrCouponIdx" value="{}">
-
-                    <input type="hidden" id="payway" name="payway" value="">
-                    <input type="hidden" id="bill_reg_type" name="billRegType" value="">
-                    <input type="hidden" id="bill_reg_no" name="billRegNo" value="">
-
-                    <input type="hidden" id="dlvrIsolatedAreaPrice" name="dlvrIsolatedAreaPrice" value="0">
-                    <input type="hidden" id="dlvrIsolatedArea" name="dlvrIsolatedArea" value="false">
-                    <input type="hidden" id="couponDuplicateBe" value="0">
                     <!-- 결제수단 -->
                     <section>
                         <div class="sub-content-head etc-ty2">
@@ -668,11 +505,11 @@
                         <ul class="list ty4">
                             <li>
                                 <span>총 상품금액</span>
-                                <span><strong>127,480</strong>원</span>
+                                <span><strong><fmt:formatNumber value="${totProdAmt}" type="number" pattern="#,###"/></strong>원</span>
                             </li>
                             <li>
                                 <span>총 배송비</span>
-                                <span><strong id="finalDeliverFeeTxt">0</strong>원</span>
+                                <span><strong id="finalDeliverFeeTxt"><fmt:formatNumber value="${dlvFee}" type="number" pattern="#,###"/></strong>원</span>
                             </li>
 
                             <li class="sale" style="display: none">
@@ -681,11 +518,11 @@
                             </li>
                             <li>
                                 <span>쿠폰 할인</span>
-                                <span id="paidCouponPriceTxt"><strong>-0</strong>원</span>
+                                <span id="paidCouponPriceTxt"><strong></strong>원</span>
                             </li>
                             <li>
-                                <span>마일리지 사용</span>
-                                <span id="issueSmoneyTxt"><strong>-1,000</strong>원</span>
+                                <span>포인트 사용</span>
+                                <span id="issueSmoneyTxt"><strong></strong>원</span>
                             </li>
 
                         </ul>

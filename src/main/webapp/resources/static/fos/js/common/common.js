@@ -31,5 +31,8 @@ const updateQty = (button, input) => {
 }
 
 const formatPrice = (price) => {
+    if (typeof price !== 'number')
+        price = parseInt(price);
+
     return price.toLocaleString();
 }

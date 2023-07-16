@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.controller.order;
 
 import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.*;
 import com.teamProject.syusyu.service.order.OrderService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -35,11 +37,13 @@ public class OrderController {
     public String orderSheet(Model m, int[] cartProdNoArr, @SessionAttribute int mbrId) {
         try {
             Map<String, Object> orderInfo = service.orderSheet(cartProdNoArr, mbrId);
-            m.addAttribute("cartProdList", orderInfo.get("cartProdList"));
-            m.addAttribute("memberInfo", orderInfo.get("memberInfo"));
-            m.addAttribute("dlvAddr", orderInfo.get("dlvAddr"));
-            m.addAttribute("couponCnt", orderInfo.get("couponCnt"));
-            m.addAttribute("totPoint", orderInfo.get("totPoint"));
+            m.addAttribute("cartProdList", orderInfo.get("cartProdList")); // 주문상품정보
+            m.addAttribute("memberInfo", orderInfo.get("memberInfo"));     // 주문자정보
+            m.addAttribute("dlvAddr", orderInfo.get("dlvAddr"));           // 배송지정보
+            m.addAttribute("couponCnt", orderInfo.get("couponCnt"));       // 할인정보 - 쿠폰
+            m.addAttribute("totPoint", orderInfo.get("totPoint"));         // 할인정보 - 포인트
+            m.addAttribute("totProdAmt", orderInfo.get("totProdAmt"));     // 총 주문금액 - 총 상품금액
+            m.addAttribute("dlvFee", orderInfo.get("dlvFee"));             // 총 주문금액 - 배송비
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
@@ -68,5 +72,19 @@ public class OrderController {
         }
 
         return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/orderCouponList")
+    public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) throws Exception {
+        List<CouponDTO> couponList = null;
+        try {
+            couponList = service.getOrderCouponList(mbrId, totProdAmt);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(couponList, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(couponList, HttpStatus.OK);
     }
 }

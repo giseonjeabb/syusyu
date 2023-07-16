@@ -1,17 +1,22 @@
 namespace("orderSheet");
 orderSheet = {
     initLoad: () => {
-        orderSheet.function.getDlvAddrList(); // 배송지 리스트 가져오기
+        orderSheet.function.setFinalAmt();
     },
 
     bindButtonEvent: () => { // 버튼에 이벤트 핸들러를 연결
         const $paymentBtn = document.querySelector('button[data-type="payment"]'); // 주문하기 버튼
         const $payChoiceContainer = document.querySelector(".pay-choice"); // 결제수단 버튼
         const $addrChangeBtn = document.querySelector('#btn_addr_change'); // 배송지 변경 버튼
+        const $couponSelectBtn = document.querySelector('#bnt_coupon_select'); // 배송지 변경 버튼
+        const $pntUseAmtTxt = document.querySelector('#pntUseAmt'); // 포인트 사용 금액 입력창
 
         $paymentBtn.addEventListener('click', requestPay);
         $payChoiceContainer.addEventListener('click', handlePaymentBtnClick);
         $addrChangeBtn.addEventListener('click', orderSheet.eventHandler.openDlvAddrPopup);
+        $couponSelectBtn.addEventListener('click', orderSheet.eventHandler.openCouponPopup);
+        $pntUseAmtTxt.addEventListener('blur', orderSheet.eventHandler.pntUseChange);
+
     },
 };
 
@@ -20,12 +25,50 @@ orderSheet.eventHandler = {
     openDlvAddrPopup: () => {
         syusyu.common.Popup.openPopup('/dlvAddrPopup');
     },
+
+    openCouponPopup: () => {
+        syusyu.common.Popup.openPopup('/couponPopup');
+    },
+
+    pntUseChange: (e) => {
+        // 1. TODO 사용 가능 금액을 초과하지 않았는지 검증한다.
+        // validatePointLimit();
+
+        // 2. pntUseAmt에 값 넣어준다.
+
+        // 3. 최종 결제 금액을 다시 계산한다.
+        orderSheet.function.setFinalAmt();
+    }
+
 };
+
 
 namespace("orderSheet.function");
 orderSheet.function = {
-    getDlvAddrList: () => {
+    setFinalAmt: function () {
+        // 1. 계산에 필요한 금액들을 가져온다.
+        // 1) 총 상품금액
+        const totProdAmt = parseInt(document.querySelector('#totProdAmt').value);
+        // 2) 총 배송비
+        const dlvFee = parseInt(document.querySelector('#dlvFee').value);
+        // 3) 쿠폰 할인
+        const couponDcAmt = parseInt(document.querySelector('#couponDcAmt').value);
+        // 4) 포인트 사용
+        const pntUseAmt = parseInt(document.querySelector('#pntUseAmt').value);
 
+        // 2. 쿠폰 할인, 포인트 사용 금액을 넣어준다.
+        document.querySelector('#paidCouponPriceTxt > strong').innerHTML = `-${formatPrice(couponDcAmt)}`;
+        document.querySelector('#issueSmoneyTxt > strong').innerHTML = `-${formatPrice(pntUseAmt)}`;
+
+        // 2. 최종 결제금액을 계산한다. (총 상품금액 + 배송비 - 쿠폰 할인 - 포인트 사용)
+        const finalPayAmt = totProdAmt + dlvFee - couponDcAmt - pntUseAmt;
+
+        // 3. 화면에 금액을 보여준다.(단순 보여주기용)
+        document.querySelector('#paidPriceTxt').innerHTML = `<strong>${formatPrice(finalPayAmt)}</strong>`;
+        document.querySelector('#finalAmount').innerHTML = `${formatPrice(finalPayAmt)}원 주문하기`;
+
+        // 3-1. 결제, 주문 시 사용할 input hidden에도 넣어주기
+        document.querySelector('#finalPayAmt').value = finalPayAmt;
     }
 };
 
@@ -56,6 +99,7 @@ function requestPay() {
     const makeMerchantUid = hours + minutes + seconds + milliseconds;
 
     // 결제 API 호출 시 넘겨줘야 하는 정보들
+    // 주문자 정보
     const ordName = document.getElementById('ord_name').value;
     const ordMobile = document.getElementById('ord_mobile').value;
     const ordEmail = document.getElementById('ord_email').value;
@@ -63,13 +107,15 @@ function requestPay() {
     const dfltAddr = document.getElementById("dfltAddr").value;
     const zipcode = document.getElementById("zipcode").value;
 
+    // 결제금액
+    const finalPayAmt = document.querySelector('#finalPayAmt').value;
+
     IMP.request_pay({
         pg: 'html5_inicis.INIpayTest',
         pay_method: 'card',
         // pay_method : 'naverpay',
         merchant_uid: "IMP" + makeMerchantUid, // 생성한 고유 주문번호
-        name: '당근 10kg',
-        amount: 100,
+        amount: finalPayAmt,
         buyer_email: ordEmail,
         buyer_name: ordName,
         buyer_tel: ordMobile, // 필수 파라미터
@@ -114,14 +160,15 @@ function createOrder(rsp) {
     const dtlAddr = document.getElementById("dtlAddr").value;
 
     // 결제/할인
-    const pntUseAmt = document.getElementById("pnt_use_amt").value;
+    const useCpnIssNo = document.getElementById("useCpnIssNo").value; // 쿠폰
+    const pntUseAmt = document.getElementById("pntUseAmt").value; // 포인트
 
     // 최종 데이터 객체 생성
     const orderData = {
         orderProductList: orderProductList,
         payTp: "20", // TODO 수정필요 : 결제수단(카드, 포인트+카드, 포인트)
-        cpnIssNo: 2, // TODO 수정필요 : 쿠폰
-        pntUseAmt: pntUseAmt, // TODO 수정필요 : 포인트 사용 금액
+        cpnIssNo: useCpnIssNo,
+        pntUseAmt: pntUseAmt,
         recipient: recipient,
         mpNo: mpNo,
         // safetNoYn: "N",
@@ -143,7 +190,13 @@ function createOrder(rsp) {
         // }
         data: JSON.stringify(orderData)
     }).done(function (data) {
-        debugger;
+        if (data === 'ADD_OK') {
+            location.href = '/orderComplete';
+        } else {
+            alert("결제 실패")
+        }
         // 가맹점 서버 결제 API 성공시 로직
+
+
     })
 }

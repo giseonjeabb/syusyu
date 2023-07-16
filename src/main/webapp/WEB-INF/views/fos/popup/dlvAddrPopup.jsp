@@ -1,10 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value="${jsUrlFos}/popup/dlvAddrPopup.js"/>"></script>
-<script>
-    dlvAddrPopup.initLoad();
-    dlvAddrPopup.bindButtonEvent();
-</script>
 <div class="popup-layer w-510">
     <div class="popup-head">
         <h4>배송지 목록</h4>
@@ -13,7 +9,7 @@
     <div class="popup-fix-cont">
         <div class="chkbox">
             <label>
-                <input type="checkbox" id="rcv_list_default_be" style="display: ">
+                <input type="checkbox" id="rcv_list_default_be">
                 <span class="text">기본 배송지로 설정</span>
             </label>
         </div>
