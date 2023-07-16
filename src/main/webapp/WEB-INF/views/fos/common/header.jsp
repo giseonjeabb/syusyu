@@ -11,7 +11,9 @@
     <div class="h-inner">
         <div class="header-top">
             <div class="inner">
-                <h1 class="logo"><a href="/" style="background: url('/static/image/logo/syusyuBlackLogo.png') no-repeat center center;">syusyu</a></h1>
+                <h1 class="logo"><a href="/"
+                                    style="background: url('/static/image/logo/syusyuBlackLogo.png') no-repeat center center;">syusyu</a>
+                </h1>
                 <div class="header-top-utils">
                     <a href="<c:url value="/admin/dashboard"/>">관리자페이지</a>
                     <a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a>
@@ -24,290 +26,33 @@
                 <div class="header-bottom-item">
                     <div class="category">
                         <c:forEach var="large" items="${categories.largeCategories}">
-                            <a href="<c:url value="/productList"/>">${large.value}</a></li>
+                            <button type="button" class="category_btn"><span>${large.value}</span></button>
                         </c:forEach>
-                        <button type="button" class="category_btn"><span>전체 카테고리</span></button>
                         <div class="category_list">
                             <ul class="depth1">
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/139" idx="0"
-                                       data-idx="0"> 원쁠원 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/140" idx="0"
-                                       data-idx="0"> 무료배송 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/141" idx="0"
-                                       data-idx="0"> 즉시/쿠폰 할인 상품 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/1"
-                                       idx="1" data-idx="1"> 라면/컵누들/곤누들 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/2"
-                                       idx="2" data-idx="2"> 밥/죽/누룽지 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/3"
-                                       idx="3" data-idx="3"> 카레/짜장/스프/간편렌지 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/4"
-                                       idx="4" data-idx="4"> 소스/드레싱/양념/식초 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/5"
-                                       idx="5" data-idx="5"> 탕/국/찌개/간편조리 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/6"
-                                       idx="6" data-idx="6"> 피자/파스타/만두/치킨 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/7"
-                                       idx="7" data-idx="7"> 가루/향신료 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/8"
-                                       idx="8" data-idx="8"> 캔/통조림/오일 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory" href="https://www.ottogimall.co.kr/front/product/category/9"
-                                       idx="9" data-idx="9"> 김/미역/수산물 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/10" idx="10"
-                                       data-idx="10"> 쨈/시럽/다류/마가린 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/11" idx="11"
-                                       data-idx="11"> 떡볶이/핫도그/간식 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/12" idx="12"
-                                       data-idx="12"> 국수/당면/면류 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/14" idx="14"
-                                       data-idx="14"> 강황환/홍삼/프로틴/선물세트 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/134" idx="134"
-                                       data-idx="134"> 굿즈 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="mainCategory"
-                                       href="https://www.ottogimall.co.kr/front/product/category/135" idx="0"
-                                       data-idx="0"> 기획팩 </a>
-                                    <div class="depth2">
-                                        <ul class="subCategory">
-                                            <li><a href="">봉지라면</a></li>
-                                            <li><a href="">컵라면</a></li>
-                                            <li><a href="">컵누들</a></li>
-                                            <li><a href="">곤누들</a></li>
-                                            <li><a href="">라면스프</a></li>
-                                            <li><a href="">잡채</a></li>
-                                            <li><a href="">사리면</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                <%--중분류--%>
+                                <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
+                                    <li>
+                                        <a class="mainCategory"
+                                           href="https://www.ottogimall.co.kr/front/product/category/1"
+                                           idx=${middle.key} data-idx=${middle.key}> <c:out
+                                                value="${middle.value}"/> </a>
+                                        <div class="depth2">
+                                            <ul class="subCategory">
+                                                    <%-- 소분류 --%>
+                                                <!-- middle.key와 small.key가 같다면 해당 small카테고리의 항목의 값을 리스트 항목으로 출력-->
+                                                <c:forEach var="small" items="${categories.smallCategories}">
+                                                    <c:if test="${middle.key eq small.key}">
+                                                        <c:forEach var="smallCategoryItem" items="${small.value}">
+                                                            <li><a href="#"><c:out
+                                                                    value="${smallCategoryItem.value}"/></a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
