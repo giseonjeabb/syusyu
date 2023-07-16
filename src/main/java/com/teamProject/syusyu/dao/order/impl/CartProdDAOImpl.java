@@ -3,7 +3,6 @@ package com.teamProject.syusyu.dao.order.impl;
 import com.teamProject.syusyu.dao.order.CartProdDAO;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -12,15 +11,18 @@ import java.util.Map;
 
 @Repository
 public class CartProdDAOImpl implements CartProdDAO {
-    @Autowired
-    private SqlSession session;
-    private static final String namespace = "com.teamProject.syusyu.cartMapper.";
+    private final SqlSession session;
+    private static final String namespace = "com.teamProject.syusyu.cartProdMapper.";
+
+    public CartProdDAOImpl(SqlSession session) {
+        this.session = session;
+    }
 
     /**
      * 장바구니에 상품을 추가한다.
      *
      * @param cartProductDTO 장바구니에 추가할 상품 정보
-     * @return 추가된 상품의 ID
+     * @return insert row 수
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author min
      * @since  2023/07/03

@@ -36,10 +36,10 @@ public class CartController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
+            return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
     }
 
     /**

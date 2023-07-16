@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teamProject.syusyu.cartMapper">
+<mapper namespace="com.teamProject.syusyu.cartProdMapper">
     <insert id="insert" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
         INSERT INTO cart_prod ( CART_ID     # 회원장바구니번호
                               , PROD_ID     # 상품아이디
@@ -21,30 +21,32 @@
     또한, 각 상품의 옵션 정보를 조합하여 가져온다. -->
     <select id="selectAll" parameterType="int" resultType="CartProdDTO">
         SELECT T.*
-             , (PRICE + OPT_PRC) * QTY      AS TOT_PRC        # 총 상품금액
-             , OPT_PRC * QTY                AS TOT_OPT_PRC    # 총 옵션가
-             , DC_PRC * QTY                 AS TOT_DC_PRC     # 총 할인금액
-             , (DC_APL_PRC + OPT_PRC) * QTY AS TOT_DC_APL_PRC # 총 할인적용금액
-        FROM (SELECT CP.CART_ID                                         # 회원장바구니번호
-                   , CP.CART_PROD_NO                                    # 장바구니상품번호
-                   , P.PROD_ID                                          # 상품아이디
-                   , P.PROD_NM                                          # 상품명
-                   , CP.QTY                                             # 장바구니에 담긴 상품의 수량
-                   , P.PRICE                                            # 상품가격
-                   , P.PRICE * (DC_PER / 100)             AS DC_PRC     # 할인금액
-                   , P.PRICE - (P.PRICE * (DC_PER / 100)) AS DC_APL_PRC # 할인적용금액
-                   , CP.OPT_COMB_NO                                     # 옵션조합번호(고객이 선택한 옵션)
+             , (SALE_PRC + OPT_PRC) * QTY AS TOT_PRC     # 총 상품금액
+             , OPT_PRC * QTY              AS TOT_OPT_PRC # 총 옵션가
+             , DC_AMT * QTY               AS TOT_DC_AMT  # 총 할인금액
+             , (DC_PRC + OPT_PRC) * QTY   AS TOT_DC_PRC  # 총 할인적용금액
+        FROM (SELECT CP.CART_ID                                      # 회원장바구니번호
+                   , CP.CART_PROD_NO                                 # 장바구니상품번호
+                   , PROD.PROD_ID                                    # 상품아이디
+                   , PROD.PROD_NM                                    # 상품명
+                   , CP.QTY                                          # 장바구니에 담긴 상품의 수량
+                   , PRC.PRC_NO                                      # 상품가격번호
+                   , PRC.SALE_PRC                                    # 상품가격
+                   , GET_DC_AMT(PRC.SALE_PRC, PRC.DC_PER) AS DC_AMT  # 할인금액
+                   , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC  # 할인적용금액
+                   , CP.OPT_COMB_NO                                  # 옵션조합번호(고객이 선택한 옵션)
                    , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                       FROM OPT_GRP OG
                                JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
                                JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
-                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT        # 옵션
-                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC    # 옵션가
-                   , PO.INV_QTY                                         # 재고수량
-                   , P.REP_IMG                                          # 상품대표이미지
-                   , CP.REGR_ID                                         # 등록자
+                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT     # 옵션
+                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC # 옵션가
+                   , PO.INV_QTY                                      # 재고수량
+                   , PROD.REP_IMG                                    # 상품대표이미지
+                   , CP.REGR_ID                                      # 등록자
               FROM CART_PROD CP
-                       JOIN PRODUCT P ON CP.PROD_ID = P.PROD_ID
+                       JOIN PRODUCT PROD ON CP.PROD_ID = PROD.PROD_ID
+                       LEFT JOIN PRICE PRC ON PROD.PROD_ID = PRC.PROD_ID
                        LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
               WHERE CP.DEL_YN = 'N'
                 AND CP.CART_ID = (SELECT CART_ID

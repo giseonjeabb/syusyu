@@ -46,7 +46,7 @@ public class ProductController {
             Map<String, Object> productMap = productService.getProductList(middleNo, smallNo);
 
 
-            //카테고리별 상품리스트 조회 및 총갯수를 Map에서 꺼냄
+            //카테고리별 상품리스트 조회 및 총개수를 Map에서 꺼냄
             List<ProductDTO> productList = (List<ProductDTO>) productMap.get("productList");
             int prodListTot = (Integer) productMap.get("prodListTot");
             m.addAttribute("productList", productList);

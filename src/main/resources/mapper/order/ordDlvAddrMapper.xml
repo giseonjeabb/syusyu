@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordDlvAddrMapper">
+    <insert id="insertOrdDlvAddr" parameterType="OrdDlvAddrDTO" useGeneratedKeys="true" keyProperty="ordDlvAddrNo">
+        INSERT INTO ORD_DLV_ADDR ( ORD_NO
+                                 , RECIPIENT
+                                 , MP_NO
+                                 , SAFET_NO_YN
+                                 , ZIPCODE
+                                 , DFLT_ADDR
+                                 , DTL_ADDR
+                                 , DLV_REQ_COMT
+                                 , REGR_ID)
+        VALUES ( #{ordNo}
+               , #{recipient}
+               , #{mpNo}
+               , #{safetNoYn}
+               , #{zipcode}
+               , #{dfltAddr}
+               , #{dtlAddr}
+               , #{dlvReqComt}
+               , #{regrId})
+    </insert>
+
+    <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
+        SELECT *
+        FROM ORD_DLV_ADDR
+        WHERE ORD_DLV_ADDR_NO = #{ordDlvAddrNo}
+    </select>
+
+    <delete id="deleteAllOrdDlvAddr">
+        DELETE
+        FROM ORD_DLV_ADDR
+    </delete>
+
+    <select id="countOrdDlvAddr" resultType="int">
+        SELECT COUNT(*)
+        FROM ORD_DLV_ADDR
+    </select>
+</mapper>

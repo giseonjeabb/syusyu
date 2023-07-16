@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordMapper">
+    <insert id="insertOrd" parameterType="OrdDTO" useGeneratedKeys="true" keyProperty="ordNo">
+        INSERT INTO ord ( ORDR_ID
+                        , REGR_ID)
+        VALUES ( #{ordrId}
+               , #{regrId})
+    </insert>
+
+    <select id="selectOrd" parameterType="int" resultType="OrdDTO">
+        SELECT *
+        FROM ORD
+        WHERE ORD_NO = #{ordNo}
+    </select>
+
+    <delete id="deleteAllOrd">
+        DELETE FROM ORD
+    </delete>
+
+    <select id="countOrd" resultType="int">
+        SELECT COUNT(*)
+        FROM ORD
+    </select>
+</mapper>
