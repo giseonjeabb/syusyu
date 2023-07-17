@@ -20,7 +20,7 @@
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/my_address" class="">배송지 관리</a></dd>
             <dt class="title-t ty7">문의</dt>
             <dd><a href="https://www.ottogimall.co.kr/front/mypage/cs_qna" class="">상품문의</a></dd>
-            <dd><a href="https://www.ottogimall.co.kr/front/mypage/cs_inquiry" class="">1:1문의</a></dd>
+            <dd><a href="<c:url value='/inqry/inqryList'/>" class="">1:1문의</a></dd>
             <dd><a href="https://www.ottogimall.co.kr/front/help/bulk_purchase" class="">대량주문문의</a></dd>
             <dt class="title-t ty7">공지</dt>
             <dd><a href="<c:url value='/notice/noticeList'/>" class="">공지사항</a></dd>

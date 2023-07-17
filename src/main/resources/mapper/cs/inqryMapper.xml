@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.InqryMapper">
+
+    <select id="select" parameterType="int" resultType="InqryDTO">
+        select INQRY_NO,
+               INQRY_TP,
+               TITLE,
+               CONTENT,
+               ATCH_FILE,
+               INQRY_YN,
+               ANS_CN,
+               ANSR_ID,
+               ANS_DTTM,
+               ORD_DTL_NO,
+               EMAIL,
+               MP_NO,
+               REG_DTTM,
+               REGR_ID,
+               UPD_DTTM,
+               UPDR_ID
+        from inqry
+        where INQRY_NO = #{INQRY_NO}
+        order by REG_DTTM DESC
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="InqryDTO">
+        select INQRY_NO,
+               INQRY_TP,
+               TITLE,
+               CONTENT,
+               ATCH_FILE,
+               INQRY_YN,
+               ANS_CN,
+               ANSR_ID,
+               ANS_DTTM,
+               ORD_DTL_NO,
+               EMAIL,
+               MP_NO,
+               REG_DTTM,
+               REGR_ID,
+               UPD_DTTM,
+               UPDR_ID
+        from inqry
+        order by REG_DTTM DESC, INQRY_NO DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <insert id="insert" parameterType="InqryDTO">
+        INSERT INTO board
+            (title, content, regrId)
+        VALUES
+            (#{title}, #{content}, #{regrId})
+    </insert>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM inqry
+    </select>
+
+<!--    <delete id="deleteAll">-->
+<!--        DELETE FROM inqry-->
+<!--    </delete>-->
+
+    <update id="update" parameterType="InqryDTO">
+        UPDATE inqry
+        SET   title = #{title}
+          , content = #{content}
+          , up_date = now()
+        WHERE inqryNo = #{inqryNo} and writer = #{writer}
+    </update>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM inqry WHERE INQRY_NO = #{inqryNo} and REGR_ID = #{regrId}
+    </delete>
+
+    <select id="selectAll" resultType="InqryDTO">
+        SELECT inqryNo, title, content, regrId, regDttm, ansCn
+        FROM inqry
+        ORDER BY reg_date DESC, inqryNo DESC
+    </select>
+
+<!--    <sql id="selectFromBoard">-->
+<!--        SELECT inqryNo, title, content, writer, view_cnt, comment_cnt, reg_date-->
+<!--        FROM inqry-->
+<!--    </sql>-->
+
+<!--    <update id="updateCommentCnt" parameterType="map">-->
+<!--        UPDATE inqry-->
+<!--        SET   comment_cnt = comment_cnt + #{cnt}-->
+<!--        WHERE bno = #{bno}-->
+<!--    </update>-->
+
+
+</mapper>
