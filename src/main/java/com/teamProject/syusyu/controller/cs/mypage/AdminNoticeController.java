@@ -54,6 +54,30 @@ public class AdminNoticeController {
     }
 
 
+    @GetMapping("/read")
+    public String read(Integer notcNo,Model m ,SearchCondition sc){
+        try {
+
+             NoticeDTO noticeDTO =  noticeService.read(notcNo);
+
+            // 이전 글과 다음 글의 제목 가져오기
+            NoticeDTO prevNotice = noticeService.getPrevTitle(notcNo);
+            NoticeDTO nextNotice = noticeService.getNextTitle(notcNo);
+
+            // 이전 글과 다음 글의 제목을 모델에 추가
+            m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
+            m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
+
+            m.addAttribute("noticeDTO",noticeDTO);
+         // m.addAttribute(noticeDTO); 이름 생략하고 이렇게 쓸수 있다. NoticeDTO에서 타입의 첫글자를 소문자로 noticeDTO로 사용
+            m.addAttribute("sc",sc);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
+        return ViewPath.BOS_CS+"adminNotice";
+    }
+
 
 //    @PostMapping("/write")
 //    public String write(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
@@ -86,57 +110,33 @@ public class AdminNoticeController {
 //
 //
 //
-//@PostMapping("remove")
-//public String remove(Integer notcNo , SearchCondition sc , Model m , HttpSession session ,RedirectAttributes rattr){
-//    String writer = (String) session.getAttribute("id");
-//
-//        try{
-//            m.addAttribute("sc",sc);
-//
-//            int rowCnt = noticeService.remove(notcNo,writer);
-//            if (rowCnt != 1) {
-//                throw new Exception("board remove error");
-//            }
-//
-//            // 일회성. 한 번만 쓰고 사라진다.(세션을 이용함. 세션에 잠깐 저장했다가 한 번 사용하고 삭제.)
-//            rattr.addFlashAttribute("msg", "DEL_OK"); //
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            rattr.addFlashAttribute("msg", "DEL_ERR");
-//        }
-//
-//            return "redirect:/adminNotice/list";
-//
-//        }
-//
-//    @GetMapping("/read")
-//    public String read(Integer notcNo, SearchCondition sc, Model m) throws Exception {
-//        try {
-//            NoticeDTO noticeDto = noticeService.read(notcNo);
-//
-//            // 이전 글과 다음 글의 제목 가져오기
-//            NoticeDTO prevNotice = noticeService.getPrevTitle(notcNo);
-//            NoticeDTO nextNotice = noticeService.getNextTitle(notcNo);
-//            // 이전 글과 다음 글의 제목을 모델에 추가
-//            m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
-//            m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
-//
-//            m.addAttribute("noticeDto", noticeDto);
-//            m.addAttribute("sc", sc);
-//            // m.addAttribute("page", page);
-//            // m.addAttribute("pageSize", pageSize);
-//            // 매개변수 Integer page , Integer pageSize 에서 SearchCondition 사용
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ViewPath.BOS_CS + "adminNoticeList";
-//        //public static final String BOS_CS = ".dashboard/bos/cs/";
-//    }
-//
-//
-//
+@PostMapping("remove")
+public String remove(Integer notcNo ,SearchCondition sc , Model m , HttpSession session ,RedirectAttributes rattr){
+
+        Integer regrId = (Integer) session.getAttribute("id");
+
+            try{
+                m.addAttribute("sc",sc);
+
+
+               int rowCnt =  noticeService.remove(notcNo,regrId);
+
+               if(rowCnt==1) {
+                   throw new Exception("adminNotice remove error");
+               }
+
+                rattr.addFlashAttribute("msg","DEL_OK");
+                } catch (Exception e) {
+                        e.printStackTrace();
+                rattr.addFlashAttribute("msg","DEL_ERR");
+                }
+
+             return "redirect:/adminNotice/list";
+            }
+
+
+
+
 //    @PostMapping("/modify")
 //    public String modify(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
 //        String writer = (String) session.getAttribute("id");
@@ -166,19 +166,6 @@ public class AdminNoticeController {
 //        // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
 //        return session.getAttribute("id") != null;
 //    }
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
 
 }
 
