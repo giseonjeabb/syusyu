@@ -19,7 +19,7 @@ public class ProductServiceImplTest {
     @Test
     public void getProductList() throws Exception{
         System.out.println(productService.getProductList(1,1));
-
+        System.out.println(productService.getProductAllList(1));
 
 
     }

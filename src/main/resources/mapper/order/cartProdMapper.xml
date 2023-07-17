@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.cartProdMapper">
+    <insert id="insert" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+        INSERT INTO cart_prod ( CART_ID     # 회원장바구니번호
+                              , PROD_ID     # 상품아이디
+                              , QTY         # 수량
+                              , OPT_COMB_NO # 옵션조합번호
+                              , REGR_ID)    # 등록자
+        VALUES ( #{cartId}
+               , #{prodId}
+               , #{qty}
+               , #{optCombNo}
+               , #{regrId})
+    </insert>
+
+    <!-- 장바구니 리스트를 가져오는 쿼리. 장바구니 내의 상품 정보와 금액 정보를 가져온다.
+    각 상품의 금액, 할인 금액, 할인 적용 금액 등을 계산한다.
+    또한, 각 상품의 옵션 정보를 조합하여 가져온다. -->
+    <select id="selectAll" parameterType="int" resultType="CartProdDTO">
+        SELECT T.*
+             , (SALE_PRC + OPT_PRC) * QTY AS TOT_PRC     # 총 상품금액
+             , OPT_PRC * QTY              AS TOT_OPT_PRC # 총 옵션가
+             , DC_AMT * QTY               AS TOT_DC_AMT  # 총 할인금액
+             , (DC_PRC + OPT_PRC) * QTY   AS TOT_DC_PRC  # 총 할인적용금액
+        FROM (SELECT CP.CART_ID                                      # 회원장바구니번호
+                   , CP.CART_PROD_NO                                 # 장바구니상품번호
+                   , PROD.PROD_ID                                    # 상품아이디
+                   , PROD.PROD_NM                                    # 상품명
+                   , CP.QTY                                          # 장바구니에 담긴 상품의 수량
+                   , PRC.PRC_NO                                      # 상품가격번호
+                   , PRC.SALE_PRC                                    # 상품가격
+                   , GET_DC_AMT(PRC.SALE_PRC, PRC.DC_PER) AS DC_AMT  # 할인금액
+                   , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC  # 할인적용금액
+                   , CP.OPT_COMB_NO                                  # 옵션조합번호(고객이 선택한 옵션)
+                   , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                      FROM OPT_GRP OG
+                               JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                               JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                      WHERE OPT_COMB_NO = CP.OPT_COMB_NO) AS OPT     # 옵션
+                   , IFNULL(PO.OPT_PRC, 0)                AS OPT_PRC # 옵션가
+                   , PO.INV_QTY                                      # 재고수량
+                   , PROD.REP_IMG                                    # 상품대표이미지
+                   , CP.REGR_ID                                      # 등록자
+              FROM CART_PROD CP
+                       JOIN PRODUCT PROD ON CP.PROD_ID = PROD.PROD_ID
+                       LEFT JOIN PRICE PRC ON PROD.PROD_ID = PRC.PROD_ID
+                       LEFT JOIN PROD_OPT PO ON CP.OPT_COMB_NO = PO.OPT_COMB_NO
+              WHERE CP.DEL_YN = 'N'
+                AND CP.CART_ID = (SELECT CART_ID
+                                  FROM CART
+                                  WHERE MBR_CD = #{mbrId})) AS T;
+    </select>
+
+    <update id="update" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+        UPDATE CART_PROD
+        SET QTY = #{qty}
+          , UPD_DTTM = now()
+          , UPDR_ID = #{updrId}
+        WHERE CART_PROD_NO = #{cartProdNo}
+    </update>
+
+    <update id="delete" parameterType="Map">
+        UPDATE CART_PROD
+        SET DEL_YN = 'Y'
+          , DEL_DTTM = now()
+          , DELR_ID = #{delrId}
+        WHERE CART_PROD_NO IN
+        <foreach collection="cartProdNo" item="cartProdNo" open="(" close=")" separator=",">
+            #{cartProdNo}
+        </foreach>
+    </update>
+
+    <select id="selectOneTest" parameterType="int" resultType="CartProdDTO">
+        SELECT *
+        FROM CART_PROD
+        WHERE CART_PROD_NO = #{cartProdNo}
+    </select>
+
+    <delete id="deleteAllTest">
+        DELETE FROM CART_PROD
+    </delete>
+
+    <delete id="deleteTest" parameterType="int">
+        DELETE FROM CART_PROD
+        WHERE CART_PROD_NO IN
+        <foreach collection="array" item="cartProdNo" open="(" close=")" separator=",">
+            #{cartProdNo}
+        </foreach>
+    </delete>
+
+    <select id="selectAllTest" resultType="CartProdDTO">
+        select *
+          from cart_prod
+    </select>
+</mapper>

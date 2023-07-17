@@ -1,142 +1,175 @@
-var g_cartProductList;
+// 장바구니에 상품 목록을 저장하기 위한 전역 변수.
+// 선택한 상품이 변경될 때마다 총 금액을 다시 계산하는 데 필요하다.
+let g_cartProdList;
 
-document.addEventListener("DOMContentLoaded", () => {
-    getCartProductList();
+namespace("cart");
+cart = {
+    initLoad: () => {
+        // 장바구니에 존재하는 상품 목록을 가져와서 보여준다.
+        cart.function.getCartProductList();
+    },
 
-    const orderBtn = document.getElementById('btn_order');
-    const removeSelectedBtn = document.getElementById("btn_remove_selected");
-    const chkAll = document.querySelector('.chk-all');
+    bindButtonEvent: () => { // 버튼에 이벤트 핸들러를 연결
+        const $orderBtn = document.getElementById('btn_order');                     // 주문하기 버튼
+        const $removeSelectedBtn = document.getElementById("btn_remove_selected");  // 선택한 상품 장바구니에서 삭제
+        const $chkAll = document.querySelector('.chk-all');                         // 전체 체크
 
-    orderBtn.addEventListener('click', order);
-    removeSelectedBtn.addEventListener('click', () => remove(getCheckedCartProdNoArr()));
-    chkAll.addEventListener('click', (e) => checkAll(e.target.checked));
-});
+        $orderBtn.addEventListener('click', cart.function.order);
+        $removeSelectedBtn.addEventListener('click', () => cart.function.remove(cart.function.getCheckedCartProdNoArr()));
+        $chkAll.addEventListener('click', (e) => cart.function.checkAll(e.target.checked));
+    },
+};
 
-const checkAll = (checked) => {
-    const chks = document.getElementsByName('chk');
-    for (let i = 0; i < chks.length; i++)
-        chks[i].checked = checked;
-}
+namespace("cart.eventHandler"); // 이벤트 핸들러(특정 이벤트 발생 시 이벤트를 처리) 모음
+cart.eventHandler = {
+    // 장바구니에서 상품을 제거
+    removeBtnClick: (e) => {
+        // 1. 장바구니 상품번호를 가져온다.
+        let cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+        // 2. 제거할 장바구니상품번호를 remove 함수에 전달
+        cart.function.remove([cartProdNo]);
+    },
 
-const updateCartStatus = (isCartExist) => {
-    const listNone = document.querySelector('.list-none');
-    const orderBtn = document.querySelector('#btn_order');
+    // 화면에서 수량 변경을 담당하는 이벤트 핸들러
+    qtyChange: (e) => {
+        const $ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
+        updateQty(e.target, $ordQtyInput);
+    },
 
-    if (isCartExist) {
-        listNone.style.display = 'none';
-        orderBtn.disabled = false;
-        checkAll(true);
-    } else {
-        listNone.style.display = 'block';
-        orderBtn.disabled = true;
-        checkAll(false);
+    // 변경된 수량 서버 업데이트를 담당하는 이벤트 핸들러
+    qtyUpdate: (e) => {
+        // 2. 변경된 수량과 장바구니상품코드를 넘겨서 DB쪽에 업데이트해야 함
+        const $ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
+        const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+
+        cart.function.modify(cartProdNo, $ordQtyInput.value);
+    },
+
+    // 수량 입력 변경을 관리하는 이벤트 핸들러
+    qtyInputChange: (e) => {
+        // 1보다 작은 값을 입력했을 경우 수량을 1로 변경한다.
+        if (e.target.value < 1)
+            e.target.value = 1;
+
+        const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
+        cart.function.modify(cartProdNo, e.target.value);
+    },
+
+    // 장바구니상품의 체크박스의 클릭 이벤트를 처리하는 함수
+    chkBtnClick: () => {
+        // 1. 현재 체크된 장바구니상품번호를 가져온다.
+        const checkedCartProductNoArr = cart.function.getCheckedCartProdNoArr();
+
+        // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.(체크된 상품만 필터링한다.)
+        const result = g_cartProdList.filter(cartProd => checkedCartProductNoArr.some(chk => chk == cartProd.cartProdNo))
+        cart.function.showCartTotal(result);
+
+        // 모든 상품이 선택되었는지 확인한다. 그렇지 않은 경우 전체체크 체크박스를 선택 해제한다.
+        const chkCnt = cart.function.getCheckedCartProdNoArr().length; // 체크된 요소 개수
+        const totalCnt = g_cartProdList.length; // 전체 요소 개수
+
+        document.querySelector('.chk-all').checked = chkCnt === totalCnt; // 두개수가 같으면, 모든 항목이 체크됨
     }
-}
+};
 
-const getCartProductList = () => {
-    $.ajax({
-        type: 'GET',
-        url: '/cartList',
-        contentType: 'application/json; charset=utf-8',
-        success: (result) => {
-            // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
-            g_cartProductList = result;
+namespace("cart.function");
+cart.function = {
+    /**
+     * 모든 체크박스를 선택하거나 해제한다.
+     *
+     * @param {boolean} checked 모든 체크박스를 선택할지 여부를 결정하는 불리언 값.
+     * @author min
+     * @since  2023/07/03
+     */
+    checkAll: (checked) => {
+        const $chks = document.getElementsByName('chk');
+        for (let i = 0; i < $chks.length; i++)
+            $chks[i].checked = checked;
+    },
 
-            showCartProductList(result);
-            showCartTotal(result);
-            updateCartStatus(result.length > 0);
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
+    /**
+     * 장바구니의 상태를 업데이트한다.
+     *
+     * @param {boolean} isCartExist 장바구니가 비어있는지 여부를 결정하는 불리언 값.
+     * @author min
+     * @since  2023/07/03
+     */
+    updateCartStatus: (isCartExist) => {
+        const $listNone = document.querySelector('.list-none');
+        const $orderBtn = document.querySelector('#btn_order');
+
+        if (isCartExist) {
+            $listNone.style.display = 'none';
+            $orderBtn.disabled = false;
+            cart.function.checkAll(true);
+        } else {
+            $listNone.style.display = 'block';
+            $orderBtn.disabled = true;
+            cart.function.checkAll(false);
         }
-    });
-}
+    },
 
-// 장바구니 화면 오른쪽에 위치한 총 금액을 계산해서 보여주기 위한 함수(총 상품금액, 총 할인금액, 배송비, 결제예상금액)
-const showCartTotal = (cartProdList) => {
-    const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
-    const cartTotDcPrc = cartProdList.reduce((acc, cur) => acc + cur.totDcPrc, 0); // 총 할인금액
-    const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
-    const cartPayAmt = cartTotPrc - cartTotDcPrc + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
+    /**
+     * 장바구니에 담긴 상품들의 목록을 서버로부터 가져온다.
+     *
+     * @author min
+     * @since  2023/07/03
+     */
+    getCartProductList: () => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/cartList', '', res => {
+            // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
+            g_cartProdList = res;
 
-    // TODO 변수에 $ 어떨 때 붙이는 건지...
-    const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액
-    const $cartTotDcPrc = document.getElementById('cartTotDcPrc');  // 총 할인금액
-    const $dlvFee = document.getElementById('dlvFee');              // 배송비
-    const $cartPayAmt = document.getElementById('cartPayAmt');      // 결제예상금액
-    const $finalAmt = document.getElementById('finalAmt');
+            cart.function.showCartProductList(res);
+            cart.function.showCartTotal(res);
+            cart.function.updateCartStatus(res.length > 0);
+        });
+    },
 
-    $cartTotPrc.innerHTML = formatPrice(cartTotPrc);
-    $cartTotDcPrc.innerHTML = formatPrice(cartTotDcPrc);
-    $dlvFee.innerHTML = formatPrice(dlvFee);
-    $cartPayAmt.innerHTML = formatPrice(cartPayAmt);
-    $finalAmt.innerHTML = formatPrice(cartPayAmt) + '원 주문하기';
-}
+    /**
+     * 장바구니에 담긴 상품들의 총 가격을 계산하고 보여준다. (총 상품금액, 총 할인금액, 배송비, 결제예상금액)
+     *
+     * @param {Array} cartProdList 장바구니에 담긴 상품들의 목록.
+     * @author min
+     * @since  2023/07/03
+     */
+    showCartTotal: (cartProdList) => {
+        const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
+        const cartTotDcAmt = cartProdList.reduce((acc, cur) => acc + cur.totDcAmt, 0); // 총 할인금액
+        const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
+        const cartPayAmt = cartTotPrc - cartTotDcAmt + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
 
-// 분리한 이벤트 핸들러 함수들
-const handleRemoveBtnClick = (e) => {
-    let cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-    remove([cartProdNo]);
-};
+        const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액
+        const $cartTotDcAmt = document.getElementById('cartTotDcAmt');  // 총 할인금액
+        const $dlvFee = document.getElementById('dlvFee');              // 배송비
+        const $cartPayAmt = document.getElementById('cartPayAmt');      // 결제예상금액
+        const $finalAmt = document.getElementById('finalAmt');
 
-const handleQtyBtnClick = (e) => {
-    // 1. 수량을 변경한다.
-    const ordQtyInput = e.target.parentElement.querySelector('input[name="ordQty"]');
-    updateQty(e.target, ordQtyInput);
+        $cartTotPrc.innerHTML = formatPrice(cartTotPrc);
+        $cartTotDcAmt.innerHTML = formatPrice(cartTotDcAmt);
+        $dlvFee.innerHTML = formatPrice(dlvFee);
+        $cartPayAmt.innerHTML = formatPrice(cartPayAmt);
+        $finalAmt.innerHTML = formatPrice(cartPayAmt) + '원 주문하기';
+    },
 
-    // 2. 변경된 수량과 장바구니상품코드를 넘겨서 DB쪽에 업데이트해야 함
-    const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-    modify(cartProdNo, ordQtyInput.value);
-};
+    /**
+     * 장바구니 상품 리스트를 화면에 표시한다.
+     *
+     * @param {Array} cartProdList - 장바구니 상품 리스트
+     * @author min
+     * @since 2023/07/03
+     */
+    showCartProductList: (cartProdList) => {
+        // 1. 기존에 보여지고 있던 장바구니 목록을 초기화한다.
+        const $cart = document.querySelector('.prd-brd-list');
+        $cart.innerHTML = '';
 
-const handleQtyInputChange = (e) => {
-    // 1보다 작은 값을 입력했을 경우 수량을 1로 변경한다.
-    if (e.target.value < 1)
-        e.target.value = 1;
+        // 2. HTML 요소를 동적으로 생성해서 화면에 보여준다.
+        cartProdList.forEach(cartProd => {
+            const $cartProdLi = document.createElement('li');
 
-    const cartProdNo = e.target.closest('li').querySelector('input[name="cartProdNo"]').value;
-    modify(cartProdNo, e.target.value);
-};
-
-const handleChkBtnClick = () => {
-    // 1. 전역으로 저장해뒀던 장바구니 상품 리스트에서 체크된 것만 filter로 걸려야 한다.
-    // 그런데 전역으로 저장해둔 장바구니 상품리스트에는 Html 요소 정보가 아니기 때문에 chk 정보가 없고
-    // 그렇다고 html 요소만 가져오기에는 가격 정보가 없다
-    // 그렇다면 html요소에서 체크된 장바구니상품아이디만 가져오게 한 뒤에 그 객체와 g_cartProductList만 일치하는 걸 거르면 될듯?
-
-    // 1. 현재 체크된 장바구니상품아이디를 가져온다.
-    const checkedCartProductNoArr = getCheckedCartProdNoArr();
-
-    // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.
-    const result = g_cartProductList.filter(cartProduct => checkedCartProductNoArr.some(chk => chk === cartProduct.cartProdNo))
-    showCartTotal(result);
-
-    // 만약 모든 상품이 체크되어있지 않다면 전체체크 해제해야 함
-    // chk된 거랑 모든 요소 개수가 다르면 전체 체크 해제하기
-
-    // 1. chk된 요소 개수 가져오기
-    const chkCnt = getCheckedCartProdNoArr().length;
-
-    // 2. 전체 요소 개수 가져오기
-    const totalCnt = g_cartProductList.length;
-
-    document.querySelector('.chk-all').checked = chkCnt === totalCnt;
-}
-
-// 상품 리스트를 표시하는 함수
-const showCartProductList = (cartProductList) => {
-
-
-    // 1. 기존에 보여지고 있던 장바구니 목록을 초기화한다.
-    const cart = document.querySelector('.prd-brd-list');
-    cart.innerHTML = '';
-
-    // 2. 요소를 동적으로 생성해서 화면에 보여준다.
-    cartProductList.forEach(cartProduct => {
-        const cartProductLi = document.createElement('li');
-
-        const totOptPrc = cartProduct.totOptPrc > 0 ? ` (+${formatPrice(cartProduct.totOptPrc)}원) ` : '';
-        const result = `
+            const totOptPrc = cartProd.totOptPrc > 0 ? ` (+${formatPrice(cartProd.totOptPrc)}원) ` : '';
+            const result = `
             <div class="chk-area">
                 <div class="chkbox single">
                     <label>
@@ -147,23 +180,23 @@ const showCartProductList = (cartProductList) => {
             </div>
             <div class="item-area">
                 <div class="prd-item etc-ty1 ">
-                    <input type="hidden" name="cartProdNo" value="${cartProduct.cartProdNo}">
-                    <input type="hidden" name="prodId" value="${cartProduct.prodId}">
+                    <input type="hidden" name="cartProdNo" value="${cartProd.cartProdNo}">
+                    <input type="hidden" name="prodId" value="${cartProd.prodId}">
                     <input type="hidden" name="orderPrice" value="28480.00">
                     <input type="hidden" name="discEventPrice" value="0.00">
                     <input type="hidden" name="dlvrPolicyFee" value="3000.00">
                     <input type="hidden" name="itemQtyCount" value="2">
                     <div class="thumbs hover">
                         <a href="https://www.ottogimall.co.kr/front/product/2254">
-                            <img src="/static/image/product/${cartProduct.repImg}" alt="이미지">
+                            <img src="${cartProd.repImg}" alt="이미지">
                         </a>
                     </div>
                     <div class="desc">
                         <a href="javascript:">
-                            <p class="name">${cartProduct.prodNm}</p>
+                            <p class="name">${cartProd.prodNm}</p>
                             <div class="option">
                                 <p>
-                                    ${cartProduct.opt}
+                                    ${cartProd.opt}
                                     ${totOptPrc}
                                 </p>
                             </div>
@@ -173,93 +206,113 @@ const showCartProductList = (cartProductList) => {
             </div>
             <div class="item-qty-area">
                 <div class="item-qty">
-                    <input class="item_qty_count ux-number" type="number" title="상품수량" name="ordQty" value="${cartProduct.qty}" maxlength="4" min="1" max="0" before="2" optneeds="0" stock="39" numeral="number">
+                    <input class="item_qty_count ux-number" type="number" title="상품수량" name="ordQty" value="${cartProd.qty}" maxlength="4" min="1" max="0" before="2" optneeds="0" stock="39" numeral="number">
                     <button type="button" class="btn icon minus"><span class="text">상품수량 빼기</span></button>
                     <button type="button" class="btn icon plus"><span class="text">상품수량 더하기</span></button>
                 </div>
             </div>
             <div class="price-arae">
-                <p class="amount">${formatPrice(cartProduct.totDcAplPrc)}<span class="won">원</span></p>
-                ${cartProduct.totDcAplPrc !== cartProduct.totPrc ? `<del>${formatPrice(cartProduct.totPrc)}<span class="won">원</span></del>` : ''}
+                <p class="amount">${formatPrice(cartProd.totDcPrc)}<span class="won">원</span></p>
+                ${cartProd.totDcPrc !== cartProd.totPrc ? `<del>${formatPrice(cartProd.totPrc)}<span class="won">원</span></del>` : ''}
             </div>
             <div class="remove-area">
                 <button type="button" class="btn icon remove_20 btn_remove"><span class="text">삭제</span></button>
             </div>`;
 
-        cartProductLi.innerHTML += result;
+            $cartProdLi.innerHTML += result;
 
-        const chkBtn = cartProductLi.querySelector('input[name="chk"]');
-        chkBtn.addEventListener('click', handleChkBtnClick);
+            const $chkBtn = $cartProdLi.querySelector('input[name="chk"]'); // 선택버튼
+            $chkBtn.addEventListener('click', cart.eventHandler.chkBtnClick);
 
-        const removeBtn = cartProductLi.querySelector('.remove-area button');
-        removeBtn.addEventListener('click', handleRemoveBtnClick);
+            const $removeBtn = $cartProdLi.querySelector('.remove-area button'); // 개별 상품 삭제 버튼
+            $removeBtn.addEventListener('click', cart.eventHandler.removeBtnClick);
 
-        const qtyBtns = cartProductLi.querySelectorAll('.item-qty .btn');
-        qtyBtns.forEach((btn) => {
-            btn.addEventListener('click', handleQtyBtnClick);
+            const $qtyBtns = $cartProdLi.querySelectorAll('.item-qty .btn'); // 수량 +, - 버튼
+            $qtyBtns.forEach((btn) => {
+                btn.addEventListener('click', cart.eventHandler.qtyChange); // 수량 변경
+                btn.addEventListener('click', debouncedHandler); // 서버 업데이트
+            });
+
+            const $qtyInput = $cartProdLi.querySelector('input[name="ordQty"]'); // 수량 수정 input 버튼
+            $qtyInput.addEventListener('change', cart.eventHandler.qtyInputChange);
+
+            $cart.appendChild($cartProdLi);
         });
+    },
 
-        const qtyInput = cartProductLi.querySelector('input[name="ordQty"]');
-        qtyInput.addEventListener('change', handleQtyInputChange);
+    /**
+     * 장바구니에서 수량을 수정한다.
+     *
+     * @param {Number} cartProdNo - 장바구니 상품 번호
+     * @param {Number} ordQty - 주문 수량
+     * @author min
+     * @since 2023/07/03
+     */
+    modify: (cartProdNo, ordQty) => {
+        const param = {qty: ordQty};
+        syusyu.common.Ajax.sendJSONRequest('PATCH', '/cart/' + cartProdNo, param, () => {
+            cart.function.getCartProductList();
+        });
+    },
 
-        cart.appendChild(cartProductLi);
-    });
-}
+    /**
+     * 장바구니에 담긴 상품들을 제거한다.
+     *
+     * @param {string[]} cartProdNoArr 제거할 장바구니상품번호 배열
+     * @author min
+     * @since 2023/07/03
+     */
+    remove: (cartProdNoArr) => {
+        syusyu.common.Ajax.sendJSONRequest('DELETE', '/cart/', cartProdNoArr, () => {
+            cart.function.getCartProductList();
+        });
+    },
 
-const modify = (cartProdNo, ordQty) => {
-    const param = {qty: ordQty};
+    /**
+     * 현재 선택된 장바구니 상품 번호들의 배열을 반환
+     *
+     * @author min
+     * @since 2023/07/04
+     */
+    getCheckedCartProdNoArr: () => {
+        return cart.function.getCheckedItem('cartProdNo')
+    },
 
-    $.ajax({
-        type: 'PATCH',
-        url: '/cart/' + cartProdNo,
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        success: () => {
-            getCartProductList();
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
-        }
-    });
-}
+    /**
+     * 현재 선택된 상품 ID들의 배열을 반환
+     *
+     * @author min
+     * @since 2023/07/04
+     */
+    getCheckedProdIdArr: () => {
+        return cart.function.getCheckedItem('prodId')
+    },
 
-const remove = (cartProdNoArr) => {
-    $.ajax({
-        type: 'DELETE',
-        url: '/cart',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(cartProdNoArr),
-        success: () => {
-            getCartProductList();
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            console.error("Error in remove:", textStatus, errorThrown);
-        }
-    });
-}
+    /**
+     * 주어진 이름을 가진 요소 중 현재 선택된 요소들의 값을 배열로 반환
+     *
+     * @param {string} target - 값을 가져올 요소의 이름
+     * @author min
+     * @since 2023/07/03
+     */
+    getCheckedItem: (target) => {
+        let $checkedItems = document.querySelectorAll("input[name='chk']:checked");
+        // TODO querySelectorAll 반환 값이 왜 nodelist인지 거기서 왜 filter 호출할 수 없는지?
+        $checkedItems = Array.from($checkedItems).filter(item => !item.classList.contains('chk-all'));
 
-const getCheckedCartProdNoArr = () => getCheckedItem('cartProdNo');
-const getCheckedProdIdArr = () => getCheckedItem('prodId');
+        return $checkedItems.map((item) => item.closest('li').querySelector('input[name="' + target + '"]').value);
+    },
 
-const getCheckedItem = (target) => {
-    let checkedItems = document.querySelectorAll("input[name='chk']:checked");
-    // TODO querySelectorAll 반환 값이 왜 nodelist인지 거기서 왜 filter 호출할 수 없는지?
-    checkedItems = Array.from(checkedItems).filter(item => !item.classList.contains('chk-all'));
+    /**
+     * 현재 선택된 상품들이 주문 가능한 상태인지 확인
+     *
+     * @author min
+     * @since 2023/07/04
+     */
+    checkProductStatus: () => {
+        const checkedProdIdArr = cart.function.getCheckedProdIdArr();
 
-    return checkedItems.map((item) => item.closest('li').querySelector('input[name="' + target + '"]').value);
-};
-
-const checkProductStatus = () => {
-    const checkedProdIdArr = getCheckedProdIdArr();
-
-    $.ajax({
-        type: 'GET',
-        url: '/productStatus',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        traditional: true, // 배열 파라미터를 prodIdArr=1&prodIdArr=2&prodIdArr=3과 같은 형태로 직렬화
-        data: {'prodIdArr': checkedProdIdArr},
-        success: (result) => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/productStatus', {'prodIdArr': checkedProdIdArr}, () => {
             // 1. 판매상태가 601이 아닌 상품들을 찾는다.
             const tmp = result.filter(product => product.status !== 601);
 
@@ -268,30 +321,103 @@ const checkProductStatus = () => {
                 const prodNm = tmp.map(product => product.prodNm).join(',');
                 alert(prodNm + "는 구매가 불가능한 상품입니다.");
             }
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-            alert("An error occurred: " + textStatus + " - " + errorThrown);
+        }, null, true);
+    },
+
+    checkItemsSelected: () => {
+        return cart.function.getCheckedCartProdNoArr().length > 0;
+    },
+
+
+    validateCartProducts: function () {
+        // 선택되어있는 상품이 존재하는지 검증한다.
+        return cart.function.checkItemsSelected();
+
+
+
+        // AJAX 호출을 통해 유효성 검사를 수행
+        // $.ajax({
+        //     url: "validateCartProducts",
+        //     method: "POST",
+        //     data: {
+        //         // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
+        //         // mbrId: mbrId                  // 사용자 아이디
+        //     },
+        //     success: function (response) {
+        //         var success = response.success;
+        //         callback(success);  // 콜백 함수를 호출하여 결과 전달
+        //     },
+        //     error: function () {
+        //         // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
+        //         callback(true);
+        //     }
+        // });
+    },
+
+    // validateCartProducts: (callback) => {
+    //     // AJAX 호출을 통해 유효성 검사를 수행
+    //     $.ajax({
+    //         url: "validateCartProducts",
+    //         method: "POST",
+    //         data: {
+    //             // cartProdNoArr: cartProdNoArr,  // 선택한 장바구니 상품 아이디 배열
+    //             // mbrId: mbrId                  // 사용자 아이디
+    //         },
+    //         success: function (response) {
+    //             var success = response.success;
+    //             callback(success);  // 콜백 함수를 호출하여 결과 전달
+    //         },
+    //         error: function () {
+    //             // callback(false);    // 오류 발생 시 유효성 검사 실패로 처리
+    //             callback(true);
+    //         }
+    //     });
+    // },
+
+    getOrderSheetData: () => {
+        // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
+        // cart.function.checkProductStatus();
+
+        const cartProdNoArr = cart.function.getCheckedCartProdNoArr();
+
+        // 주문서 데이터를 성공적으로 가져왔을 때, 페이지 리디렉션을 수행한다.
+        location.href = '/orderSheet?cartProdNoArr=' + JSON.stringify(cartProdNoArr);
+
+        // 선택한 장바구니 상품 아이디 배열을 쿼리 문자열로 변환
+        const queryString = 'cartProdNoArr=' + cartProdNoArr.join('&cartProdNoArr=');
+
+        // 주문서 화면으로 이동
+        window.location.href = '/orderSheet?' + queryString;
+    },
+
+    order: function () {
+        if (!cart.function.validateCartProducts()) {
+            syusyu.common.Popup.alert('주문 상품을 선택해 주세요.');
+            return false;
         }
-    });
+
+        cart.function.getOrderSheetData();
+        // 1. 유효성 검사를 수행한다.
+        // cart.function.validateCartProducts(function (success) {
+        //     if (success) {
+        //         // 유효성 검사가 성공한 경우, 데이터를 조회하여 주문/결제 화면에 표시한다.
+        //     } else {
+        //         // 유효성 검사가 실패한 경우, 구매 불가능한 상품에 대한 알림을 표시한다.
+        //         showErrorMessage("Some products are not eligible for purchase.");
+        //     }
+        // });
+
+    }
 }
 
-const order = () => {
-    // 주문하기 버튼을 누르면 상품이 구매가 가능한 상태인지 확인한다.
-    // const checkedItem = getCheckedCartProdNoArr();
-    checkProductStatus();
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/order/cartOrder',
-    //     contentType: 'application/json; charset=utf-8',
-    //     dataType: 'json',
-    //     data: JSON.stringify(checkedItem),
-    //     success: (result) => {
-    //         let cartOrderNos = result.map((item) => `cartOrderNo=${item}`).join('&');
-    //         location.href = '/order/orderSheet?' + cartOrderNos;
-    //     },
-    //     error: (jqXHR, textStatus, errorThrown) => {
-    //         alert("An error occurred: " + textStatus + " - " + errorThrown);
-    //     }
-    // });
-}
+// 이벤트 핸들러에 디바운싱 적용
+const debouncedHandler = _.debounce((e) => {
+    cart.eventHandler.qtyUpdate(e);
+}, 500, false);
+
+
+
+
+
+

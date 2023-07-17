@@ -72,20 +72,11 @@ function register() {
         shoeSize:    document.getElementById('shoe_size').value
     };
 
-    $.ajax({
-        type: 'POST',
-        url: '/register/add',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        success: function (result) {
-            if (result === 'success') {
-                location.href = '/login/login';
-            } else {
-                alert("정보를 올바르게 다시 입력해 주세요.");
-            }
-        },
-        error: function () {
-            alert("error")
+    syusyu.common.Ajax.sendJSONRequest('POST', '/register/add', param, res => {
+        if (res === 'success') {
+            location.href = '/login/login';
+        } else {
+            alert("정보를 올바르게 다시 입력해 주세요.");
         }
     });
 }

@@ -15,8 +15,8 @@ public class CartProdDTO {
     private String opt;
     private int totPrc;
     private int totOptPrc;
+    private int totDcAmt;
     private int totDcPrc;
-    private int totDcAplPrc;
     private int invQty;
     private String repImg;
     private int regrId;
@@ -44,12 +44,12 @@ public class CartProdDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProdDTO that = (CartProdDTO) o;
-        return cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && updrId == that.updrId && Objects.equals(optCombNo, that.optCombNo);
+        return cartProdNo == that.cartProdNo && cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo) && Objects.equals(updrId, that.updrId) && Objects.equals(delrId, that.delrId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, prodId, qty, optCombNo, regrId, updrId);
+        return Objects.hash(cartProdNo, cartId, prodId, qty, optCombNo, regrId, updrId, delrId);
     }
 
     public int getCartProdNo() {
@@ -132,12 +132,12 @@ public class CartProdDTO {
         this.totPrc = totPrc;
     }
 
-    public int getTotDcAplPrc() {
-        return totDcAplPrc;
+    public int getTotDcPrc() {
+        return totDcPrc;
     }
 
-    public void setTotDcAplPrc(int totDcAplPrc) {
-        this.totDcAplPrc = totDcAplPrc;
+    public void setTotDcPrc(int totDcPrc) {
+        this.totDcPrc = totDcPrc;
     }
 
     public int getInvQty() {
@@ -204,37 +204,27 @@ public class CartProdDTO {
         this.delDttm = delDttm;
     }
 
+
+
+    public int getTotDcAmt() {
+        return totDcAmt;
+    }
+
+    public void setTotDcAmt(int totDcAmt) {
+        this.totDcAmt = totDcAmt;
+    }
+
     @Override
     public String toString() {
         return "CartProdDTO{" +
                 "cartProdNo=" + cartProdNo +
                 ", cartId=" + cartId +
                 ", prodId=" + prodId +
-                ", prodNm='" + prodNm + '\'' +
                 ", qty=" + qty +
-                ", salePrc=" + salePrc +
                 ", optCombNo=" + optCombNo +
-                ", opt='" + opt + '\'' +
-                ", totPrc=" + totPrc +
-                ", totOptPrc=" + totOptPrc +
-                ", totDcPrc=" + totDcPrc +
-                ", totDcAplPrc=" + totDcAplPrc +
-                ", invQty=" + invQty +
-                ", repImg='" + repImg + '\'' +
                 ", regrId=" + regrId +
-                ", regDttm=" + regDttm +
                 ", updrId=" + updrId +
-                ", updDttm=" + updDttm +
                 ", delrId=" + delrId +
-                ", delDttm=" + delDttm +
                 '}';
-    }
-
-    public int getTotDcPrc() {
-        return totDcPrc;
-    }
-
-    public void setTotDcPrc(int totDcPrc) {
-        this.totDcPrc = totDcPrc;
     }
 }

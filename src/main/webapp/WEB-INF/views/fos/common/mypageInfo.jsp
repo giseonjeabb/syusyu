@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <section class="mp-info-wrap">
     <div class="mp-info">
         <a href="https://www.ottogimall.co.kr/front/help/benefit" class="left">
@@ -11,7 +11,7 @@
     </div>
     <div class="mp-benefit-box">
         <div class="benefit">
-            <a href="https://www.ottogimall.co.kr/front/mypage/benefit_smoney" class="txt">마일리지</a>
+            <a href="https://www.ottogimall.co.kr/front/mypage/benefit_smoney" class="txt">포인트</a>
             <p>1,000</p>
             <a href="https://www.ottogimall.co.kr/front/product/category/mileage"
                class="btn ty1 c-ty5 w-90"><span>사용하기</span></a>

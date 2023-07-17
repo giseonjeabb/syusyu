@@ -9,9 +9,9 @@ public class PageHandler {
     // sc만 사용할 예정
     private SearchCondition sc;
 
-    private int totalCnt; // 총 게시물의 갯수
+    private int totalCnt; // 총 게시물의 개수
     private int naviSize = 10; // 페이지 내비게이션의 크기
-    private int totalPage; // 전체 페이지의 갯수
+    private int totalPage; // 전체 페이지의 개수
     private int beginPage; // 내비게이션의 첫번째 페이지
     private int endPage;   // 내비게이션의 마지막 페이지
     private boolean showPrev; // 이전페이지로 이동하는 링크를 보여줄것인지 여부
