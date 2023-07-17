@@ -1,136 +1,56 @@
-window.onload = function () {
+/**
+  * 이 함수는 지정된 중분류와 소분류 카테고리에 속하는 상품 목록을 AJAX POST 요청을 통해 가져옵니다.
+  * 반환 값은 각 카테고리에 대한 상품 목록과 총 상품 수를 포함하는 JSON 형식의 데이터입니다.
+  *
+  * @param middleNo 중분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 기본값은 1입니다.
+  * @param smallNo 소분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 해당 카테고리 전체 상품을 가져옵니다.
+  * @return 성공적인 경우, 상품 정보를 담은 JSON 데이터를 반환합니다. 실패할 경우, AJAX 요청 실패 메시지를 콘솔에 출력합니다.
+  * @throws Exception 상품 리스트를 가져오는 동안 발생할 수 있는 예외를 처리합니다.
+  * @author soso
+  * @since 2023/07/07
+  */
+$(function () {
     const path = window.location.pathname;
     const pathParts = path.split('/');
-    const middleNo = pathParts[2];
+    let middleNo = pathParts[2];
     const smallNo = pathParts[3];
-    $.ajax({
-        url: "/productListData/" + middleNo + "/" + smallNo,
-        type: 'GET',
-        success: function (data) {
-            const productList = data.productList;
-            console.log("Data received: " + productList);
-        },
-        error: function (request, status, error) {
-            console.error("AJAX request failed. " + error);
-            // console.error('Server response: ', request.responseText);
-        }
-    });
-};
+    if (middleNo === undefined || middleNo === null) {
+        middleNo = 1;
+    }
 
+    //카테고리 중분류만 클릭했을때 불러오는 상품리스트
+    if (smallNo === undefined || smallNo === null) {
+        $.ajax({
+            url: "/productListData/" + middleNo,
+            type: 'GET',
+            success: function (data) {
+                const productList = data.productList;
+                console.log("Data received: " + productList);
+                showProductList(data);
+            },
+            error: function (request, status, error) {
+                console.error("AJAX request failed. " + error);
+            }
 
-// $(function () {
-//     const path = window.location.pathname;
-//     const pathParts = path.split('/');
-//     let middleNo = pathParts[2];
-//     const smallNo = pathParts[3];
-//     $.ajax({
-//         url: "/productList/" + middleNo + "/" + smallNo,
-//         type: 'POST',
-//         contentType: 'json',
-//         success: function (data) {
-//             console.log("dsdfjlkasfjlaskdjfla"+data)
-//         },
-//         error: function (request, status, error) {
-//             console.error("AJAX request failed. " + error);
-//         }
-//     });
-// });
-// $(function (){
-//     const path = window.location.pathname;
-//     const pathParts = path.split('/');
-//     let middleNo = pathParts[2];
-//     const smallNo = pathParts[3];
-//     if (middleNo === undefined || middleNo === null) {
-//         middleNo = 1;
-//     }
-//
-//     //카테고리 중분류만 클릭했을때 불러오는 상품리스트
-//     if (smallNo === undefined || smallNo === null) {
-//         $.ajax({
-//             url: "/productList/" + middleNo,
-//             type: 'POST',
-//             contentType: 'json',
-//             data: JSON.stringify({middleNo: middleNo}),
-//             success: function (data) {
-//                 const productList = data.productList;
-//                 console.log(productList);
-//                 //map에서 카테고리별 총합계와 상품리스트 data
-//                 showProductList(data);
-//             },
-//             error: function (request, status, error) {
-//                 console.error("AJAX request failed. " + error);
-//             }
-//
-//         });
-//     } else {
-//         //카테고리 소분류 클릭햇을때 불러오는 상품리스트
-//         $.ajax({
-//             url: "/productList/" + middleNo + "/" + smallNo,
-//             type: 'POST',
-//             contentType: 'json',
-//             data: JSON.stringify({middleNo: middleNo, smallNo: smallNo}),
-//             success: function (data) {
-//                 //map에서 카테고리별 총합계와 상품리스트 data
-//                 showProductList(data);
-//
-//             },
-//             error: function (request, status, error) {
-//                 console.error("AJAX request failed. " + error);
-//             }
-//
-//         });
-//     }
-//
-// });
+        });
+    } else {
+        //카테고리 소분류 클릭햇을때 불러오는 상품리스트
+        $.ajax({
+            url: "/productList/" + middleNo + "/" + smallNo,
+            url: "/productListData/" + middleNo + "/" + smallNo,
+            type: 'GET',
+            success: function (data) {
+                // const productList = data.productList;
+                // console.log("Data received: " + productList);
+                showProductList(data);
+            },
+            error: function (request, status, error) {
+                console.error("AJAX request failed. " + error);
+            }
 
-//
-// window.onload = function () {
-//     const path = window.location.pathname;
-//     const pathParts = path.split('/');
-//     let middleNo = pathParts[2];
-//     const smallNo = pathParts[3];
-//     if (middleNo === undefined || middleNo === null) {
-//         middleNo = 1;
-//     }
-//
-//     //카테고리 중분류만 클릭했을때 불러오는 상품리스트
-//     if (smallNo === undefined || smallNo === null) {
-//         $.ajax({
-//             url: "/productList/" + middleNo,
-//             type: 'POST',
-//             contentType: 'json',
-//             data: JSON.stringify({middleNo: middleNo}),
-//             success: function (data) {
-//                 const productList = data.productList;
-//                 console.log(productList);
-//                 //map에서 카테고리별 총합계와 상품리스트 data
-//                 showProductList(data);
-//             },
-//             error: function (request, status, error) {
-//                 console.error("AJAX request failed. " + error);
-//             }
-//
-//         });
-//     } else {
-//         //카테고리 소분류 클릭햇을때 불러오는 상품리스트
-//         $.ajax({
-//             url: "/productList/" + middleNo + "/" + smallNo,
-//             type: 'POST',
-//             contentType: 'json',
-//             data: JSON.stringify({middleNo: middleNo, smallNo: smallNo}),
-//             success: function (data) {
-//                 //map에서 카테고리별 총합계와 상품리스트 data
-//                 showProductList(data);
-//
-//             },
-//             error: function (request, status, error) {
-//                 console.error("AJAX request failed. " + error);
-//             }
-//
-//         });
-//     }
-//
-// };
+        });
+    }
+});
 
 
 /**

@@ -16,8 +16,8 @@
              , P.BRND_ID
              , B.BRND_NM
              , PRC.SALE_PRC
-             , PRC.DC_PER                                                                         /* 할인율 */
-             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.SALE_PRC / 100)), -1) AS DC_PRC /* 할인가 */
+             , PRC.DC_PER /* 할인율 */
+             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
              , PRC.SALE_ST_DTTM
@@ -26,8 +26,8 @@
              , PRC.DC_ED_DTTM
              , P.REG_DTTM
              , P.REGR_ID
-             , COALESCE(ASR.AVG_STAR_RATING, 0)                                         AS AVG_STAR_RATING
-             , COALESCE(ASR.REVW_CNT, 0)                                                AS REVW_CNT
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                                AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                       AS REVW_CNT
         FROM PRODUCT P
                  JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
                  JOIN BRAND B ON P.BRND_ID = B.BRND_ID
@@ -59,7 +59,7 @@
              , B.BRND_NM
              , PRC.SALE_PRC
              , PRC.DC_PER /* 할인율 */
-             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.SALE_PRC / 100)), -1) AS DC_PRC /* 할인가 */
+             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
              , PRC.SALE_ST_DTTM

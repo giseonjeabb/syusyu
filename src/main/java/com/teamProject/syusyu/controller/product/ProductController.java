@@ -99,43 +99,19 @@ public class ProductController {
      * @author soso
      * @since 2023/07/07
      */
-//    @PostMapping("/productList/{middleNo}/{smallNo}")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> getProductList(@PathVariable Integer middleNo, @PathVariable Integer smallNo) {
-//        Map<String, Object> productInfo = null;
-//        System.out.println("middleNo"+middleNo);
-//        System.out.println("smallNo"+smallNo);
-//        try {
-//            if (middleNo == null || smallNo == null) {
-//                middleNo = 1;
-//                smallNo = 1;
-//            }
-//            //소분류 카테고리별 상품리스트와 총 갯수를 map으로 보냄
-//            productInfo = productService.getProductList(middleNo, smallNo);
-//            List<String> List = (java.util.List<String>) productInfo.get("productList");
-//            System.out.println("middleNo, smallNo" + List);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
-//        }
-//
-//        return new ResponseEntity<>(productInfo, HttpStatus.OK);
-//    }
     @GetMapping("/productListData/{middleNo}/{smallNo}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getProductList(@PathVariable Integer middleNo, @PathVariable Integer smallNo) {
         Map<String, Object> productInfo = null;
-        System.out.println("middleNo"+middleNo);
-        System.out.println("smallNo"+smallNo);
+        System.out.println("middleNo" + middleNo);
+        System.out.println("smallNo" + smallNo);
         try {
             if (middleNo == null || smallNo == null) {
                 middleNo = 1;
                 smallNo = 1;
             }
             productInfo = productService.getProductList(middleNo, smallNo);
-            List<String> List = (java.util.List<String>) productInfo.get("productList");
-            System.out.println("middleNo, smallNo" + List);
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
@@ -143,6 +119,7 @@ public class ProductController {
 
         return new ResponseEntity<>(productInfo, HttpStatus.OK);
     }
+
     /**
      * 중분류 번호를 사용하여 해당 카테고리에 속한 모든 상품 목록을 보여주는 메소드입니다.
      * 이 메소드는 HTTP GET 요청을 통해 호출되며, 상품 목록을 보여주는 뷰 경로를 반환합니다.
@@ -167,7 +144,7 @@ public class ProductController {
      * @author soso
      * @since 2023/07/08
      */
-    @PostMapping("/productList/{middleNo}")
+    @GetMapping("/productListData/{middleNo}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getProductAllList(@PathVariable Integer middleNo) {
         Map<String, Object> productInfo = null;
@@ -190,42 +167,6 @@ public class ProductController {
         return new ResponseEntity<>(productInfo, HttpStatus.OK);
     }
 
-
-//    @GetMapping("productList")
-//    public String getProductList(Integer middleNo, Integer smallNo, Model m) {
-//
-//        try {
-//            System.out.println("g호ㅓㅏㄱ인확ㄴ");
-//            if (middleNo == null || smallNo == null) {
-//                middleNo = 1;
-//                smallNo = 1;
-//            }
-//
-//            //카테고리 중분류별로 소분류 출력
-////            List<CategoryDTO> categoryList = categoryService.getCategoryList(middleNo);
-////            m.addAttribute("categoryList", categoryList);
-//
-//
-//            // getProductList(카테고리별 상품리스트)메소드의 반환 값을 Map<String, Object>으로 변경
-//            Map<String, Object> productMap = productService.getProductList(middleNo, smallNo);
-//
-//
-//            //카테고리별 상품리스트 조회 및 총개수를 Map에서 꺼냄
-//            List<ProductDTO> productList = (List<ProductDTO>) productMap.get("productList");
-//            int prodListTot = (Integer) productMap.get("prodListTot");
-//            m.addAttribute("productList", productList);
-//            m.addAttribute("prodListTot", prodListTot);
-//
-//            //카테고리 중분류별 총 상품리스트
-////            List<ProductDTO> productAllList = productService.getProductAllList(middleNo);
-//            m.addAttribute("productAllList", productAllList);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ViewPath.FOS_PRODUCT + "productList";
-//    }
 
     @GetMapping("productStatus")
     @ResponseBody
