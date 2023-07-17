@@ -9,7 +9,7 @@ import java.util.Map;
 public interface NoticeService {
     int getCount() throws Exception;
 
-    int remove(Integer notcNo, String writer) throws Exception;
+    int remove(Integer notcNo, Integer regrId) throws Exception;
 
     int write(NoticeDTO noticeDto) throws Exception;
 
