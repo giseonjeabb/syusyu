@@ -19,7 +19,7 @@
     if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
     if (msg == "READ_ERR") alert("삭제되었거나 없는 게시물입니다.");
 
-    if (msg == "DEL_ERR") alert("삭제되었거나 없는 게시물입니다.");
+    if (msg == "DEL_ERR") alert("삭제 실패 했습니다..");
     if (msg == "DEL_OK") alert("성공적으로 삭제되었습니다.");
     if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
     if (msg == "MOD_OK") alert("성공적으로 수정되었습니다.");
@@ -27,7 +27,7 @@
 <div class = all-board>
 
     <div class="fb__bbs__header">
-        <h3 class="title-t ty3 mb-30">공지사항 관리 </h3>
+        <h3 class="title-t ty3 mb-30"><a href="<c:url value="/adminNotice/list"/>"> 공지사항 관리 </a></h3>
     </div>
 
 
@@ -77,7 +77,7 @@
     </div>   <%---search--%>
 
 
-
+    <form action="" id="form">
     <div class="notice-list">공지 사항 목록
         <%--    게시글 갯수 카운팅--%>
         <span class="notice_count">(총 ${ph.totalCnt}개)</span>
@@ -91,69 +91,61 @@
             <th scope="col">제목</th>
             <th scope="col">조회수</th>
             <th scope="col">등록 일자</th>
-            <th scope="col">수정 일자</th>
             <th scope="col">공지 시작</th>
             <th scope="col">공지 종료</th>
+            <th scope="col"> 수정 </th>
+            <th scope="col"> 삭제 </th>
 
         </tr>
 
-        <c:forEach var="noticeDto" items="${list}">
+        <c:forEach var="noticeDTO" items="${list}">
             <tr class="table-light">
-                <td scope="row">${noticeDto.notcNo}</td>        <%---공지사항 분류---%>
-                <td><c:out value="${noticeDto.notcTp}"/></td>   <%---공지사항 타입---%>
-                <td><a href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>"> ${noticeDto.title}</a></td> <%---공지사항 제목---%>
-                <td>${noticeDto.viewCnt}</td>                   <%---공지사항 조회수---%>
+                <td scope="row">${noticeDTO.notcNo}</td>        <%---공지사항 번호---%>
+                <td><c:out value="${noticeDTO.notcTp}"/></td>   <%---공지사항 타입---%>
+                <td><a href = "<c:url value="/adminNotice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>"> ${noticeDTO.title}</a></td> <%---공지사항 제목---%>
+<%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
+                <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>
 
 
                     <%---공지사항 등록날짜---%>
                 <c:choose>
-                    <c:when test="${noticeDto.regDttm.time >= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm" type="time"/></td>
+                    <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
                     </c:when>
 
                     <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                     </c:otherwise>
                 </c:choose>
 
-
-                    <%---공지사항 수정 날짜---%>
-                <c:choose>
-                    <c:when test="${noticeDto.updDttm.time >= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDto.updDttm}" pattern="HH:mm" type="time"/></td>
-                    </c:when>
-
-                    <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDto.updDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                    </c:otherwise>
-                </c:choose>
 
                     <%---공지사항 시작 날짜---%>
                 <c:choose>
-                    <c:when test="${noticeDto.startDttm.time >= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDto.startDttm}" pattern="HH:mm" type="time"/></td>
+                    <c:when test="${noticeDTO.startDttm.time >= startOfToday}">
+                        <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="HH:mm" type="time"/></td>
                     </c:when>
 
                     <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDto.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                     </c:otherwise>
                 </c:choose>
 
                     <%---공지사항 종료 날짜---%>
                 <c:choose>
-                    <c:when test="${noticeDto.endDttm.time <= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDto.endDttm}" pattern="HH:mm" type="time"/></td>
+                    <c:when test="${noticeDTO.endDttm.time <= startOfToday}">
+                        <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="HH:mm" type="time"/></td>
                     </c:when>
 
                     <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDto.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                     </c:otherwise>
                 </c:choose>
 
-
+                <td> <input class="" type="button" value="수정"> </td>
+                <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
             </tr>
         </c:forEach>
-
+</form>
 
     </table>
 
@@ -196,9 +188,23 @@
 
             </c:if>
 
-
-
+            </div>
         </div>
-    </div>
+
+
 </div>
 
+<script>
+    $(document).ready(function (){
+
+        $('.removeBtn').on("click", function(){
+            if(!confirm("삭제 하시겠습니까 ?")) return;
+            let form =  $('#form');
+            <%--form.attr("action", "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>");--%>
+            form.attr("action", "<c:url value='/adminNotice/remove'/>?page=${sc.page}&pageSize=${sc.pageSize}");
+            form.attr("method", "post");
+            form.submit();
+        });
+
+    });
+</script>
