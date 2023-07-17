@@ -68,7 +68,25 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void order() throws Exception {
+    // 주문 생성 후 컴퓨티드 컬럼들 의도한대로 잘 들어갔는지 데이터 검증
+    public void validationOrderData() {
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("주문 생성 실패");
+        }
+
+        // 주문 생성 후 컴퓨티드 컬럼들 의도한대로 잘 들어갔는지 검증한다.
+    }
+
+    @Test
+    // 주문 생성 후 존재여부 검증
+    public void orderExistence() throws Exception {
         // 주문 시 필요한 데이터 생성
         Order order = getOrder();
 
@@ -85,7 +103,7 @@ public class OrderServiceImplTest {
         // 1. 일단 insert한 데이터가 존재하는지 테스트부터 하자.
 
         // 1-1. ORD
-         OrdDTO ordDTO = ordDAO.selectOrder(order.getOrd().getOrdNo());
+        OrdDTO ordDTO = ordDAO.selectOrder(order.getOrd().getOrdNo());
         assertNotNull(ordDTO);
         System.out.println("ordDTO = " + ordDTO);
 
@@ -127,6 +145,212 @@ public class OrderServiceImplTest {
         assertNotNull(ordDlvAddrDTO);
 
     }
+
+    @Test
+    // 트랜잭션 테스트 - ORD 에러 발생
+    public void transactionOrdTest() throws Exception {
+        // 주문 관련 table들에 데이터가 없는지 검증한다.
+        assertEquals(0, ordDAO.countOrd());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        assertEquals(0, payDAO.countPay());
+        assertEquals(0, payRsltDAO.countPayResult());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+
+        int result;
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // 의도적으로 에러를 발생시킨다. - 등록자를 없는 회원 번호로 변경(FK 걸려있어서 에러날 것)
+        order.getOrd().setRegrId(0);
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 1. ORD
+        assertEquals(0, ordDAO.countOrd());
+        // 2. ORD_DTL
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        // 3. ORD_STUS_HIS
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        // 4. PAY
+        assertEquals(0, payDAO.countPay());
+        // 5. PAY_RSLT
+        assertEquals(0, payRsltDAO.countPayResult());
+        // 6. ORD_DLV_ADDR
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+    }
+
+    @Test
+    // 트랜잭션 테스트 - ORD_STUS_HIST에서 에러 발생
+    public void transactionOrdStusHistTest() throws Exception {
+        // 주문 관련 table들에 데이터가 없는지 검증한다.
+        assertEquals(0, ordDAO.countOrd());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        assertEquals(0, payDAO.countPay());
+        assertEquals(0, payRsltDAO.countPayResult());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+
+        int result;
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // 의도적으로 에러를 발생시킨다. - 등록자를 없는 회원 번호로 변경(FK 걸려있어서 에러날 것)
+        order.getOrdStusHistList().get(0).setRegrId(0);
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 1. ORD
+        assertEquals(0, ordDAO.countOrd());
+        // 2. ORD_DTL
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        // 3. ORD_STUS_HIS
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        // 4. PAY
+        assertEquals(0, payDAO.countPay());
+        // 5. PAY_RSLT
+        assertEquals(0, payRsltDAO.countPayResult());
+        // 6. ORD_DLV_ADDR
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+    }
+
+    @Test
+    // 트랜잭션 테스트 - ORD_DTL 에러 발생
+    public void transactionOrdDtlTest() throws Exception {
+        // 주문 관련 table들에 데이터가 없는지 검증한다.
+        assertEquals(0, ordDAO.countOrd());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        assertEquals(0, payDAO.countPay());
+        assertEquals(0, payRsltDAO.countPayResult());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+
+        int result;
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // 의도적으로 에러를 발생시킨다.
+        // 2) 등록자를 없는 회원 번호로 변경(FK 걸려있어서 에러날 것)
+        order.getOrdDtlList().get(0).setRegrId(0);
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 1. ORD
+        assertEquals(0, ordDAO.countOrd());
+        // 2. ORD_DTL
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        // 3. ORD_STUS_HIS
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        // 4. PAY
+        assertEquals(0, payDAO.countPay());
+        // 5. PAY_RSLT
+        assertEquals(0, payRsltDAO.countPayResult());
+        // 6. ORD_DLV_ADDR
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+    }
+
+    @Test
+    // 트랜잭션 테스트 - PAY_RSLT에서 에러 발생
+    public void transactionPayRsltTest() throws Exception {
+        // 주문 관련 table들에 데이터가 없는지 검증한다.
+        assertEquals(0, ordDAO.countOrd());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        assertEquals(0, payDAO.countPay());
+        assertEquals(0, payRsltDAO.countPayResult());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+
+        int result;
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // 의도적으로 에러를 발생시킨다. - 등록자를 없는 회원 번호로 변경(FK 걸려있어서 에러날 것)
+        order.getPayRslt().setRegrId(0);
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 1. ORD
+        assertEquals(0, ordDAO.countOrd());
+        // 2. ORD_DTL
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        // 3. ORD_STUS_HIS
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        // 4. PAY
+        assertEquals(0, payDAO.countPay());
+        // 5. PAY_RSLT
+        assertEquals(0, payRsltDAO.countPayResult());
+        // 6. ORD_DLV_ADDR
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+    }
+
+    @Test
+    // 트랜잭션 테스트 - ORD_DLV_ADDR에서 에러 발생
+    public void transactionOrdDlvAddrTest() throws Exception {
+        // 주문 관련 table들에 데이터가 없는지 검증한다.
+        assertEquals(0, ordDAO.countOrd());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        assertEquals(0, payDAO.countPay());
+        assertEquals(0, payRsltDAO.countPayResult());
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+
+        int result;
+        // 주문 시 필요한 데이터 생성
+        Order order = getOrder();
+
+        // ORD_DLV_ADDR 우편번호(not null, 필수값)에 들어갈 zipcode null로 세팅 -> 의도적으로 에러 발생
+        order.getOrdDlvAddr().setZipcode(null);
+
+        // 주문을 생성한다.
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 1. ORD
+        assertEquals(0, ordDAO.countOrd());
+        // 2. ORD_DTL
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+        // 3. ORD_STUS_HIS
+        assertEquals(0, ordStusHistDAO.countOrderStatusHistory());
+        // 4. PAY
+        assertEquals(0, payDAO.countPay());
+        // 5. PAY_RSLT
+        assertEquals(0, payRsltDAO.countPayResult());
+        // 6. ORD_DLV_ADDR
+        assertEquals(0, ordDtlDAO.countOrderDetail());
+    }
+
+
+    // 컴퓨티드 컬럼 아니고 그냥 화면에서 받아온 값들 잘 들어갔는지 검증
+
+
 
     private static Order getOrder() {
         // 1. 주문에 필요한 데이터 세팅

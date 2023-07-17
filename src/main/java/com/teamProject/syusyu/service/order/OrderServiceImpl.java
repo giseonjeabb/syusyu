@@ -234,7 +234,7 @@ public class OrderServiceImpl implements OrderService {
      * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
      *
      * @param mbrId 사용자의 아이디
-     * @param totProductPrice 총 상품금액
+     * @param totProdAmt 총 상품금액
      * @return 사용 가능한 쿠폰 리스트
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
