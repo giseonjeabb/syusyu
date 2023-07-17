@@ -13,7 +13,7 @@
         <a href="<c:url value="/productList?middleNo=1&smallNo=1"/>">신발</a>
 
         <%--   추후 카테고리 삽입하면 경로바꿀 예정임   --%>
-        <a href="<c:url value="/productList?middleNo=1&smallNo=1"/>">운동화</a>
+        <a href="<c:url value='/productList/${middleNo}'/>">운동화</a>
 
         <%--<a href="javascript:">스니커즈</a>--%>
         <a href="#">스니커즈</a>

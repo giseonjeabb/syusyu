@@ -111,6 +111,8 @@ public class ProductController {
                 smallNo = 1;
             }
             productInfo = productService.getProductList(middleNo, smallNo);
+            List<String> List = (java.util.List<String>) productInfo.get("productList");
+            System.out.println("소분류" + List);
 
         } catch (Exception e) {
             e.printStackTrace();

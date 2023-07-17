@@ -17,37 +17,40 @@ $(function () {
     if (middleNo === undefined || middleNo === null) {
         middleNo = 1;
     }
-
+    debugger
     //카테고리 중분류만 클릭했을때 불러오는 상품리스트
     if (smallNo === undefined || smallNo === null) {
         $.ajax({
-            url: "/productListData/" + middleNo,
             type: 'GET',
-            success: function (data) {
+            url: "/productListData/" + middleNo,
+            contentType: 'application/json; charset=utf-8',
+            dataType : "json",
+            success : function(data) {
                 const productList = data.productList;
                 console.log("Data received: " + productList);
                 showProductList(data);
             },
-            error: function (request, status, error) {
+            error : function(jqXHR, error, errorThrown) {
                 console.error("AJAX request failed. " + error);
             }
-
         });
+
     } else {
         //카테고리 소분류 클릭햇을때 불러오는 상품리스트
+
         $.ajax({
-            url: "/productList/" + middleNo + "/" + smallNo,
-            url: "/productListData/" + middleNo + "/" + smallNo,
             type: 'GET',
-            success: function (data) {
+            url: "/productListData/" + middleNo + "/" + smallNo,
+            contentType: 'application/json; charset=utf-8',
+            dataType : "json",
+            success : function(data) {
                 // const productList = data.productList;
                 // console.log("Data received: " + productList);
                 showProductList(data);
             },
-            error: function (request, status, error) {
+            error : function(jqXHR, error, errorThrown) {
                 console.error("AJAX request failed. " + error);
             }
-
         });
     }
 });

@@ -30,7 +30,7 @@ public class ProductDAOImpl implements ProductDAO {
      * @since 2023/07/07
      */
     @Override
-    public List<ProductDTO> selectProductList(int middleNo, int smallNo){
+    public List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception{
         Map map = new HashMap<>();
         map.put("middleNo", middleNo);
         map.put("smallNo", smallNo);
@@ -50,7 +50,7 @@ public class ProductDAOImpl implements ProductDAO {
      * @since 2023/07/07
      */
     @Override
-    public List<ProductDTO> selectProductAllList(int middleNo){
+    public List<ProductDTO> selectProductAllList(int middleNo) throws Exception{
         return session.selectList(namespace + "selectProductAllList", middleNo);
 
     }
