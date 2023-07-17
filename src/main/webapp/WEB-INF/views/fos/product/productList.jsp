@@ -1,7 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="urlParts" value="${sessionScope.url}"/>
+<%--<c:set var="urlParts" value="${fn:split(pageContext.request.requestURI, '/')}"/>--%>
+<%--&lt;%&ndash;<c:if test="${not empty urlParts[2]}">&ndash;%&gt;--%>
+<%--    <c:set var="middleNo" value="${urlParts[2]}"/>--%>
+<%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
+<%--&lt;%&ndash;<c:if test="${not empty urlParts[3]}">&ndash;%&gt;--%>
+<%--    <c:set var="smallNo" value="${urlParts[3]}"/>--%>
+<%--</c:if>--%>
 
+<%--<c:set var="smallNo" value="${urlParts[2]}"/>--%>
+<c:set var="categories" value="${sessionScope.categories}"/>
 <head>
     <script src="${jsUrlFos}/product/productList.js" type="text/javascript"></script>
 </head>
@@ -27,14 +38,21 @@
 
 <div class="inner-content">
     <div class="tab-wrap">
-
-
         <div class="tab ty1">
             <div class="inner">
                 <a href="#" class="">전체</a>
-                <c:forEach var="item" items="${categoryList}">
-<%--                    <a href="<c:url value="/product/productList"/>" class="">${catecoryList.samllNm}</a>--%>
-                    <a href="<c:url value='/productList?middleNo=${item.middleNo}&smallNo=${item.smallNo}'/>"  class="">${item.smallNm}</a>
+<%--                <c:out value="${middleNo}"/>--%>
+<%--                <c:out value="${smallNo}"/>--%>
+                <c:forEach var="small" items="${categories.smallCategories}">
+                    <c:if test="${small.key == middleNo}">
+                        <c:forEach var="smallCategoryItem" items="${small.value}">
+
+                                <a href="<c:url value='/productList/${small.key}/${smallCategoryItem.key}'/>">
+                                    <c:out value="${smallCategoryItem.value}"/>
+                                </a>
+
+                        </c:forEach>
+                    </c:if>
                 </c:forEach>
 
             </div>
@@ -42,7 +60,7 @@
 
         <form name="FrmProdFilter" id="frm_prod_filter">
             <div class="content-top">
-                <span class="prd-counter">전체 <strong>${prodListTot}</strong>개</span>
+                <span class="prd-counter">전체 <strong></strong>개</span>
                 <div class="r-side">
                     <div class="tab ty3">
                         <a href="#" class="active" name="pop">인기순</a>
@@ -73,57 +91,57 @@
             <input type="hidden" id="searchInitSize" value="0">
             <div class="prd-lists n4 " page-no="1" total-size="16" total-page="1">
                 <%--해당 카테고리 상품이 없으면 --%>
-                <c:choose>
-                    <c:when test="${prodListTot eq 0 || prodListTot eq null}">
-                    <div class="list-none bt-0">
-                        <p class="msg-text">상품이 없습니다.</p>
-                    </div>
-                    </c:when>
-                <%--해당 카테고리 상품이 있을때--%>
-                    <c:otherwise>
-                    <c:forEach var="item" items="${productList}">
-                    <div class="prd-item ">
-                        <div class="thumbs hover">
-                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">
-                                <img src="${item.repImg}" alt="${item.prodNm}"/>
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">
-                                <p class="name">${item.prodNm}</p>
-                                <div class="price">
-                                    <c:choose>
-                                        <c:when test="${item.dcPer > 0}">
-                                            <!-- 할인율 있는 경우 -->
-                                            <p class="amount">
-                                                <span class="per">${item.dcPer}%</span><fmt:formatNumber value="${item.dcPrc}" pattern="#,###" /><span class="won">원</span>
-                                                <del><fmt:formatNumber value="${item.price}" pattern="#,###" />원</del>
-                                            </p>
-                                        </c:when>
-                                        <c:when test="${item.dcPer==0}">
-                                            <!-- 할인율 없는 경우 -->
-                                            <p class="amount">
+<%--                <c:choose>--%>
+<%--                    <c:when test="${prodListTot eq 0 || prodListTot eq null}">--%>
+<%--                    <div class="list-none bt-0">--%>
+<%--                        <p class="msg-text">상품이 없습니다.</p>--%>
+<%--                    </div>--%>
+<%--                    </c:when>--%>
+<%--                &lt;%&ndash;해당 카테고리 상품이 있을때&ndash;%&gt;--%>
+<%--                    <c:otherwise>--%>
+<%--                    <c:forEach var="item" items="${productList}">--%>
+<%--                    <div class="prd-item ">--%>
+<%--                        <div class="thumbs hover">--%>
+<%--                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">--%>
+<%--                                <img src="${item.repImg}" alt="${item.prodNm}"/>--%>
+<%--                            </a>--%>
+<%--                        </div>--%>
+<%--                        <div class="desc">--%>
+<%--                            <a href="https://www.ottogimall.co.kr/front/product/706" target="_self" pno="706">--%>
+<%--                                <p class="name">${item.prodNm}</p>--%>
+<%--                                <div class="price">--%>
+<%--                                    <c:choose>--%>
+<%--                                        <c:when test="${item.dcPer > 0}">--%>
+<%--                                            <!-- 할인율 있는 경우 -->--%>
+<%--                                            <p class="amount">--%>
+<%--                                                <span class="per">${item.dcPer}%</span><fmt:formatNumber value="${item.dcPrc}" pattern="#,###" /><span class="won">원</span>--%>
+<%--                                                <del><fmt:formatNumber value="${item.price}" pattern="#,###" />원</del>--%>
+<%--                                            </p>--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:when test="${item.dcPer==0}">--%>
+<%--                                            <!-- 할인율 없는 경우 -->--%>
+<%--                                            <p class="amount">--%>
 
-                                                <fmt:formatNumber value="${item.price}" pattern="#,###" /><span class="won">원</span>
-                                            </p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                                <div class="grade">
-                                    <strong>${item.avgStarRating}</strong>
-                                    <span>(${item.revwCnt})</span><!-- 리뷰 -->
-                                </div>
-                            </a>
-                            <div class="prd-item-btn">
+<%--                                                <fmt:formatNumber value="${item.price}" pattern="#,###" /><span class="won">원</span>--%>
+<%--                                            </p>--%>
+<%--                                        </c:when>--%>
+<%--                                    </c:choose>--%>
+<%--                                </div>--%>
+<%--                                <div class="grade">--%>
+<%--                                    <strong>${item.avgStarRating}</strong>--%>
+<%--                                    <span>(${item.revwCnt})</span><!-- 리뷰 -->--%>
+<%--                                </div>--%>
+<%--                            </a>--%>
+<%--                            <div class="prd-item-btn">--%>
 
-                                <button type="button" class="btn icon cart add-cart-bt" pno="706"><span
-                                        class="text">장바구니 담기</span></button>
-                            </div>
-                        </div><!--//desc-->
-                    </div><!--//prd-item -->
-                    </c:forEach>
-                    </c:otherwise>
-                </c:choose>
+<%--                                <button type="button" class="btn icon cart add-cart-bt" pno="706"><span--%>
+<%--                                        class="text">장바구니 담기</span></button>--%>
+<%--                            </div>--%>
+<%--                        </div><!--//desc-->--%>
+<%--                    </div><!--//prd-item -->--%>
+<%--                    </c:forEach>--%>
+<%--                    </c:otherwise>--%>
+<%--                </c:choose>--%>
 
             </div>
         </div>
