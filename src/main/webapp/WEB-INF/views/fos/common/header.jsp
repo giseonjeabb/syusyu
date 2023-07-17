@@ -5,6 +5,9 @@
 <c:set var="loginOutText" value="${sessionScope.mbrId != null ? '로그아웃' : '로그인'}"/>
 <c:set var="categories" value="${sessionScope.categories}"/>
 <html>
+<head>
+    <script src="<c:url value='${jsUrlFos}/common/header.js'/>"></script>
+</head>
 <body>
 <jsp:include page="layerPopup.jsp"/>
 <header>
@@ -34,9 +37,8 @@
                                 <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
                                     <li>
                                         <a class="mainCategory"
-                                           href="https://www.ottogimall.co.kr/front/product/category/1"
-                                           idx=${middle.key} data-idx=${middle.key}> <c:out
-                                                value="${middle.value}"/> </a>
+                                           href="/productList/${middle.key}"
+                                           idx=${middle.key} data-idx=${middle.key}> <c:out value="${middle.value}"/> </a>
                                         <div class="depth2">
                                             <ul class="subCategory">
                                                     <%-- 소분류 --%>
@@ -44,7 +46,7 @@
                                                 <c:forEach var="small" items="${categories.smallCategories}">
                                                     <c:if test="${middle.key eq small.key}">
                                                         <c:forEach var="smallCategoryItem" items="${small.value}">
-                                                            <li><a href="#"><c:out
+                                                            <li><a href="<c:url value='/productList/${small.key}/${smallCategoryItem.key}'/>"><c:out
                                                                     value="${smallCategoryItem.value}"/></a></li>
                                                         </c:forEach>
                                                     </c:if>
@@ -179,6 +181,5 @@
             </div>
         </div><!--//header-bottom--></div>
 </header>
-<script src="<c:url value="${jsUrlFos}/common/header.js"/>"/>
 </body>
 </html>

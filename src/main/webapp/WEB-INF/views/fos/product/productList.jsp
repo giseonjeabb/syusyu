@@ -2,19 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="urlParts" value="${sessionScope.url}"/>
-<%--<c:set var="urlParts" value="${fn:split(pageContext.request.requestURI, '/')}"/>--%>
-<%--&lt;%&ndash;<c:if test="${not empty urlParts[2]}">&ndash;%&gt;--%>
-<%--    <c:set var="middleNo" value="${urlParts[2]}"/>--%>
-<%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;<c:if test="${not empty urlParts[3]}">&ndash;%&gt;--%>
-<%--    <c:set var="smallNo" value="${urlParts[3]}"/>--%>
-<%--</c:if>--%>
-
-<%--<c:set var="smallNo" value="${urlParts[2]}"/>--%>
 <c:set var="categories" value="${sessionScope.categories}"/>
 <head>
-    <script src="${jsUrlFos}/product/productList.js" type="text/javascript"></script>
+    <script src="<c:url value='${jsUrlFos}/product/productList.js'/>"></script>
 </head>
 
 
