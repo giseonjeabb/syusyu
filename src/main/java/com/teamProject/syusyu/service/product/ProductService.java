@@ -9,7 +9,7 @@ public interface ProductService {
 
     Map<String, Object> getProductList(int middleNo, int smallNo) throws Exception;
 
-    List<ProductDTO> getProductAllList(int middleNo);
+    Map<String, Object> getProductAllList(int middleNo) throws Exception;
 
 
     List<ProductDTO> getProductStatus(int[] prodId) throws Exception;
