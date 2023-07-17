@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.service.cs;
 
 import com.teamProject.syusyu.domain.cs.FaqDTO;
+import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 
 import java.util.List;
@@ -21,11 +22,14 @@ public interface FaqService {
 
     int modify(FaqDTO faqDto) throws Exception;
 
-    int getSearchResultCnt(SearchCondition sc) throws Exception;
+    int getSearchResultCnt(FaqSearchCondition fsc) throws Exception;
 
-    List<FaqDTO> getSearchResultPage(SearchCondition sc) throws Exception;
+    List<FaqDTO> getSearchResultPage(FaqSearchCondition fsc) throws Exception;
 
-    FaqDTO getPrevTitle(Integer faqNo) throws Exception;
 
-    FaqDTO getNextTitle(Integer faqNo) throws Exception;
+
+
+
+
+
 }

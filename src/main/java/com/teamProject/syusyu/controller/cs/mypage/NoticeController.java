@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.controller.cs;
+package com.teamProject.syusyu.controller.cs.mypage;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;

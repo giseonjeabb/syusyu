@@ -16,6 +16,14 @@ public class CartController {
     @Autowired
     CartService service;
 
+    /**
+     * 장바구니에 상품을 추가한다.
+     *
+     * @param cartProductDTO 추가할 상품 정보
+     * @return 결과 메시지와 HTTP 상태 코드
+     * @author min
+     * @since  2023/07/03
+     */
     @PostMapping("/cart")
     @ResponseBody
     public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO) {
@@ -28,17 +36,33 @@ public class CartController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
+            return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
     }
 
+    /**
+     * 장바구니 페이지를 보여준다.
+     *
+     * @return 장바구니 페이지 경로
+     * @author min
+     * @since  2023/07/03
+     *
+     */
     @GetMapping("/cart")
     public String cartView() {
         return ViewPath.FOS_ORDER + "cart";
     }
 
+    /**
+     * 현재 로그인된 사용자의 장바구니 상품 목록을 가져온다.
+     *
+     * @param mbrId 세션에 저장된 사용자 아이디
+     * @return 사용자의 장바구니 상품 목록과 HTTP 상태 코드
+     * @author min
+     * @since  2023/07/03
+     */
     @GetMapping("/cartList")
     @ResponseBody
     public ResponseEntity<List<CartProdDTO>> list(@SessionAttribute int mbrId) {
@@ -54,6 +78,16 @@ public class CartController {
         return new ResponseEntity<>(cartProdList, HttpStatus.OK);
     }
 
+    /**
+     * 장바구니 상품 정보를 수정한다.
+     *
+     * @param cartProdNo 수정할 상품의 아이디
+     * @param cartProductDTO 수정할 상품 정보
+     * @param mbrId 세션에 저장된 사용자 아이디
+     * @return 결과 메시지와 HTTP 상태 코드
+     * @author min
+     * @since  2023/07/03
+     */
     @PatchMapping("/cart/{cartProdNo}")
     @ResponseBody
     public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {
@@ -69,6 +103,15 @@ public class CartController {
         return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
     }
 
+    /**
+     * 장바구니에서 상품을 삭제한다.
+     *
+     * @param cartProdNoArr 삭제할 상품 아이디 배열
+     * @param mbrId 세션에 저장된 사용자 아이디
+     * @return 결과 메시지와 HTTP 상태 코드
+     * @author min
+     * @since  2023/07/03
+     */
     @DeleteMapping("/cart")
     @ResponseBody
     public ResponseEntity<String> remove(@RequestBody int[] cartProdNoArr, @SessionAttribute int mbrId) {

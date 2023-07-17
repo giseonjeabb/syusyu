@@ -2,6 +2,7 @@ package com.teamProject.syusyu.dao.cs.impl;
 
 import com.teamProject.syusyu.dao.cs.FaqDAO;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
+import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,18 @@ public class FaqDAOImpl implements FaqDAO {
     String namespace = "com.teamProject.syusyu.FaqMapper.";
 
     @Override
-    public FaqDTO selectFaq(Integer faqNo) throws Exception{
-        return session.selectOne(namespace+"selectFaq", faqNo);
+    public FaqDTO select(Integer faqNo) throws Exception{
+        return session.selectOne(namespace+"select", faqNo);
     }
 
     @Override
-    public FaqDTO selectPrevFaq(Integer faqNo) throws Exception{
-        return session.selectOne(namespace+"selectPrevFaq",faqNo);
+    public FaqDTO selectPrev(Integer faqNo) throws Exception{
+        return session.selectOne(namespace+"selectPrev",faqNo);
     }
 
     @Override
-    public FaqDTO selectNextFaq(Integer faqNo) throws Exception{
-        return session.selectOne(namespace+"selectNextFaq",faqNo);
+    public FaqDTO selectNext(Integer faqNo) throws Exception{
+        return session.selectOne(namespace+"selectNext",faqNo);
     }
 
     @Override
@@ -45,22 +46,22 @@ public class FaqDAOImpl implements FaqDAO {
     }
 
     @Override
-    public int insertFaq(FaqDTO dto) throws Exception{
-        return session.insert(namespace+"insertFaq",dto);
+    public int insert(FaqDTO dto) throws Exception{
+        return session.insert(namespace+"insert",dto);
     }
 
     @Override
-    public int updateFaq(FaqDTO dto) throws Exception{
-        return session.update(namespace+"updateFaq",dto);
+    public int update(FaqDTO dto) throws Exception{
+        return session.update(namespace+"update",dto);
     }
 
 
     @Override
-    public int deleteFaq(Integer faqNo, String regrId) throws Exception{
+    public int delete(Integer faqNo, String regrId) throws Exception{
         Map map = new HashMap();
         map.put("faqNo",faqNo);
         map.put("regrId",regrId);
-        return session.delete(namespace+"deleteFaq",map);
+        return session.delete(namespace+"delete",map);
     }
 
     @Override
@@ -69,18 +70,24 @@ public class FaqDAOImpl implements FaqDAO {
     }
 
     public List<FaqDTO> selectPage(Map map) throws Exception{
-        return session.selectList(namespace + "selectPageFaq", map);
+        return session.selectList(namespace + "selectPage", map);
     }
 
-    public List<FaqDTO> searchSelectPage(SearchCondition sc) throws Exception{
-        List<FaqDTO> test = session.selectList(namespace+"searchSelectPageFaq", sc);
+    public List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception{
+        List<FaqDTO> test = session.selectList(namespace+"searchSelectPage", fsc);
         System.out.println("test = " + test);
         return test;
     }
 
-    public int searchResultCnt(SearchCondition sc) throws Exception{
-        return session.selectOne(namespace+"searchResultCntFaq",sc);
+    public int searchResultCnt(FaqSearchCondition fsc) throws Exception{
+        return session.selectOne(namespace+"searchResultCnt", fsc);
     }
+
+
+
+
+
+
 
 
 }

@@ -44,22 +44,13 @@ function login() {
         lginPwd: document.getElementById('login_pwd').value
     }
 
-    $.ajax({
-        type: 'POST',
-        url: '/login/login',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        success: function (result) {
-            if (result === 'success') {
-                location.href = '/';
-            } else {
-                alert("아이디나 비밀번호를 잘못 입력하셨습니다.");
-            }
-            // result === 'success' -> 메인 화면으로 보내기
-            // result === 'fail' -> 아이디 비번 잘못 입력했다고 메시지 띄워주기
-        },
-        error: function () {
-            alert("error")
+    syusyu.common.Ajax.sendJSONRequest('POST', '/login/login', param, res => {
+        if (res === 'success') {
+            location.href = '/';
+        } else {
+            alert("아이디나 비밀번호를 잘못 입력하셨습니다.");
         }
+        // result === 'success' -> 메인 화면으로 보내기
+        // result === 'fail' -> 아이디 비번 잘못 입력했다고 메시지 띄워주기
     });
 }

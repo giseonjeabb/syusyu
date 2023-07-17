@@ -6,6 +6,7 @@ public class ViewPath {
     public static final String FOS_PRODUCT = ".tiles/fos/product/";
     public static final String FOS_ORDER = ".tiles/fos/order/";
     public static final String FOS_CS = ".tiles/fos/cs/";
+    public static final String FOS_POPUP = "/fos/popup/";
     public static final String FOS_MYPAGE = ".mypage/fos/cs/mypage/";
     public static final String FOS_HELP = ".help/fos/cs/help/";
 

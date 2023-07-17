@@ -1,4 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- jquery --%>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+<%--underscore 라이브러리(디바운드 사용 위함)--%>
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"> </script>
+
+<%--공통함수--%>
 <script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
+<%--ajax 요청 공통 함수 라이브러리--%>
+<script src="<c:url value="${jsUrlFos}/common/ajax.js"/>"></script>
+<%--팝업 공통 함수 라이브러리--%>
+<script src="<c:url value="${jsUrlFos}/common/popup.js"/>"></script>

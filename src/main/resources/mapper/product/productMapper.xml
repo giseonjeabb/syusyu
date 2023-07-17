@@ -15,36 +15,35 @@
              , P.MODEL_NM
              , P.BRND_ID
              , B.BRND_NM
-             , P.PRICE
-             , P.DC_PER
-             , TRUNCATE(P.PRICE - (P.PRICE * (P.DC_PER / 100)), -1) AS DC_PRC
+             , PRC.SALE_PRC
+             , PRC.DC_PER /* 할인율 */
+             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
-             , P.SALE_ST_DTTM
-             , P.SALE_ED_DTTM
-             , P.DC_ST_DTTM
-             , P.DC_ED_DTTM
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PRC.DC_ED_DTTM
              , P.REG_DTTM
              , P.REGR_ID
-             , P.DEL_YN
-             , COALESCE(ASR.AVG_STAR_RATING, 0)                     AS AVG_STAR_RATING
-             , COALESCE(ASR.REVW_CNT, 0)                          AS REVW_CNT
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                                AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                       AS REVW_CNT
         FROM PRODUCT P
                  JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
                  JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
                  LEFT JOIN (SELECT prod_id,
-                                   ROUND(AVG(STAR_RATING), 1)  AS AVG_STAR_RATING,
-                                   COUNT(REVW_NO) AS REVW_CNT
+                                   ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
+                                   COUNT(REVW_NO)             AS REVW_CNT
                             FROM review
                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
-        WHERE P.STATUS = 601       /* 판매중 */
+        WHERE P.STATUS = 601 /* 판매중 */
           AND P.DEL_YN = 'N'
           AND (C.MIDDLE_NM, C.SMALL_NM) IN (SELECT MIDDLE_NM,
                                                    SMALL_NM
                                             FROM CATEGORY SC
                                             WHERE MIDDLE_NO = #{middleNo}
                                               AND SMALL_NO = #{smallNo})
-
     </select>
     <!--중분류에 따른 전체 상품 리스트-->
     <select id="selectProductAllList" parameterType="int" resultType="ProductDTO">
@@ -58,29 +57,29 @@
              , P.MODEL_NM
              , P.BRND_ID
              , B.BRND_NM
-             , P.PRICE
-             , P.DC_PER
-             , TRUNCATE(P.PRICE - (P.PRICE * (P.DC_PER / 100)), -1) AS DC_PRC
+             , PRC.SALE_PRC
+             , PRC.DC_PER /* 할인율 */
+             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
-             , P.SALE_ST_DTTM
-             , P.SALE_ED_DTTM
-             , COALESCE(P.DC_ST_DTTM, '-')                          AS DC_ST_DTTM
-             , COALESCE(P.DC_ED_DTTM, '-')                          AS DC_ED_DTTM
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PRC.DC_ED_DTTM
              , P.REG_DTTM
              , P.REGR_ID
-             , P.DEL_YN
-             , COALESCE(ASR.AVG_STAR_RATING, 0)                     AS AVG_STAR_RATING
-             , COALESCE(ASR.REVW_CNT, 0)                            AS REVW_CNT
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                                   AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                          AS REVW_CNT
         FROM PRODUCT P
                  JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
                  JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
                  LEFT JOIN (SELECT prod_id,
                                    ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
                                    COUNT(REVW_NO)             AS REVW_CNT
                             FROM review
                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
-        WHERE P.STATUS = 601
+        WHERE P.STATUS = 601 /* 판매중 */
           AND P.DEL_YN = 'N'
           AND (C.MIDDLE_NM, C.SMALL_NM) IN (SELECT MIDDLE_NM,
                                                    SMALL_NM

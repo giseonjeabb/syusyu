@@ -9,8 +9,8 @@
     </style>
     <%-- JS 파일 주입--%>
         <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-        <script src="<c:url value="${jsUrlFos}cs/mypage/notice.js"/>"defer></script>
-
+        <script src="<c:url value='${jsUrlFos}/cs/mypage/notice.js'/>" ></script>
+        <%-- 이상하게 적용안되는중 하단에 적으면되는데 JS 파일로 따로 빼서 받으면 404뜸--%>
 </head>
 
 
@@ -39,50 +39,50 @@
             <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
 
 
-<%-- 하단 이전글 다음글 선택--%>
-    <nav class ="detail_nav">
-    <ul>
-<%--        다음글  : 다음글 제목--%>
-<%--            다음글이 없다면 empty nextTitle--%>
-        <li class="detail__nav-next">
-            <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
-            <c:if test="${not empty nextTitle}">
-                <a href="/notice/read?notcNo=${noticeDto.notcNo + 1}">${nextTitle}</a>
-            </c:if>
-            <c:if test="${empty nextTitle}">
-                <span>다음 글이 존재하지 않습니다</span>
-            </c:if>
-        </li>
+        <%-- 하단 이전글 다음글 선택--%>
+        <nav class ="detail_nav">
+            <ul>
+                <%--        다음글  : 다음글 제목--%>
+                <%--            다음글이 없다면 empty nextTitle--%>
+                <li class="detail__nav-next">
+                    <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
+                    <c:if test="${not empty nextTitle}">
+                        <a href="/notice/read?notcNo=${noticeDto.notcNo + 1}">${nextTitle}</a>
+                    </c:if>
+                    <c:if test="${empty nextTitle}">
+                        <span>다음 글이 존재하지 않습니다</span>
+                    </c:if>
+                </li>
 
-<br>
-<%--        이전글 :  이전글 제목--%>
-<%--        이전글이 없다면 emptyprevTitle--%>
-        <li class="detail__nav-prev">
-            <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
-            <c:if test="${not empty prevTitle}">
-                <a href="/notice/read?notcNo=${noticeDto.notcNo - 1}">${prevTitle}</a>
-            </c:if>
-            <c:if test = "${empty prevTitle}">
-                <span>이전 글이 존재 하지 않습니다.</span>
-            </c:if>
-        </li>
+                <br>
+                <%--        이전글 :  이전글 제목--%>
+                <%--        이전글이 없다면 emptyprevTitle--%>
+                <li class="detail__nav-prev">
+                    <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
+                    <c:if test="${not empty prevTitle}">
+                        <a href="/notice/read?notcNo=${noticeDto.notcNo - 1}">${prevTitle}</a>
+                    </c:if>
+                    <c:if test = "${empty prevTitle}">
+                        <span>이전 글이 존재 하지 않습니다.</span>
+                    </c:if>
+                </li>
 
-    </ul>
-    </nav>
+            </ul>
+        </nav>
 
-<%--        < 버튼- 등록 수정 삭제>--%>
-<%--        <c:if test="${mode eq 'new'}">--%>
-<%--            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>--%>
-<%--        </c:if>--%>
+        <%--        < 버튼- 등록 수정 삭제>--%>
+        <%--        <c:if test="${mode eq 'new'}">--%>
+        <%--            <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>--%>
+        <%--        </c:if>--%>
 
-<%--        <c:if test="${mode ne 'new'}">--%>
-<%--            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>--%>
-<%--        </c:if>--%>
+        <%--        <c:if test="${mode ne 'new'}">--%>
+        <%--            <button type="button" id="writeNewBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 글쓰기</button>--%>
+        <%--        </c:if>--%>
 
-<%--        <c:if test="${boardDto.writer eq loginId}">--%>
-<%--            <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>--%>
-<%--            <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>--%>
-<%--        </c:if>--%>
+        <%--        <c:if test="${boardDto.writer eq loginId}">--%>
+        <%--            <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>--%>
+        <%--            <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>--%>
+        <%--        </c:if>--%>
 
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>

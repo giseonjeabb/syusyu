@@ -8,3 +8,39 @@
 .page{
   margin: 0 5px;
 }
+
+.faqType-middle{
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -5px;
+  margin-bottom: 30px;
+  margin-top: 20px !important;
+}
+
+.faqType-small{
+  width: calc(25% - 10px);
+  margin: 0 5px;
+  margin-top: 10px;
+  padding: 15px 10px 14px 10px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #e4e4e4;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.faqType-small:hover ,
+.faqType-small.active {
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid #d3233a;
+  background-color: #d3233a;
+}
+.wrap-pagination .page.paging-active {
+  font-weight: bold;
+  color: #fff; /* 선택된 페이지 숫자의 글자색을 흰색으로 설정 */
+  background-color: #000; /* 선택된 페이지의 배경색을 검정색으로 설정 */
+  padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
+  border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
+}

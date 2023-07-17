@@ -3,6 +3,7 @@ package com.teamProject.syusyu.service.cs.impl;
 
 import com.teamProject.syusyu.dao.cs.FaqDAO;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
+import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import com.teamProject.syusyu.service.cs.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +29,23 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public int remove(Integer faqNo, String writer) throws Exception{
-        return faqDao.deleteFaq(faqNo,writer);
+        return faqDao.delete(faqNo,writer);
     }
 
     @Override
     public int write(FaqDTO faqDtO)throws Exception{
-        return faqDao.insertFaq(faqDtO);
+        return faqDao.insert(faqDtO);
     }
 
     @Override
     public List<FaqDTO> getList() throws Exception{
-        System.out.println("FaqServiceImpl.gsetList()");
+        System.out.println("FaqServiceImpl.getList()");
         return faqDao.selectAll();
     }
 
     @Override
     public FaqDTO read(Integer faqNo) throws Exception{
-        FaqDTO faqDto = faqDao.selectFaq(faqNo);
+        FaqDTO faqDto = faqDao.select(faqNo);
         return faqDto;
     }
 
@@ -55,29 +56,21 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public int modify(FaqDTO faqDto)throws Exception{
-        return faqDao.updateFaq(faqDto);
+        return faqDao.update(faqDto);
     }
 
 
     @Override
-    public List<FaqDTO> getSearchResultPage(SearchCondition sc)throws Exception{
-        return faqDao.searchSelectPage(sc);
+    public List<FaqDTO> getSearchResultPage(FaqSearchCondition fsc)throws Exception{
+        return faqDao.searchSelectPage(fsc);
     }
 
     @Override
-    public int getSearchResultCnt(SearchCondition sc)throws Exception{
-        return faqDao.searchResultCnt(sc);
+    public int getSearchResultCnt(FaqSearchCondition fsc)throws Exception{
+        return faqDao.searchResultCnt(fsc);
     }
 
-    @Override
-    public FaqDTO getPrevTitle(Integer faqNo)throws Exception{
-        return faqDao.selectPrevFaq(faqNo);
-    }
 
-    @Override
-    public FaqDTO getNextTitle(Integer faqNo)throws Exception{
-        return faqDao.selectNextFaq(faqNo);
-    }
 
 
 }

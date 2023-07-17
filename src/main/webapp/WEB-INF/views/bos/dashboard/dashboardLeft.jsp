@@ -73,14 +73,14 @@
             </div>
 
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCS" aria-expanded="false" aria-controls="collapseCS">
-                공지사항/문의/리뷰관리
+                공지사항/문의/FAQ관리
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
             </a>
             <div class="collapse" id="collapseCS" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="#">공지사항</a>
-                    <a class="nav-link" href="#">문의관리</a>
-                    <a class="nav-link" href="#">문의관리</a>
+                    <a class="nav-link" href="<c:url value='/adminNotice/list'/>">공지사항 관리</a>
+                    <a class="nav-link" href="#">문의사항 관리</a>
+                    <a class="nav-link" href="#">FAQ 관리</a>
                 </nav>
             </div>
 
