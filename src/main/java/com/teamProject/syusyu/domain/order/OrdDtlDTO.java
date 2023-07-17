@@ -232,11 +232,6 @@ public class OrdDtlDTO {
             return this;
         }
 
-        public Builder ordStus(String ordStus) {
-            this.ordStus = ordStus;
-            return this;
-        }
-
         public Builder prodPrc(int prodPrc) {
             this.prodPrc = prodPrc;
             return this;

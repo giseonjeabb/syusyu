@@ -15,17 +15,21 @@
                             , PROD_TOTAL_PAY_AMT
                             , SEND_DDLN
                             , REGR_ID)
-        VALUES ( #{ordNo}
-               , #{prodId}
-               , #{prodNm}
-               , #{optCombNo}
-               , #{ordStus}
-               , #{prodPrc}
-               , #{prodDcPer}
-               , #{qty}
-               , #{prodTotalPayAmt}
-               , DATE_ADD(NOW(), INTERVAL 7 DAY)
-               , #{regrId})
+        SELECT #{ordNo}
+             , #{prodId}
+             , #{prodNm}
+             , #{optCombNo}
+             , '10'       # 결제완료
+             , P.SALE_PRC # 판매가
+             , P.DC_PER   # 할인율
+             , #{qty}
+             , #{prodTotalPayAmt}
+             , DATE_ADD(NOW(), INTERVAL 7 DAY)
+             , #{regrId}
+        FROM (SELECT PRC.SALE_PRC, PRC.DC_PER
+              FROM PRODUCT PROD
+                       JOIN PRICE PRC ON PROD.PROD_ID = PRC.PROD_ID
+              WHERE PROD.PROD_ID = #{prodId}) P
     </insert>
 
     <select id="selectOrdDtl" parameterType="int" resultType="OrdDtlDTO">

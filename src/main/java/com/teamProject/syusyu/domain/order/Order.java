@@ -66,9 +66,6 @@ public class Order {
                     .prodId(orderProduct.getProdId())       // 상품아아디
                     .prodNm(orderProduct.getProdNm())       // 상품명
                     .optCombNo(orderProduct.getOptCombNo()) // 옵션조합번호
-                    .ordStus("10")                          // 주문상태
-                    .prodPrc(orderProduct.getprodPrc())     // 상품금액
-                    .prodDcPer(orderProduct.getDcPer())     // 상품할인율
                     .qty(orderProduct.getQty())             // 수량
                     .regrId(mbrId)                          // 등록자
                     .build();

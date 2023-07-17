@@ -129,4 +129,104 @@ public class OrderRequestDTO {
                 ", dlvReqComt='" + dlvReqComt + '\'' +
                 '}';
     }
+
+
+    public static final class Builder {
+        private List<OrderProductRequestDTO> orderProductList;
+        private String payTp;
+        private int dlvFee;
+        private Integer cpnIssNo;
+        private int pntUseAmt;
+        private String recipient;
+        private String mpNo;
+        private String safetNoYn;
+        private String zipcode;
+        private String dfltAddr;
+        private String dtlAddr;
+        private String dlvReqComt;
+
+        private Builder() {
+        }
+
+        public static Builder anOrderRequestDTO() {
+            return new Builder();
+        }
+
+        public Builder orderProductList(List<OrderProductRequestDTO> orderProductList) {
+            this.orderProductList = orderProductList;
+            return this;
+        }
+
+        public Builder payTp(String payTp) {
+            this.payTp = payTp;
+            return this;
+        }
+
+        public Builder dlvFee(int dlvFee) {
+            this.dlvFee = dlvFee;
+            return this;
+        }
+
+        public Builder cpnIssNo(Integer cpnIssNo) {
+            this.cpnIssNo = cpnIssNo;
+            return this;
+        }
+
+        public Builder pntUseAmt(int pntUseAmt) {
+            this.pntUseAmt = pntUseAmt;
+            return this;
+        }
+
+        public Builder recipient(String recipient) {
+            this.recipient = recipient;
+            return this;
+        }
+
+        public Builder mpNo(String mpNo) {
+            this.mpNo = mpNo;
+            return this;
+        }
+
+        public Builder safetNoYn(String safetNoYn) {
+            this.safetNoYn = safetNoYn;
+            return this;
+        }
+
+        public Builder zipcode(String zipcode) {
+            this.zipcode = zipcode;
+            return this;
+        }
+
+        public Builder dfltAddr(String dfltAddr) {
+            this.dfltAddr = dfltAddr;
+            return this;
+        }
+
+        public Builder dtlAddr(String dtlAddr) {
+            this.dtlAddr = dtlAddr;
+            return this;
+        }
+
+        public Builder dlvReqComt(String dlvReqComt) {
+            this.dlvReqComt = dlvReqComt;
+            return this;
+        }
+
+        public OrderRequestDTO build() {
+            OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
+            orderRequestDTO.setOrderProductList(orderProductList);
+            orderRequestDTO.setPayTp(payTp);
+            orderRequestDTO.setDlvFee(dlvFee);
+            orderRequestDTO.setCpnIssNo(cpnIssNo);
+            orderRequestDTO.setPntUseAmt(pntUseAmt);
+            orderRequestDTO.setRecipient(recipient);
+            orderRequestDTO.setMpNo(mpNo);
+            orderRequestDTO.setSafetNoYn(safetNoYn);
+            orderRequestDTO.setZipcode(zipcode);
+            orderRequestDTO.setDfltAddr(dfltAddr);
+            orderRequestDTO.setDtlAddr(dtlAddr);
+            orderRequestDTO.setDlvReqComt(dlvReqComt);
+            return orderRequestDTO;
+        }
+    }
 }

@@ -4,8 +4,6 @@ public class OrderProductRequestDTO {
     private int prodId;
     private String prodNm;
     private Integer optCombNo;
-    private int prodPrc;
-    private Integer dcPer;
     private int qty;
 
     public int getProdId() {
@@ -32,22 +30,6 @@ public class OrderProductRequestDTO {
         this.optCombNo = optCombNo;
     }
 
-    public int getprodPrc() {
-        return prodPrc;
-    }
-
-    public void setprodPrc(int prodPrc) {
-        this.prodPrc = prodPrc;
-    }
-
-    public Integer getDcPer() {
-        return dcPer;
-    }
-
-    public void setDcPer(Integer dcPer) {
-        this.dcPer = dcPer;
-    }
-
     public int getQty() {
         return qty;
     }
@@ -62,9 +44,50 @@ public class OrderProductRequestDTO {
                 "prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
                 ", optCombNo=" + optCombNo +
-                ", prodPrc=" + prodPrc +
-                ", dcPer=" + dcPer +
                 ", qty=" + qty +
                 '}';
+    }
+
+    public static final class Builder {
+        private int prodId;
+        private String prodNm;
+        private Integer optCombNo;
+        private int qty;
+
+        private Builder() {
+        }
+
+        public static Builder anOrderProductRequestDTO() {
+            return new Builder();
+        }
+
+        public Builder prodId(int prodId) {
+            this.prodId = prodId;
+            return this;
+        }
+
+        public Builder prodNm(String prodNm) {
+            this.prodNm = prodNm;
+            return this;
+        }
+
+        public Builder optCombNo(Integer optCombNo) {
+            this.optCombNo = optCombNo;
+            return this;
+        }
+
+        public Builder qty(int qty) {
+            this.qty = qty;
+            return this;
+        }
+
+        public OrderProductRequestDTO build() {
+            OrderProductRequestDTO orderProductRequestDTO = new OrderProductRequestDTO();
+            orderProductRequestDTO.setProdId(prodId);
+            orderProductRequestDTO.setProdNm(prodNm);
+            orderProductRequestDTO.setOptCombNo(optCombNo);
+            orderProductRequestDTO.setQty(qty);
+            return orderProductRequestDTO;
+        }
     }
 }
