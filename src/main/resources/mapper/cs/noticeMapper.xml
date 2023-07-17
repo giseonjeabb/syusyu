@@ -35,8 +35,18 @@
     </select>
 
     <sql id="selectFromBoard">
-        SELECT NOTC_NO, TITLE, CONTENT, REGR_ID, VIEW_CNT, REG_DTTM , UPD_DTTM , START_DTTM ,END_DTTM
-        FROM notice
+        SELECT n.NOTC_NO,
+               n.TITLE,
+               n.CONTENT,
+               n.REGR_ID,
+               m.LGIN_ID,
+               n.VIEW_CNT,
+               n.REG_DTTM,
+               n.UPD_DTTM,
+               n.START_DTTM,
+               n.END_DTTM
+        FROM notice n
+                 Join member m ON n.REGR_ID = m.MBR_ID
     </sql>
 
     <select id="select" parameterType="int" resultType="NoticeDTO">
