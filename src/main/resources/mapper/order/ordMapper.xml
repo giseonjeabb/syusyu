@@ -5,8 +5,10 @@
 <mapper namespace="com.teamProject.syusyu.ordMapper">
     <insert id="insertOrd" parameterType="OrdDTO" useGeneratedKeys="true" keyProperty="ordNo">
         INSERT INTO ord ( ORDR_ID
+                        , ORD_DTTM
                         , REGR_ID)
         VALUES ( #{ordrId}
+               , now()
                , #{regrId})
     </insert>
 
