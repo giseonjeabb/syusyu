@@ -16,5 +16,5 @@ public class ViewPath {
     public static final String BOS_ORDER = ".dashboard/bos/order/";
     public static final String BOS_CS = ".dashboard/bos/cs/";
     public static final String BOS_DASHBOARD = ".dashboard/bos/dashboard/";
-
+    public static final String BOS_MYPAGE = ".mypage/bos/cs/mypage/";
 }
