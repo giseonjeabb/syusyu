@@ -26,6 +26,9 @@
         <typeAlias alias="PayRsltDTO" type="com.teamProject.syusyu.domain.order.PayRsltDTO"/>
         <typeAlias alias="OrdStusHistDTO" type="com.teamProject.syusyu.domain.order.OrdStusHistDTO"/>
 
+        <typeAlias alias="OrderInfoDTO" type="com.teamProject.syusyu.domain.order.OrderInfoDTO"/>
+
+
         <!-- cs -->
         <typeAlias alias="NoticeDTO" type="com.teamProject.syusyu.domain.cs.NoticeDTO"/>
         <typeAlias alias="FaqDTO" type="com.teamProject.syusyu.domain.cs.FaqDTO"/>

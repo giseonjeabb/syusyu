@@ -3,6 +3,7 @@ package com.teamProject.syusyu.service.order;
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.dao.order.*;
+import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.domain.member.MemberDTO;
@@ -26,9 +27,10 @@ public class OrderServiceImpl implements OrderService {
     private final PayDAO payDAO;
     private final PayRsltDAO payRsltDAO;
     private final OrdDlvAddrDAO ordDlvAddrDAO;
+    private final OrderInfoDAO orderInfoDAO;
 
     @Autowired
-    public OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO) {
+    public OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO) {
         this.memberDao = memberDao;
         this.dlvAddrDAO = dlvAddrDAO;
         this.cartProdDAO = cartProdDAO;
@@ -38,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
         this.payDAO = payDAO;
         this.payRsltDAO = payRsltDAO;
         this.ordDlvAddrDAO = ordDlvAddrDAO;
+        this.orderInfoDAO = orderInfoDAO;
     }
 
     /**
@@ -243,6 +246,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<CouponDTO> getOrderCouponList(int mbrId, int totProdAmt) throws Exception {
         return ordDAO.selectOrderCoupon(mbrId, totProdAmt);
+    }
+
+    /**
+     * 사용자의 주문 리스트를 조회한다.
+     * 조회 기간(startDate, endDate)와 사용자 ID(mbrId)를 파라미터로 받아 해당 기간 동안의 주문을 조회한다.
+     *
+     * @param param Map 객체로, 'startDate', 'endDate', 'mbrId' 키를 가지며, 각각 조회 시작일, 조회 종료일, 사용자 ID를 값으로 가진다.
+     * @return 해당 기간 동안의 주문 정보를 담은 OrderInfoDTO 객체의 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/18
+     */
+    @Override
+    public List<OrderInfoDTO> getOrderInfoList(Map<String, Object> param) throws Exception {
+        return orderInfoDAO.selectOrderInfoList(param);
     }
 
 }
