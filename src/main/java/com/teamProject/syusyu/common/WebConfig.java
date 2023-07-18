@@ -14,5 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
         registry.addViewController("/couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
         registry.addViewController("/orderComplete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
+        registry.addViewController("/orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
     }
 }
