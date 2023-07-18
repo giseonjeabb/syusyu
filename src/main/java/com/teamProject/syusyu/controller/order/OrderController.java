@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,7 +77,7 @@ public class OrderController {
 
     @ResponseBody
     @GetMapping("/orderCouponList")
-    public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) throws Exception {
+    public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) {
         List<CouponDTO> couponList = null;
         try {
             couponList = service.getOrderCouponList(mbrId, totProdAmt);
@@ -86,5 +87,36 @@ public class OrderController {
         }
 
         return new ResponseEntity<>(couponList, HttpStatus.OK);
+    }
+
+    /**
+     * 사용자의 주문 정보를 조회한다.
+     * 세션에서 사용자 ID를 가져오고, 요청 파라미터로부터 조회 시작일과 종료일을 받아 해당 기간 동안의 주문 정보를 조회한다.
+     *
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @param startDate 시작일
+     * @param endDate 종료일
+     * @return 해당 기간 동안의 주문 정보를 담은 OrderInfoDTO 객체의 리스트를 담은 ResponseEntity 객체.
+     *         조회에 성공한 경우 상태 코드는 OK(200), 실패한 경우 BAD_REQUEST(400)를 반환한다.
+     * @author min
+     * @since 2023/07/18
+     */
+    @GetMapping("/orderInfo")
+    @ResponseBody
+    public ResponseEntity<List<OrderInfoDTO>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
+        List<OrderInfoDTO> orderInfoList = null;
+        Map<String, Object> param = new HashMap<>();
+        param.put("mbrId", mbrId);
+        param.put("startDate", startDate);
+        param.put("endDate", endDate);
+
+        try {
+            orderInfoList = service.getOrderInfoList(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(orderInfoList, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(orderInfoList, HttpStatus.OK);
     }
 }
