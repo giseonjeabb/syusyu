@@ -23,4 +23,9 @@ public class ProductServiceImplTest {
 
 
     }
+
+    @Test //상품조회
+    public void getProductTest() throws Exception{
+        System.out.println("dao:"+ productService.getProduct(10002));
+    }
 }
