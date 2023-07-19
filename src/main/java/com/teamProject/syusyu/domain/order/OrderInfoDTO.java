@@ -9,7 +9,7 @@ public class OrderInfoDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime ordDttm;  // 주문일시
     private String prodNm;      // 상품명
-    private String ordStus;     // 주문상태
+    private String ordStusNm;     // 주문상태
     private int qty;            // 수량
     private int prodAmt;        // 상품금액 (할인가격 + 옵션가) * 주문수량
     private String optNm;       // 옵션명
@@ -36,28 +36,28 @@ public class OrderInfoDTO {
         this.ordDttm = ordDttm;
     }
 
-    public String getRepImg() {
-        return repImg;
-    }
-
-    public void setRepImg(String repImg) {
-        this.repImg = repImg;
-    }
-
-    public String getOrdStus() {
-        return ordStus;
-    }
-
-    public void setOrdStus(String ordStus) {
-        this.ordStus = ordStus;
-    }
-
     public String getProdNm() {
         return prodNm;
     }
 
     public void setProdNm(String prodNm) {
         this.prodNm = prodNm;
+    }
+
+    public String getOrdStusNm() {
+        return ordStusNm;
+    }
+
+    public void setOrdStusNm(String ordStusNm) {
+        this.ordStusNm = ordStusNm;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     public int getProdAmt() {
@@ -68,12 +68,12 @@ public class OrderInfoDTO {
         this.prodAmt = prodAmt;
     }
 
-    public int getQty() {
-        return qty;
+    public String getOptNm() {
+        return optNm;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setOptNm(String optNm) {
+        this.optNm = optNm;
     }
 
     public String getPayTp() {
@@ -92,26 +92,27 @@ public class OrderInfoDTO {
         this.realPayAmt = realPayAmt;
     }
 
+    public String getRepImg() {
+        return repImg;
+    }
+
+    public void setRepImg(String repImg) {
+        this.repImg = repImg;
+    }
+
     @Override
     public String toString() {
         return "OrderInfoDTO{" +
                 "ordNo=" + ordNo +
                 ", ordDttm=" + ordDttm +
-                ", repImg='" + repImg + '\'' +
-                ", ordStus='" + ordStus + '\'' +
                 ", prodNm='" + prodNm + '\'' +
-                ", prodAmt=" + prodAmt +
+                ", ordStusNm='" + ordStusNm + '\'' +
                 ", qty=" + qty +
+                ", prodAmt=" + prodAmt +
+                ", optNm='" + optNm + '\'' +
                 ", payTp='" + payTp + '\'' +
                 ", realPayAmt=" + realPayAmt +
+                ", repImg='" + repImg + '\'' +
                 '}';
-    }
-
-    public String getOptNm() {
-        return optNm;
-    }
-
-    public void setOptNm(String optNm) {
-        this.optNm = optNm;
     }
 }
