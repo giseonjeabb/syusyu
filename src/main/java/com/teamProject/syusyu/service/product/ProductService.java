@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.service.product;
 
+import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface ProductService {
 
     List<ProductDTO> getProductStatus(int[] prodId) throws Exception;
 
-    ProductDTO getProduct(int prodId) throws Exception;
+    Map<String, Object> getProduct(int prodId) throws Exception;
+
 }

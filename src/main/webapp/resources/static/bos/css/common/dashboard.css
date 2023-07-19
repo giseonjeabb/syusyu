@@ -11601,4 +11601,8 @@ body {
   border-radius: 0.375rem !important;
 }
 
+.layoutSidenav_content {
+  width: 100%;
+}
+
 /*# sourceMappingURL=dashboard.css.map */

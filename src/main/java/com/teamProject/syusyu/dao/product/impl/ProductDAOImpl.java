@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.dao.product.impl;
 
 import com.teamProject.syusyu.dao.product.ProductDAO;
+import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class ProductDAOImpl implements ProductDAO {
      * @param middleNo 중분류 번호, 이 번호는 상품의 중분류 카테고리를 식별하는 데 사용됩니다.
      * @param smallNo  소분류 번호, 이 번호는 상품의 소분류 카테고리를 식별하는 데 사용됩니다.
      * @return 해당 중분류와 소분류 번호에 해당하는 모든 상품들의 리스트를 반환합니다.
-     *         각 상품은 ProductDTO 객체로 표현됩니다.
+     * 각 상품은 ProductDTO 객체로 표현됩니다.
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author soso
      * @since 2023/07/07
      */
     @Override
-    public List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception{
+    public List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception {
         Map map = new HashMap<>();
         map.put("middleNo", middleNo);
         map.put("smallNo", smallNo);
@@ -44,7 +45,7 @@ public class ProductDAOImpl implements ProductDAO {
      *
      * @param middleNo 중분류 번호, 이 번호는 상품의 중분류 카테고리를 식별하는 데 사용됩니다.
      * @return 해당 중분류 번호에 해당하는 모든 상품들의 리스트를 반환합니다.
-     *         각 상품은 ProductDTO 객체로 표현됩니다.
+     * 각 상품은 ProductDTO 객체로 표현됩니다.
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author soso
      * @since 2023/07/07
@@ -62,8 +63,12 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public ProductDTO selectProduct(int prodId){
-        return session.selectOne(namespace+"selectProduct", prodId);
+    public ProductDTO selectProduct(int prodId) {
+        return session.selectOne(namespace + "selectProduct", prodId);
     }
 
+    @Override
+    public List<ImageDTO> selectImageList(int prodId) {
+        return session.selectList(namespace + "selectImageList", prodId);
+    }
 }
