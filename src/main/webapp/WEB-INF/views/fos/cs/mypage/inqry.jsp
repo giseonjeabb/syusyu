@@ -185,3 +185,11 @@
 </form>
 
 </body>
+<script>
+    $("#btnRegister").on("click", function(){
+        let form = $("#frm");
+        form.attr("action", "<c:url value='/inqry/write'/>");
+        form.attr("method", "post");
+        form.submit();
+    })
+</script>
