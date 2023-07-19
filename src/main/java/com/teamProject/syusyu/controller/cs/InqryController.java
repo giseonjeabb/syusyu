@@ -34,9 +34,8 @@ public class InqryController {
         @PostMapping("/remove")
         public String remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
             InqryDTO inqry = new InqryDTO();
-            Integer mbrId = (Integer) session.getAttribute("mbrId"); // 세션에서 regrId 값 가져오기
-            System.out.println("inqryNo = " + inqryNo);
-            System.out.println("mbrId = " + mbrId);
+            Integer mbrId = (Integer)session.getAttribute("mbrId");
+            // 세션에서 regrId 값 가져오기
             try {
                 inqryService.remove(inqryNo, mbrId.toString());
             } catch (Exception e) {
@@ -47,7 +46,8 @@ public class InqryController {
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
 
-            return "redirect:" +ViewPath.FOS_MYPAGE +"inqryList";
+            return ViewPath.FOS_MYPAGE +"inqryList";
+            //"redirect:" +
 
         }
 
@@ -144,7 +144,7 @@ public class InqryController {
 //
 //                rattr.addFlashAttribute("msg", "WRT_OK");
 //
-//                return "redirect:/board/list";
+//                return ViewPath.FOS_MYPAGE +"inqryList";
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //                m.addAttribute(inqryDTO);

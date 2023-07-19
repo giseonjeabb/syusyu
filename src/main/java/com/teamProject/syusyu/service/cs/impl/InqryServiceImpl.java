@@ -71,4 +71,5 @@ public class InqryServiceImpl implements InqryService {
     public List<InqryDTO> getSearchResultPage(SearchCondition sc) throws Exception {
         return null;
     }
+
 }
