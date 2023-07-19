@@ -10,7 +10,7 @@ public interface InqryService {
 
     int getCount() throws Exception;
 
-    int remove(Integer inqry_no, String writer) throws Exception;
+    int remove(Integer inqry_no, String regrId) throws Exception;
 
     int write(InqryDTO inqryDTO) throws Exception;
 
