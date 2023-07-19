@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -259,8 +260,14 @@ public class OrderServiceImpl implements OrderService {
      * @since 2023/07/18
      */
     @Override
-    public List<OrderInfoDTO> getOrderInfoList(Map<String, Object> param) throws Exception {
-        return orderInfoDAO.selectOrderInfoList(param);
+    public Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception {
+        List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderInfoList(param);
+
+        Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
+
+        orderInfoListByOrdNo.forEach((k, v) -> System.out.println("k : " + k + ", v : " + v));
+
+        return orderInfoListByOrdNo;
     }
 
 }

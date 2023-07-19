@@ -10,6 +10,11 @@
              , OD.ORD_STUS                                                                        # 주문상태
              , OD.PROD_NM                                                                         # 상품명
              , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS 상품금액 # (할인가격 + 옵션가) * 주문수량
+             , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                FROM OPT_GRP OG
+                         JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                         JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                WHERE OPT_COMB_NO = OD.OPT_COMB_NO) AS OPT_NM     # 옵션
              , OD.QTY                                                                             # 수량
              , P.PAY_TP                                                                           # 결제방법
              , P.REAL_PAY_AMT                                                                     # 결제금액

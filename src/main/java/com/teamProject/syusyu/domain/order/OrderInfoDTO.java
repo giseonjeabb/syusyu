@@ -1,19 +1,24 @@
 package com.teamProject.syusyu.domain.order;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class OrderInfoDTO {
-    private int ordNo;       // 주문번호
+    private int ordNo;          // 주문번호
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime ordDttm;  // 주문일시
-    private String repImg;      // 이미지
-    private String ordStus;     // 주문상태
     private String prodNm;      // 상품명
-    private int prodAmt; // 상품금액 (할인가격 + 옵션가) * 주문수량
+    private String ordStus;     // 주문상태
     private int qty;            // 수량
+    private int prodAmt;        // 상품금액 (할인가격 + 옵션가) * 주문수량
+    private String optNm;       // 옵션명
     private String payTp;       // 결제방법
-    private int realPayAmt;  // 결제금액
+    private int realPayAmt;     // 결제금액
+    private String repImg;      // 이미지
 
-    OrderInfoDTO() {}
+    OrderInfoDTO() {
+    }
 
     public int getOrdNo() {
         return ordNo;
@@ -100,5 +105,13 @@ public class OrderInfoDTO {
                 ", payTp='" + payTp + '\'' +
                 ", realPayAmt=" + realPayAmt +
                 '}';
+    }
+
+    public String getOptNm() {
+        return optNm;
+    }
+
+    public void setOptNm(String optNm) {
+        this.optNm = optNm;
     }
 }

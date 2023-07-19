@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.service.order;
 
 import com.teamProject.syusyu.dao.order.*;
+import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
 import com.teamProject.syusyu.domain.order.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -32,7 +35,7 @@ public class OrderServiceImplTest {
     @Autowired
     OrdDlvAddrDAO ordDlvAddrDAO;
 
-    @Before
+    //@Before
     // 테스트 시작 전에 먼저 수행되는 메서드. 주문 관련 정보를 삭제한다.
     public void beforeEach() throws Exception {
         // 6. ORD_DLV_ADDR 테이블 데이터 삭제
@@ -391,5 +394,16 @@ public class OrderServiceImplTest {
 
         // 1-3. 주문 도메인 모델 생성
         return new Order(orderRequest, 80001);
+    }
+
+    @Test
+    public void getOrderInfoListTest() throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("mbrId", 80001);
+        param.put("startDate", "2023-01-01");
+        param.put("endDate", "2023-12-01");
+
+        Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = service.getOrderInfoListByOrdNo(param);
+        System.out.println("orderInfoListByOrdNo = " + orderInfoListByOrdNo);
     }
 }
