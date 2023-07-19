@@ -61,8 +61,9 @@ public class ProductDAOImpl implements ProductDAO {
         return session.selectList(namespace + "selectProductStatus", prodIdArr);
     }
 
-    public List<ProductDTO> selectProduct(int prodId){
-        return session.selectList(namespace+"selectProduct", prodId);
+    @Override
+    public ProductDTO selectProduct(int prodId){
+        return session.selectOne(namespace+"selectProduct", prodId);
     }
 
 }

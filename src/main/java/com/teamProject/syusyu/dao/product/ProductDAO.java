@@ -11,7 +11,7 @@ public interface ProductDAO {
 
     List<ProductDTO> selectProductStatus(int[] prodId) throws Exception;
 
-    List<ProductDTO> selectProduct(int prodId) throws Exception;
+    ProductDTO selectProduct(int prodId) throws Exception;
 
 
 }
