@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.orderInfoMapper">
+    <select id="selectOrderInfoList" parameterType="Map" resultType="OrderInfoDTO">
+        SELECT O.ORD_NO                                                                           # 주문번호
+             , O.ORD_DTTM                                                                         # 주문일시
+             , PROD.REP_IMG                                                                       # 이미지
+             , OD.ORD_STUS                                                                        # 주문상태
+             , OD.PROD_NM                                                                         # 상품명
+             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS 상품금액 # (할인가격 + 옵션가) * 주문수량
+             , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                FROM OPT_GRP OG
+                         JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                         JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                WHERE OPT_COMB_NO = OD.OPT_COMB_NO) AS OPT_NM     # 옵션
+             , OD.QTY                                                                             # 수량
+             , P.PAY_TP                                                                           # 결제방법
+             , P.REAL_PAY_AMT                                                                     # 결제금액
+        FROM ORD O
+                 JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
+                 JOIN PAY P ON OD.ORD_NO = P.ORD_NO
+                 JOIN PRODUCT PROD ON OD.PROD_ID = PROD.PROD_ID
+                 LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
+        WHERE O.ORDR_ID = #{mbrId}
+          AND ORD_DTTM BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
+    </select>
+</mapper>

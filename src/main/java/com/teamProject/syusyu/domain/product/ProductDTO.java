@@ -94,6 +94,35 @@ public class ProductDTO {
         this.revwCnt = revwCnt;
     }
 
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, LocalDate rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm) {
+        this.prodId = prodId;
+        this.cateId = cateId;
+        this.prodNm = prodNm;
+        this.modelNm = modelNm;
+        this.brndId = brndId;
+        this.rlesDt = rlesDt;
+        this.salePrc = salePrc;
+        this.dcPer = dcPer;
+        this.dcPrc = dcPrc;
+        this.avgStarRating = avgStarRating;
+        this.revwCnt = revwCnt;
+        this.prodDtlDesc = prodDtlDesc;
+        this.mfgdMatr = mfgdMatr;
+        this.mftco = mftco;
+        this.mftNatn = mftNatn;
+        this.repImg = repImg;
+        this.status = status;
+        this.saleStDttm = saleStDttm;
+        this.saleEdDttm = saleEdDttm;
+        this.dcEdDttm = dcEdDttm;
+        this.regDttm = regDttm;
+        this.brndNm = brndNm;
+        this.middleNo = middleNo;
+        this.middleNm = middleNm;
+        this.smallNo = smallNo;
+        this.smallNm = smallNm;
+    }
+
     @Override
     public String toString() {
         return "ProductDTO{" +

@@ -61,4 +61,7 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.selectProductStatus(prodIdArr);
     }
 
+    public List<ProductDTO> getProduct(int prodId) throws Exception{
+        return productDAO.selectProduct(prodId);
+    }
 }

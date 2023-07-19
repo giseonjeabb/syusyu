@@ -1,23 +1,19 @@
-@charset "UTF-8";
 .fb__bbs__header__filter {
   position: absolute;
   top: 60px;
   right: 30px;
 }
-
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
   vertical-align: middle;
 }
-
 .fb__bbs__header__filter select {
   min-width: 90px;
 }
-
 select {
   height: 40px;
   padding: 0 30px 0 15px;
-  background: #fff no-repeat calc(100% - 10px) 50%;
+  background: #fff  no-repeat calc(100% - 10px) 50%;
   border: 1px solid #ccc;
   color: #666;
   font-size: 14px;
@@ -31,25 +27,21 @@ select {
   user-select: none;
   outline: 0;
 }
-
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-
-.fb__bbs__header__filter input[type=text] {
+.fb__bbs__header__filter input[type="text"] {
   width: 220px;
   vertical-align: baseline;
   margin: 0 15px;
   border: 1px solid #ccc;
 }
-
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
   vertical-align: middle;
 }
-
-input[type=text], input[type=password], input[type=number], input[type=tel] {
+input[type="text"], input[type="password"], input[type="number"], input[type="tel"] {
   height: 40px;
   padding: 0 10px;
   background: #fff;
@@ -61,21 +53,17 @@ input[type=text], input[type=password], input[type=number], input[type=tel] {
   outline: 0;
   font-family: inherit;
 }
-
 button, input {
   overflow: visible;
 }
-
-.fb__bbs__header__filter input[type=submit] {
+.fb__bbs__header__filter input[type="submit"] {
   padding: 0 20px;
 }
-
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
   vertical-align: middle;
 }
-
-#btnSearch {
+#btnSearch{
   color: #fff;
   background: #666;
   border: 0;
@@ -83,7 +71,6 @@ button, input {
   width: 70px;
   font-size: 15px;
 }
-
 .btn-default {
   padding: 0 30px;
   height: 40px;
@@ -91,14 +78,13 @@ button, input {
   font-size: 14px;
 }
 
-button, [type=button], [type=reset], [type=submit] {
+button, [type="button"], [type="reset"], [type="submit"] {
   -webkit-appearance: button;
 }
 
 .tbl.ty1 {
   border-top: 2px solid #333;
 }
-
 table {
   margin-top: 40px;
   table-layout: fixed;
@@ -108,15 +94,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 colgroup {
   display: table-column-group;
 }
-
 col {
   display: table-column;
 }
-
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -124,18 +107,15 @@ col {
   border-style: solid;
   border-color: currentColor;
 }
-
 tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
 }
-
 td {
   display: table-cell;
   vertical-align: inherit;
 }
-
 .tbl.ty1 > table > tbody > tr > td {
   padding: 20px;
   line-height: 23px;
@@ -154,45 +134,36 @@ td {
 .fw-7 {
   font-weight: 300 !important;
 }
-
 a {
   color: inherit;
   text-decoration: none;
 }
-
 ta-c {
   text-align: center !important;
 }
-
 .color-3 {
   color: #aaa !important;
 }
-
 .fz-15 {
   font-size: 15px !important;
 }
-
 .tbl.ty1 > table > tbody > tr > td {
   padding: 20px;
   line-height: 23px;
   border-bottom: 1px solid #eee;
 }
-
-.notice-title {
+.notice-title{
   text-align: left;
   padding-left: 50px;
 }
-
 .wrap-pagination {
   margin: 50px auto 0;
   text-align: center;
   font-size: 20px;
 }
-
-.page {
+.page{
   margin: 0 5px;
 }
-
 .fa-caret-down {
   position: absolute;
   top: 50%;
@@ -200,13 +171,26 @@ ta-c {
   transform: translateY(-50%);
   pointer-events: none; /* 아이콘에 마우스 이벤트 적용되지 않도록 설정 */
 }
-
-.wrap-pagination .page.paging-active {
-  font-weight: bold;
-  color: #fff; /* 선택된 페이지 숫자의 글자색을 흰색으로 설정 */
-  background-color: #000; /* 선택된 페이지의 배경색을 검정색으로 설정 */
-  padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
-  border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
 }
 
-/*# sourceMappingURL=noticeList.css.map */
+.active {
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}

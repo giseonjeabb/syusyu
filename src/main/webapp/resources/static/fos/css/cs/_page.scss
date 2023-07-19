@@ -1987,6 +1987,7 @@ $n: 30;
     width: 100%;
     text-align: left;
     word-break: break-all;
+
     &::after {
       content: '';
       position: absolute;
@@ -2009,6 +2010,7 @@ $n: 30;
       }
     }
   }
+
   .slide-cont {
     border-top: 2px solid #333;
     > .inner {
