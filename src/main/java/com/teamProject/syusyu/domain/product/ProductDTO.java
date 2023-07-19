@@ -2,6 +2,7 @@ package com.teamProject.syusyu.domain.product;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductDTO {
@@ -48,7 +49,6 @@ public class ProductDTO {
     private String smallNm;
 
 
-
     //그룹 옵션
     private int optGrpId;
     private String optGrpNm;
@@ -65,10 +65,14 @@ public class ProductDTO {
     private int invQty;
 
 
+    //상품이미지들
+    private List<String> imagePathList;
+
+
     public ProductDTO() {
     }
 
-    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcStDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, int regrId,  double avgStarRating, Integer revwCnt) {
+    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcStDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, int regrId, double avgStarRating, Integer revwCnt) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.middleNo = middleNo;
@@ -94,7 +98,7 @@ public class ProductDTO {
         this.revwCnt = revwCnt;
     }
 
-    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, LocalDate rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm) {
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, LocalDate rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm, List<String> imagePathList) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.prodNm = prodNm;
@@ -121,56 +125,7 @@ public class ProductDTO {
         this.middleNm = middleNm;
         this.smallNo = smallNo;
         this.smallNm = smallNm;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDTO{" +
-                "prodId=" + prodId +
-                ", cateId=" + cateId +
-                ", prodNm='" + prodNm + '\'' +
-                ", modelNm='" + modelNm + '\'' +
-                ", brndId=" + brndId +
-                ", rlesDt=" + rlesDt +
-                ", salePrc=" + salePrc +
-                ", dcPer=" + dcPer +
-                ", dcPrc=" + dcPrc +
-                ", avgStarRating=" + avgStarRating +
-                ", revwCnt=" + revwCnt +
-                ", dlvGhg=" + dlvGhg +
-                ", dlvChgDtl=" + dlvChgDtl +
-                ", prodDtlDesc='" + prodDtlDesc + '\'' +
-                ", mfgdMatr='" + mfgdMatr + '\'' +
-                ", mftco=" + mftco +
-                ", mftNatn=" + mftNatn +
-                ", repImg='" + repImg + '\'' +
-                ", status=" + status +
-                ", saleStDttm=" + saleStDttm +
-                ", saleEdDttm=" + saleEdDttm +
-                ", dcStDttm=" + dcStDttm +
-                ", dcEdDttm=" + dcEdDttm +
-                ", regDttm=" + regDttm +
-                ", regrId=" + regrId +
-                ", updDttm=" + updDttm +
-                ", updrId=" + updrId +
-                ", delDttm=" + delDttm +
-                ", dertId=" + dertId +
-                ", delYn='" + delYn + '\'' +
-                ", brndNm='" + brndNm + '\'' +
-                ", largeNo=" + largeNo +
-                ", largeNm='" + largeNm + '\'' +
-                ", middleNo=" + middleNo +
-                ", middleNm='" + middleNm + '\'' +
-                ", smallNo=" + smallNo +
-                ", smallNm='" + smallNm + '\'' +
-                ", optGrpId=" + optGrpId +
-                ", optGrpNm='" + optGrpNm + '\'' +
-                ", optItemId=" + optItemId +
-                ", optItemNm='" + optItemNm + '\'' +
-                ", optCombNo=" + optCombNo +
-                ", optPrc=" + optPrc +
-                ", invQty=" + invQty +
-                '}';
+        this.imagePathList = imagePathList;
     }
 
     @Override
@@ -178,12 +133,20 @@ public class ProductDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDTO that = (ProductDTO) o;
-        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && optGrpId == that.optGrpId && optItemId == that.optItemId && optCombNo == that.optCombNo && optPrc == that.optPrc && invQty == that.invQty && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(repImg, that.repImg) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(optGrpNm, that.optGrpNm) && Objects.equals(optItemNm, that.optItemNm);
+        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && optGrpId == that.optGrpId && optItemId == that.optItemId && optCombNo == that.optCombNo && optPrc == that.optPrc && invQty == that.invQty && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(repImg, that.repImg) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(optGrpNm, that.optGrpNm) && Objects.equals(optItemNm, that.optItemNm) && Objects.equals(imagePathList, that.imagePathList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftNatn, repImg, status, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty);
+        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftNatn, repImg, status, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty, imagePathList);
+    }
+
+    public List<String> getImagePathList() {
+        return imagePathList;
+    }
+
+    public void setImagePathList(List<String> imagePathList) {
+        this.imagePathList = imagePathList;
     }
 
     public int getProdId() {
@@ -234,11 +197,11 @@ public class ProductDTO {
         this.rlesDt = rlesDt;
     }
 
-    public int getPrice() {
+    public int getSalePrc() {
         return salePrc;
     }
 
-    public void setPrice(int salePrc) {
+    public void setSalePrc(int salePrc) {
         this.salePrc = salePrc;
     }
 
@@ -391,7 +354,7 @@ public class ProductDTO {
     }
 
     public void setUpdDttm(LocalDateTime updDttm) {
-        updDttm = updDttm;
+        this.updDttm = updDttm;
     }
 
     public int getUpdrId() {

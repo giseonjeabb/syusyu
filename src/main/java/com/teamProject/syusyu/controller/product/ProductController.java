@@ -186,20 +186,36 @@ public class ProductController {
         return new ResponseEntity<>(productStatusList, HttpStatus.OK);
     }
 
+//    @GetMapping("/product/{prodId}")
+//    public ModelAndView getProduct(@PathVariable int prodId, ModelAndView mvc) {
+//        List<ProductDTO> productDetailList = null;
+//
+//        try {
+//            productDetailList = productService.getProduct(prodId);
+//            System.out.println("product : " + productDetailList);
+//            mvc.addObject("productDetailList", productDetailList);
+//
+//            mvc.setViewName(ViewPath.FOS_PRODUCT + "product");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return mvc;
+//    }
+
     @GetMapping("/product/{prodId}")
-    public ModelAndView getProduct(@PathVariable int prodId, ModelAndView mvc) {
-        List<ProductDTO> productDetailList = null;
+    public String getProduct(@PathVariable int prodId, Model m) {
+        ProductDTO productDetail = null;
 
-        try{
-            productDetailList=productService.getProduct(prodId);
-            System.out.println("product : "+productDetailList);
-            mvc.addObject("productDetailList", productDetailList);
+        try {
+            System.out.println("prodId = " + prodId);
+            productDetail = productService.getProduct(prodId);
+            System.out.println("product : " + productDetail);
+            m.addAttribute("productDetail", productDetail);
 
-            mvc.setViewName(ViewPath.FOS_PRODUCT+"product");
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return mvc;
+        return ViewPath.FOS_PRODUCT + "product";
     }
 }
