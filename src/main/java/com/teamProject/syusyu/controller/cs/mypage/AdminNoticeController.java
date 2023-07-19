@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.controller.cs.mypage;
 
+import com.mysql.cj.Session;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,9 @@ public class AdminNoticeController {
     @Autowired
     NoticeService noticeService;
 
+
     @GetMapping("/list")
-    public String list(SearchCondition sc , Model m , HttpServletRequest request){
+    public String list(Model m , HttpServletRequest request,SearchCondition sc){
 
         try {
 
@@ -50,7 +53,9 @@ public class AdminNoticeController {
             m.addAttribute("totalCnt", 0);
         }
 
-        return ViewPath.BOS_CS + "adminNoticeList";// 로그인을 한 상태이면, 관리자 - 공지게시판 화면으로 이동
+        // C:\Users\Han\IdeaProjects\syusyu\syusyu\src\main\webapp\WEB-INF\views\bos\cs\adminNoticeList.jsp
+        // .dashboard/bos/cs/
+        return ViewPath.BOS_CS + "adminNoticeList";
     }
 
 
@@ -75,8 +80,35 @@ public class AdminNoticeController {
           e.printStackTrace();
         }
 
-        return ViewPath.BOS_CS+"adminNotice";
+        return ViewPath.BOS_CS + "adminNotice";
     }
+
+
+    @PostMapping("remove")
+    public String remove(Integer notcNo ,SearchCondition sc , Model m , HttpSession session , RedirectAttributes rattr ){
+//                                                        ,@SessionAttribute Integer mbrId ,@SessionAttribute String lginId
+        try{
+            m.addAttribute("sc",sc);
+            System.out.println("notcNo = " + notcNo);
+
+            int rowCnt =  noticeService.remove(notcNo);
+
+            if (rowCnt != 1) {  // 삭제된 행이 1이 아니라면
+                // 실패 에러 메세지 발생
+                throw new Exception("adminNotice remove error");
+            }
+
+                // 삭제된 행이 1이라면
+                // 성공 메세지
+                rattr.addFlashAttribute("msg", "DEL_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+        }
+
+        return "redirect:/adminNotice/list";
+    }
+
 
 
 //    @PostMapping("/write")
@@ -110,29 +142,6 @@ public class AdminNoticeController {
 //
 //
 //
-@PostMapping("remove")
-public String remove(Integer notcNo ,SearchCondition sc , Model m , HttpSession session ,RedirectAttributes rattr){
-
-        Integer regrId = (Integer) session.getAttribute("id");
-
-            try{
-                m.addAttribute("sc",sc);
-
-
-               int rowCnt =  noticeService.remove(notcNo,regrId);
-
-               if(rowCnt==1) {
-                   throw new Exception("adminNotice remove error");
-               }
-
-                rattr.addFlashAttribute("msg","DEL_OK");
-                } catch (Exception e) {
-                        e.printStackTrace();
-                rattr.addFlashAttribute("msg","DEL_ERR");
-                }
-
-             return "redirect:/adminNotice/list";
-            }
 
 
 
