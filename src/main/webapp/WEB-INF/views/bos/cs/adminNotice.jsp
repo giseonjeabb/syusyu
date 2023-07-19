@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
 <%@ page session="true"%>
 
 
@@ -42,9 +45,14 @@
         </colgroup>
 
         <tr>
-        <input name="title" type="text" class="detail-tit1" value= " ${noticeDTO.title}"  readonly='readonly'/>
-        </tr><br>
-        <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${noticeDTO.content} </textarea>
+            <input name="title" type="text" class="detail-tit1" value= " ${noticeDTO.title}"  readonly='readonly'/>
+        </tr>
+                 <span class="date-info">
+                   등록날짜: <span><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" /></span><br>
+                   시작날짜: <span><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" /></span><br>
+                   종료날짜: <span><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" /></span>
+                </span>
+        <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${noticeDTO.content}</textarea>
 
             <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i>  목록</button>
             <button type="button" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i>  등록 </button>
@@ -105,6 +113,7 @@
     </div>
 
 <script>
+
     $(document).ready(function (){
          $('#listBtn').on("click", function(){
             location.href = "<c:url value="/adminNotice/list"/>?page=${sc.page}&pageSize=${sc.pageSize}";
