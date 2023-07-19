@@ -32,11 +32,23 @@
     <!--                         where LGIN_ID = #{lginId})-->
     <!--    </delete>-->
 
+
     <!--        공지사항 등록 -->
     <insert id="insert" parameterType="NoticeDTO">
-        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, REGR_ID)
-        VALUES (#{notcTp}, #{title}, #{content}, #{regrId})
+        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, REGR_ID, REG_DTTM, START_DTTM, END_DTTM)
+        VALUES (#{notcTp}, #{title}, #{content}, #{regrId}, NOW(), #{startDttm}, #{endDttm})
     </insert>
+
+
+    <!--    공지사항 수정하기-->
+    <update id="update" parameterType="NoticeDTO">
+        UPDATE notice
+        SET TITLE    = #{title}
+          , CONTENT  = #{content}
+          , UPD_DTTM = now()
+        WHERE NOTC_NO = #{notcNo}
+          and REGR_ID = #{regrId}
+    </update>
 
 
     <!--    모든 공지사항 내용 조회-->
@@ -62,6 +74,7 @@
     <!-- 공지사항 테이블에서 필요한 정보를 조회하는 쿼리 (재사용을 위해 sql 태그로 정의함) -->
     <sql id="selectFromBoard">
         SELECT NOTC_NO,
+               NOTC_TP,
                TITLE,
                CONTENT,
                REGR_ID,
@@ -82,21 +95,21 @@
 
     <!--    페이지 별로 공지사항 조회-->
     <select id="selectPage" parameterType="map" resultType="NoticeDTO">
-        SELECT NOTC_NO, NOTC_TP, TITLE, CONTENT, VIEW_CNT, REG_DTTM
+        SELECT NOTC_NO,
+               NOTC_TP,
+               TITLE,
+               CONTENT,
+               VIEW_CNT,
+               REG_DTTM,
+               UPD_DTTM,
+               START_DTTM,
+               END_DTTM
         FROM notice
         ORDER BY REG_DTTM DESC, NOTC_NO DESC
             LIMIT #{offset}, #{pageSize}
     </select>
 
-    <!--    공지사항 수정하기-->
-    <update id="update" parameterType="NoticeDTO">
-        UPDATE notice
-        SET TITLE    = #{title}
-          , CONTENT  = #{content}
-          , UPD_DTTM = now()
-        WHERE NOTC_NO = #{notcNo}
-          and REGR_ID = #{regrId}
-    </update>
+
 
 
     <!--    공지사항에는 코멘트 필요없어서 주석 처리함 나중에 리뷰에서 써야지-->
