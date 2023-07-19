@@ -2,25 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%--이미지리스트 길이--%>
 <c:set var="imgListLength" value="${fn:length(productImages) }"/>
 <c:set var="categories" value="${sessionScope.categories}"/>
-<%--<head>--%>
-<%--    <script src="${jsUrlFos}/product/productDetail.js" type="text/javascript" defer></script>--%>
-<%--</head>--%>
+<head>
+
+    <script src="${jsUrlFos}/product/product.js"></script>
+</head>
 
 <main class="">
 
     <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/front/ui.share.js"></script>
     <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/front/ui.cw.product.coupon.js"></script>
     <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/global/jquery.pickerpack.js"></script>
-    <c:forEach var="item" items="${productDetailList}">
+
     <div class="breadcrumb">
         <%--smallCategory--%>
         <div class="breadcrumb-inner">
             <a href="/productList">홈</a>
-            <a href="/productList/${item.middleNo}">${item.middleNm}</a>
-            <a href="/productList/${item.middleNo}/${item.smallNo}}">${item.smallNm}</a>
+            <a href="/productList/${productDetail.middleNo}">${productDetail.middleNm}</a>
+            <a href="/productList/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
         </div>
     </div>
 
@@ -45,7 +47,7 @@
                             <div class="swiper-wrapper">
 
                                 <div class="swiper-slide">
-                                    <img src="<c:url value='${item.repImg}'/>" alt="">
+                                    <img src="<c:url value='${productDetail.repImg}'/>" alt="">
                                 </div>
 
                             </div>
@@ -54,7 +56,7 @@
                             <div class="swiper-wrapper">
 
                                 <div class="swiper-slide">
-                                    <img src="<c:url value='${item.repImg}'/>" alt="">
+                                    <img src="<c:url value='${productDetail.repImg}'/>" alt="">
                                 </div>
 
                             </div>
@@ -64,7 +66,7 @@
                     <div class="goods-info">
                         <div class="goods-desc">
                             <div class="name">
-                                <p>${item.prodNm}</p>
+                                <p>${productDetail.prodNm}</p>
                                 <div class="btn-wrap btn-active-wrap">
                                     <button type="button" class="btn icon like "><span class="btn-active-cont" no="916">상품 찜하기</span></button>
                                     <div class="pbw-wrap">
@@ -108,17 +110,14 @@
                             <div class="star-avg">
                                 <div class="avg-per">
                                     <span class="star-per"><em style="width:0.0%;">평점</em></span>
-                                    <span data-name="num">${item.avgStarRating}</span>
-                                    <a href="#goodsReview" class="txt">${item.revwCnt}건</a>
+                                    <span data-name="num">${productDetail.avgStarRating}</span>
+                                    <a href="#goodsReview" class="txt">${productDetail.revwCnt}건</a>
                                 </div>
                             </div><!--//star-avg-->
                             <div class="price">
                                 <div class="flex al-center">
-<%--                                    <fmt:formatNumber value="${item.salePrc}" pattern="#,###"/>--%>
-                                     4353<span class="won">원</span>
-<%--                                <c:if test="${item.salePrc != null}">--%>
-<%--                                    <fmt:formatNumber value="${item.salePrc}" pattern="#,###"/><span class="won">원</span>--%>
-<%--                                </c:if>--%>
+                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>
+                                     <span class="won">원</span>
 
                                 </div>
                             </div><!--// price -->
@@ -147,12 +146,12 @@
                                     <span class="g-cont">
                                         <span class="deli-info">
                                             <em class="fw-7">3,000</em>원
-												<button type="button" class="btn ar-r icon mark tooltip-btn" onclick="bta.alert.open('.deliveryPopup');">
-													<span class="ty2"></span>
-												</button>
-											</span>
-											<p>상품 50,000원 이상 구매시 무료</p>
-										</span>
+                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="bta.alert.open('.deliveryPopup');">
+                                                <span class="ty2"></span>
+                                            </button>
+                                        </span>
+                                        <p>상품 50,000원 이상 구매시 무료</p>
+                                    </span>
                                 </li>
 
                                 <li class="flex al-center">
@@ -161,7 +160,6 @@
 											<div class="item-qty" data-name="item-total-cnt">
 
 													<input class="item_qty_count" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="1" max="0" stock="33">
-
 
 												<button type="button" class="btn icon minus"><span>상품수량 빼기</span></button>
 												<button type="button" class="btn icon plus"><span>상품수량 더하기</span></button>
@@ -211,7 +209,6 @@
                 </section>
             </div>
             <!-- //상품상세 상단-->
-    </c:forEach>
             <!-- 상품 상세 하단 -->
             <section class="goods-bottom-box tab-box">
                 <div class="tab-group-list-wrap">
@@ -221,7 +218,7 @@
                                 <a href="#" class="active">상세정보</a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#" class="">상품후기 <span><em name="tab_review_size">${item.revwCnt}</em></span></a>
+                                <a href="#" class="">상품후기 <span><em name="tab_review_size">${productDetail.revwCnt}</em></span></a>
                             </li>
                             <li class="tab-menu">
                                 <a href="#" class="">구매정보</a>
@@ -254,9 +251,9 @@
                                     <div class="def-box-content">
                                         <div class="star-avg">
                                             <div class="avg-per">
-                                                <span data-type="num">0</span>
+                                                <span data-type="num">${productDetail.avgStarRating}</span>
                                                 <span class="star-per"><em style="width: 0%;">평점</em></span>
-                                                <p class="txt">총 <span name="tab_review_size">0</span>건</p>
+                                                <p class="txt">총 <span name="tab_review_size">${productDetail.revwCnt}</span>건</p>
                                             </div>
                                         </div>
                                         <div class="sorting">
@@ -495,8 +492,6 @@
                                         <i class="icon icon-arr-b"></i>
                                     </div>
                                     <div class="fold-content">
-
-
                                         <div class="tbl ty1">
                                             <table>
                                                 <colgroup>
@@ -507,42 +502,41 @@
 
                                                 <tr>
                                                     <th>제품명</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
+                                                    <td>${productDetail.prodNm}</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>식품의 유형</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
+                                                    <th>제품 소제</th>
+                                                    <td>${productDetail.mfgdMatr}</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>생산자 및 소재지</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
+                                                    <th>색상</th>
+                                                    <td>옵션조인해서 가져오기./.</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>제조 년원일, 소비기한</th>
-                                                    <td>제품 별도 라벨 표기 참조</td>
+                                                    <th>치수</th>
+                                                    <td>사이즈 옵션표 참고</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>포장단위별 내용물의 용량(중량),수량</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
+                                                    <th>제조자, 수입품의 경우 수입자를 함께 표기</th>
+                                                    <td>${productDetail.mftco}</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>원재료명 및 함량(농수산물의 원산지 표시에 관한 법률에 따른 원산지 표시 포함)</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
+                                                    <th>제조국</th>
+                                                    <td>${productDetail.mftNatn}</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <th>영양성분(식품 등의 표시·광고에 관한 법률에 따른 영향성분 표시 대상 식품에 한함)</th>
-                                                    <td>상품설명 및 상품 이미지 참조</td>
-                                                </tr>
+                                                    <th>취급시 주의사항</th>
+                                                    <td>상품 TAG 참고 / 소비자 부주의로 인한 제품 손상 보상 불가</td>
 
                                                 <tr>
-                                                    <th>유전자변형식품에 해당하는 경우의 표시</th>
-                                                    <td>해당 없음</td>
+                                                    <th>품질보증기준</th>
+                                                    <td>전자상거래법 및 공정거래위원회 고시 내 소비자 분쟁해결기준에 따름</td>
                                                 </tr>
 
                                                 <tr>
@@ -556,8 +550,8 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <th>소비자 상담 관련 전화번호</th>
-                                                    <td>오뚜기 고객상담실 : 080-024-2311(수신자 요금 부담)</td>
+                                                    <th>A/S 책임자</th>
+                                                    <td>${productDetail.mftco}</td>
                                                 </tr>
 
                                                 </tbody>
