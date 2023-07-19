@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -111,8 +112,8 @@ public class ProductController {
                 smallNo = 1;
             }
             productInfo = productService.getProductList(middleNo, smallNo);
-            List<String> List = (java.util.List<String>) productInfo.get("productList");
-            System.out.println("소분류" + List);
+//            List<String> List = (java.util.List<String>) productInfo.get("productList");
+//            System.out.println("소분류" + List);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,8 +159,8 @@ public class ProductController {
 
             //중분류 카테고리별 전체 상품리스트와 전체 갯수, 카테고리를 map으로 보냄
             productInfo = productService.getProductAllList(middleNo);
-            List<String> List = (java.util.List<String>) productInfo.get("productList");
-            System.out.println("sfsdfasfd" + List);
+//            List<String> List = (java.util.List<String>) productInfo.get("productList");
+//            System.out.println("sfsdfasfd" + List);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,5 +184,22 @@ public class ProductController {
         }
 
         return new ResponseEntity<>(productStatusList, HttpStatus.OK);
+    }
+
+    @GetMapping("/product/{prodId}")
+    public ModelAndView getProduct(@PathVariable int prodId, ModelAndView mvc) {
+        List<ProductDTO> productDetailList = null;
+
+        try{
+            productDetailList=productService.getProduct(prodId);
+            System.out.println("product : "+productDetailList);
+            mvc.addObject("productDetailList", productDetailList);
+
+            mvc.setViewName(ViewPath.FOS_PRODUCT+"product");
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mvc;
     }
 }

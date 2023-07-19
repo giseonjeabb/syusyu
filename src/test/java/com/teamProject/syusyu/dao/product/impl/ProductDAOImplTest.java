@@ -37,7 +37,10 @@ public class ProductDAOImplTest {
 //    public void getProductAllList() throws Exception {
 //        System.out.println("dao: "+ productDAO.selectProductAllList(1));
 //    }
-
+    @Test //상품조회
+    public void selectProductTest() throws Exception{
+        System.out.println("dao:"+ productDAO.selectProduct(10002));
+    }
 
     @Test
         public void selectProductStatusTest() throws Exception {

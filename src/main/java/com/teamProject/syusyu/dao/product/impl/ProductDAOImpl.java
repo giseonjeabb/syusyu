@@ -50,7 +50,7 @@ public class ProductDAOImpl implements ProductDAO {
      * @since 2023/07/07
      */
     @Override
-    public List<ProductDTO> selectProductAllList(int middleNo) throws Exception{
+    public List<ProductDTO> selectProductAllList(int middleNo) {
         return session.selectList(namespace + "selectProductAllList", middleNo);
 
     }
@@ -59,6 +59,10 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductDTO> selectProductStatus(int[] prodIdArr) {
         return session.selectList(namespace + "selectProductStatus", prodIdArr);
+    }
+
+    public List<ProductDTO> selectProduct(int prodId){
+        return session.selectList(namespace+"selectProduct", prodId);
     }
 
 }
