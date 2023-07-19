@@ -5,8 +5,8 @@
     <script src="<c:url value="${jsUrlFos}/cs/mypage/orderView.js"/>"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            cart.initLoad();
-            cart.bindButtonEvent();
+            orderView.initLoad();
+            orderView.bindButtonEvent();
         });
     </script>
 </head>
@@ -50,15 +50,15 @@
                     <span class="date">2023.07.18</span>
                 </div>
                 <div class="a-btn-area">
-                    <a href="order_detail?order=39120&amp;params=ZH4U0DtZAK0J7k4i5OCPJxgYP2v78c19Qvscl6aP7kZ1b241K8u"
-                       class="btn"><span>상세보기</span></a>
+                    <a href="order_detail?order=39120&amp;params=ZH4U0DtZAK0J7k4i5OCPJxgYP2v78c19Qvscl6aP7kZ1b241K8u" class="btn">
+                        <span>상세보기</span>
+                    </a>
                 </div>
             </div>
             <div class="order-item">
-                <input type="hidden" name="ordProd" value="166478" claims="0" pno="62">
-                <div class="thumb"><img
-                        src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/thumb/20221125/10310019_1.jpg"
-                        alt=""></div>
+                <div class="thumb">
+                    <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/thumb/20221125/10310019_1.jpg" alt="">
+                </div>
                 <div class="order-info">
                     <div class="badge-cont">
                         <span class="badge-item ty11 fw-7">취소완료</span>
