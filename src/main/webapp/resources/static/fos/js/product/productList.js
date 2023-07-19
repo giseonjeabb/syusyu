@@ -95,9 +95,9 @@ const showProductList = (data) => {
 
             //클릭시 상세페이지로
             const itemImgA = document.createElement('a');
-            itemImgA.setAttribute('href', 'https://www.ottogimall.co.kr/front/product/706');
+            itemImgA.setAttribute('href', `/product/${item.prodId}`);
             itemImgA.setAttribute('target', '_self');
-            itemImgA.setAttribute('pno', '706');
+            itemImgA.setAttribute('pno', `${item.prodId}`);
 
             //상품 이미지
             const itemImg = document.createElement('img');
@@ -108,9 +108,9 @@ const showProductList = (data) => {
             itemDescDiv.setAttribute('class', 'desc');
 
             const itemDescA = document.createElement('a');
-            itemDescA.setAttribute('href', 'https://www.ottogimall.co.kr/front/product/706');
+            itemDescA.setAttribute('href', `/product/${item.prodId}`);
             itemDescA.setAttribute('target', '_self');
-            itemDescA.setAttribute('pno', '706');
+            itemDescA.setAttribute('pno', `${item.prodId}`);
 
             const itemNameP = document.createElement('p');
             itemNameP.setAttribute('class', 'name');
@@ -169,7 +169,7 @@ const showProductList = (data) => {
             const cartBtn = document.createElement('button');
             cartBtn.setAttribute('type', 'button');
             cartBtn.className = 'btn icon cart add-cart-bt';
-            cartBtn.setAttribute('pno', '706');
+            cartBtn.setAttribute('pno', `${item.prodId}`);
 
             const cartSpan = document.createElement('span');
             cartSpan.setAttribute('class', 'text');

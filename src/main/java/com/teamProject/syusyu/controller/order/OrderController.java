@@ -103,20 +103,20 @@ public class OrderController {
      */
     @GetMapping("/orderInfo")
     @ResponseBody
-    public ResponseEntity<List<OrderInfoDTO>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
-        List<OrderInfoDTO> orderInfoList = null;
+    public ResponseEntity<Map<Integer, List<OrderInfoDTO>>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
+        Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = null;
         Map<String, Object> param = new HashMap<>();
         param.put("mbrId", mbrId);
         param.put("startDate", startDate);
         param.put("endDate", endDate);
 
         try {
-            orderInfoList = service.getOrderInfoList(param);
+            orderInfoListByOrdNo = service.getOrderInfoListByOrdNo(param);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(orderInfoList, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(orderInfoListByOrdNo, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(orderInfoList, HttpStatus.OK);
+        return new ResponseEntity<>(orderInfoListByOrdNo, HttpStatus.OK);
     }
 }
