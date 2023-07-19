@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <head>
+
     <script src="<c:url value="${jsUrlFos}/cs/mypage/orderView.js"/>"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -19,23 +20,21 @@
 
 <form name="sFrm" id="frm_search">
     <div class="period-srch-box ty2 flex-wrap mt-30">
-        <div class="tab ty5">
-            <a href="javascript:" interval="m1" class="active">1개월</a>
-            <a href="javascript:" interval="m3">3개월</a>
-            <a href="javascript:" interval="m6">6개월</a>
-            <a href="javascript:" interval="m12">12개월</a>
+        <div class="date_range_container tab ty5">
+            <a id="btn_m1" data-interval="-1" class="date_range active">1개월</a>
+            <a id="btn_m3" data-interval="-3" class="date_range">3개월</a>
+            <a id="btn_m6" data-interval="-6" class="date_range">6개월</a>
+            <a id="btn_m12" data-interval="-12" class="date_range">12개월</a>
         </div>
         <div class="calendar">
             <div class="input w-208">
-                <input type="text" name="start_date" id="start_date" value="2023-04-18" readonly="readonly"
-                       class="inp datepicker hasDatepicker">
+                <input type="text" name="start_date" id="start_date" readonly="readonly" class="inp datepicker hasDatepicker">
             </div>
             <span class="m">~</span>
             <div class="input w-208">
-                <input type="text" name="end_date" id="end_date" value="2023-07-18" readonly="readonly"
-                       class="inp datepicker hasDatepicker">
+                <input type="text" name="end_date" id="end_date" readonly="readonly" class="inp datepicker hasDatepicker">
             </div>
-            <button type="submit" class="btn ty2 c-ty5 free"><span>조회</span></button>
+            <button type="button" id="btn_search" class="btn ty2 c-ty5 free"><span>조회</span></button>
         </div>
     </div>
 </form>

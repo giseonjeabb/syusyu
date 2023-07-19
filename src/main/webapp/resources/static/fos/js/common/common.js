@@ -36,3 +36,60 @@ const formatPrice = (price) => {
 
     return price.toLocaleString();
 }
+
+/**
+ * 날짜 선택 필드에 Flatpickr를 설정한다.
+ * 주어진 date로 기본 날짜를 설정한다.
+ *
+ * @param calendarId 날짜 선택 필드의 ID
+ * @param date 기본으로 설정할 날짜
+ * @author min
+ * @since 2023/07/199
+ */
+const setFlatpickrCalendar = (calendarId, date) => {
+    flatpickr('#' + calendarId, {
+        'locale': 'ko',
+        'defaultDate': date
+    });
+}
+
+/**
+ * 날짜 선택 필드에 Flatpickr를 설정한다.
+ * endDate는 오늘로 설정되고, startDate는 endDate로부터 day를 뺀 날짜로 설정된다.
+ *
+ * @param startDateId 시작 날짜 선택 필드의 ID
+ * @param endDateId 종료 날짜 선택 필드의 ID
+ * @param day endDate로부터 뺄 일수
+ * @author min
+ * @since 2023/07/19
+ */
+const setCalendarRangeByDays = (startDateId, endDateId, day) => {
+    let endDate = new Date();
+    let startDate = new Date();
+    startDate.setDate(endDate.getDate() + day);
+
+    setFlatpickrCalendar(startDateId, startDate);
+    setFlatpickrCalendar(endDateId, endDate);
+}
+
+/**
+ * 날짜 선택 필드에 Flatpickr를 설정한다.
+ * endDate는 오늘로 설정되고, startDate는 endDate로부터 month를 뺀 날짜로 설정된다.
+ *
+ * @param startDateId 시작 날짜 선택 필드의 ID
+ * @param endDateId 종료 날짜 선택 필드의 ID
+ * @param month endDate로부터 뺄 월수
+ * @since 2023/07/19
+ */
+const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
+    if (typeof month !== 'number')
+        month = parseInt(month);
+
+    debugger;
+    let endDate = new Date();
+    let startDate = new Date();
+    startDate.setMonth(endDate.getMonth() + month);
+
+    setFlatpickrCalendar(startDateId, startDate);
+    setFlatpickrCalendar(endDateId, endDate);
+}
