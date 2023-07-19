@@ -14,5 +14,5 @@ public interface ProductService {
 
     List<ProductDTO> getProductStatus(int[] prodId) throws Exception;
 
-    List<ProductDTO> getProduct(int prodId) throws Exception;
+    ProductDTO getProduct(int prodId) throws Exception;
 }
