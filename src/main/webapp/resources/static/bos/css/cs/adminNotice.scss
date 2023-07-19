@@ -108,3 +108,16 @@ input {
   float: right;
 }
 
+
+ .title-date-area {
+   display: flex;
+   align-items: center;
+   justify-content: space-between; /* 제목과 날짜 정보간 간격을 최대한 벌림 */
+ }
+.date-info {
+  font-size: 0.9em; /* 원하는 글자 크기로 조절 */
+  color: #666; /* 원하는 글자 색상으로 조절 */
+  float: right;
+}
+
+
