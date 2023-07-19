@@ -8,8 +8,8 @@ public class FaqSearchCondition11 {
     //    private Integer offset = 0;
     private String keyword = ""; // 검색어
 
-    private String key = ""; // FAQ타입 검색할떄 쓸꺼임
-    private String faqTp;
+    private String option = "";
+
 
     public FaqSearchCondition11(){}
 
@@ -18,12 +18,11 @@ public class FaqSearchCondition11 {
         this.pageSize = pageSize;
     }
 
-    public FaqSearchCondition11(Integer page, Integer pageSize, String keyword, String key,String faqTp) {
+    public FaqSearchCondition11(Integer page, Integer pageSize, String keyword, String option) {
         this.page = page;
         this.pageSize = pageSize;
         this.keyword = keyword;
-        this.key = key;
-        this.faqTp = faqTp;
+        this.option = option;
     }
 
     public String getQueryString(){
@@ -36,9 +35,8 @@ public class FaqSearchCondition11 {
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
                 .queryParam("pageSize", pageSize)
-                .queryParam("key", key)
                 .queryParam("keyword", keyword)
-                .queryParam("faqTp", faqTp)
+                .queryParam("option", option)
                 .build().toString();
     }
 
@@ -48,10 +46,10 @@ public class FaqSearchCondition11 {
                 "page=" + page +
                 ", pageSize=" + pageSize +
                 ", keyword='" + keyword + '\'' +
-                ", key='" + key + '\'' +
-                ", faqTp='" + faqTp + '\'' +
+                ", option='" + option + '\'' +
                 '}';
     }
+
 
     public Integer getPage() {
         return page;
@@ -69,10 +67,6 @@ public class FaqSearchCondition11 {
         this.pageSize = pageSize;
     }
 
-    public Integer getOffset() {
-        return (page - 1) * pageSize;
-    }
-
     public String getKeyword() {
         return keyword;
     }
@@ -81,19 +75,11 @@ public class FaqSearchCondition11 {
         this.keyword = keyword;
     }
 
-    public String getKey() {
-        return key;
+    public String getOption() {
+        return option;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getFaqTp() {
-        return faqTp;
-    }
-
-    public void setFaqTp(String faqTp) {
-        this.faqTp = faqTp;
+    public void setOption(String option) {
+        this.option = option;
     }
 }

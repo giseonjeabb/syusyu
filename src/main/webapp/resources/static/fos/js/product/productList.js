@@ -134,7 +134,7 @@ const showProductList = (data) => {
                 itemWonSpan.setAttribute('class', 'won');
 
                 const itemPriceDel = document.createElement('del');
-                itemPriceDel.innerText = item.price.toLocaleString() + ' 원';
+                itemPriceDel.innerText = formatPrice(item.salePrc) + ' 원';
 
                 itemAmountP.appendChild(itemPerSpan);
                 itemAmountP.appendChild(itemDcPrc);
@@ -142,7 +142,7 @@ const showProductList = (data) => {
                 itemAmountP.appendChild(itemPriceDel);
             } else {
                 //판매할인이 없는경우
-                const itemPrice = document.createTextNode(item.price.toLocaleString());
+                const itemPrice = document.createTextNode(formatPrice(item.salePrc));
 
                 const itemWonSpan = document.createElement('span');
                 itemWonSpan.setAttribute('class', 'won');

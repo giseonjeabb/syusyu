@@ -28,6 +28,7 @@ public class NoticeDAOTest {
         noticeDTO.setRegrId(80000);
 
         int rowCnt = noticeDAO.insert(noticeDTO);
+        int rowCnt2 = noticeDAO.insert(noticeDTO);
 
         assertEquals(1,rowCnt);
 
@@ -39,7 +40,7 @@ public class NoticeDAOTest {
         int rowCnt = noticeDAO.insert(noticeDTO);
 
 
-        rowCnt = noticeDAO.delete(136,80000);
+        rowCnt = noticeDAO.delete(136);
 
         assertEquals(1,rowCnt);
     }

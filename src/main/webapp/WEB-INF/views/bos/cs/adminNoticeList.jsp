@@ -77,77 +77,86 @@
     </div>   <%---search--%>
 
 
-    <form action="" id="form">
-    <div class="notice-list">공지 사항 목록
-        <%--    게시글 갯수 카운팅--%>
-        <span class="notice_count">(총 ${ph.totalCnt}개)</span>
-    </div>
 
-    <table class="table table-hover">
+    <form id="form" class="frm" action="" method="post">
+        <div class="notice-list">공지 사항 목록
+            <%--    게시글 갯수 카운팅--%>
+            <span class="notice_count">
+                (총 ${ph.totalCnt}개)
+            </span>
+        </div>
 
-        <tr class="table-dark">
-            <th scope="col">번호</th>
-            <th scope="col">공지사항 분류 코드</th>
-            <th scope="col">제목</th>
-            <th scope="col">조회수</th>
-            <th scope="col">등록 일자</th>
-            <th scope="col">공지 시작</th>
-            <th scope="col">공지 종료</th>
-            <th scope="col"> 수정 </th>
-            <th scope="col"> 삭제 </th>
+        <table class="table table-hover">
 
-        </tr>
+            <tr class="table-dark">
+                <th scope="col">번호</th>
+                <th scope="col">공지사항 분류 코드</th>
+                <th scope="col">제목</th>
+                <th scope="col">조회수</th>
+                <th scope="col">등록 일자</th>
+                <th scope="col">공지 시작</th>
+                <th scope="col">공지 종료</th>
+                <th scope="col"> 수정 </th>
+                <th scope="col"> 삭제 </th>
 
-        <c:forEach var="noticeDTO" items="${list}">
-            <tr class="table-light">
-                <td scope="row">${noticeDTO.notcNo}</td>        <%---공지사항 번호---%>
-                <td><c:out value="${noticeDTO.notcTp}"/></td>   <%---공지사항 타입---%>
-                <td><a href = "<c:url value="/adminNotice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>"> ${noticeDTO.title}</a></td> <%---공지사항 제목---%>
-<%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
-                <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>
-
-
-                    <%---공지사항 등록날짜---%>
-                <c:choose>
-                    <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
-                    </c:when>
-
-                    <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                    </c:otherwise>
-                </c:choose>
-
-
-                    <%---공지사항 시작 날짜---%>
-                <c:choose>
-                    <c:when test="${noticeDTO.startDttm.time >= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="HH:mm" type="time"/></td>
-                    </c:when>
-
-                    <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                    </c:otherwise>
-                </c:choose>
-
-                    <%---공지사항 종료 날짜---%>
-                <c:choose>
-                    <c:when test="${noticeDTO.endDttm.time <= startOfToday}">
-                        <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="HH:mm" type="time"/></td>
-                    </c:when>
-
-                    <c:otherwise>
-                        <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                    </c:otherwise>
-                </c:choose>
-
-                <td> <input class="" type="button" value="수정"> </td>
-                <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
             </tr>
-        </c:forEach>
-</form>
 
-    </table>
+            <c:forEach var="noticeDTO" items="${list}">
+                <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
+                <tr class="table-light">
+                    <td scope="row">${noticeDTO.notcNo}</td>        <%---공지사항 번호---%>
+                    <td><c:out value="${noticeDTO.notcTp}"/></td>   <%---공지사항 타입---%>
+                    <td><a href = "<c:url value="/adminNotice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>"> ${noticeDTO.title}</a></td> <%---공지사항 제목---%>
+                        <%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
+                    <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>
+
+
+                        <%---공지사항 등록날짜---%>
+                    <c:choose>
+                        <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
+                        </c:when>
+
+                        <c:otherwise>
+                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                        <%---공지사항 시작 날짜---%>
+                    <c:choose>
+                        <c:when test="${noticeDTO.startDttm.time >= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="HH:mm" type="time"/></td>
+                        </c:when>
+
+                        <c:otherwise>
+                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        </c:otherwise>
+                    </c:choose>
+
+                        <%---공지사항 종료 날짜---%>
+                    <c:choose>
+                        <c:when test="${noticeDTO.endDttm.time <= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="HH:mm" type="time"/></td>
+                        </c:when>
+
+                        <c:otherwise>
+                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                        </c:otherwise>
+                    </c:choose>
+
+<%--                    <td> <input class="" type="button" value="수정"> </td>--%>
+                    <td><button type="button" id="modifyBtn" class="modifyBtn">수정</button></td>
+                    <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
+                </tr>
+            </c:forEach>
+
+
+        </table>
+
+
+<%--            오류나는 부분 끝--%>
+
 
 
     <%--페이지 이동 페이지 핸들링--%>
@@ -188,11 +197,12 @@
 
             </c:if>
 
-            </div>
         </div>
+    </div>
 
-
+    </form>
 </div>
+
 
 <script>
     $(document).ready(function (){
@@ -200,8 +210,8 @@
         $('.removeBtn').on("click", function(){
             if(!confirm("삭제 하시겠습니까 ?")) return;
             let form =  $('#form');
-            <%--form.attr("action", "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>");--%>
-            form.attr("action", "<c:url value='/adminNotice/remove'/>?page=${sc.page}&pageSize=${sc.pageSize}");
+            let url =  "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>";
+            form.attr("action", url);
             form.attr("method", "post");
             form.submit();
         });

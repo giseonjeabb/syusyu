@@ -38,8 +38,8 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public int remove(Integer notcNo, Integer regrId) throws Exception {
-        return noticeDao.delete(notcNo, regrId);
+    public int remove(Integer notcNo) throws Exception {
+        return noticeDao.delete(notcNo);
     }
 
     @Override

@@ -23,7 +23,7 @@ public interface NoticeDAO {
 
     int increaseViewCnt(Integer notcNo) throws Exception;
 
-    int delete(Integer notcNo, Integer regrId) throws Exception;
+    int delete(Integer notcNo) throws Exception;
 
     int deleteAll() throws Exception;
 

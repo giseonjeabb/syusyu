@@ -99,29 +99,8 @@
 
     <sql id="selectSearchFaq">
         <choose>
-            <when test='key == "10"'>
-                AND FAQ_TP = 10
-            </when>
-            <when test='key == "20"'>
-                AND FAQ_TP = 20
-            </when>
-            <when test='key == "30"'>
-                AND FAQ_TP = 30
-            </when>
-            <when test='key == "40"'>
-                AND FAQ_TP = 40
-            </when>
-            <when test='key == "50"'>
-                AND FAQ_TP = 50
-            </when>
-            <when test='key == "60"'>
-                AND FAQ_TP = 60
-            </when>
-            <when test='key == "70"'>
-                AND FAQ_TP = 70
-            </when>
-            <when test='key == "80"'>
-                AND FAQ_TP = 80
+            <when test='option == "T"'>
+                AND FAQ_TP LIKE concat('%', #{keyword} ,'%')
             </when>
             <otherwise>
                 AND FAQ_TP BETWEEN 10 AND 80

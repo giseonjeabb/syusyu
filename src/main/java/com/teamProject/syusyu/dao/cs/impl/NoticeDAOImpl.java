@@ -58,11 +58,11 @@ public class NoticeDAOImpl implements NoticeDAO {
     }
 
     @Override
-    public int delete(Integer notcNo, Integer regrId) throws Exception{
-        Map map = new HashMap();
-        map.put("notcNo",notcNo);
-        map.put("regrId",regrId);
-        return session.delete(namespace+"delete",map);
+    public int delete(Integer notcNo) throws Exception{
+//        Map map = new HashMap();
+//        map.put("notcNo",notcNo);
+//        map.put("regrId",regrId);
+        return session.delete(namespace+"delete",notcNo);
     }
 
     @Override
