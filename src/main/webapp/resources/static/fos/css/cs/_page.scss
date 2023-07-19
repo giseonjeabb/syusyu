@@ -3475,6 +3475,20 @@ $n: 30;
             &.tit{
               width: 100px;
             }
+            &.option, &.qty{
+              margin-top: 3px;
+              color: #aaa;
+              font-size: 15px;
+            }
+            &.option::after {
+              content: '';
+              display: inline-block;
+              margin: -4px 8px 0;
+              width: 1px;
+              height: 12px;
+              vertical-align: middle;
+              background-color: #aaa;
+            }
           }
           & + li{
             margin-top: 4px;
