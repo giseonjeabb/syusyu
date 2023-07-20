@@ -68,7 +68,7 @@
                             <div class="name">
                                 <p>${productDetail.prodNm}</p>
                                 <div class="btn-wrap btn-active-wrap">
-                                    <button type="button" class="btn icon like "><span class="btn-active-cont" no="916">상품 찜하기</span>
+                                    <button type="button" class="btn icon like "><span class="btn-active-cont" no="${productDetail.prodId}"></span>
                                     </button>
                                     <div class="pbw-wrap">
                                         <button type="button" class="btn icon share btn-share" data-type="share"><span
@@ -171,9 +171,9 @@
                                                            value="1" maxlength="4" min="1" max="0" stock="33">
 
 												<button type="button"
-                                                        class="btn icon minus"><span>상품수량 빼기</span></button>
+                                                        class="btn icon minus"><span></span></button>
 												<button type="button"
-                                                        class="btn icon plus"><span>상품수량 더하기</span></button>
+                                                        class="btn icon plus"><span></span></button>
 											</div>
 										</span>
                                 </li><!--// 수량 선택 -->
@@ -1029,9 +1029,9 @@
 
 
                                                         <button type="button" class="btn icon minus">
-                                                            <span>상품수량 빼기</span></button>
+                                                            <span></span></button>
                                                         <button type="button" class="btn icon plus">
-                                                            <span>상품수량 더하기</span></button>
+                                                            <span></span></button>
                                                     </div>
                                                     <div class="option-price">
 

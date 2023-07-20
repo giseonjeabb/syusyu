@@ -371,10 +371,10 @@
       width:150px;
       height: 30px;
       margin:1px auto 15px;
-      background: url(../images/icon_star_bg.svg) repeat-x left center / 30px 30px;
+      background: url("../../../image/icon_star_bg.svg") repeat-x left center / 30px 30px;
       em {
         height: 30px;
-        background: url(../images/icon_star.svg) repeat-x left center / 30px 30px;
+        background: url("../../../image/icon_star.svg") repeat-x left center / 30px 30px;
       }
     }
 
@@ -388,14 +388,14 @@
   position: relative;
   width: 70px;
   height: 14px;
-  background: url(../images/icon_star_bg.svg) repeat-x left center / 14px 14px;
+  background: url("../../../image/icon_star_bg.svg") repeat-x left center / 14px 14px;
   font-size: 0;
   line-height: 0;
 
   > em {
     display: block;
     height: 14px;
-    background: url(../images/icon_star.svg) repeat-x left center / 14px 14px;
+    background: url("../../../image/icon_star.svg") repeat-x left center / 14px 14px;
   }
 }
 
@@ -492,7 +492,7 @@
                   content:'';
                   width: 20px;
                   height:20px;
-                  background: url(../images/icon_gift.svg) no-repeat left center/20px 20px;
+                  background: url("../../../image/icon_gift.svg") no-repeat left center/20px 20px;
                   margin:0 auto 4px;
                 }
               }

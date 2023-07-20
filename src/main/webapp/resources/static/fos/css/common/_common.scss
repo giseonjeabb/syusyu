@@ -1487,10 +1487,10 @@
     &.like{
       width: 30px;
       height: 30px;
-      background: url(../images/icon_heart.svg) no-repeat center center;
+      background: url("../../../image/icon_heart.svg") no-repeat center center;
       transition: .3s;
       &.on{
-        background-image: url(../images/icon_heart_on.svg);
+        background-image: url("../../../image/icon_heart_on.svg");
       }
       &.big {
         width: 50px;
@@ -1505,7 +1505,7 @@
     &.share{
       width: 30px;
       height: 30px;
-      background: url(../images/icon_share.svg) no-repeat center center;
+      background: url("../../../image/icon_share.svg") no-repeat center center;
     }
     &.mark{
       >span{
@@ -1518,7 +1518,7 @@
     &.gift{
       >span{
         display: inline-block;
-        background: url(../images/icon_gift.svg) no-repeat left center/ 20px 20px;
+        background: url("../../../image/icon_gift.svg") no-repeat left center/ 20px 20px;
       }
     }
 
@@ -1659,7 +1659,7 @@
       line-height: 22px;
       &.icon-ty1 {
         padding-left: 25px;
-        background: url(../images/icon_gift.svg) no-repeat left center;
+        background: url("../../../image/icon_gift.svg") no-repeat left center;
       }
     }
   }
