@@ -100,16 +100,19 @@
                             href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
                     </td>
                         <%--등록날짜--%>
-                    <c:choose>
-                        <c:when test="${noticeDto.regDttm.time >= startOfToday}">
-                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="HH:mm" type="time"/></td>
-                        </c:when>
 
-                        <c:otherwise>
-                            <td class="fz-15 color-3 ta-c"><fmt:formatDate value="${noticeDto.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                        </c:otherwise>
+                            <c:choose>
+                                <c:when test="${noticeDTO.regDttm.isAfter(now)}">
+                                    <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${noticeDTO.regDttm.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                                </c:otherwise>
+                            </c:choose>
 
-                    </c:choose>
+
+
+<%--
                         <%--조회수--%>
                         <%--<td class="viewCnt">${noticeDto.viewCnt}</td>--%>
                 </tr>
