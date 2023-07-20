@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.service.product.impl;
 
 import com.teamProject.syusyu.dao.product.ProductDAO;
+import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import com.teamProject.syusyu.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO getProduct(int prodId) throws Exception{
-        return productDAO.selectProduct(prodId);
+    public Map<String, Object> getProduct(int prodId) throws Exception{
+        ProductDTO productDetail=productDAO.selectProduct(prodId);
+        List<ImageDTO> imageList=productDAO.selectImageList(prodId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("productDetail", productDetail);
+        map.put("imageList", imageList);
+        return map;
     }
+
 }
