@@ -606,11 +606,8 @@
                                                     </li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
-                                                        오뚜기몰은 배송 유형별 분리 배송을 원칙으로 하며, 배송 유형별로 배송비가 부과됩니다.<br
-                                                            style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(도서산간지역은
-                                                        5,000원의 추가 배송비가 부과되며, 배송이 제한될 수 있습니다.)<br
-                                                            style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단,
-                                                        선물받는 사람이 도서산간 지역이어도 선물하기에서는 기본 배송료만 부과합니다.)&ZeroWidthSpace;
+                                                        도서산간지역 배송료는 3,000원 있습니다.<br
+                                                            style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단, 선물받는 사람이 도서산간 지역이어도 선물하기에서는 기본 배송료만 부과합니다.)&ZeroWidthSpace;
                                                     </li>
                                                 </ul>
                                             </div>
@@ -623,15 +620,11 @@
                                                     style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
                                                     <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
                                                     <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
-                                                        무료배송 혜택 상품 및 배송 유형별 30,000원 이상 구매 시 무료배송입니다.&ZeroWidthSpace;
+                                                        무료배송 혜택 상품 및 배송료는 50,000원 이상 구매 시 무료배송입니다.&ZeroWidthSpace;
                                                     </li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
-                                                        배송 유형 간 교차 합계 금액은 무료배송에 적용되지 않습니다.&ZeroWidthSpace;<br
-                                                            style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(실온
-                                                        배송 + 냉장냉동 상품의 합계가 30,000원 이상이어도 무료배송 불가)&ZeroWidthSpace;<br
-                                                            style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단,
-                                                        무료배송 상품이 포함되어있는 주문 전체에는 무료배송이 적용됩니다)
+                                                        무료배송 상품이 포함되어있는 주문 전체에는 무료배송이 적용됩니다&ZeroWidthSpace;
                                                     </li>
                                                 </ul>
                                             </div>
@@ -685,10 +678,10 @@
                                                 <ul class="list ty1"
                                                     style="letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none; color: rgb(29, 29, 27); font-size: 16px;">
                                                     <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
-                                                        <b>롯데택배</b>&ZeroWidthSpace;
+                                                        <b>CJ대한통운</b>&ZeroWidthSpace;
                                                     </li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
-                                                        배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-2121(롯데택배)에서 가능합니다.&ZeroWidthSpace;
+                                                        배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-1255(CJ대한통운)에서 가능합니다.&ZeroWidthSpace;
                                                     </li>
                                                     <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
                                                         단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;
