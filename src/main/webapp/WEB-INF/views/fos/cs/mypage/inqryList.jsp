@@ -18,7 +18,7 @@
         <c:set var="inqryCount" value="${inqryService.getCount()}" />
         <div class="inner pb-14">
             <span class="prd-counter">
-                <span class="text fz-15" id="accordion">총<strong>${inqryCount}</strong>개</span>
+                <span class="text fz-15" id="accordion">총<strong>${totalCnt}</strong>개</span>
             </span>
             <div class="r-side">
                 <form action="<c:url value='/inqry/inqry'/>" method="post">
@@ -48,21 +48,13 @@
                         <div class="panel">
                             <p><span>Q. </span>${inqryDTO.ansCn}</p>
                                 <input type="hidden" name="inquiry" value="2756">
-                                <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}">수정</button></span>
-                                <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}">삭제</button></span>
+                            <div style="margin-right: 40px">
+                                <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
+                                <span style="float: right;">&nbsp;|&nbsp;</span>
+                                <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}" style="float: right">수정</button></span>
+                            </div>
                         </div>
                     </div>
-<%--                    <div class="slide-cont ">--%>
-<%--                        <div class="inner" style="display: none;">--%>
-<%--                            <div class="question mb-10">--%>
-<%--                                <em class="ia">Q.</em>--%>
-<%--                                <div class="cont">--%>
-<%--                                    테스트 좀 하겠습니다--%>
-<%--                                </div>--%>
-
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
                 </c:forEach>
             </div>
         </div>
@@ -81,6 +73,8 @@
 </section>
 
 <script>
+    let removeYn ; //삭제가 잘 되었는지 확인하는 변수
+    let removeMsg; //삭제 메시지
     let msg = "${msg}";
     if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
     if (msg == "READ_ERR") alert("삭제되었거나 없는 게시물입니다.");
@@ -120,19 +114,60 @@
                 type: 'POST',
                 url: `/inqry/remove?inqryNo=`+inqryno,
                 contentType: 'application/json; charset=utf-8',
-                success: function() {
-                    alert("성공적으로 삭제되었습니다.");
-                    location.href = "http://localhost:8080/inqry/inqryList";
+                dataType: 'Text',
+                success: function(result) {
+                    removeMsg = JSON.parse(result);
+                    if(removeMsg ===1){
+                        alert("삭제완료");
+                        location.href = "http://localhost:80/inqry/inqryList";
+                    }else{
+                        alert("삭제실패");
+                    }
+                    //alert(removeMsg);
+                    //removeYn;
+                    //alert("성공적으로 삭제되었습니다.");
+
+                    console.log("removeMsg"+removeMsg);
+
                 },
                 error: function() {
                     alert("삭제 중 오류가 발생했습니다.");
                 }
             });
-            <%--let form = $('#form');--%>
-            <%--form.attr("action", "<c:url value='/inqry/remove'/>?page=${page}&pageSize=${pageSize}");--%>
-            <%--form.attr("method", "post");--%>
-            <%--form.submit();--%>
         })
+
+    <%--$(document).ready(function () {--%>
+    <%--    $('.btn-remove').on("click", function (event) {--%>
+    <%--        if (!confirm("정말로 삭제하시겠습니까?")) return;--%>
+
+    <%--        const inqryNo = $(event.target).attr('inqryNo');--%>
+    <%--        const mbrId = "${sessionScope.mbrId}";--%>
+
+    <%--        // inqryNo와 mbrId를 서버로 전달할 데이터로 정리합니다.--%>
+    <%--        const data = {--%>
+    <%--            inqryNo: inqryNo,--%>
+    <%--            mbrId: mbrId--%>
+    <%--        };--%>
+
+    <%--        $.ajax({--%>
+    <%--            type: 'POST',--%>
+    <%--            url: `/inqry/remove`,--%>
+    <%--            data: data, // 서버로 전달할 데이터를 지정합니다.--%>
+    <%--            dataType: "json", // 서버 응답을 JSON으로 처리합니다.--%>
+    <%--            success: function(response) {--%>
+    <%--                // 서버 응답에 따른 처리를 수행합니다.--%>
+    <%--                if (response.success) {--%>
+    <%--                    alert("성공적으로 삭제되었습니다.");--%>
+    <%--                    location.reload(); // 페이지를 새로고침하여 최신 데이터를 보여줍니다.--%>
+    <%--                } else {--%>
+    <%--                    alert("삭제 중 오류가 발생했습니다.");--%>
+    <%--                }--%>
+    <%--            },--%>
+    <%--            error: function() {--%>
+    <%--                alert("삭제 중 오류가 발생했습니다.");--%>
+    <%--            }--%>
+    <%--        });--%>
+    <%--    });--%>
 
         $(".btn-modify").on("click", function() {
             if (!confirm("1:1 문의를 수정하시겠습니까?")) return;

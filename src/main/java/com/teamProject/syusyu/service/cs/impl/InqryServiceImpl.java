@@ -29,8 +29,6 @@ public class InqryServiceImpl implements InqryService {
 
     @Override
     public int remove(Integer inqry_no, String regrId) throws Exception {
-        System.out.println("inqry_no = " + inqry_no);
-        System.out.println("regrId = " + regrId);
         return inqryDAO.delete(inqry_no, regrId);
     }
 

@@ -88,8 +88,8 @@
 
                     <td>
                         <div class="input w-full mb-10">
-                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요.">
-<%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
+                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요." value="${inqryDTO.title}"/>
+                        <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                         </div>
                         <div class="textarea word-chker ty-2 mb-18">
                             <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요."></textarea>
