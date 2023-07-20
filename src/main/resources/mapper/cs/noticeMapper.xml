@@ -35,8 +35,8 @@
 
     <!--        공지사항 등록 -->
     <insert id="insert" parameterType="NoticeDTO">
-        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, REGR_ID, REG_DTTM, START_DTTM, END_DTTM)
-        VALUES (#{notcTp}, #{title}, #{content}, #{regrId}, NOW(), #{startDttm}, #{endDttm})
+        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, START_DTTM, END_DTTM)
+        VALUES (#{notcTp}, #{title}, #{content}, #{startDttm}, #{endDttm})
     </insert>
 
 
@@ -47,7 +47,7 @@
           , CONTENT  = #{content}
           , UPD_DTTM = now()
         WHERE NOTC_NO = #{notcNo}
-          and REGR_ID = #{regrId}
+--           and REGR_ID = #{regrId}
     </update>
 
 
