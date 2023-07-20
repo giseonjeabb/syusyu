@@ -118,10 +118,10 @@
                 success: function(result) {
                     removeMsg = JSON.parse(result);
                     if(removeMsg ===1){
-                        alert("삭제완료");
+                        alert("성공적으로 삭제되었습니다.");
                         location.href = "http://localhost:80/inqry/inqryList";
                     }else{
-                        alert("삭제실패");
+                        alert("삭제 중 오류가 발생했습니다.");
                     }
                     //alert(removeMsg);
                     //removeYn;
