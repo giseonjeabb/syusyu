@@ -40,13 +40,13 @@
 
                     <td>
                         <select id="inquiry_classify" name="classify" choosed="96" class="selectbox ty1 w-450">
-                            <option value="">문의유형을 선택해 주세요</option>
+                            <option value="" selected="selected">문의유형을 선택해 주세요</option>
                             <option value="91"  orders="1">주문문의</option>
                             <option value="92"  >상품문의</option>
                             <option value="93"  orders="1">배송문의</option>
                             <option value="94"  >결제문의</option>
                             <option value="95"  >이 상품 찾아요</option>
-                            <option value="96"  selected="selected" >건의사항 있어요</option>
+                            <option value="96"  >건의사항 있어요</option>
                         </select>
                     </td>
                 </tr>
@@ -88,14 +88,13 @@
 
                     <td>
                         <div class="input w-full mb-10">
-                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요.">
-<%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
+                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요." oninput="save(this.value)">
+                            <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                         </div>
                         <div class="textarea word-chker ty-2 mb-18">
-                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요."></textarea>
-                            <span class="count ">
-                                <em>0</em>
-                                1,000
+                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>
+                            <span id="count" style="float: right; margin-right: 20px; color: #aaa;">
+                                0/1,000
                             </span>
                         </div>
                     </td>
@@ -185,3 +184,18 @@
 </form>
 
 </body>
+<script>
+
+    function char_Count(value) {
+        let count = value.length;
+        document.getElementById("count").textContent = count + '/1000';
+    }
+
+    $("#inquiry_classify").on("change", function(){
+        let optionvalue = this.value;
+        if(optionvalue!==""){
+            this.style.color="black";
+            inqryType = this.value;
+        }
+    })
+</script>

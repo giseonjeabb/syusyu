@@ -52,9 +52,6 @@ public class InqryDAOImpl implements InqryDAO {
         Map map = new HashMap();
         map.put("inqryNo", inqryNo);
         map.put("regrId", regrId);
-        System.out.println("inqryNo = " + inqryNo);
-        System.out.println("regrId = " + regrId);
-        System.out.println("map = " + map);
         return session.delete(namespace+"delete", map);
     }
 
