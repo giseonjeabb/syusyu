@@ -10,10 +10,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        // 공통
         registry.addViewController("/alertPopup").setViewName("/fos/common/alertPopup");
+
+        // 팝업
         registry.addViewController("/dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
         registry.addViewController("/couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
-        registry.addViewController("/orderComplete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
+
+        // MEMBER
+
+        // PRODUCT
+
+        // ORDER
+        registry.addViewController("/cart").setViewName(ViewPath.FOS_ORDER + "cart");
         registry.addViewController("/orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
+        registry.addViewController("/orderComplete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
+
+        // CS
     }
 }
