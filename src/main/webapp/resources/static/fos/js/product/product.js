@@ -21,3 +21,11 @@ $(function(){
 
 });
 
+
+
+
+    function openPopup() {
+    const popup = document.querySelector('.deliveryPopup');
+    popup.style.display = 'block';
+    }
+

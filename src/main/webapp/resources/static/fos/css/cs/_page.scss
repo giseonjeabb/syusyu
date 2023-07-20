@@ -404,7 +404,7 @@
     font-size: 15px;
     line-height: 18px;
     color: #555;
-    background: url(../images/icon_star.png) no-repeat left 1px;
+    background: url("../../../image/icon_star.png") no-repeat left 1px;
     strong {
       font-weight: 400;
     }
@@ -2838,12 +2838,12 @@ $n: 30;
               width: 70px;
               height: 14px;
               margin: 0 5px 0 0;
-              background: url(../images/icon_star_bg.png) repeat-x left center/ 14px 14px ;
+              background: url("../../../image/icon_star.png") repeat-x left center/ 14px 14px ;
               font-size: 0;
               em{
                 display: block;
                 height: 14px;
-                background: url(../images/icon_star.png) repeat-x left center/ 14px 14px;
+                background: url("../../../image/icon_star.png") repeat-x left center/ 14px 14px;
               }
             }
             .txt{

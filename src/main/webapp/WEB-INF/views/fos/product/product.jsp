@@ -11,11 +11,8 @@
     <script src="${jsUrlFos}/product/product.js"></script>
 </head>
 
-<main class="">
 
-    <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/front/ui.share.js"></script>
-    <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/front/ui.cw.product.coupon.js"></script>
-    <script type="text/javascript" src="//www.ottogimall.co.kr/static/jscript/global/jquery.pickerpack.js"></script>
+
 
     <div class="breadcrumb">
         <%--smallCategory--%>
@@ -25,21 +22,21 @@
             <a href="/productList/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
         </div>
     </div>
-
     <form id="frm_product" method="post">
-<%--        <input type="hidden" name="pno" id="prod_no" value="916">--%>
-<%--        <input type="hidden" name="cate" id="prod_cate" value="28">--%>
+<%--        <input type="hidden" name="pno" id="prod_no" value="2057">--%>
+<%--        <input type="hidden" name="cate" id="prod_cate" value="33">--%>
 <%--        <input type="hidden" name="params" value="">--%>
 <%--        <input type="hidden" id="opt_kind" name="optKind" value="1">--%>
-<%--        <input type="hidden" id="opt_type" name="optType" value="0">--%>
-<%--        <input type="hidden" id="stock_qty" name="stockQty" value="33">--%>
-<%--        <input type="hidden" id="prod_sale_price" value="4380.00">--%>
+<%--        <input type="hidden" id="opt_type" name="optType" value="100">--%>
+<%--        <input type="hidden" id="stock_qty" name="stockQty" value="74">--%>
+<%--        <input type="hidden" id="prod_sale_price" value="3380.00">--%>
 <%--        <input type="hidden" id="prod_disc_event" value="">--%>
 <%--        <input type="hidden" id="prod_delivery" value="" fee="3000.00" limit="30000.00">--%>
-<%--        <input type="hidden" id="pdInfo" data-pno="916" data-optkind="1" data-cateidx="28">--%>
+<%--        <input type="hidden" id="pdInfo" data-pno="2057" data-optkind="1" data-cateidx="33">--%>
         <div class="goods-detail-wrap">
-<%--            <input type="hidden" id="pdPrice" data-baseprice="4380.00" data-finalprice="4380.00" data-discrate="0">--%>
-            <!-- 상품상세 상단-->
+<%--            <input type="hidden" id="pdPrice" data-baseprice="3380.00" data-finalprice="3380.00" data-discrate="0">--%>
+
+           ` <!-- 상품상세 상단-->
             <div class="inner-content">
                 <section class="goods-top-box">
                     <div class="goods-thumbs img-slide">
@@ -68,7 +65,7 @@
                             <div class="name">
                                 <p>${productDetail.prodNm}</p>
                                 <div class="btn-wrap btn-active-wrap">
-                                    <button type="button" class="btn icon like "><span class="btn-active-cont" no="916">상품 찜하기</span></button>
+                                    <button type="button" class="btn icon like "><span class="btn-active-cont" no="${productDetail.prodId}"></span></button>
                                     <div class="pbw-wrap">
                                         <button type="button" class="btn icon share btn-share" data-type="share"><span class="text">공유하기</span></button>
                                         <div class="popup-wrap popup-share">
@@ -78,6 +75,12 @@
                                                     <a href="javascript:void(0);" class="btn icon remove_19" data-btn="false">close</a>
                                                 </div>
                                                 <div class="popup-content" data-type="share-box">
+
+
+
+
+
+
 
                                                     <div class="popup-bottom-share-content">
 
@@ -106,30 +109,25 @@
                                     </div>
                                 </div><!--// btn-wrap -->
                             </div><!--//name-->
-
                             <div class="star-avg">
                                 <div class="avg-per">
-                                    <span class="star-per"><em style="width:0.0%;">평점</em></span>
+                                    <span class="star-per"><em style="width:100.0%;">평점</em></span>
                                     <span data-name="num">${productDetail.avgStarRating}</span>
                                     <a href="#goodsReview" class="txt">${productDetail.revwCnt}건</a>
                                 </div>
                             </div><!--//star-avg-->
                             <div class="price">
                                 <div class="flex al-center">
-                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>
-                                     <span class="won">원</span>
-
+                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/><span class="won">원</span>
                                 </div>
                             </div><!--// price -->
 
+
                             <div class="coupon-box">
                                 <input type="hidden" coupon-total="0">
-
-
                                 <!-- 쿠폰 종류 -->
-
-
                             </div><!--// coupon-box -->
+
 
                             <ul class="goods-guide">
                                 <li class="flex">
@@ -138,15 +136,20 @@
                                 </li>
                                 <li class="flex">
                                     <span class="g-tit">적립정보</span>
-                                    <span class="g-cont"><span>로그인 후 적립혜택 제공</span></span>
-
+                                    <span class="g-cont">
+                                        <span>로그인 후 적립혜택 제공
+                                            <em class="fw-7">0.5%</em>
+                                            (17 마일리지)
+                                        </span>
+                                    </span>
                                 </li>
                                 <li class="flex">
                                     <span class="g-tit">배송정보</span>
                                     <span class="g-cont">
                                         <span class="deli-info">
                                             <em class="fw-7">3,000</em>원
-                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="bta.alert.open('.deliveryPopup');">
+<%--                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="bta.alert.open('.deliveryPopup');">--%>
+                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="openPopup()">
                                                 <span class="ty2"></span>
                                             </button>
                                         </span>
@@ -154,22 +157,32 @@
                                     </span>
                                 </li>
 
-                                <li class="flex al-center">
-                                    <span class="g-tit">수량선택</span>
-                                    <span class="g-cont">
-											<div class="item-qty" data-name="item-total-cnt">
-
-													<input class="item_qty_count" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="1" max="0" stock="33">
-
-												<button type="button" class="btn icon minus"><span>상품수량 빼기</span></button>
-												<button type="button" class="btn icon plus"><span>상품수량 더하기</span></button>
-											</div>
-										</span>
-                                </li><!--// 수량 선택 -->
-
                                 <!--옵션 선택 -->
 
+                                <li class="flex">
+                                    <span class="g-tit pt-10">옵션선택</span>
+                                    <span class="g-cont">
+
+
+											<div class="custom_select" type="general">
+
+												<div class="ui selection dropdown option-select" tabindex="0">
+													<input type="hidden" id="opt_picker_1_1" value="">
+													<div class="default text">옵션을 선택하세요</div>
+													<div class="menu" tabindex="-1"><div class="item" data-value="5"><span>풋팟퐁카레 + 오뚜기밥 작은밥</span></div><div class="item" data-value="6"><span>치킨마살라 + 오뚜기밥 작은밥</span></div><div class="item" data-value="7"><span>치킨마크니 + 오뚜기밥 작은밥</span></div><div class="item" data-value="8"><span>비프코르마 + 오뚜기밥 작은밥</span></div></div>
+												</div>
+
+											</div><!-- // custom_select -->
+
+
+
+
+										</span>
+                                </li><!--//옵션선택 -->
+
                             </ul><!--//goods-guide-->
+
+                            <div class="option-selected-list"></div><!--//option-selected-list-->
 
                             <script id="tpl_basket_product" type="text/x-handlebars-template"><!-- 선택한 상품 옵션 리스트 -->
                             <div class="option-select-item" idx="{{idx}}">
@@ -192,15 +205,20 @@
                             <div class="total-price-area">
                                 <div class="total-price">
                                     총금액
-                                    <strong data-type="price">4,380</strong>
+                                    <strong data-type="price">0</strong>
                                     <span class="color-1 ">원</span>
                                 </div>
                             </div><!--//total-price-area-->
                             <div class="btn-area">
 
-                                <a href="javascript:" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="false"><span>선물함 담기</span></a>
+
+
+
+                                <a href="javascript:" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></a>
+
                                 <a href="javascript:" class="btn ty4 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></a>
                                 <a href="javascript:" class="btn ty4 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></a>
+
 
                             </div><!--//btn-area-->
 
@@ -218,31 +236,31 @@
                                 <a href="#" class="active">상세정보</a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#" class="">상품후기 <span><em name="tab_review_size">${productDetail.revwCnt}</em></span></a>
+                                <a href="#">상품후기 <span><em name="tab_review_size">${productDetail.revwCnt}</em></span></a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#" class="">구매정보</a>
+                                <a href="#">구매정보</a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#" class="">상품문의 <span><em name="tab_qna_size">0</em></span></a>
+                                <a href="#">상품문의 <span><em name="tab_qna_size">0</em></span></a>
                             </li>
                         </ul><!--//tab-group-list-->
                     </div>
                 </div><!--//tab-group-list-wrap-->
                 <div class="goods-detail-con">
                     <div class="inner-content move-container flex">
-                        <div class="tab-group-cont content-mini left-case"><!-- 상세정보 -->
-
-
-
+                        <div class="tab-group-cont content-mini left-case">
+                            <!-- 상세정보 -->
                             <div class="tab-cont goods-detail-img">
-                                <!-- [OPENEDITOR] --><p><span class="rte-attach" style="display: block;"></span><span class="rte-attach" style="display: block;"><span class="rte-attach" style="display: block;"><img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/ottogi/yj/jinstir_1.jpg"></span><br></span><span class="rte-attach" style="display: block;"><span class="rte-attach" style="display: block;"><img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/yj0038/detailpage/rice/jin ramen/5.jpg"></span></span></p>
+                                <div style="text-align : center;">
+                                    <c:forEach var="img" items="${imageList}">
+                                        <img src="${img.imagePath}">
+                                    </c:forEach>
+                                </div>
                             </div>
-
 
                             <!-- 상품후기 -->
                             <div class="tab-cont goods-review" id="goodsReview">
-
                                 <section class="def-box" data-name="review">
                                     <div class="def-box-head mb-15">
                                         <h4 class="tit">상품후기</h4>
@@ -252,7 +270,7 @@
                                         <div class="star-avg">
                                             <div class="avg-per">
                                                 <span data-type="num">${productDetail.avgStarRating}</span>
-                                                <span class="star-per"><em style="width: 0%;">평점</em></span>
+                                                <span class="star-per"><em style="width:100%;">평점</em></span>
                                                 <p class="txt">총 <span name="tab_review_size">${productDetail.revwCnt}</span>건</p>
                                             </div>
                                         </div>
@@ -269,219 +287,48 @@
                                             </div>
                                         </div><!--//sorting-->
 
-                                        <div class="reviews-list-wrap" page-no="1" total-size="0" total-page="1" total-review="0" rating-avg="0" rating-star="0">
+                                        <div class="reviews-list-wrap" page-no="1" total-size="1" total-page="1" total-review="1" rating-avg="5.0" rating-star="5">
 
 
-                                            <div class="list-none bt-0">
-                                                <p class="msg-text">상품후기가 없습니다.</p>
-                                            </div>
+
+                                            <div class="rev-list view-list" data-idx="1388">
+                                                <div class="rev-detail">
+                                                    <div class="star-per-wrap">
+                                                        <div class="star-per"><em style="width:100%;">평점</em></div>
+                                                        <p class="star-sc">5</p>
+                                                    </div>
+                                                    <div class="rev-info">
+                                                        <span class="writer"><em>작성자</em>rlaaud***</span>
+                                                        <span class="date"><em>날짜</em>2023.06.07</span>
+
+                                                    </div><!--//rev-info -->
+                                                    <div class="rev-cont">
+                                                        같이 온 작은 밥과 먹기 딱 좋은 양이에요!<br>봉지채 조리 가능해서 먹기 넘 편해요!<br>맛도 당연히 좋습니당
+
+                                                        <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">
+
+                                                    </div>
+                                                    <button type="button" class="review-more detail-more-btn" style="">더보기</button>
+                                                </div>
+
+                                                <div class="rev-photo">
+                                                    <div class="photo-list">
+                                                        <a href="#">
+                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <span class="photo-amount"><em>1</em></span>
+                                                </div>
+
+
+                                            </div><!-- // rev-list -->
+
 
                                         </div><!--//reviews-list-wrap--></div><!--//def-box-content-->
                                 </section>
 
                                 <div id="ux_review_regist" class="popup-wrap" active-popup="true"></div>
 
-
-                                <script type="text/javascript">
-                                    // //<![CDATA[
-                                    // let prodReview = {
-                                    //     params: {
-                                    //         psort : 'high'
-                                    //     },
-                                    //     page: 0,
-                                    //     oncompleted: function(){},
-                                    //     setParams: function(params) {
-                                    //         this.params = params;
-                                    //     },
-                                    //     setPage: function(page) {
-                                    //         this.page = page;
-                                    //     },
-                                    //     getList: function(options) {
-                                    //         let self = this;
-                                    //         let opts = $.extend({
-                                    //             page : 0,
-                                    //             oncompleted:function(){}
-                                    //         }, options);
-                                    //
-                                    //         self.page = opts.page;
-                                    //         $.ajax({
-                                    //             type: "post",
-                                    //             url: "https://www.ottogimall.co.kr/front/product/review_list.ajax",
-                                    //             data: $.extend({
-                                    //                 pno: '916',
-                                    //                 page: self.page,
-                                    //                 psort: self.psort
-                                    //             }, this.params),
-                                    //             success: function (result) {
-                                    //                 var $result = $(result);
-                                    //                 var pageNo = $result.attr('page-no'),
-                                    //                     totalReview = $result.attr('total-review'),
-                                    //                     ratingAvg = $result.attr('rating-avg');
-                                    //                 self.page = pageNo;
-                                    //                 const $container = $("#goodsReview .def-box-content");
-                                    //                 $container.find(".reviews-list-wrap").remove();
-                                    //                 $container.find(".pagination").remove();
-                                    //                 $container.append($result);
-                                    //
-                                    //                 // 상품후기 평점
-                                    //                 var ratingRatio = (ratingAvg * 100) / '5'.toNum();
-                                    //                 $(".star-avg .avg-per span[data-type='num']").text(ratingAvg);
-                                    //                 $('.star-avg .avg-per').find('em').css({width: ratingRatio+'%'});
-                                    //
-                                    //                 // 상품후기 탭 > 후기 개수 설정
-                                    //                 $("[name='tab_review_size']").text(function() {
-                                    //                     return (totalReview>9999 ? "9,999+" : totalReview);
-                                    //                 });
-                                    //
-                                    //                 // 더보기 버튼
-                                    //                 $(".rev-list .rev-detail .rev-cont").filter(function(){
-                                    //                     return $(this).outerHeight() >= 43
-                                    //                 }).next(".review-more").show();
-                                    //
-                                    //                 opts.oncompleted();
-                                    //             }
-                                    //         });
-                                    //     },
-                                    //     getPhoto: function() { // 사용 X
-                                    //         $.ajax({
-                                    //             type: "post",
-                                    //             dataType: "json",
-                                    //             url: "https://www.ottogimall.co.kr/front/product/review_photo_lastly.ajax",
-                                    //             data: {
-                                    //                 pno: '916'
-                                    //             },
-                                    //             success: function (result) {
-                                    //                 if (result.error > 0) return false;
-                                    //
-                                    //                 var $box = $('#review_photo_lastly'),
-                                    //                     $count = $box.find('.count');
-                                    //
-                                    //                 $box.children(':not(.count)').remove();
-                                    //
-                                    //                 $.each(result.data.list, function(i, obj) {
-                                    //                     var $row = $('<li />'),
-                                    //                         $a = $('<a href="#" idx="'+obj.idx+'" />').appendTo($row),
-                                    //                         $img = $('<img src="'+obj.photoUrl+'" alt="" />').appendTo($a);
-                                    //
-                                    //                     $count.before($row);
-                                    //                 });
-                                    //
-                                    //                 if (result.data.size > 4) {
-                                    //                     $count.removeClass('blind').find('span').text(function() {
-                                    //                         return "("+(result.data.size>999 ? "999+" : result.data.size)+")";
-                                    //                     });
-                                    //                 } else {
-                                    //                     $count.addClass('blind').find('span').text('');
-                                    //                 }
-                                    //             }
-                                    //         });
-                                    //     }
-                                    // };
-                                    //
-                                    // $(function() {
-                                    //     prodReview.getList();
-                                    //
-                                    //     // 후기 작성
-                                    //     $("a[data-type='review_regist']").on("click", function(){
-                                    //         bta.opener.reviewRegist({
-                                    //             type : "product",
-                                    //             pno: 916,
-                                    //             oncompleted: function() {
-                                    //                 prodReview.getList();
-                                    //             }
-                                    //         });
-                                    //     });
-                                    //
-                                    //     // 상품 후기 수정
-                                    //     $(document).on('click', ".reviews-list-wrap button[data-type='modify']", function() {
-                                    //         bta.opener.reviewRegist({
-                                    //             type : "product",
-                                    //             pno: 916,
-                                    //             idx: $(this).parents(".rev-list").data("idx"),
-                                    //             oncompleted: function() {
-                                    //                 prodReview.getList();
-                                    //             }
-                                    //         });
-                                    //     });
-                                    //
-                                    //     // 상품 후기 삭제
-                                    //     $(document).on('click', ".reviews-list-wrap button[data-type='del']", function() {
-                                    //         let revIdx = $(this).parents(".rev-list").data("idx");
-                                    //         bta.alert.confirmCustom("소중하게 작성하신 후기를 삭제 하시겠습니까?","네, 삭제할게요", "그럼 안할게요",function(res){
-                                    //             if(res){
-                                    //                 $.ajax({
-                                    //                     type : 'post',
-                                    //                     url: URI_FRONT_MW+"/mypage/shop.act",
-                                    //                     data: $.extend({
-                                    //                         pno: 916,
-                                    //                         idx: revIdx,
-                                    //                         exec:"review",
-                                    //                         cmd :"remove",
-                                    //                     }, this.params),
-                                    //                     success: function(result) {
-                                    //                         if (result.message) bta.alert.open(".popup-alert", result.message);
-                                    //                         if (result.error > 0) return false;
-                                    //
-                                    //                         prodReview.getList();
-                                    //                     }
-                                    //                 });
-                                    //             }
-                                    //         });
-                                    //     });
-                                    //
-                                    //     // 상품 후기 정렬
-                                    //     $('#goodsReview .sorting a').on('click', function() {
-                                    //         let stype = $("#goodsReview .sorting input[name='filter-photo']").is(":checked") ? 'photo' : '';
-                                    //         if(!$(this).hasClass("active")){
-                                    //             $('#goodsReview .sorting a').removeClass("active");
-                                    //             $(this).addClass("active");
-                                    //         }else{
-                                    //             return false;
-                                    //         }
-                                    //         prodReview.setParams({
-                                    //             stype: stype,
-                                    //             psort: $(this).attr("combo-list-item")
-                                    //         });
-                                    //         prodReview.getList();
-                                    //     });
-                                    //
-                                    //
-                                    //     // 포토 후기만 보기
-                                    //     $(document).on('click', "#goodsReview .sorting input[name='filter-photo']", function() {
-                                    //         let psort = $('#goodsReview .sorting a.active').attr("combo-list-item");
-                                    //         if ($(this).is(":checked")) {
-                                    //             prodReview.setParams({
-                                    //                 stype: 'photo',
-                                    //                 psort: psort
-                                    //             });
-                                    //         }else{
-                                    //             prodReview.setParams({
-                                    //                 psort: psort
-                                    //             });
-                                    //         }
-                                    //         prodReview.getList();
-                                    //     });
-                                    //
-                                    //     // 상품 후기 페이징
-                                    //     $(document).on('click', '#goodsReview .pagination a', function() {
-                                    //         var page = $(this).attr('page');
-                                    //         if ($('.reviews-list-wrap').attr('page-no') == page) {
-                                    //             return false;
-                                    //         }
-                                    //
-                                    //         prodReview.getList({
-                                    //             page : page,
-                                    //             oncompleted : function(){
-                                    //                 $(".tab-group-list .tab-menu a").eq(1).click();
-                                    //             }
-                                    //         });
-                                    //         return false; // 기존 pagination href 페이지 이동 false;
-                                    //     });
-                                    //
-                                    //
-                                    // });
-                                    // //]]>
-                                </script>
                             </div><!--// 상품후기 -->
                             <!-- 구매정보 -->
                             <div class="tab-cont">
@@ -506,13 +353,13 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <th>제품 소제</th>
+                                                    <th>제품 소</th>
                                                     <td>${productDetail.mfgdMatr}</td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>색상</th>
-                                                    <td>옵션조인해서 가져오기./.</td>
+                                                    <td>상품설명 및 상품 이미지 참조</td>
                                                 </tr>
 
                                                 <tr>
@@ -533,6 +380,7 @@
                                                 <tr>
                                                     <th>취급시 주의사항</th>
                                                     <td>상품 TAG 참고 / 소비자 부주의로 인한 제품 손상 보상 불가</td>
+                                                </tr>
 
                                                 <tr>
                                                     <th>품질보증기준</th>
@@ -570,9 +418,108 @@
                                         <i class="icon icon-arr-b"></i>
                                     </div>
                                     <div class="fold-content">
-                                        <p>&nbsp;</p><div class="con mb-40" style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;"><h6 class="sub-tit" style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">[배송비 기본]</h6><ul class="list ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">기본 배송료는 3,000원입니다.&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">오뚜기몰은 배송 유형별 분리 배송을 원칙으로 하며, 배송 유형별로 배송비가 부과됩니다.<br style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(도서산간지역은 5,000원의 추가 배송비가 부과되며, 배송이 제한될 수 있습니다.)<br style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단, 선물받는 사람이 도서산간 지역이어도 선물하기에서는 기본 배송료만 부과합니다.)&ZeroWidthSpace;</li></ul></div><div class="con mb-40" style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;"><h6 class="sub-tit" style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">[무료배송 기준]</h6><ul class="list ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">무료배송 혜택 상품 및 배송 유형별 30,000원 이상 구매 시 무료배송입니다.&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">배송 유형 간 교차 합계 금액은 무료배송에 적용되지 않습니다.&ZeroWidthSpace;<br style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(실온 배송 + 냉장냉동 상품의 합계가 30,000원 이상이어도 무료배송 불가)&ZeroWidthSpace;<br style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단, 무료배송 상품이 포함되어있는 주문 전체에는 무료배송이 적용됩니다)</li></ul></div><div class="con mb-40" style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;"><h6 class="sub-tit" style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">[출고일]</h6><ul class="list ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">13시 이전 결제 완료 시 당일 출고&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">13시 이후 결제 완료 시 명일 출고&ZeroWidthSpace;</li><span id="husky_bookmark_end_1675910884026"></span><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">재고 부족 등으로 출고가 불가할 경우 배송 가능한 상품은 선배송 처리되며, 알림톡 또는 SMS로 안내 드립니다.&ZeroWidthSpace;</li></ul></div><div class="con mb-40" style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><h6 class="sub-tit" style="color: rgb(29, 29, 27); font-size: 16px; margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline;">[배송기간]&ZeroWidthSpace;</h6><ul class="list ty1" style="color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">평균 배송일은 연휴 및 공휴일을 제외한 영업일 기준, 입금/결제 확인 후 2일~4일입니다.&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">배송 예정일은 주문시점에 따라 평균 배송일과 다를 수 있습니다.&ZeroWidthSpace;</li></ul><div style=""><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style=""><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style=""><font color="#333333"><span style="font-size: 15px;"></span></font></div><h6 class="sub-tit" style="letter-spacing: -0.4px; margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px; color: rgb(29, 29, 27);">[택배사]&ZeroWidthSpace;</h6><ul class="list ty1" style="letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none; color: rgb(29, 29, 27); font-size: 16px;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"><b>롯데택배</b>&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-2121(롯데택배)에서 가능합니다.&ZeroWidthSpace;</li><li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;</li></ul><div style=""><span style="letter-spacing: -0.4px;">&nbsp;</span><font color="#333333"><span style="font-size: 15px;"><br></span></font></div></div>
+                                        <p>&nbsp;</p>
+                                        <div class="con mb-40"
+                                             style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;">
+                                            <h6 class="sub-tit"
+                                                style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">
+                                                [배송비 기본]</h6>
+                                            <ul class="list ty1"
+                                                style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    기본 배송료는 3,000원입니다.&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    도서산간지역 배송료는 3,000원 있습니다.<br
+                                                        style="box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;">(단,
+                                                    선물받는 사람이 도서산간 지역이어도 선물하기에서는 기본 배송료만 부과합니다.)&ZeroWidthSpace;
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="con mb-40"
+                                             style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;">
+                                            <h6 class="sub-tit"
+                                                style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">
+                                                [무료배송 기준]</h6>
+                                            <ul class="list ty1"
+                                                style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    무료배송 혜택 상품 및 배송료는 50,000원 이상 구매 시 무료배송입니다.&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    무료배송 상품이 포함되어있는 주문 전체에는 무료배송이 적용됩니다&ZeroWidthSpace;
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="con mb-40"
+                                             style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px;">
+                                            <h6 class="sub-tit"
+                                                style="margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px;">
+                                                [출고일]</h6>
+                                            <ul class="list ty1"
+                                                style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    13시 이전 결제 완료 시 당일 출고&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    13시 이후 결제 완료 시 명일 출고&ZeroWidthSpace;
+                                                </li>
+                                                <span id="husky_bookmark_end_1675910884026"></span>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    재고 부족 등으로 출고가 불가할 경우 배송 가능한 상품은 선배송 처리되며, 알림톡 또는 SMS로 안내 드립니다.&ZeroWidthSpace;
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="con mb-40"
+                                             style="margin: 0px 0px 44px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-family: Pretendard, sans-serif; letter-spacing: -0.4px;">
+                                            <h6 class="sub-tit"
+                                                style="color: rgb(29, 29, 27); font-size: 16px; margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline;">
+                                                [배송기간]&ZeroWidthSpace;</h6>
+                                            <ul class="list ty1"
+                                                style="color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    평균 배송일은 연휴 및 공휴일을 제외한 영업일 기준, 입금/결제 확인 후 2일~4일입니다.&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);"></li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    배송 예정일은 주문시점에 따라 평균 배송일과 다를 수 있습니다.&ZeroWidthSpace;
+                                                </li>
+                                            </ul>
+                                            <div style=""><font color="#333333"><span style="font-size: 15px;"><br></span></font>
+                                            </div>
+                                            <div style=""><font color="#333333"><span style="font-size: 15px;"><br></span></font>
+                                            </div>
+                                            <div style=""><font color="#333333"><span
+                                                    style="font-size: 15px;"></span></font></div>
+                                            <h6 class="sub-tit"
+                                                style="letter-spacing: -0.4px; margin: 0px 0px 10px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 16px; color: rgb(29, 29, 27);">
+                                                [택배사]&ZeroWidthSpace;</h6>
+                                            <ul class="list ty1"
+                                                style="letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none; color: rgb(29, 29, 27); font-size: 16px;">
+                                                <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    <b>CJ대한통운</b>&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-1255(CJ대한통운)에서 가능합니다.&ZeroWidthSpace;
+                                                </li>
+                                                <li style="margin: 2px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 26px; color: rgb(51, 51, 51);">
+                                                    단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;
+                                                </li>
+                                            </ul>
+                                            <div style=""><span style="letter-spacing: -0.4px;">&nbsp;</span><font
+                                                    color="#333333"><span
+                                                    style="font-size: 15px;"><br></span></font></div>
+                                        </div>
                                     </div>
                                 </div>
+
 
 
                                 <div class="fold-box">
@@ -609,155 +556,7 @@
 
                                 <div id="ux_qna_regist" class="popup-wrap" active-popup="true"></div>
 
-                                <script type="text/javascript">
-                                    //<![CDATA[
-                                    let prodQna = {
-                                        params: {},
-                                        page: 0,
-                                        setParams: function(params) {
-                                            this.params = params;
-                                        },
-                                        setPage: function(page) {
-                                            this.page = page;
-                                        },
-                                        getList: function(options) {
-                                            let self = this;
-                                            let opts = $.extend({
-                                                page : 0,
-                                                oncompleted:function(){}
-                                            }, options);
 
-                                            self.page = opts.page;
-
-                                            $.ajax({
-                                                type: "post",
-                                                url: "https://www.ottogimall.co.kr/front/product/qna_list.ajax",
-                                                data: $.extend({
-                                                    pno: '916',
-                                                    page: this.page
-                                                }, this.params),
-                                                success: function (result) {
-                                                    var $result = $(result);
-                                                    var pageNo = $result.attr("page-no"),
-                                                        totalSize = $result.attr("total-size"),
-                                                        totalPage = $result.attr("total-page"),
-                                                        totalQna = $result.attr("total-qna");
-
-                                                    self.page = pageNo;
-                                                    const $container = $(".goods-qna");
-                                                    $container.find(".goods-qna-list-wrap").remove();
-                                                    $container.append($result);
-
-                                                    // 상품문의 탭 > 문의 개수 설정
-                                                    $("[name='tab_qna_size']").text(function() {
-                                                        return (totalQna>9999 ? "9,999+" : totalQna);
-                                                    });
-
-                                                    opts.oncompleted();
-                                                }
-                                            });
-                                        }
-                                    };
-
-                                    $(function() {
-                                        prodQna.getList();
-
-                                        $('#qna_mine').on('change', function() { // 내 문의만 보기
-
-                                            $(this).prop("checked", false);
-                                            bta.alert.confirm("로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?",function(res){
-                                                if(res){
-                                                    bta.forceLogin();
-                                                }
-                                            });
-                                            return false;
-
-                                            prodQna.setParams({
-                                                smine: ($('#qna_mine').is(':checked') ? 1 : 0)
-                                            });
-                                            prodQna.getList();
-                                        });
-
-                                        // 상품 문의 작성하기
-                                        $('.bt-qna-regist').on('click', function() {
-                                            bta.opener.qnaRegist({
-                                                pno: 916,
-                                                oncompleted: function(idx) {
-                                                    if (! idx) {
-                                                        prodQna.setParams({
-                                                            smine: ($('#qna_mine').is(':checked') ? 1 : 0),
-                                                        });
-                                                        prodQna.setPage(0);
-                                                    }
-                                                    prodQna.getList();
-                                                }
-                                            });
-                                        });
-
-                                        // 상품 문의 수정
-                                        $(document).on('click', "a[type='modify']", function() {
-                                            bta.opener.qnaRegist({
-                                                pno: 916,
-                                                idx: $(this).parents(".qna-list").data("idx"),
-                                                cmd: 'modify',
-                                                oncompleted: function(idx) {
-                                                    if (! idx) {
-                                                        prodQna.setParams({
-                                                            smine: ($('#qna_mine').is(':checked') ? 1 : 0),
-                                                        });
-                                                        prodQna.setPage(0);
-                                                    }
-                                                    prodQna.getList();
-                                                }
-                                            });
-                                        });
-
-                                        // 상품 문의 삭제
-                                        $(document).on('click', "a[type='del']", function() {
-                                            $.ajax({
-                                                type : 'post',
-                                                url: URI_FRONT_CW+"/product/qna.act",
-                                                data: $.extend({
-                                                    pno: 916,
-                                                    idx: $(this).parents(".qna-list").data("idx"),
-                                                    cmd : "remove",
-                                                }, this.params),
-                                                success: function(result) {
-                                                    if (result.message) bta.alert.open(".popup-alert", result.message);
-                                                    if (result.error > 0) return false;
-                                                    bta.alert.open(".popup-alert", "상품문의가 삭제되었습니다.");
-                                                    prodQna.setParams({
-                                                        smine: ($('#qna_mine').is(':checked') ? 1 : 0),
-                                                    });
-
-                                                    prodQna.getList();
-                                                }
-                                            });
-                                        });
-
-                                        $(document).on('click', '.detail-more-btn.secret', function(){
-                                            bta.alert.toastOpen(".popup-toast", "비공개 문의는 작성자 본인만 확인할 수 있습니다.");
-                                        });
-
-                                        // 상품문의 페이징
-                                        $(document).on('click', '.goods-qna-list-wrap .pagination a', function() {
-                                            var page = $(this).attr('page');
-                                            if ($('.goods-qna-list-wrap').attr('page-no') == page) {
-                                                return false;
-                                            }
-
-                                            prodQna.getList({
-                                                page : page,
-                                                oncompleted : function(){
-                                                    $(".tab-group-list .tab-menu a").eq(3).click();
-                                                    // $('html, body').animate({scrollTop: $('.goods-qna-list-wrap').offset().top - 200}, 0);
-                                                }
-                                            });
-                                            return false; // 기존 pagination href 페이지 이동 false;
-                                        });
-                                    });
-                                    //]]>
-                                </script>
 
 
                                 <div class="goods-qna-list-wrap" page-no="1" total-size="0" total-page="1" total-qna="0">
@@ -778,44 +577,30 @@
                                     <div class="option-selected-list">
 
 
+                                        <div class="custom_select">
 
-
-
-
-                                        <div class="option-select-item">
-
-                                            <p class="option-tit">진라면볶음밥 230G</p>
-
-
-                                            <div class="option-control-box">
-                                                <div class="item-qty">
-
-                                                    <input class="item_qty_count" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="1" max="0" stock="33">
-
-
-                                                    <button type="button" class="btn icon minus"><span>상품수량 빼기</span></button>
-                                                    <button type="button" class="btn icon plus"><span>상품수량 더하기</span></button>
-                                                </div>
-                                                <div class="option-price">
-
-                                                    <span>4,380원</span>
-                                                </div>
+                                            <div class="ui selection dropdown option-select" tabindex="0">
+                                                <input type="hidden" id="opt_picker_2_1" value="">
+                                                <div class="default text">옵션을 선택하세요</div>
+                                                <div class="menu" tabindex="-1">
+                                                    <div class="item" data-value="5"><span>풋팟퐁카레 + 오뚜기밥 작은밥</span></div><div class="item" data-value="6"><span>치킨마살라 + 오뚜기밥 작은밥</span></div><div class="item" data-value="7"><span>치킨마크니 + 오뚜기밥 작은밥</span></div><div class="item" data-value="8"><span>비프코르마 + 오뚜기밥 작은밥</span></div></div>
                                             </div>
-                                        </div>
+
+                                        </div><!-- // custom_select -->
 
                                     </div><!--//option-selected-list-->
                                 </div><!--//inner-->
                                 <div class="bottom-wrap">
                                     <div class="total-price flex space-between">
                                         <span>총 금액</span>
-                                        <span class="point flex al-center"><em data-type="price">4,380</em>원</span>
+                                        <span class="point flex al-center"><em data-type="price">0</em>원</span>
                                     </div>
                                     <div class="btn-wrap flex space-between">
 
 
 
 
-                                        <button type="button" class="btn ty4 free w-92 c-ty2 gift" data-name="order-by" data-type="gift" data-boolean="false"><span>선물함 담기</span></button>
+                                        <button type="button" class="btn ty4 free w-92 c-ty2 gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></button>
 
                                         <button type="button" class="btn ty4 free w-94 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></button>
                                         <button type="button" class="btn ty4 free w-94 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></button>
@@ -832,194 +617,6 @@
                 <div class="goods-detail-recommend">
 
 
-                    <div class="inner-content"><!--함께 구매하면 더 좋은 상품-->
-                        <section class="def-box">
-                            <div class="def-box-head">
-                                <h4 class="tit">함께 구매하면 더 좋은 상품</h4>
-                            </div>
-                            <div class="def-box-content l-wrap">
-                                <div class="sw-box etc-ty2">
-                                    <div class="sw-cont sw-items normal-type n4" data-nth="4" data-swsb="40">
-                                        <div class="swiper-wrapper">
-
-
-
-
-                                            <div class="swiper-slide">
-                                                <div class="prd-item">
-                                                    <div class="thumbs hover">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=886&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/list/20221125/1687848566410jtbFu.1hbghv3g8o411.jpg" alt="맛있는 참치김치치즈볶음밥(용기) 230G">
-                                                        </a>
-                                                    </div>
-                                                    <div class="desc">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=886&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <p class="name fw-7">맛있는 참치김치치즈볶음밥(용기) 230G</p>
-                                                            <div class="price">
-
-
-
-                                                                <p class="amount">
-                                                                    3,580<span class="won">원</span>
-                                                                </p>
-
-
-                                                            </div>
-                                                            <div class="grade">
-                                                                <strong>5.0</strong>
-                                                                <span>(2)</span><!-- 리뷰 -->
-                                                            </div><!-- // grade -->
-                                                            <div class="badge-cont">
-
-
-                                                                <span class="badge-item ty3">냉장&amp;냉동</span>
-
-
-                                                            </div>
-                                                        </a>
-                                                        <div class="prd-item-btn">
-                                                            <button type="button" class="btn icon cart add-cart-bt"><span class="text">장바구니 담기</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="swiper-slide">
-                                                <div class="prd-item">
-                                                    <div class="thumbs hover">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=882&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/list/20221125/23010020_1.jpg" alt="맛있는 새우볶음밥(용기) 230G">
-                                                        </a>
-                                                    </div>
-                                                    <div class="desc">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=882&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <p class="name fw-7">맛있는 새우볶음밥(용기) 230G</p>
-                                                            <div class="price">
-
-
-
-                                                                <p class="amount">
-                                                                    3,280<span class="won">원</span>
-                                                                </p>
-
-
-                                                            </div>
-                                                            <div class="grade">
-                                                                <strong>5.0</strong>
-                                                                <span>(1)</span><!-- 리뷰 -->
-                                                            </div><!-- // grade -->
-                                                            <div class="badge-cont">
-
-
-                                                                <span class="badge-item ty3">냉장&amp;냉동</span>
-
-
-                                                            </div>
-                                                        </a>
-                                                        <div class="prd-item-btn">
-                                                            <button type="button" class="btn icon cart add-cart-bt"><span class="text">장바구니 담기</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="swiper-slide">
-                                                <div class="prd-item">
-                                                    <div class="thumbs hover">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=885&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/list/20221125/1687848462657irJJ8.1hbd9px084ab4.jpg" alt="맛있는 베이컨치즈볶음밥(용기) 230G">
-                                                        </a>
-                                                    </div>
-                                                    <div class="desc">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=885&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <p class="name fw-7">맛있는 베이컨치즈볶음밥(용기) 230G</p>
-                                                            <div class="price">
-
-
-
-                                                                <p class="amount">
-                                                                    3,580<span class="won">원</span>
-                                                                </p>
-
-
-                                                            </div>
-                                                            <div class="grade">
-                                                                <strong>0.0</strong>
-                                                                <span>(0)</span><!-- 리뷰 -->
-                                                            </div><!-- // grade -->
-                                                            <div class="badge-cont">
-
-
-                                                                <span class="badge-item ty3">냉장&amp;냉동</span>
-
-
-                                                            </div>
-                                                        </a>
-                                                        <div class="prd-item-btn">
-                                                            <button type="button" class="btn icon cart add-cart-bt"><span class="text">장바구니 담기</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="swiper-slide">
-                                                <div class="prd-item">
-                                                    <div class="thumbs hover">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=888&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/product/list/20221125/23010048_1.jpg" alt="오즈키친 철판낙지볶음밥 450G">
-                                                        </a>
-                                                    </div>
-                                                    <div class="desc">
-                                                        <a href="https://lc.recopick.com/1/banner/3365/pick?uid=27761726.1687853370651&amp;source=916&amp;pick=888&amp;method=4&amp;channel=detail_down&amp;reco_type=item-item&amp;product_type=R&amp;reco_list=%5B%22886%22%2C%22882%22%2C%22885%22%2C%22888%22%5D&amp;tag=V" target="_self">
-                                                            <p class="name fw-7">오즈키친 철판낙지볶음밥 450G</p>
-                                                            <div class="price">
-
-
-
-                                                                <p class="amount">
-                                                                    7,580<span class="won">원</span>
-                                                                </p>
-
-
-                                                            </div>
-                                                            <div class="grade">
-                                                                <strong>0.0</strong>
-                                                                <span>(0)</span><!-- 리뷰 -->
-                                                            </div><!-- // grade -->
-                                                            <div class="badge-cont">
-
-
-                                                                <span class="badge-item ty3">냉장&amp;냉동</span>
-
-
-                                                            </div>
-                                                        </a>
-                                                        <div class="prd-item-btn">
-                                                            <button type="button" class="btn icon cart add-cart-bt"><span class="text">장바구니 담기</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div><!--//sw-cont-->
-                                    <div class="swiper-nav-btn swiper-button-prev big swbp"></div>
-                                    <div class="swiper-nav-btn swiper-button-next big swbn"></div>
-                                </div><!--//sw-box-->
-                            </div><!--//def-box-content-->
-                        </section>
-                    </div><!-- // 함께 구매하면 더 좋은 상품-->
-
-                </div><!--//goods-detail-recommend-->
 
             </section>
             <!-- // 상품 상세 하단 -->
@@ -1044,6 +641,7 @@
         </div>
     </div>
 
+<%--상품 배송 팝업--%>
     <div class="popup-wrap deliveryPopup" active-popup="true">
         <div class="popup-layer w-430 pd-c-30">
             <div class="popup-head">
@@ -1052,7 +650,7 @@
             </div>
             <div class="popup-content">
                 <div class="inner">
-                    <div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">무료배송 기준</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">동일배송 유형별 상품 30,000원 이상 구매 시 무료배송</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">무료배송 상품 구매 시</li></ul></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit mb-16" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">배송 유형별 상품</h6><div class="tbl ty2 tbl-center" style="margin: 0px; box-sizing: border-box; border-width: 2px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(51, 51, 51); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; padding: 0px; border-image: initial; vertical-align: baseline;"><table class="__se_tbl_ext" style="margin: 0px; border-width: 0px; border-style: initial; border-color: inherit; padding: 0px; border-image: initial; vertical-align: baseline; table-layout: fixed; width: 350px; max-width: 100%; border-collapse: collapse; border-spacing: 0px;"><colgroup style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"></colgroup><tbody style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">상온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(211, 35, 58) !important;">실온</span>표기상품</li></ul></td></tr><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">저온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-9" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(10, 48, 158) !important;">냉장·냉동</span>표기상품</li></ul></td></tr></tbody></table></div></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">지역별 추가배송비</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">도서 산간 지역 추가 배송비 5,000원</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">제주 지역 추가 배송비 5,000원</li></ul></div><div style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; background-color: rgb(255, 255, 255);"><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">배송기간</h6><ul class="list ty3" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">입금/결제 확인 후 평균 2일~4일 (영업일 기준)</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"></span></font></div><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">택배사</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">롯데택배</li><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-2121(롯데택배)에서 가능합니다.&ZeroWidthSpace; 단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><span style="color: rgb(51, 51, 51); font-size: 15px; letter-spacing: -0.4px;"></span></div></div>
+                    <div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">무료배송 기준</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">상품 50,000원 이상 구매 시 무료배송</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">무료배송 상품 구매 시</li></ul></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit mb-16" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">배송 유형별 상품</h6><div class="tbl ty2 tbl-center" style="margin: 0px; box-sizing: border-box; border-width: 2px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(51, 51, 51); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; padding: 0px; border-image: initial; vertical-align: baseline;"><table class="__se_tbl_ext" style="margin: 0px; border-width: 0px; border-style: initial; border-color: inherit; padding: 0px; border-image: initial; vertical-align: baseline; table-layout: fixed; width: 350px; max-width: 100%; border-collapse: collapse; border-spacing: 0px;"><colgroup style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"></colgroup><tbody style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">상온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(211, 35, 58) !important;">실온</span>표기상품</li></ul></td></tr><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">저온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-9" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(10, 48, 158) !important;">냉장·냉동</span>표기상품</li></ul></td></tr></tbody></table></div></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">지역별 추가배송비</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">도서 산간 지역 추가 배송비 5,000원</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">제주 지역 추가 배송비 5,000원</li></ul></div><div style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; background-color: rgb(255, 255, 255);"><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">배송기간</h6><ul class="list ty3" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"></span></font></div><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">택배사</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">CJ대한통운</li><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-1255(CJ대한통운)에서 가능합니다.&ZeroWidthSpace; 단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><span style="color: rgb(51, 51, 51); font-size: 15px; letter-spacing: -0.4px;"></span></div></div>
                 </div>
             </div>
         </div>
@@ -1074,7 +672,7 @@
     <script>
         //<![CDATA[
         $(function(){
-            let pno = "916";
+            let pno = "2057";
             bta.prdOption.init().bind({container: ".goods-detail-wrap"}).setProdOpt(pno);
 
             // 쿠폰 목록
@@ -1091,7 +689,7 @@
             // 상품 문의 작성
             $("a[data-type='qna_regist']").on('click', function() {
                 bta.opener.qnaRegist({
-                    pno: 916,
+                    pno: 2057,
                     oncompleted: function(idx) {
                         if (! idx) {
                             prodQna.setParams({
@@ -1134,7 +732,7 @@
 
         kakaoPixel('50193296942939463').pageView();
         kakaoPixel('50193296942939463').viewContent({
-            id: '916'
+            id: '2057'
         });
     </script>
 
@@ -1168,7 +766,7 @@
                 </div>
             </div>
             <div class="popup-btn-area">
-                <a href="https://www.ottogimall.co.kr/front" class="btn popup-btn ty4 c-ty8 delayPwReset" userno="0"><span>다음에</span></a>
+                <a href="https://www.ottogimall.co.kr/front" class="btn popup-btn ty4 c-ty8 delayPwReset" userno="352012"><span>다음에</span></a>
                 <a href="https://www.ottogimall.co.kr/front/mypage/my_modify" class="btn popup-btn ty4 c-ty9 pwReset"><span>변경하기</span></a>
             </div>
         </div>
@@ -1210,5 +808,5 @@
 
     <!-- 토스트 팝업 -->
     <div class="popup-toast">
-        <div class="popup-toast-content">상품이 장바구니에 담겼습니다.</div>
+        <div class="popup-toast-content"></div>
     </div>
