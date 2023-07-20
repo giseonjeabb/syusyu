@@ -25,5 +25,5 @@ public interface InqryService {
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
     List<InqryDTO> getSearchResultPage(SearchCondition sc) throws Exception;
-
+    
 }

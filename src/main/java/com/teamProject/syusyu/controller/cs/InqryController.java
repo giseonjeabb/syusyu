@@ -6,16 +6,14 @@ import com.teamProject.syusyu.domain.PageHandler;
 import com.teamProject.syusyu.domain.PageHandler2;
 import com.teamProject.syusyu.domain.SearchCondition;
 import com.teamProject.syusyu.domain.cs.InqryDTO;
+import com.teamProject.syusyu.domain.cs.inqryData;
 import com.teamProject.syusyu.service.BoardService;
 import com.teamProject.syusyu.service.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,25 +29,56 @@ public class InqryController {
         @Autowired
         InqryService inqryService;
 
-        @PostMapping("/remove")
-        public String remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-            InqryDTO inqry = new InqryDTO();
-            Integer mbrId = (Integer)session.getAttribute("mbrId");
-            // 세션에서 regrId 값 가져오기
-            try {
-                inqryService.remove(inqryNo, mbrId.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
+//        @PostMapping("/remove")
+//        public String remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+//            InqryDTO inqry = new InqryDTO();
+//
+//            Integer mbrId = (Integer)session.getAttribute("mbrId");
+//            // 세션에서 regrId 값 가져오기
+//            try {
+//                inqryService.remove(inqryNo, mbrId.toString());
+//                System.out.println("query resert"+inqryService.remove(inqryNo, mbrId.toString()));
+//                System.out.println("inqryNo = " + inqryNo);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+////                rattr.addFlashAttribute("msg", "DEL_ERR");
+//            }
+//
+//            m.addAttribute("page", page);
+//            m.addAttribute("pageSize", pageSize);
+//
+//            return ViewPath.FOS_MYPAGE +"inqryList";
+//            //"redirect:" +
+//
+//        }
+
+    @PostMapping("/remove")
+    @ResponseBody
+    public int remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+        InqryDTO inqry = new InqryDTO();
+        int removeYn = 1;
+
+        Integer mbrId = (Integer)session.getAttribute("mbrId");
+        // 세션에서 regrId 값 가져오기
+        try {
+            if(inqryService.remove(inqryNo, mbrId.toString())!=1)
+                throw new Exception("Delote failed.");
+            System.out.println("query resert"+inqryService.remove(inqryNo, mbrId.toString()));
+            System.out.println("inqryNo = " + inqryNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            removeYn = 0;
 //                rattr.addFlashAttribute("msg", "DEL_ERR");
-            }
-
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
-
-            return ViewPath.FOS_MYPAGE +"inqryList";
-            //"redirect:" +
-
         }
+
+//            m.addAttribute("page", page);
+//            m.addAttribute("pageSize", pageSize);
+//            m.addAttribute("msg", msg);
+
+        return removeYn;
+        //"redirect:" +
+
+    }
 
     @PostMapping("/inqry")
     public String inqry(Integer inqryNo, Model m) {
@@ -87,6 +116,7 @@ public class InqryController {
 
             try {
                 int totalCnt = inqryService.getCount();
+                System.out.println("totalCnt = " + totalCnt);
                 PageHandler2 pageHandler = new PageHandler2(totalCnt, page, pageSize);
 
                 Map map = new HashMap();
@@ -98,6 +128,7 @@ public class InqryController {
                 m.addAttribute("ph", pageHandler);
                 m.addAttribute("page", page);
                 m.addAttribute("pageSize", pageSize);
+                m.addAttribute("totalCnt", totalCnt);
                 // 모델에 inqry 테이블의 컬럼 개수 추가
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,52 +138,44 @@ public class InqryController {
         }
 
         @PostMapping("/modify")
-        public String modify(InqryDTO inqryDTO, Model m, HttpSession session, RedirectAttributes rattr){
-            InqryDTO inqry = new InqryDTO();
-            Integer mbrId = (Integer) session.getAttribute("mbrId"); // 세션에서 regrId 값 가져오기
+        public String modify(Integer inqryNo, Model m, HttpSession session, RedirectAttributes rattr){
 
             try {
-                int rowCnt = inqryService.modify(inqryDTO);
-
-                if(rowCnt!=1)
-                    throw new Exception("Modify failed");
-
-                rattr.addFlashAttribute("msg", "MOD_OK");
-
-                return ViewPath.FOS_MYPAGE +"inqrymodify";
+                InqryDTO inqryDTO = inqryService.read(inqryNo);
+                System.out.println(inqryDTO); // 또는 로깅을 이용하여 값 확인
+                m.addAttribute("inqryDTO", inqryDTO);
+//                return ViewPath.FOS_MYPAGE +"inqrymodify";
 //                원래 return문
 //                return "redirect:/inqry/inqryList";
             } catch (Exception e) {
                 e.printStackTrace();
-                m.addAttribute(inqryDTO);
-                m.addAttribute("msg", "MOD_ERR");
-                return ViewPath.FOS_MYPAGE +"inqrymodify";
             }
+                return ViewPath.FOS_MYPAGE +"inqrymodify";
         }
+
 //
 //
-//        @PostMapping("/write")
-//        public String write(InqryDTO inqryDTO, Model m, HttpSession session, RedirectAttributes rattr){
-//            String writer = (String) session.getAttribute("id");
-//            inqryDTO.setWriter(writer);
+//    @PostMapping("/write")
+//    @ResponseBody
+//    public int write(@RequestBody inqryData r, HttpSession session, RedirectAttributes rattr) {
 //
-//            try {
-//                int rowCnt = inqryService.write(inqryDTO);
+//        int regYn = 1;
 //
-//                if(rowCnt!=1)
-//                    throw new Exception("Write failed");
-//
-//                rattr.addFlashAttribute("msg", "WRT_OK");
-//
-//                return ViewPath.FOS_MYPAGE +"inqryList";
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                m.addAttribute(inqryDTO);
-//                m.addAttribute("msg", "WRT_ERR");
-//                return "board";
-//            }
+//        Integer mbrId = (Integer)session.getAttribute("mbrId");
+//        // 세션에서 regrId 값 가져오기
+//        try {
+//            if(inqryService.write(inqryNo, mbrId.toString())!=1)
+//                throw new Exception("Delote failed.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            removeYn = 0;
 //        }
 //
+//
+//        return removeYn;
+//    }
+
+
 //        @GetMapping("/write")
 //        public String write(Model m) {
 //            m.addAttribute("mode", "new");

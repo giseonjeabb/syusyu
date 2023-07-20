@@ -13,13 +13,6 @@
     </style>
 </head>
 <body>
-<form name="Frm" id="frm" method="post" action="https://www.ottogimall.co.kr/front/mypage/cs.act" >
-    <input type="hidden" name="exec" value="inquiry" />
-    <input type="hidden" name="cmd" value="regist"/>
-    <input type="hidden" name="orderIdx" id="order_idx" value="" />
-    <input type="hidden" name="idx" value="2866" />
-
-
     <section>
         <h3 class="title-t ty3 mb-30">1:1 문의하기</h3>
 
@@ -40,13 +33,13 @@
 
                     <td>
                         <select id="inquiry_classify" name="classify" choosed="96" class="selectbox ty1 w-450">
-                            <option value="">문의유형을 선택해 주세요</option>
+                            <option value="" selected="selected">문의유형을 선택해 주세요</option>
                             <option value="91"  orders="1">주문문의</option>
                             <option value="92"  >상품문의</option>
                             <option value="93"  orders="1">배송문의</option>
                             <option value="94"  >결제문의</option>
                             <option value="95"  >이 상품 찾아요</option>
-                            <option value="96"  selected="selected" >건의사항 있어요</option>
+                            <option value="96"  >건의사항 있어요</option>
                         </select>
                     </td>
                 </tr>
@@ -88,14 +81,13 @@
 
                     <td>
                         <div class="input w-full mb-10">
-                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요.">
+                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요." oninput="save(this.value)">
 <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                         </div>
                         <div class="textarea word-chker ty-2 mb-18">
-                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요."></textarea>
-                            <span class="count ">
-                                <em>0</em>
-                                1,000
+                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>
+                            <span id="count" style="float: right; margin-right: 20px; color: #aaa;">
+                                0/1,000
                             </span>
                         </div>
                     </td>
@@ -178,18 +170,74 @@
         </div>
 
         <div class="btn-area">
-            <a href="https://www.ottogimall.co.kr/front/mypage/cs_inquiry" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
+            <a href="<c:url value='/inqry/inqryList'/>" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
             <button type="button" class="btn ty4  c-ty1 free w-108" id="btnRegister"><span>등록</span></button>
         </div>
     </section>
-</form>
+<form id="tmp_form" action="/inqry/inqryList" method="get"></form>
 
 </body>
 <script>
+    let inqryType; // 문의 유형 번호 저장. 91: 주문문의, 92:상품문의, 93:배송문의, 94:결제문의, 95:이상품찾아요, 96:건의사항있어요
+
+    let inqryTitle; // 문의 제목
+
+    let inqryContent; // 문의 내용
+
+    let inqryData ; // 등록할 때 보낼 데이터
+
+    let go_inqryList = document.getElementById("tmp_form");
+
+    let regYn; // 등록성공여부를 저장할 변수
+
     $("#btnRegister").on("click", function(){
-        let form = $("#frm");
-        form.attr("action", "<c:url value='/inqry/write'/>");
-        form.attr("method", "post");
-        form.submit();
+        inqryData = {
+            inqryType: inqryType,
+            inqryTitle: inqryTitle,
+            inqryContent: inqryContent
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/inqry/write',
+            headers: {"content-type": "application/json"},
+            dataType: 'text',
+            data: JSON.stringify(inqryData),
+            success: function (result){
+                regYn = JSON.parse(result);
+                go_inqryList.submit();
+
+                if(removeMsg ===1){
+                    alert("등록이 완료되었습니다.");
+                    location.href = "http://localhost:80/inqry/inqryList";
+                }else{
+                    alert("등록실패");
+
+                }
+            },
+            error: function () {
+                alert("error reg");
+                prevent_reg = 0;
+            }
+        })
     })
+
+
+    $("#inquiry_classify").on("change", function(){
+        let optionvalue = this.value;
+        if(optionvalue!==""){
+            this.style.color="black";
+            inqryType = this.value;
+        }
+    })
+
+   function char_Count(value) {
+       let count = value.length;
+       document.getElementById("count").textContent = count + '/1000';
+       inqryContent = value; // 문의 내용을 저장
+   }
+
+    function save(value) {
+        inqryTitle = value; // 문의 제목을 저장
+    }
+
 </script>
