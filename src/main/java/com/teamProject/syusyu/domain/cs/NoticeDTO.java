@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.domain.cs;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class NoticeDTO {
@@ -11,13 +11,13 @@ public class NoticeDTO {
     private String content;
     private Integer viewCnt;
     private char fixYn;
-    private Date startDttm;
-    private Date endDttm;
-    private Date regDttm;
+    private LocalDateTime startDttm;
+    private LocalDateTime endDttm;
+    private LocalDateTime regDttm;
     private Integer regrId;
-    private Date updDttm;
+    private LocalDateTime updDttm;
     private Integer updrId;
-    private Date delDttm;
+    private LocalDateTime delDttm;
     private Integer delrId;
     private char delYn;
 
@@ -33,7 +33,7 @@ public class NoticeDTO {
 
 
 
-    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Integer viewCnt, Date startDttm, Date endDttm, Date regDttm) {
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Integer viewCnt, LocalDateTime startDttm, LocalDateTime endDttm, LocalDateTime regDttm) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
         this.title = title;
@@ -91,8 +91,8 @@ public class NoticeDTO {
     }
 
     public NoticeDTO(Integer notcNo, String notcTp, String title, String content,
-                     Integer viewCnt, char fixYn, Date startDttm, Date endDttm, Date regDttm,
-                     Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId,
+                     Integer viewCnt, char fixYn, LocalDateTime startDttm, LocalDateTime endDttm, LocalDateTime regDttm,
+                     Integer regrId, LocalDateTime updDttm, Integer updrId, LocalDateTime delDttm, Integer delrId,
                      char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
@@ -203,27 +203,27 @@ public class NoticeDTO {
         this.fixYn = fixYn;
     }
 
-    public Date getStartDttm() {
+    public LocalDateTime getStartDttm() {
         return startDttm;
     }
 
-    public void setStartDttm(Date startDttm) {
+    public void setStartDttm(LocalDateTime startDttm) {
         this.startDttm = startDttm;
     }
 
-    public Date getEndDttm() {
+    public LocalDateTime getEndDttm() {
         return endDttm;
     }
 
-    public void setEndDttm(Date endDttm) {
+    public void setEndDttm(LocalDateTime endDttm) {
         this.endDttm = endDttm;
     }
 
-    public Date getRegDttm() {
+    public LocalDateTime getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(Date regDttm) {
+    public void setRegDttm(LocalDateTime regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -235,11 +235,11 @@ public class NoticeDTO {
         this.regrId = regrId;
     }
 
-    public Date getUpdDttm() {
+    public LocalDateTime getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(Date updDttm) {
+    public void setUpdDttm(LocalDateTime updDttm) {
         this.updDttm = updDttm;
     }
 
@@ -251,11 +251,11 @@ public class NoticeDTO {
         this.updrId = updrId;
     }
 
-    public Date getDelDttm() {
+    public LocalDateTime getDelDttm() {
         return delDttm;
     }
 
-    public void setDelDttm(Date delDttm) {
+    public void setDelDttm(LocalDateTime delDttm) {
         this.delDttm = delDttm;
     }
 
