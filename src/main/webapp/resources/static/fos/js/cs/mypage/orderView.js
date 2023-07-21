@@ -2,8 +2,7 @@ namespace("orderView");
 orderView = {
     initLoad: () => {
         // 기본은 캘린더 1개월 범위로 세팅
-        setCalendarRangeByMonths('start_date', 'end_date', -1);
-
+        setCalendarRangeByMonths(orderView.startDate, orderView.endDate, -1);
         // 주문 목록 정보를 가져온다.
         orderView.eventHandler.getOrderInfoList();
     },
@@ -48,7 +47,7 @@ orderView.eventHandler = {
             , endDate: document.querySelector('#end_date').value, // 종료일자
         };
 
-        syusyu.common.Ajax.sendJSONRequest('GET', '/orderInfo', param, res => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/orders', param, res => {
             // 화면에 주문 목록 보여주기
             orderView.function.showOrderInfoList(res);
         });
@@ -118,7 +117,7 @@ orderView.function = {
                         </a>
                     </div>
                 </div>
-                ${orderDetails} // 생성된 주문상세 HTML 문자열 삽입
+                ${orderDetails} <!-- 생성된 주문상세 HTML 문자열 삽입-->
             </div>`;
         }).join(''); // 생성된 모든 주문번호 HTML 문자열을 하나로 결합
 
