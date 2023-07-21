@@ -1,0 +1,88 @@
+.container {
+  padding: 15px 25px 10px;
+  width: 100%;
+  margin: 10px 20px 21px 22px; /* 위 오른 아래 왼 */
+}
+
+.title-t {
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  background: #f8f8f8;
+  margin: 15px 0px 10px 0px;
+  border: 1px solid #e9e8e8;
+  resize: none;
+  padding: 8px;
+  outline-color: #e6e6e6;
+}
+
+.frm {
+  width: 100%;
+}
+
+.detail-tit1 {
+  background-color: white;
+  border: none;
+  padding: 20px;
+  font-size: 17px;
+  font-weight: 550;
+  margin-top: 10px;
+  outline: none;
+  border-bottom: 1px solid #eee;
+}
+
+input {
+  width: 100%;
+  height: 35px;
+  margin: 15px 0px 10px 0px;
+  padding: 10px;
+  background: #eee;
+  outline-color: #e6e6e6;
+  border-bottom: 1px solid #eee;
+}
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer;
+}
+
+#listBtn,
+#writeBtn {
+  float: right;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: gray;
+}
+
+.detail-cont{
+  background-color: white;
+  border: none;
+  padding: 20px;
+  font-size: 17px;
+  font-weight: 550;
+  margin-top: 10px;
+  outline: none;
+  border-bottom: 1px solid #eee;
+}
+#noticeCalendar {
+  background-color: white;
+  border: none;
+  padding: 20px;
+  font-size: 17px;
+  font-weight: 550;
+  margin-top: 10px;
+  outline: none;
+  border-bottom: 1px solid #eee;
+      }
