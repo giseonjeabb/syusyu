@@ -8,6 +8,7 @@ public class OrderInfoDTO {
     private int ordNo;          // 주문번호
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime ordDttm;  // 주문일시
+    private int prodId;         // 상품아이디
     private String prodNm;      // 상품명
     private String ordStusNm;     // 주문상태
     private int qty;            // 수량
@@ -114,5 +115,13 @@ public class OrderInfoDTO {
                 ", realPayAmt=" + realPayAmt +
                 ", repImg='" + repImg + '\'' +
                 '}';
+    }
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
     }
 }

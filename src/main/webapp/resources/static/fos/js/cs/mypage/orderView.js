@@ -75,7 +75,7 @@ orderView.function = {
                 return `
                 <div class="order-item">
                     <div class="thumb">
-                        <img src="${orderInfo.repImg}" alt="">
+                        <img src="${orderInfo.repImg}" onclick="location.href='/product/${orderInfo.prodId}'">
                     </div>
                     <div class="order-info">
                         <div class="badge-cont">
@@ -112,7 +112,7 @@ orderView.function = {
                         <span class="date">${ordDttm}</span>
                     </div>
                     <div class="a-btn-area">
-                        <a href="order_detail?order=39120&amp;params=ZH4U0DtZAK0J7k4i5OCPJxgYP2v78c19Qvscl6aP7kZ1b241K8u" class="btn">
+                        <a href="/orders/${ordNum}" class="btn">
                             <span>상세보기</span>
                         </a>
                     </div>

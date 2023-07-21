@@ -8,6 +8,7 @@
              , O.ORD_DTTM                                                                                # 주문일시
              , PROD.REP_IMG                                                                              # 이미지
              , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM # 주문상태
+             , OD.PROD_ID
              , OD.PROD_NM                                                                                # 상품명
              , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS 상품금액        # (할인가격 + 옵션가) * 주문수량
              , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
