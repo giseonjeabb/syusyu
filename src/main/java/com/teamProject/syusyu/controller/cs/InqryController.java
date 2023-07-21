@@ -62,7 +62,7 @@ public class InqryController {
         // 세션에서 regrId 값 가져오기
         try {
             if(inqryService.remove(inqryNo, mbrId.toString())!=1)
-                throw new Exception("Delote failed.");
+                throw new Exception("Delete failed.");
             System.out.println("query resert"+inqryService.remove(inqryNo, mbrId.toString()));
             System.out.println("inqryNo = " + inqryNo);
         } catch (Exception e) {
@@ -83,8 +83,9 @@ public class InqryController {
     @PostMapping("/inqry")
     public String inqry(Integer inqryNo, Model m) {
         try{
-            InqryDTO inqryDTO = inqryService.read(inqryNo);
-            m.addAttribute(inqryDTO);
+            InqryDTO inqry = new InqryDTO();
+//            InqryDTO inqryDTO = inqryService.read(inqryNo);
+//            m.addAttribute(inqryDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

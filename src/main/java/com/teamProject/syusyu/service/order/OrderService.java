@@ -19,4 +19,6 @@ public interface OrderService {
     List<CouponDTO> getOrderCouponList(@SessionAttribute int mbrId, @RequestBody int totProductPrice) throws Exception;
 
     Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception;
+
+    Map<String, Object> getOrderDetailList(Map<String, Integer> param) throws Exception;
 }

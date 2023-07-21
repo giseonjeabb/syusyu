@@ -62,7 +62,7 @@ public class OrderController {
      * @author min
      * @since 2023/07/11
      */
-    @PostMapping("/order")
+    @PostMapping("/orders")
     @ResponseBody
     public ResponseEntity<String> order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) {
         try {
@@ -75,8 +75,18 @@ public class OrderController {
         return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
     }
 
+    /**
+     * 사용자가 주문/결제 시 사용할 수 있는 쿠폰 리스트를 조회한다.
+     * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
+     *
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @param totProdAmt 총 상품금액
+     * @return 사용 가능한 쿠폰 리스트
+     * @author min
+     * @since  2023/07/16
+     */
+    @GetMapping("/orders/available-coupons")
     @ResponseBody
-    @GetMapping("/orderCouponList")
     public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) {
         List<CouponDTO> couponList = null;
         try {
@@ -101,7 +111,7 @@ public class OrderController {
      * @author min
      * @since 2023/07/18
      */
-    @GetMapping("/orderInfo")
+    @GetMapping("/orders")
     @ResponseBody
     public ResponseEntity<Map<Integer, List<OrderInfoDTO>>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
         Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = null;
@@ -118,5 +128,25 @@ public class OrderController {
         }
 
         return new ResponseEntity<>(orderInfoListByOrdNo, HttpStatus.OK);
+    }
+
+    @GetMapping("/orders/{ordNo}")
+    public String orderDeatil(Model m, @SessionAttribute int mbrId, @PathVariable int ordNo) {
+        try {
+            Map<String, Integer> param = new HashMap<>();
+            param.put("mbrId", mbrId);
+            param.put("ordNo", ordNo);
+
+            Map<String, Object> result = service.getOrderDetailList(param);
+            m.addAttribute("orderDetail", result);
+
+            System.out.println("result = " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return ViewPath.FOS_MYPAGE + "orderDetail";
     }
 }
