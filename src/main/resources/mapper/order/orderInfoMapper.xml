@@ -10,7 +10,7 @@
              , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM # 주문상태
              , OD.PROD_ID
              , OD.PROD_NM                                                                                # 상품명
-             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS 상품금액        # (할인가격 + 옵션가) * 주문수량
+             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS PROD_AMT        # 상품금액(할인가격 + 옵션가) * 주문수량
              , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                 FROM OPT_GRP OG
                          JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
@@ -42,7 +42,7 @@
 
     <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
         SELECT RECIPIENT
-             , CONCAT('(', ZIPCODE, ') ', DFLT_ADDR) AS ADDR
+             , DFLT_ADDR
              , DTL_ADDR
              , MP_NO
              , DLV_REQ_COMT
@@ -58,6 +58,7 @@
              , P.PNT_USE_AMT                                     # 포인트 사용
              , P.REAL_PAY_AMT                                    # 총 결제금액(실결제금액)
              , P.PAY_TP                                          # 결제방법
+             , GET_CD_NM('O0010', P.PAY_TP)        AS PAY_TP_NM  # 결제방법이름
              , PR.APRV_DTTM                                      # 승일일시(결제일시)
         FROM PAY P
                  JOIN PAY_RSLT PR ON P.PAY_NO = PR.PAY_NO

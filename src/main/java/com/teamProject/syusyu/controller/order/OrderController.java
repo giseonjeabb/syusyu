@@ -138,9 +138,9 @@ public class OrderController {
             param.put("ordNo", ordNo);
 
             Map<String, Object> result = service.getOrderDetailList(param);
-            m.addAttribute("orderDetail", result);
-
-            System.out.println("result = " + result);
+            m.addAttribute("orderDetailList", result.get("orderDetailList"));
+            m.addAttribute("ordDlvAddr", result.get("ordDlvAddr"));
+            m.addAttribute("payInfo", result.get("payInfo"));
 
         } catch (Exception e) {
             e.printStackTrace();
