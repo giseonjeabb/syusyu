@@ -15,4 +15,5 @@ public interface ProductDAO {
     ProductDTO selectProduct(int prodId) throws Exception;
 
     List<ImageDTO> selectImageList(int prodId);
+
 }

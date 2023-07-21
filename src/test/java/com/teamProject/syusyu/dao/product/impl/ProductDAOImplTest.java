@@ -1,6 +1,8 @@
 package com.teamProject.syusyu.dao.product.impl;
 
+import com.teamProject.syusyu.dao.product.ProdOptDAO;
 import com.teamProject.syusyu.dao.product.ProductDAO;
+import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +20,9 @@ public class ProductDAOImplTest {
     @Autowired
     ProductDAO productDAO;
 
+    @Autowired
+    ProdOptDAO prodOptDAO;
+
     @Test //상품조회리스트
     public void getProductList() throws Exception {
 //        System.out.println("productDAO : "+productDAO.getProductList(1,1));
@@ -30,22 +35,29 @@ public class ProductDAOImplTest {
 
 //        assertTrue(productDAO.selectProductList(1, 1) != null);
 //        System.out.println("productDAO : " + productDAO.selectProductList(1, 1));
-        System.out.println("dao: "+ productDAO.selectProductAllList(1));
+        System.out.println("dao: " + productDAO.selectProductAllList(1));
     }
 
-//    @Test //상품조회리스트
+    //    @Test //상품조회리스트
 //    public void getProductAllList() throws Exception {
 //        System.out.println("dao: "+ productDAO.selectProductAllList(1));
 //    }
     @Test //상품조회
-    public void selectProductTest() throws Exception{
-        System.out.println("dao:"+ productDAO.selectProduct(10002));
+    public void selectProductTest() throws Exception {
+        System.out.println("dao:" + productDAO.selectProduct(10002));
     }
 
     @Test
-        public void selectProductStatusTest() throws Exception {
-            // TODO product insert 생기면 insert하고 내가 넣은 상태값이랑 select 해온 상태값이란 같은지 검증해야 함
-            List<ProductDTO> ProductStatus = productDAO.selectProductStatus(new int[]{10001, 10007});
-            System.out.println("ProductStatus = " + ProductStatus);
-        }
+    public void selectProductStatusTest() throws Exception {
+        // TODO product insert 생기면 insert하고 내가 넣은 상태값이랑 select 해온 상태값이란 같은지 검증해야 함
+        List<ProductDTO> ProductStatus = productDAO.selectProductStatus(new int[]{10001, 10007});
+        System.out.println("ProductStatus = " + ProductStatus);
+    }
+
+    @Test //상품 옵션 조회
+    public void selectProdOptSizeList() {
+        List<ProdOptDTO> optList = prodOptDAO.selectProdOptSizeList(10001);
+        System.out.println("shoes : " + optList);
+    }
+
 }
