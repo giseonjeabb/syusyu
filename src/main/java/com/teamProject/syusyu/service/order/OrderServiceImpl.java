@@ -261,13 +261,36 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception {
-        List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderInfoList(param);
+        List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderList(param);
 
         Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
 
         orderInfoListByOrdNo.forEach((k, v) -> System.out.println("k : " + k + ", v : " + v));
 
         return orderInfoListByOrdNo;
+    }
+
+    /**
+     * 주어진 조회 조건에 따라 주문 상세 정보를 조회한다.
+     *
+     * @param param 조회 조건을 담고 있는 Map 객체.
+     * @return 조회 조건을 만족하는 주문 상세 정보를 담은 Map 객체
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/18
+     */
+    @Override
+    public Map<String, Object> getOrderDetailList(Map<String, Integer> param) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        List<OrderInfoDTO> orderDetailList = orderInfoDAO.selectOrderDetailList(param);
+        OrdDlvAddrDTO ordDlvAddr = orderInfoDAO.selectOrdDlvAddr((int) param.get("ordNo"));
+        PayInfoDTO payInfo = orderInfoDAO.selectPayInfo(param);
+
+        result.put("orderDetailList", orderDetailList);
+        result.put("ordDlvAddr", ordDlvAddr);
+        result.put("payInfo", payInfo);
+
+        return result;
     }
 
 }
