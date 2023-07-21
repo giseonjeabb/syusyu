@@ -117,7 +117,7 @@
 
     <sql id="searchCondition">
         AND (TITLE LIKE CONCAT('%',#{keyword},'%' )
-        ORCONTENT LIKE CONCAT ( '%', #{keyword}, '%' )
+        OR CONTENT LIKE CONCAT ( '%', #{keyword}, '%' )
         )
     </sql>
 
@@ -135,7 +135,8 @@
 
 
     <select id="selectFaqList" parameterType="FaqSearchCondition" resultType="FaqDTO">
-        select FAQ_TP, TITLE, CONTENT
+        select FAQ_TP, TITLE, CONTENT ,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         from faq
         where true
         <include refid="selectSearchFaq"/>

@@ -83,7 +83,7 @@
             <tbody>
             <tr>
                 <%--<th class="notcNo">번호</th>--%>
-                <%--<th class="notcTp">분류</th>--%>
+<%--                <th class="notcTp">분류</th>--%>
                 <th class="notice-title">제목</th>
                 <th class="regDttm">등록일</th>
                 <%--<th class="viewCnt">조회수</th>--%>
@@ -95,7 +95,7 @@
                         <%--글 번호--%>
                         <%--<td class="notcNo">${noticeDto.notcNo}</td>--%>
                         <%--타입--%>
-                        <%--<td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>--%>
+<%--                        <td class="notcTp"><c:out value="${noticeDto.notcTpNm}"/></td>--%>
 
                         <%--제목--%>
                     <td class="fw-7"><a

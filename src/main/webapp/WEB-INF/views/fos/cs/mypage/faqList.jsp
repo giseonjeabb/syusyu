@@ -54,7 +54,7 @@
                 <div class="slide-title">
                     <button type="button" class="slide-trg" faqTp="${faqDto.faqTp}" faqNo="${faqDto.faqNo}">
                         <em>Q.</em>
-                        <strong>[ ${faqDto.faqTp} ]  ${faqDto.title}</strong>
+                        <strong>[ ${faqDto.faqTpNm} ]  ${faqDto.title}</strong>
                     </button>
                 </div>
 
