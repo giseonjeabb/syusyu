@@ -387,6 +387,9 @@ header {
     position: relative;
     height: 75px;
     line-height: 75px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     .category_btn {
       position: relative;
       &::before {
