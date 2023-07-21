@@ -17,7 +17,6 @@ $(function () {
     if (middleNo === undefined || middleNo === null) {
         middleNo = 1;
     }
-    debugger
     //카테고리 중분류만 클릭했을때 불러오는 상품리스트
     if (smallNo === undefined || smallNo === null) {
         $.ajax({

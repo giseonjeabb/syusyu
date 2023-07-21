@@ -45,7 +45,6 @@ couponPopup.eventHandler = {
         document.querySelector('#useCpnIssNo').value = cpnIssNo;    // 쿠폰발행번호
         document.querySelector('#couponDcAmt').value = couponDcAmt; // 쿠폰할인금액
 
-        debugger;
         // 1-2. 단순 보여주기용 txt couponDcAmtTxt
         document.querySelector('#couponDcAmtTxt').value = formatPrice(couponDcAmt);
 
