@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class NoticeController {
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
 //           m.addAttribute("page",page);
 //           m.addAttribute("pageSize",pageSize);
-
+            m.addAttribute("now", LocalDateTime.now());
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("msg", "LIST_ERR");

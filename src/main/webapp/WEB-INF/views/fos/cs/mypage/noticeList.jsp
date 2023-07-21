@@ -2,6 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page session="true" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <head>
     <style>
@@ -99,14 +101,14 @@
                     <td class="fw-7"><a
                             href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
                     </td>
-                        <%--등록날짜--%>
 
+                                <%---공지사항 등록날짜---%>
                             <c:choose>
-                                <c:when test="${noticeDTO.regDttm.isAfter(now)}">
-                                    <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
+                                <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">
+                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td>${noticeDTO.regDttm.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
                                 </c:otherwise>
                             </c:choose>
 
