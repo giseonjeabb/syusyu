@@ -72,7 +72,7 @@ public class NoticeController {
 
             List<NoticeDTO> list = noticeService.getSearchResultPage(sc);
             // List<NoticeDTO> list 에 담아서 오는 지 보려고
-            System.out.println("list = " + list);
+            System.out.println("noticelist = " + list);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
