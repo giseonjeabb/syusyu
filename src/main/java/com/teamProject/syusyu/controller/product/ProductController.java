@@ -2,6 +2,7 @@ package com.teamProject.syusyu.controller.product;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;
+import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import com.teamProject.syusyu.service.product.CategoryService;
 import com.teamProject.syusyu.service.product.ProductService;
@@ -186,16 +187,23 @@ public class ProductController {
         Map<String, Object> productDetail = null;
         ProductDTO product = null;
         List<ImageDTO> imageList = null;
+        List<ProdOptDTO> shoesSizeList=null;
+
         try {
             System.out.println("prodId = " + prodId);
             productDetail = productService.getProduct(prodId);
 
             product = (ProductDTO) productDetail.get("productDetail");
             m.addAttribute("productDetail", product);
-            System.out.println("Product:" + product);
+
             imageList = (List<ImageDTO>) productDetail.get("imageList");
             m.addAttribute("imageList", imageList);
-            System.out.println("Image : " + imageList);
+
+            shoesSizeList = (List<ProdOptDTO>) productDetail.get("shoesSizeList");
+            m.addAttribute("shoesSizeList" + shoesSizeList);
+            System.out.println("size : " + shoesSizeList.get(0).getShoesSize());
+            System.out.println("size : " + shoesSizeList.get(1).getShoesSize());
+            System.out.println("size : " + shoesSizeList.get(2).getShoesSize());
 
 
         } catch (Exception e) {

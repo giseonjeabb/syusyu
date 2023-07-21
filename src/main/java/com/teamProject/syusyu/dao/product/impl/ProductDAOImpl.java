@@ -62,11 +62,33 @@ public class ProductDAOImpl implements ProductDAO {
         return session.selectList(namespace + "selectProductStatus", prodIdArr);
     }
 
+    /**
+     * 특정 상품 ID(prodId)에 해당하는 상품을 조회합니다.
+     * 이 메소드는 MyBatis의 SqlSession을 사용하여 DB에서 상품을 가져옵니다.
+     *
+     * @param prodId 상품 ID, 이 번호는 상품을 식별하는 데 사용됩니다.
+     * @return 해당 상품 ID에 해당하는 상품을 반환합니다.
+     * 상품은 ProductDTO 객체로 표현됩니다.
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author [your_name]
+     * @since 2023/07/19
+     */
     @Override
     public ProductDTO selectProduct(int prodId) {
         return session.selectOne(namespace + "selectProduct", prodId);
     }
 
+    /**
+     * 특정 상품 ID(prodId)에 해당하는 이미지를 조회합니다.
+     * 이 메소드는 MyBatis의 SqlSession을 사용하여 DB에서 이미지경로를 가져옵니다.
+     *
+     * @param prodId 상품 ID, 이 번호는 상품을 식별하는 데 사용됩니다.
+     * @return 해당 상품 ID에 해당하는 이미지를 반환합니다.
+     *         이미지들은 ImageDTO 객체로 표현됩니다.
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author soso
+     * @since 2023/07/20
+     */
     @Override
     public List<ImageDTO> selectImageList(int prodId) {
         return session.selectList(namespace + "selectImageList", prodId);

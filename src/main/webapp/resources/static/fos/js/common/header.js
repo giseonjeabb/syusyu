@@ -46,3 +46,26 @@ $(function() {
         console.error("AJAX GET request failed. " + error);
     });
 });
+
+/**
+ * 이 함수는 스크롤 이벤트 발생시 마다 실행되며,
+ * 웹 페이지 상단으로부터의 스크롤 위치에 따라 header 요소에 'fix' 클래스를 추가하거나 제거하는 역할을 수행합니다.
+ * 스크롤 위치가 페이지 상단으로부터 0보다 크다면 'fix' 클래스를 추가하고, 그렇지 않다면 'fix' 클래스를 제거합니다.
+ *
+ * @event window.onscroll
+ * @author soso
+ * @since 2023/07/20
+ */
+// 스크롤이 발생할 때마다 실행되는 함수를 설정합니다.
+window.onscroll = function() {
+    // header 요소를 선택합니다.
+    const header = document.querySelector("header");
+
+    // 페이지 상단으로부터의 스크롤 위치가 0보다 크면 'fix' 클래스를 추가하고,
+    // 그렇지 않으면 'fix' 클래스를 제거합니다.
+    if (window.pageYOffset > 0) {
+        header.classList.add("fix");
+    } else {
+        header.classList.remove("fix");
+    }
+};

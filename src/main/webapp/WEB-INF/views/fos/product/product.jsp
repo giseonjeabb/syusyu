@@ -76,12 +76,6 @@
                                                 </div>
                                                 <div class="popup-content" data-type="share-box">
 
-
-
-
-
-
-
                                                     <div class="popup-bottom-share-content">
 
                                                         <a href="javascript:" data-type="kakao" key="1303d0818dd6a7080ae5b1275c4056c5">
@@ -153,9 +147,10 @@
                                                 <span class="ty2"></span>
                                             </button>
                                         </span>
-                                        <p>상품 50,000원 이상 구매시 무료</p>
+                                        <p>상품 50,000원 이상 구매시 무료배송</p>
                                     </span>
                                 </li>
+
 
                                 <!--옵션 선택 -->
 
@@ -168,8 +163,18 @@
 
 												<div class="ui selection dropdown option-select" tabindex="0">
 													<input type="hidden" id="opt_picker_1_1" value="">
-													<div class="default text">옵션을 선택하세요</div>
-													<div class="menu" tabindex="-1"><div class="item" data-value="5"><span>풋팟퐁카레 + 오뚜기밥 작은밥</span></div><div class="item" data-value="6"><span>치킨마살라 + 오뚜기밥 작은밥</span></div><div class="item" data-value="7"><span>치킨마크니 + 오뚜기밥 작은밥</span></div><div class="item" data-value="8"><span>비프코르마 + 오뚜기밥 작은밥</span></div></div>
+													<div class="default text">사이즈</div>
+													    <div class="menu" tabindex="-1" style="display: block !important;">
+<%--                                                        <c:forEach var="size" items="shoesSizeList" varStatus="idx">--%>
+
+<%--                                                            <div class="item" data-value="idx">--%>
+<%--                                                                <span>${size.shoesSize}</span>--%>
+<%--                                                            </div>--%>
+
+
+<%--                                                        </c:forEach>--%>
+
+                                                    </div>
 												</div>
 
 											</div><!-- // custom_select -->
