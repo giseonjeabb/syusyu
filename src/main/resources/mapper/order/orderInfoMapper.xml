@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.orderInfoMapper">
-    <select id="selectOrderInfoList" parameterType="Map" resultType="OrderInfoDTO">
+    <sql id="orderInfo">
         SELECT O.ORD_NO                                                                                  # 주문번호
              , O.ORD_DTTM                                                                                # 주문일시
              , PROD.REP_IMG                                                                              # 이미지
@@ -23,8 +23,44 @@
                  JOIN PAY P ON OD.ORD_NO = P.ORD_NO
                  JOIN PRODUCT PROD ON OD.PROD_ID = PROD.PROD_ID
                  LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
+    </sql>
+
+    <select id="selectOrderList" parameterType="Map" resultType="OrderInfoDTO">
+        <include refid="orderInfo"/>
         WHERE O.ORDR_ID = #{mbrId}
-          AND ORD_DTTM BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        AND ORD_DTTM BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
+    </select>
+
+    <select id="selectOrderDetailList" parameterType="Map" resultType="OrderInfoDTO">
+        <include refid="orderInfo"/>
+        WHERE O.ORDR_ID = #{mbrId}
+        AND O.ORD_NO = #{ordNo}
+        ORDER BY OD.ORD_DTL_NO
+    </select>
+
+    <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
+        SELECT RECIPIENT
+             , CONCAT('(', ZIPCODE, ') ', DFLT_ADDR) AS ADDR
+             , DTL_ADDR
+             , MP_NO
+             , DLV_REQ_COMT
+        FROM ORD_DLV_ADDR
+        WHERE ORD_NO = #{ordNo}
+    </select>
+
+    <!--주문상세에서 결제정보 조회-->
+    <select id="selectPayInfo" parameterType="Map" resultType="PayInfoDTO">
+        SELECT P.ORD_AMT                                         # 주문금액
+             , P.DLV_FEE                                         # 배송비
+             , GET_CPN_DC_AMT(ORD_AMT, CPN_ISS_NO) AS CPN_DC_AMT # 쿠폰할인
+             , P.PNT_USE_AMT                                     # 포인트 사용
+             , P.REAL_PAY_AMT                                    # 총 결제금액(실결제금액)
+             , P.PAY_TP                                          # 결제방법
+             , PR.APRV_DTTM                                      # 승일일시(결제일시)
+        FROM PAY P
+                 JOIN PAY_RSLT PR ON P.PAY_NO = PR.PAY_NO
+        WHERE P.PAYER_ID = #{mbrId}
+          AND ORD_NO = #{ordNo};
     </select>
 </mapper>

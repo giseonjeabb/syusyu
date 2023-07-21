@@ -24,7 +24,7 @@ public class OrderInfoDAOImplTest {
         param.put("startDate", "2023-01-01");
         param.put("endDate", "2023-12-01");
 
-        List<OrderInfoDTO> list = orderInfoDAO.selectOrderInfoList(param);
+        List<OrderInfoDTO> list = orderInfoDAO.selectOrderList(param);
 //        System.out.println("list = " + list);
 
         param.forEach((k, y) -> System.out.println("key: " + k + " value: " + y));
