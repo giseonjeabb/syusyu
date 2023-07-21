@@ -6,6 +6,7 @@ import java.util.Objects;
 public class FaqDTO {
     private Integer faqNo;
     private String faqTp;
+    private String faqTpNm;
     private String title;
     private String content;
     private Integer sortIdx;
@@ -78,6 +79,7 @@ public class FaqDTO {
         this.nextNo = nextNo;
     }
 
+
     public Integer getFaqNo() {
         return faqNo;
     }
@@ -92,6 +94,14 @@ public class FaqDTO {
 
     public void setFaqTp(String faqTp) {
         this.faqTp = faqTp;
+    }
+
+    public String getFaqTpNm() {
+        return faqTpNm;
+    }
+
+    public void setFaqTpNm(String faqTpNm) {
+        this.faqTpNm = faqTpNm;
     }
 
     public String getTitle() {
@@ -183,23 +193,11 @@ public class FaqDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FaqDTO faqDTO = (FaqDTO) o;
-        return Objects.equals(faqNo, faqDTO.faqNo) && Objects.equals(faqTp, faqDTO.faqTp) && Objects.equals(title, faqDTO.title) && Objects.equals(content, faqDTO.content) && Objects.equals(sortIdx, faqDTO.sortIdx) && Objects.equals(regDttm, faqDTO.regDttm) && Objects.equals(regrId, faqDTO.regrId) && Objects.equals(updDttm, faqDTO.updDttm) && Objects.equals(updrId, faqDTO.updrId) && Objects.equals(prevTitle, faqDTO.prevTitle) && Objects.equals(nextTitle, faqDTO.nextTitle) && Objects.equals(prevNo, faqDTO.prevNo) && Objects.equals(nextNo, faqDTO.nextNo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(faqNo, faqTp, title, content, sortIdx, regDttm, regrId, updDttm, updrId, prevTitle, nextTitle, prevNo, nextNo);
-    }
-
-    @Override
     public String toString() {
         return "FaqDTO{" +
                 "faqNo=" + faqNo +
                 ", faqTp='" + faqTp + '\'' +
+                ", faqTpNm='" + faqTpNm + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", sortIdx=" + sortIdx +
@@ -212,5 +210,19 @@ public class FaqDTO {
                 ", prevNo=" + prevNo +
                 ", nextNo=" + nextNo +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FaqDTO faqDTO = (FaqDTO) o;
+        return Objects.equals(faqNo, faqDTO.faqNo) && Objects.equals(faqTp, faqDTO.faqTp) && Objects.equals(faqTpNm, faqDTO.faqTpNm) && Objects.equals(title, faqDTO.title) && Objects.equals(content, faqDTO.content) && Objects.equals(sortIdx, faqDTO.sortIdx) && Objects.equals(regDttm, faqDTO.regDttm) && Objects.equals(regrId, faqDTO.regrId) && Objects.equals(updDttm, faqDTO.updDttm) && Objects.equals(updrId, faqDTO.updrId) && Objects.equals(prevTitle, faqDTO.prevTitle) && Objects.equals(nextTitle, faqDTO.nextTitle) && Objects.equals(prevNo, faqDTO.prevNo) && Objects.equals(nextNo, faqDTO.nextNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(faqNo, faqTp, faqTpNm, title, content, sortIdx, regDttm, regrId, updDttm, updrId, prevTitle, nextTitle, prevNo, nextNo);
     }
 }

@@ -6,58 +6,82 @@
 <mapper namespace="com.teamProject.syusyu.FaqMapper">
 
     <select id="count" resultType="int">
-        SELECT count(*) FROM faq
+        SELECT count(*)
+        FROM faq
     </select>
 
     <delete id="deleteAll">
-        DELETE FROM faq
+        DELETE
+        FROM faq
     </delete>
 
     <delete id="delete" parameterType="map">
         DELETE
         FROM faq
-        WHERE FAQ_NO = #{faqNo} and REGR_ID = #{regrId}
+        WHERE FAQ_NO = #{faqNo}
+          and REGR_ID = #{regrId}
     </delete>
 
     <insert id="insert" parameterType="FaqDTO">
-        INSERT INTO faq (FAQ_TP, TITLE, CONTENT, REGR_ID)
-        VALUES (#{faqTp}, #{title}, #{content}, #{regrId})
+        INSERT INTO faq (FAQ_TP, TITLE, CONTENT)
+        VALUES (#{faqTp}, #{title}, #{content})
     </insert>
+
+    <update id="update" parameterType="FaqDTO">
+        UPDATE faq
+        SET TITLE    = #{title}
+          , CONTENT  = #{content}
+          , FAQ_TP   = #{faqTp}
+          , UPD_DTTM = now()
+        WHERE FAQ_NO = #{faqNo}
+--           and REGR_ID = #{regrId}
+    </update>
 
 
     <select id="selectAll" resultType="FaqDTO">
-        SELECT FAQ_NO, FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REGR_ID,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM #  종류 이름
+
         FROM faq
         ORDER BY REG_DTTM DESC, FAQ_NO DESC
     </select>
 
     <sql id="selectFrom">
-        SELECT FAQ_NO, FAQ_TP ,TITLE, CONTENT, REGR_ID,  REG_DTTM
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REGR_ID,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM #  종류 이름
         FROM faq
     </sql>
 
     <select id="select" parameterType="int" resultType="FaqDTO">
-        SELECT FAQ_NO,FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM
+        SELECT FAQ_NO, FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         from faq
         WHERE FAQ_NO = #{faqNo}
     </select>
 
 
     <select id="selectPage" parameterType="map" resultType="FaqDTO">
-        SELECT FAQ_NO , FAQ_TP ,TITLE , CONTENT , REG_DTTM
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         FROM faq
         ORDER BY REG_DTTM DESC, FAQ_NO DESC
             LIMIT #{offset}, #{pageSize}
     </select>
 
-    <update id="update" parameterType="FaqDTO">
-        UPDATE faq
-        SET   TITLE = #{title}
-          , CONTENT = #{content}
-          , FAQ_TP = #{faqTp}
-          , UPD_DTTM = now()
-        WHERE FAQ_NO = #{faqNo} and REGR_ID = #{regrId}
-    </update>
 
     <!--    코멘트 필요없어서 일단 주석 처리함 나중에 리뷰에서 써야지-->
     <!--    <update id="updateCommentCnt" parameterType="map">-->
@@ -92,8 +116,9 @@
     <!--    </sql>-->
 
     <sql id="searchCondition">
-        AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
-        OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        AND (TITLE LIKE CONCAT('%',#{keyword},'%' )
+        ORCONTENT LIKE CONCAT ( '%', #{keyword}, '%' )
+        )
     </sql>
 
 
@@ -113,15 +138,17 @@
         select FAQ_TP, TITLE, CONTENT
         from faq
         where true
-        <include refid="selectSearchFaq" />
+        <include refid="selectSearchFaq"/>
     </select>
 
+
     <select id="searchSelectPage" parameterType="FaqSearchCondition" resultType="FaqDTO">
-        SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM
+        SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM,
+                GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         FROM faq
         WHERE TRUE
-        <include refid="searchCondition" />
-        ORDER BY  FAQ_NO asc
+        <include refid="searchCondition"/>
+        ORDER BY FAQ_NO asc
 
     </select>
 
@@ -129,9 +156,8 @@
         SELECT count(*)
         FROM faq
         WHERE TRUE
-        <include refid="searchCondition" />
+        <include refid="searchCondition"/>
     </select>
-
 
 
 </mapper>
