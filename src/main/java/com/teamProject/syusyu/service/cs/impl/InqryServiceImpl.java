@@ -49,7 +49,6 @@ public class InqryServiceImpl implements InqryService {
         return inqryDTO;
     }
 
-
     @Override
     public List<InqryDTO> getPage(Map map) throws Exception {
         return inqryDAO.selectPage(map);
