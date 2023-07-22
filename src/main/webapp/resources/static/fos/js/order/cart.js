@@ -116,7 +116,7 @@ cart.function = {
      * @since  2023/07/03
      */
     getCartProductList: () => {
-        syusyu.common.Ajax.sendJSONRequest('GET', '/carts', '', res => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/fos/carts', '', res => {
             // 장바구니에서 선택한 상품이 달라질 때마다 총 금액 계산을 다시 하기 위해 전역변수에 저장
             g_cartProdList = res;
 
@@ -250,7 +250,7 @@ cart.function = {
      */
     modify: (cartProdNo, ordQty) => {
         const param = {qty: ordQty};
-        syusyu.common.Ajax.sendJSONRequest('PATCH', '/carts/' + cartProdNo, param, () => {
+        syusyu.common.Ajax.sendJSONRequest('PATCH', '/fos/carts/' + cartProdNo, param, () => {
             cart.function.getCartProductList();
         });
     },
@@ -263,7 +263,7 @@ cart.function = {
      * @since 2023/07/03
      */
     remove: (cartProdNoArr) => {
-        syusyu.common.Ajax.sendJSONRequest('DELETE', '/carts/', cartProdNoArr, () => {
+        syusyu.common.Ajax.sendJSONRequest('DELETE', '/fos/carts/', cartProdNoArr, () => {
             cart.function.getCartProductList();
         });
     },
