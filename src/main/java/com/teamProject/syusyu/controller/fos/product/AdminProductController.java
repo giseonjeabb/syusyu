@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.controller.dashboard;
+package com.teamProject.syusyu.controller.fos.product;
 
 import com.teamProject.syusyu.common.ViewPath;
 import org.springframework.stereotype.Controller;
@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("admin")
-public class DashBoardController {
-
-    @GetMapping("dashboard")
-    public String dashBoardMain(){
-        return ViewPath.BOS_DASHBOARD +"dashboard";
+public class AdminProductController {
+    @GetMapping("productRegister")
+    public String productRegister(){
+        return ViewPath.BOS_PRODUCT+"productRegister";
     }
 }
-

@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.controller.product;
+package com.teamProject.syusyu.controller.fos.product;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;

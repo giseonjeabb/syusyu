@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.controller.order;
+package com.teamProject.syusyu.controller.fos.order;
 
 import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.service.order.CartService;

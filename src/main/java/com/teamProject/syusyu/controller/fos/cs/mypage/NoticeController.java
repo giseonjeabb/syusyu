@@ -1,4 +1,5 @@
-package com.teamProject.syusyu.controller.cs.mypage;
+package com.teamProject.syusyu.controller.fos.cs.mypage;
+
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;

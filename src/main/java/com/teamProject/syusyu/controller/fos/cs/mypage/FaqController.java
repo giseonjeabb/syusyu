@@ -1,22 +1,18 @@
-package com.teamProject.syusyu.controller.cs.mypage;
+package com.teamProject.syusyu.controller.fos.cs.mypage;
 
 import com.teamProject.syusyu.common.ViewPath;
-
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
-import com.teamProject.syusyu.domain.cs.PageHandler;
-import com.teamProject.syusyu.domain.cs.SearchCondition;
 import com.teamProject.syusyu.service.cs.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-
 import java.util.List;
 
 @Controller

@@ -1,19 +1,16 @@
-package com.teamProject.syusyu.controller.cs;
+package com.teamProject.syusyu.controller.fos.cs;
 
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.BoardDto;
-import com.teamProject.syusyu.domain.PageHandler;
 import com.teamProject.syusyu.domain.PageHandler2;
-import com.teamProject.syusyu.domain.SearchCondition;
 import com.teamProject.syusyu.domain.cs.InqryDTO;
-import com.teamProject.syusyu.domain.cs.inqryData;
-import com.teamProject.syusyu.service.BoardService;
 import com.teamProject.syusyu.service.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;

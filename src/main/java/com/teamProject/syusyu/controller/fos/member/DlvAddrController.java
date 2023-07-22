@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.controller.member;
+package com.teamProject.syusyu.controller.fos.member;
 
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.service.member.DlvAddrService;
