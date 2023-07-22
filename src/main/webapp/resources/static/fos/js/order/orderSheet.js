@@ -181,7 +181,7 @@ function createOrder(rsp) {
     // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
     // jQuery로 HTTP 요청
     $.ajax({
-        url: "/orders",
+        url: "/fos/orders",
         method: "POST",
         headers: {"Content-Type": "application/json"},
         // data: {

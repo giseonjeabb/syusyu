@@ -47,7 +47,7 @@ orderView.eventHandler = {
             , endDate: document.querySelector('#end_date').value, // 종료일자
         };
 
-        syusyu.common.Ajax.sendJSONRequest('GET', '/orders', param, res => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/fos/orders', param, res => {
             // 화면에 주문 목록 보여주기
             orderView.function.showOrderInfoList(res);
         });
@@ -112,7 +112,7 @@ orderView.function = {
                         <span class="date">${ordDttm}</span>
                     </div>
                     <div class="a-btn-area">
-                        <a href="/orders/${ordNum}" class="btn">
+                        <a href="/fos/orders/${ordNum}" class="btn">
                             <span>상세보기</span>
                         </a>
                     </div>

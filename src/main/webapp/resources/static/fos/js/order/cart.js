@@ -381,13 +381,13 @@ cart.function = {
         const cartProdNoArr = cart.function.getCheckedCartProdNoArr();
 
         // 주문서 데이터를 성공적으로 가져왔을 때, 페이지 리디렉션을 수행한다.
-        location.href = '/orderSheet?cartProdNoArr=' + JSON.stringify(cartProdNoArr);
+        location.href = '/fos/orderSheet?cartProdNoArr=' + JSON.stringify(cartProdNoArr);
 
         // 선택한 장바구니 상품 아이디 배열을 쿼리 문자열로 변환
         const queryString = 'cartProdNoArr=' + cartProdNoArr.join('&cartProdNoArr=');
 
         // 주문서 화면으로 이동
-        window.location.href = '/orderSheet?' + queryString;
+        window.location.href = '/fos/orderSheet?' + queryString;
     },
 
     order: function () {

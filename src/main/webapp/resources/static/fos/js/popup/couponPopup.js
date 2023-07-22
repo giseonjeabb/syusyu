@@ -64,7 +64,7 @@ couponPopup.function = {
             totProdAmt: document.getElementById('totProdAmt').value
         };
 
-        syusyu.common.Ajax.sendJSONRequest("GET", "/orders/available-coupons", param, function (res) {
+        syusyu.common.Ajax.sendJSONRequest("GET", "/fos/orders/available-coupons", param, function (res) {
             const $productCoupon = document.querySelector('select[name="productCoupon"]'); // input select
 
             // 응답으로 온 사용 가능한 쿠폰 리스트를 option으로 생성해서 넣어준다.
