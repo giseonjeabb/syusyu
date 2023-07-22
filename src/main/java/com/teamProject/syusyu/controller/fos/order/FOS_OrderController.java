@@ -4,7 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.*;
-import com.teamProject.syusyu.service.fos.order.OrderService;
+import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(ViewPath.FOS)
 public class FOS_OrderController {
-    private final OrderService service;
+    private final FOS_OrderService service;
 
     @Autowired
-    public FOS_OrderController(OrderService service) {
+    public FOS_OrderController(FOS_OrderService service) {
         this.service = service;
     }
 

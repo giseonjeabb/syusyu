@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.List;
 import java.util.Map;
 
-public interface OrderService {
+public interface FOS_OrderService {
     Map<String, Object> orderSheet(int[] cartProdNoArr, int mbrId) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)

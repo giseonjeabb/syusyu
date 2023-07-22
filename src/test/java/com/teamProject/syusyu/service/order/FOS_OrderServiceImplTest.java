@@ -2,7 +2,7 @@ package com.teamProject.syusyu.service.order;
 
 import com.teamProject.syusyu.dao.order.*;
 import com.teamProject.syusyu.domain.order.*;
-import com.teamProject.syusyu.service.fos.order.OrderService;
+import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
-public class OrderServiceImplTest {
+public class FOS_OrderServiceImplTest {
     @Autowired
-    OrderService service;
+    FOS_OrderService service;
     @Autowired
     OrdDAO ordDAO;
     @Autowired

@@ -2,18 +2,18 @@ package com.teamProject.syusyu.service.fos.order.impl;
 
 import com.teamProject.syusyu.dao.order.CartProdDAO;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
-import com.teamProject.syusyu.service.fos.order.CartService;
+import com.teamProject.syusyu.service.fos.order.FOS_CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class FOS_CartServiceImpl implements FOS_CartService {
     CartProdDAO cartProdDAO;
 
     @Autowired
-    public CartServiceImpl(CartProdDAO cartProdDAO) {
+    public FOS_CartServiceImpl(CartProdDAO cartProdDAO) {
         this.cartProdDAO = cartProdDAO;
     }
 

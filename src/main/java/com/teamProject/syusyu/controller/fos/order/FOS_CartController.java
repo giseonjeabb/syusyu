@@ -2,7 +2,7 @@ package com.teamProject.syusyu.controller.fos.order;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
-import com.teamProject.syusyu.service.fos.order.CartService;
+import com.teamProject.syusyu.service.fos.order.FOS_CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping(ViewPath.FOS)
 public class FOS_CartController {
-    private final CartService service;
+    private final FOS_CartService service;
 
-    public FOS_CartController(CartService service) {
+    public FOS_CartController(FOS_CartService service) {
         this.service = service;
     }
 
