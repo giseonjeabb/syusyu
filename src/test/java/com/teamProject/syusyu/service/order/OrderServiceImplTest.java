@@ -1,9 +1,8 @@
 package com.teamProject.syusyu.service.order;
 
 import com.teamProject.syusyu.dao.order.*;
-import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
 import com.teamProject.syusyu.domain.order.*;
-import org.junit.Before;
+import com.teamProject.syusyu.service.fos.order.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

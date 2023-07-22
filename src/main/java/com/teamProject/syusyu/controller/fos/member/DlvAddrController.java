@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.controller.fos.member;
 
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
-import com.teamProject.syusyu.service.member.DlvAddrService;
+import com.teamProject.syusyu.service.fos.member.DlvAddrService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

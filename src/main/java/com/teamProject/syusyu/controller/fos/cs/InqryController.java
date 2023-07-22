@@ -3,7 +3,7 @@ package com.teamProject.syusyu.controller.fos.cs;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.PageHandler2;
 import com.teamProject.syusyu.domain.cs.InqryDTO;
-import com.teamProject.syusyu.service.cs.InqryService;
+import com.teamProject.syusyu.service.fos.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

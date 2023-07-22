@@ -3,7 +3,7 @@ package com.teamProject.syusyu.controller.fos.cs.mypage;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
-import com.teamProject.syusyu.service.cs.FaqService;
+import com.teamProject.syusyu.service.fos.cs.FaqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

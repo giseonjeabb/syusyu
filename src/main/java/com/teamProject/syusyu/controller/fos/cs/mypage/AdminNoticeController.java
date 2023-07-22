@@ -4,7 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.cs.NoticeService;
+import com.teamProject.syusyu.service.fos.cs.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

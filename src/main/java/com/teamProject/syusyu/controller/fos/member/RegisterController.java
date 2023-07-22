@@ -3,7 +3,7 @@ package com.teamProject.syusyu.controller.fos.member;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.domain.member.MemberValidator;
-import com.teamProject.syusyu.service.member.MemberService;
+import com.teamProject.syusyu.service.fos.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
