@@ -1,5 +1,8 @@
 
 $(function() {
+
+
+
     // 1. fold-box 요소의 active 클래스를 토글 처리
     const foldBoxes = document.querySelectorAll('.fold-box');
     foldBoxes.forEach((box) => {
@@ -58,26 +61,32 @@ $(function() {
     });
 
     $('.ui.selection.dropdown.option-select .menu .item').on('click', function(e) {
+
         // 클릭한 아이템의 텍스트(사이즈)
         let selectedSize = $(this).find('span').text();
 
         // 이미 선택된 옵션이 없을 경우에만 추가
-        if($('.option-selected-list .option-select-item:contains("' + selectedSize + '")').length === 0){
+        if ($('.option-selected-list .option-select-item:contains("' + selectedSize + '")').length === 0) {
             // 선택한 옵션 추가
             let newItem = $('.option-select-item').first().clone(true);
             newItem.find('.option-tit span').first().text(selectedSize); // 사이즈 설정
 
             // 가격 계산 및 설정
-            let basePrice = parseFloat(newItem.find('input[name="copt"]').attr('price')); // 기본 가격
+            let basePrice = parseFloat($('.flex.al-center').data('price')); // 기본 가격
             let additionalPrice = parseFloat($(this).data('optPrc')); // 추가 가격
+
+            if (isNaN(additionalPrice)) {
+                additionalPrice = 0;
+            }
+
             let total = basePrice + additionalPrice;
 
-            newItem.find('span[data-name="price"]').text(total); // 가격 설정
+            newItem.find('#display-price').text(total.toLocaleString()); // 가격 설정
             $('.option-selected-list').append(newItem); // 옵션 리스트에 추가
-        }
 
-        // 이벤트 버블링 막기
-        e.stopPropagation();
+            // 총 가격을 <span id="display-price" data-name="price">에 표시
+            $('#display-price').text(total.toLocaleString());
+        }
     });
 
     // 옵션 삭제 이벤트
@@ -85,47 +94,47 @@ $(function() {
         $(this).closest('.option-select-item').remove();
     });
 
-    // 수량 증가 이벤트
-    $('.option-selected-list').on('click', '.btn.icon.plus', function() {
-        let quantityInput = $(this).siblings('.item_qty_count');
-        let quantity = parseInt(quantityInput.val());
-        quantityInput.val(quantity + 1);
-
-        // 상품 가격 업데이트
-        let item = $(this).closest('.option-select-item');
-        let basePrice = parseFloat(item.find('input[name="copt"]').attr('price')); // 기본 가격
-        let total = basePrice * (quantity + 1);
-        item.find('span[data-name="price"]').text(total); // 가격 설정
-
-        // 총 금액 업데이트
-        let totalPrice = 0;
-        $('.option-selected-list .option-select-item').each(function() {
-            totalPrice += parseFloat($(this).find('span[data-name="price"]').text());
-        });
-        $('.total-price strong[data-type="price"]').text(totalPrice); // 총 금액 설정
-    });
-
-    // 수량 감소 이벤트
-    $('.option-selected-list').on('click', '.btn.icon.minus', function() {
-        let quantityInput = $(this).siblings('.item_qty_count');
-        let quantity = parseInt(quantityInput.val());
-        if (quantity > 1) {
-            quantityInput.val(quantity - 1);
-
-            // 상품 가격 업데이트
-            let item = $(this).closest('.option-select-item');
-            let basePrice = parseFloat(item.find('input[name="copt"]').attr('price')); // 기본 가격
-            let total = basePrice * (quantity - 1);
-            item.find('span[data-name="price"]').text(total); // 가격 설정
-
-            // 총 금액 업데이트
-            let totalPrice = 0;
-            $('.option-selected-list .option-select-item').each(function() {
-                totalPrice += parseFloat($(this).find('span[data-name="price"]').text());
-            });
-            $('.total-price strong[data-type="price"]').text(totalPrice); // 총 금액 설정
-        }
-    });
+    // // 수량 증가 이벤트
+    // $('.option-selected-list').on('click', '.btn.icon.plus', function() {
+    //     let quantityInput = $(this).siblings('.item_qty_count');
+    //     let quantity = parseInt(quantityInput.val());
+    //     quantityInput.val(quantity + 1);
+    //
+    //     // 상품 가격 업데이트
+    //     let item = $(this).closest('.option-select-item');
+    //     let basePrice = parseFloat(item.find('input[name="copt"]').attr('price')); // 기본 가격
+    //     let total = basePrice * (quantity + 1);
+    //     item.find('span[data-name="price"]').text(total); // 가격 설정
+    //
+    //     // 총 금액 업데이트
+    //     let totalPrice = 0;
+    //     $('.option-selected-list .option-select-item').each(function() {
+    //         totalPrice += parseFloat($(this).find('span[data-name="price"]').text());
+    //     });
+    //     $('.total-price strong[data-type="price"]').text(totalPrice); // 총 금액 설정
+    // });
+    //
+    // // 수량 감소 이벤트
+    // $('.option-selected-list').on('click', '.btn.icon.minus', function() {
+    //     let quantityInput = $(this).siblings('.item_qty_count');
+    //     let quantity = parseInt(quantityInput.val());
+    //     if (quantity > 1) {
+    //         quantityInput.val(quantity - 1);
+    //
+    //         // 상품 가격 업데이트
+    //         let item = $(this).closest('.option-select-item');
+    //         let basePrice = parseFloat(item.find('input[name="copt"]').attr('price')); // 기본 가격
+    //         let total = basePrice * (quantity - 1);
+    //         item.find('span[data-name="price"]').text(total); // 가격 설정
+    //
+    //         // 총 금액 업데이트
+    //         let totalPrice = 0;
+    //         $('.option-selected-list .option-select-item').each(function() {
+    //             totalPrice += parseFloat($(this).find('span[data-name="price"]').text());
+    //         });
+    //         $('.total-price strong[data-type="price"]').text(totalPrice); // 총 금액 설정
+    //     }
+    // });
 
 
 });

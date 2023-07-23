@@ -111,9 +111,10 @@
                                 </div>
                             </div><!--//star-avg-->
                             <div class="price">
-                                <div class="flex al-center">
+                                <div class="flex al-center" data-price="${productDetail.salePrc}">
                                     <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/><span class="won">원</span>
                                 </div>
+
                             </div><!--// price -->
 
 
@@ -189,17 +190,16 @@
                                                 <button type="button" id="minus-btn" class="btn icon minus"><span>상품수량 빼기</span></button>
                                                 <button type="button" id="plus-btn" class="btn icon plus"><span>상품수량 더하기</span></button>
                                             </div>
+                                            <%--옵션가+가격 표시--%>
                                             <div class="option-price">
                                                 <del style="display: none;"></del>
                                                 <span id="display-price" data-name="price">
-
-
-                                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>
                                                 </span>
                                                 <span class="won">원</span>
                                             </div>
                                         </div>
                                     </div><!-- 선택한 상품 옵션 리스트 -->
+<%--                                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>--%>
                                 </div>
                             </ul><!--//goods-guide-->
 
