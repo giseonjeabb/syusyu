@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.domain.cs;
 
-import java.time.LocalDateTime;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class FaqDTO {
@@ -10,9 +11,9 @@ public class FaqDTO {
     private String title;
     private String content;
     private Integer sortIdx;
-    private LocalDateTime regDttm;
+    private Date regDttm;
     private Integer regrId;
-    private LocalDateTime updDttm;
+    private Date updDttm;
     private Integer updrId;
 
     private String prevTitle;
@@ -33,7 +34,7 @@ public class FaqDTO {
         this.nextNo = faqNo;
     }
 
-    public FaqDTO(Integer faqNo, String title, String content, Integer regrId, LocalDateTime updDttm) {
+    public FaqDTO(Integer faqNo, String title, String content, Integer regrId, Date updDttm) {
         this.faqNo = faqNo;
         this.title = title;
         this.content = content;
@@ -62,8 +63,8 @@ public class FaqDTO {
 
 
 
-    public FaqDTO(Integer faqNo, String faqTp, String title, String content, Integer sortIdx, LocalDateTime regDttm, Integer regrId,
-                  LocalDateTime updDttm, Integer updrId, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
+    public FaqDTO(Integer faqNo, String faqTp, String title, String content, Integer sortIdx, Date regDttm, Integer regrId,
+                  Date updDttm, Integer updrId, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
         this.faqNo = faqNo;
         this.faqTp = faqTp;
         this.title = title;
@@ -128,11 +129,11 @@ public class FaqDTO {
         this.sortIdx = sortIdx;
     }
 
-    public LocalDateTime getRegDttm() {
+    public Date getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(LocalDateTime regDttm) {
+    public void setRegDttm(Date regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -144,11 +145,11 @@ public class FaqDTO {
         this.regrId = regrId;
     }
 
-    public LocalDateTime getUpdDttm() {
+    public Date getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(LocalDateTime updDttm) {
+    public void setUpdDttm(Date updDttm) {
         this.updDttm = updDttm;
     }
 
@@ -211,7 +212,6 @@ public class FaqDTO {
                 ", nextNo=" + nextNo +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

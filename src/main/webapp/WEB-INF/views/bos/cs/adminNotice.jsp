@@ -51,26 +51,39 @@
             <input name="title" type="text" class="detail-tit1" value= " ${noticeDTO.title}"  readonly='readonly'/>
         </tr>
 
-                <span class="date-info">
-                    등록날짜: <span>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</span><br>
-                    <!-- 시작날짜 -->
-                            <input type="hidden" name="startDttm"
-                           value="${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern('yyyy-MM-dd'))}">
+<%--            LocalDateTime 버전--%>
+<%--                <span class="date-info">--%>
+<%--                    등록날짜: <span>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</span><br>--%>
+<%--                    <!-- 시작날짜 -->--%>
+<%--                            <input type="hidden" name="startDttm"--%>
+<%--                           value="${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern('yyyy-MM-dd'))}">--%>
 
-                                    <!-- 종료날짜 -->
-                            <input type="hidden" name="endDttm"
-                           value="${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern('yyyy-MM-dd'))}">
-                </span>
+<%--                   <!-- 종료날짜 -->--%>
+<%--                            <input type="hidden" name="endDttm"--%>
+<%--                           value="${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern('yyyy-MM-dd'))}">--%>
+<%--                </span>--%>
 
-        <%--                 <span class="date-info">--%>
+
+<%--           <span class="date-info">--%>
 <%--                   등록날짜: <span><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" /></span><br>--%>
 <%--                   시작날짜: <span><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" /></span><br>--%>
 <%--                   종료날짜: <span><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" /></span>--%>
-<%--                </span>--%>
+<%--           </span>--%>
+
+
+
+            <span class="date-info">
+                등록날짜: <span><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" /></span><br>
+                        <input type="hidden" name="startDate" value="<fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" />" />
+                        <input type="hidden" name="endDate" value="<fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" />" />
+            </span>
+
+
+
         <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${noticeDTO.content}</textarea>
 
             <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i>  목록</button>
-            <button type="button" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i>  등록 </button>
+<%--            <button type="button" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i>  등록 </button>--%>
             <button type="button" id="modifyBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-toolbox"></i>  수정</button>
             <button type="button" id="removeBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>  삭제</button>
 
