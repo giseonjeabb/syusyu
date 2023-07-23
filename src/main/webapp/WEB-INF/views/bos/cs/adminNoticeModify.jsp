@@ -14,8 +14,8 @@
 <script>
   let msg = "${msg}";
   if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
-  if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
-  if (msg == "WRT_ERR") alert("게시물 작성 하는데 실패 했습니다.");
+  if (msg == "MOD_OK") alert("성공적으로 글이 수정되었습니다.");
+  if (msg == "MOD_ERR") alert("게시물 수정 하는데 실패 했습니다.");
   // Add other messages here
 </script>
 
@@ -23,38 +23,38 @@
 <div class="container">
   <h2 class="title-t ty3 mb-30">공지사항 작성</h2>
 
-  <form id="form" class="frm" action="<c:url value='/adminNotice/write'/>" method="post">
+  <form id="form" class="frm" action="<c:url value='/adminNotice/modify'/>" method="post">
 
-<%--   <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">--%>
+       <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
 
     <!-- Notice Type -->
     <div class="form-group">
       <label for="exampleSelect1" class="form-label mt-4">공지사항 종류</label>
-      <select class="form-select" name = "notcTp" id="exampleSelect1">
-        <option value="10"> 배송  </option>
-        <option value="20"> 전체 공지 </option>
-        <option value="30"> 이벤트 </option>
+      <select class="form-select" name="notcTp" id="exampleSelect1">
+        <option value="10" ${noticeDTO.notcTp == '10' ? 'selected' : ''}> 배송 </option>
+        <option value="20" ${noticeDTO.notcTp == '20' ? 'selected' : ''}> 전체 공지 </option>
+        <option value="30" ${noticeDTO.notcTp == '30' ? 'selected' : ''}> 이벤트 </option>
       </select>
     </div><br>
 
 
     <!-- Notice Title -->
     제목
-    <input name="title" type="text" class="detail-tit1" placeholder="제목을 입력해 주세요." required><br>
+    <input name="title" type="text" value="${noticeDTO.title}" class="detail-tit1" placeholder="제목을 입력해 주세요." required><br>
 
     <!-- Notice Content -->
     상세내용
-    <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required>${noticeDTO.content}</textarea>
+    <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required></textarea>
 
 
 
     <!-- Start Date -->
     공지사항 시작 날짜
-    <input type="date" id = noticeCalendar name="startDttm"  value="${noticeDTO.startDttm}" required>
+    <input type="date" id = noticeCalendar name="startDttm" required>
 
     <!-- End Date -->
     공지사항 종료 날짜
-    <input type="date" id = noticeCalendar  name="endDttm" value = "${noticeDTO.endDttm}" required>
+    <input type="date" id = noticeCalendar  name="endDttm" required>
 
 
 
@@ -71,17 +71,10 @@
   // Define button click event handlers
   $(document).ready(function() {
 
-    <%--$('#listBtn').on("click", function() {--%>
-    <%--  location.href = "<c:url value='/adminNotice/list'/>?page=${sc.page}&pageSize=${sc.pageSize}";--%>
-    <%--});--%>
 
     $("#listBtn").on("click", function(){
       location.href="<c:url value='/adminNotice/list${searchCondition.queryString}'/>";
     });
-
-      <%--function noticeWrite(){--%>
-      <%--    location.href="<c:url value='/adminNotice/write${searchCondition.queryString}'/>";--%>
-      <%--}--%>
 
   });
 

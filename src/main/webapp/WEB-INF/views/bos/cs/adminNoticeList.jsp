@@ -5,6 +5,7 @@
   Time: 오전 10:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -78,7 +79,7 @@
 
 
         <div class="pull-right">
-            <button type="submit" id="writeNewBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value="/adminNotice/write"/>'">
+            <button type="button" id="writeNewBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value='/adminNotice/write'/>'">
                 <i class="fa fa-pen-nib"></i> &nbsp; 공지사항 작성</button>
         </div>
 
@@ -123,77 +124,78 @@
                     <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>
 
 
+                        <%---LocalDateTime 공지사항 등록날짜---%>
+
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">--%>
+<%--                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+<%--                        &lt;%&ndash;-공지사항 시작 날짜-&ndash;%&gt;--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.startDttm.isAfter(now)}">--%>
+<%--                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+
+<%--                        &lt;%&ndash;-공지사항 종료 날짜-&ndash;%&gt;--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.endDttm.isAfter(now)}">--%>
+<%--                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+
+
+<%--                    DTO에 Date 타입일시 이렇게 사용 --%>
+
                         <%---공지사항 등록날짜---%>
                     <c:choose>
-                        <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">
-                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>
+                        <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
                         </c:when>
+
                         <c:otherwise>
-                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
 
 
                         <%---공지사항 시작 날짜---%>
                     <c:choose>
-                        <c:when test="${noticeDTO.startDttm.isAfter(now)}">
-                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>
+                        <c:when test="${noticeDTO.startDttm.time >= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="HH:mm" type="time"/></td>
                         </c:when>
+
                         <c:otherwise>
-                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-
-
 
                         <%---공지사항 종료 날짜---%>
                     <c:choose>
-                        <c:when test="${noticeDTO.endDttm.isAfter(now)}">
-                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                        <c:when test="${noticeDTO.endDttm.time <= startOfToday}">
+                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="HH:mm" type="time"/></td>
                         </c:when>
+
                         <c:otherwise>
-                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
+                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
-
-
-
-
-                        <%--                    DTO에 Date 타입일시 이렇게 사용 --%>
-                        <%--                    <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>--%>
-                        <%--                        &lt;%&ndash;-공지사항 등록날짜-&ndash;%&gt;--%>
-                        <%--                    <c:choose>--%>
-                        <%--                        <c:when test="${noticeDTO.regDttm.time >= startOfToday}">--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>--%>
-                        <%--                        </c:when>--%>
-
-                        <%--                        <c:otherwise>--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>--%>
-                        <%--                        </c:otherwise>--%>
-                        <%--                    </c:choose>--%>
-
-
-                        <%--                        &lt;%&ndash;-공지사항 시작 날짜-&ndash;%&gt;--%>
-                        <%--                    <c:choose>--%>
-                        <%--                        <c:when test="${noticeDTO.startDttm.time >= startOfToday}">--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="HH:mm" type="time"/></td>--%>
-                        <%--                        </c:when>--%>
-
-                        <%--                        <c:otherwise>--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" type="date"/></td>--%>
-                        <%--                        </c:otherwise>--%>
-                        <%--                    </c:choose>--%>
-
-                        <%--                        &lt;%&ndash;-공지사항 종료 날짜-&ndash;%&gt;--%>
-                        <%--                    <c:choose>--%>
-                        <%--                        <c:when test="${noticeDTO.endDttm.time <= startOfToday}">--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="HH:mm" type="time"/></td>--%>
-                        <%--                        </c:when>--%>
-
-                        <%--                        <c:otherwise>--%>
-                        <%--                            <td><fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" type="date"/></td>--%>
-                        <%--                        </c:otherwise>--%>
-                        <%--                    </c:choose>--%>
 
 
 
@@ -269,11 +271,19 @@
         });
 
 
-
-
         $("#writeNewBtn").on("click", function () {
             location.href = "<c:url value='/adminNotice/write'/>";
         });
+
+        $("#modifyBtn").on("click", function () {
+            location.href = "<c:url value='/adminNotice/modify?notcNo=${noticeDTO.notcNo}'/>";
+        });
+
+        <%--$("#modifyBtn").on("click", function () {--%>
+        <%--    location.href = '/adminNotice/modify?notcNo=${noticeDTO.notcNo}';--%>
+        <%--});--%>
+
+
     });
 
 

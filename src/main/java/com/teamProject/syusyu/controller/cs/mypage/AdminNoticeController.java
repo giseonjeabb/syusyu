@@ -64,8 +64,10 @@ public class AdminNoticeController {
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
-            // 현재 시간을 Model에 추가하여 뷰에서 사용할 수 있도록 함
-            m.addAttribute("now", LocalDateTime.now());
+            // 날짜를 모델에 추가함
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
         } catch (Exception e) {
             // 예외가 발생하면 에러 메시지와 총 개수를 0으로 설정하여 뷰에 전달
             // "msg" LIST_ERR에 해당하는 문장이 alert 뜸
