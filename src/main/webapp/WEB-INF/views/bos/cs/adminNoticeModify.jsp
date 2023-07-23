@@ -44,17 +44,17 @@
 
     <!-- Notice Content -->
     상세내용
-    <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required></textarea>
+    <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required>${noticeDTO.content}</textarea>
 
 
 
     <!-- Start Date -->
     공지사항 시작 날짜
-    <input type="date" id = noticeCalendar name="startDttm" required>
+    <input type="date" id = noticeCalendar name="startDttm" value = "${noticeDTO.startDttm}" required>
 
     <!-- End Date -->
     공지사항 종료 날짜
-    <input type="date" id = noticeCalendar  name="endDttm" required>
+    <input type="date" id = noticeCalendar  name="endDttm" value = "${noticeDTO.endDttm}" required>
 
 
 
