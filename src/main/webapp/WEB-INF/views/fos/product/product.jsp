@@ -168,7 +168,7 @@
 													<div class="default text">사이즈를 선택하세요</div>
                                                     <div class="menu" tabindex="-1">
                                                         <c:forEach var="item" items="${shoesSizeList}">
-                                                            <div class="item" data-value="${item.shoesSize}" data-opt-prc="${item.optPrc}">
+                                                            <div class="item" data-value="${item.shoesSize}" data-opt-prc="${item.optPrc}" data-inv-qty="${item.invQty}" data-purchase-limit="${productDetail.dlvChgDtl}">
                                                                 <span>${item.shoesSize} ${item.optPrc != 0 ?'(+'+= item.optPrc+=')':''} </span>
                                                             </div>
                                                         </c:forEach>
@@ -178,34 +178,9 @@
 										</span>
                                 </li><!--//옵션선택 -->
                                 <div class="option-selected-list" style="display: none;"><!-- 선택한 상품 옵션 리스트 -->
-                                    <div class="option-select-item" idx="">
-                                        <p class="option-tit">
-                                            <span></span>
-                                            <button type="button" class="btn icon remove_18" data-type="del"><span>옵션삭제</span></button>
-                                        </p>
-                                        <div class="option-control-box">
-                                            <div class="item-qty">
-                                                <input type="hidden" id="product-price" name="copt" price="" value="">
-                                                <input class="item_qty_count" id="item-quantity" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="0" max="0" stock="33" numeral="number">
-                                                <button type="button" id="minus-btn" class="btn icon minus"><span>상품수량 빼기</span></button>
-                                                <button type="button" id="plus-btn" class="btn icon plus"><span>상품수량 더하기</span></button>
-                                            </div>
-                                            <%--옵션가+가격 표시--%>
-                                            <div class="option-price">
-                                                <del style="display: none;"></del>
-                                                <span id="display-price" data-name="price">
-                                                </span>
-                                                <span class="won">원</span>
-                                            </div>
-                                        </div>
-                                    </div><!-- 선택한 상품 옵션 리스트 -->
-<%--                                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>--%>
+
                                 </div>
                             </ul><!--//goods-guide-->
-
-                            <div class="option-selected-list"></div><!--//option-selected-list-->
-
-
                             <div class="total-price-area">
                                 <div class="total-price">
                                     총금액
@@ -214,9 +189,6 @@
                                 </div>
                             </div><!--//total-price-area-->
                             <div class="btn-area">
-
-
-
 
                                 <a href="#" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></a>
 
@@ -575,52 +547,52 @@
                                 </div><!--//goods-qna-list-wrap--></div>
                             <!-- //상품문의 -->
                         </div><!-- //상세정보 left-case -->
-                        <div class="right-case">
-                            <div class="move-container-right">
-                                <div class="inner">
-                                    <div class="option-selected-list">
+<%--                        <div class="right-case">--%>
+<%--                            <div class="move-container-right">--%>
+<%--                                <div class="inner">--%>
+<%--                                    <div class="option-selected-list">--%>
 
 
-                                        <div class="custom_select">
+<%--                                        <div class="custom_select">--%>
 
-                                            <div class="ui selection dropdown option-select" tabindex="0">
-                                                <input type="hidden" id="opt_picker_2_1" value="">
-                                                <div class="default text">사이즈를 선택하세요</div>
-                                                <div class="menu" tabindex="-1">
-                                                    <c:forEach var="item" items="${shoesSizeList}">
-                                                        <div class="item" data-value="${item.shoesSize}">
-                                                            <span>${item.shoesSize}</span>
-                                                        </div>
-                                                    </c:forEach>
+<%--                                            <div class="ui selection dropdown option-select" tabindex="0">--%>
+<%--                                                <input type="hidden" id="opt_picker_2_1" value="">--%>
+<%--                                                <div class="default text">사이즈를 선택하세요</div>--%>
+<%--                                                <div class="menu" tabindex="-1">--%>
+<%--                                                    <c:forEach var="item" items="${shoesSizeList}">--%>
+<%--                                                        <div class="item" data-value="${item.shoesSize}">--%>
+<%--                                                            <span>${item.shoesSize}</span>--%>
+<%--                                                        </div>--%>
+<%--                                                    </c:forEach>--%>
 
-                                            </div>
+<%--                                            </div>--%>
 
-                                        </div><!-- // custom_select -->
+<%--                                        </div><!-- // custom_select -->--%>
 
-                                    </div><!--//option-selected-list-->
-                                </div><!--//inner-->
-                                <div class="bottom-wrap">
-                                    <div class="total-price flex space-between">
-                                        <span>총 금액</span>
-                                        <span class="point flex al-center"><em data-type="price">0</em>원</span>
-                                    </div>
-                                    <div class="btn-wrap flex space-between">
-
-
+<%--                                    </div><!--//option-selected-list-->--%>
+<%--                                </div><!--//inner-->--%>
+<%--                                <div class="bottom-wrap">--%>
+<%--                                    <div class="total-price flex space-between">--%>
+<%--                                        <span>총 금액</span>--%>
+<%--                                        <span class="point flex al-center"><em data-type="price">0</em>원</span>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="btn-wrap flex space-between">--%>
 
 
-                                        <button type="button" class="btn ty4 free w-92 c-ty2 gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></button>
-
-                                        <button type="button" class="btn ty4 free w-94 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></button>
-                                        <button type="button" class="btn ty4 free w-94 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></button>
 
 
-                                    </div>
-                                </div><!--//bottom-wrap-->
-                            </div><!--//move-container-right-->
-                        </div><!--//right-case-->
-                    </div>
-                </div><!--//goods-detail-con-->
+<%--                                        <button type="button" class="btn ty4 free w-92 c-ty2 gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></button>--%>
+
+<%--                                        <button type="button" class="btn ty4 free w-94 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></button>--%>
+<%--                                        <button type="button" class="btn ty4 free w-94 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></button>--%>
+
+
+<%--                                    </div>--%>
+<%--                                </div><!--//bottom-wrap-->--%>
+<%--                            </div><!--//move-container-right-->--%>
+<%--                        </div><!--//right-case-->--%>
+<%--                    </div>--%>
+<%--                </div><!--//goods-detail-con-->--%>
 
 
                 <div class="goods-detail-recommend">
