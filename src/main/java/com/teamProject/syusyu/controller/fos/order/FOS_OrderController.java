@@ -4,6 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.*;
+import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

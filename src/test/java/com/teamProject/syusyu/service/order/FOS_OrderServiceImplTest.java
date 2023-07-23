@@ -2,6 +2,8 @@ package com.teamProject.syusyu.service.order;
 
 import com.teamProject.syusyu.dao.order.*;
 import com.teamProject.syusyu.domain.order.*;
+import com.teamProject.syusyu.domain.order.request.OrderProductRequestDTO;
+import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
