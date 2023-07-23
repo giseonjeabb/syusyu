@@ -6,16 +6,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
 @Controller
-public class DlvAddrController {
+@RequestMapping("/fos")
+public class FOS_DlvAddrController {
     private final DlvAddrService service;
 
-    public DlvAddrController(DlvAddrService service) {
+    public FOS_DlvAddrController(DlvAddrService service) {
         this.service = service;
     }
 

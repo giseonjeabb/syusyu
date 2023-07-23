@@ -48,7 +48,7 @@ namespace("dlvAddrPopup.function");
 dlvAddrPopup.function = {
     // 배송지 목록을 얻어온다.
     getDlvAddrList: () => {
-        syusyu.common.Ajax.sendJSONRequest('GET', '/dlvAddr', '', dlvAddrList => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/fos/dlvAddr', '', dlvAddrList => {
             // 1. ul을 얻어온다. (.addr-lists)
             const $addrListUl = document.querySelector('.addr-lists')
             // 0. 기존 걸 초기화한다.

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/fos")
+public class FOS_LoginController {
     @Autowired
     MemberService memberService;
 

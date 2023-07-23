@@ -74,7 +74,7 @@ function register() {
 
     syusyu.common.Ajax.sendJSONRequest('POST', '/register/add', param, res => {
         if (res === 'success') {
-            location.href = '/login/login';
+            location.href = '/fos/login';
         } else {
             alert("정보를 올바르게 다시 입력해 주세요.");
         }

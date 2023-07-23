@@ -191,7 +191,7 @@ function createOrder(rsp) {
         data: JSON.stringify(orderData)
     }).done(function (data) {
         if (data === 'ADD_OK') {
-            location.href = '/orderComplete';
+            location.href = '/fos/order/complete';
         } else {
             alert("결제 실패")
         }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="loginOutLink" value="${sessionScope.mbrId != null ? '/login/logout' : '/login/login'}"/>
+<c:set var="loginOutLink" value="${sessionScope.mbrId != null ? '/fos/logout' : '/fos/login'}"/>
 <c:set var="loginOutText" value="${sessionScope.mbrId != null ? '로그아웃' : '로그인'}"/>
 <c:set var="categories" value="${sessionScope.categories}"/>
 <html>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="header-bottom-utils">
                         <a href="/mypage/main" class="btn icon mypage"><span class="text">마이페이지</span></a>
-                        <a href="/cart" class="btn icon bag" style="display: inline-block">
+                        <a href="/fos/cart" class="btn icon bag" style="display: inline-block">
                             <span class="text">장바구니</span>
                             <span class="cnt" data-name="basket-cnt">3</span>
                         </a>

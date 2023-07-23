@@ -22,9 +22,9 @@ public class WebConfig implements WebMvcConfigurer {
         // PRODUCT
 
         // ORDER
-        registry.addViewController("/cart").setViewName(ViewPath.FOS_ORDER + "cart");
-        registry.addViewController("/orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
-        registry.addViewController("/orderComplete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
+        registry.addViewController(ViewPath.FOS + "/cart").setViewName(ViewPath.FOS_ORDER + "cart");
+        registry.addViewController(ViewPath.FOS + "/orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
+        registry.addViewController(ViewPath.FOS + "/order/complete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
 
         // CS
     }
