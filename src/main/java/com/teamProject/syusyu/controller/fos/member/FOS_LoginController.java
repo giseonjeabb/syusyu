@@ -2,7 +2,7 @@ package com.teamProject.syusyu.controller.fos.member;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.MemberDTO;
-import com.teamProject.syusyu.service.fos.member.MemberService;
+import com.teamProject.syusyu.service.fos.member.FOS_MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/fos")
+@RequestMapping(ViewPath.FOS)
 public class FOS_LoginController {
     @Autowired
-    MemberService memberService;
+    FOS_MemberService memberService;
 
 
     @GetMapping("/login")

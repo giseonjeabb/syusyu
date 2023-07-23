@@ -15,10 +15,10 @@ syusyu.common.Popup = {
             const closeBtn = document.querySelector('.popup-default .close');
             closeBtn.addEventListener('click', syusyu.common.Popup.close);
 
-            const module = _url.replaceAll('/', '');
-
-            window[module].initLoad();
-            window[module].bindButtonEvent();
+            // const module = _url.replaceAll('/', '');
+            //
+            // window[module].initLoad();
+            // window[module].bindButtonEvent();
 
             $popupWrap.classList.add('active');
         });

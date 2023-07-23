@@ -2,16 +2,16 @@ package com.teamProject.syusyu.service.fos.member.impl;
 
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
-import com.teamProject.syusyu.service.fos.member.DlvAddrService;
+import com.teamProject.syusyu.service.fos.member.FOS_DlvAddrService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DlvAddrServiceImpl implements DlvAddrService {
+public class FOS_DlvAddrServiceImpl implements FOS_DlvAddrService {
     private final DlvAddrDAO dlvAddrDAO;
 
-    public DlvAddrServiceImpl(DlvAddrDAO dlvAddrDAO) {
+    public FOS_DlvAddrServiceImpl(DlvAddrDAO dlvAddrDAO) {
         this.dlvAddrDAO = dlvAddrDAO;
     }
 

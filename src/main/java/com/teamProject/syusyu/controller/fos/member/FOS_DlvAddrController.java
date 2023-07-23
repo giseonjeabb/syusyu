@@ -1,7 +1,8 @@
 package com.teamProject.syusyu.controller.fos.member;
 
+import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
-import com.teamProject.syusyu.service.fos.member.DlvAddrService;
+import com.teamProject.syusyu.service.fos.member.FOS_DlvAddrService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.util.List;
 
 @Controller
-@RequestMapping("/fos")
+@RequestMapping(ViewPath.FOS)
 public class FOS_DlvAddrController {
-    private final DlvAddrService service;
+    private final FOS_DlvAddrService service;
 
-    public FOS_DlvAddrController(DlvAddrService service) {
+    public FOS_DlvAddrController(FOS_DlvAddrService service) {
         this.service = service;
     }
 

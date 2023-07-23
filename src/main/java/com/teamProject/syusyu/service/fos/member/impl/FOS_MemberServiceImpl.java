@@ -2,17 +2,17 @@ package com.teamProject.syusyu.service.fos.member.impl;
 
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.domain.member.MemberDTO;
-import com.teamProject.syusyu.service.fos.member.MemberService;
+import com.teamProject.syusyu.service.fos.member.FOS_MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class FOS_MemberServiceImpl implements FOS_MemberService {
     MemberDao memberDao;
 
     @Autowired
-    public MemberServiceImpl(MemberDao memberDao) {
+    public FOS_MemberServiceImpl(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
