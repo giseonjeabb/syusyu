@@ -11,11 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // 공통
-        registry.addViewController("/alertPopup").setViewName("/fos/common/alertPopup");
+        registry.addViewController(ViewPath.FOS + "/alertPopup").setViewName("/fos/common/alertPopup");
 
         // 팝업
-        registry.addViewController("/dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
-        registry.addViewController("/couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
+        registry.addViewController(ViewPath.FOS + "/dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
+        registry.addViewController(ViewPath.FOS + "/couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
 
         // MEMBER
 

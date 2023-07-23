@@ -52,7 +52,7 @@ public class FaqController {
 //    public String list(FaqSearchCondition11 fsc11,Model m) {
 //
 ////        if (!loginCheck(request))
-////            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+////            return "redirect:/fos/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 //        try {
 //
 //            // 검색결과 총 게시물 수를 가져옴

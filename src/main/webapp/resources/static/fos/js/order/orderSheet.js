@@ -23,11 +23,11 @@ orderSheet = {
 namespace("orderSheet.eventHandler"); // 이벤트 핸들러(특정 이벤트 발생 시 이벤트를 처리) 모음
 orderSheet.eventHandler = {
     openDlvAddrPopup: () => {
-        syusyu.common.Popup.openPopup('/dlvAddrPopup');
+        syusyu.common.Popup.openPopup('/fos/dlvAddrPopup');
     },
 
     openCouponPopup: () => {
-        syusyu.common.Popup.openPopup('/couponPopup');
+        syusyu.common.Popup.openPopup('/fos/couponPopup');
     },
 
     pntUseChange: (e) => {

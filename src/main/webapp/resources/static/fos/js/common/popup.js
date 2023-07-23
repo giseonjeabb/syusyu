@@ -25,7 +25,7 @@ syusyu.common.Popup = {
     },
 
     commonLayerSetting: (_msg) => {
-        syusyu.common.Ajax.sendPOPRequest('GET', '/alertPopup', '', res => {
+        syusyu.common.Ajax.sendPOPRequest('GET', '/fos/alertPopup', '', res => {
             const $popupAlert = document.querySelector('.popup-alert');
             $(this.COMMON_LAYER_ALERT).html(res);
             $(this.COMMON_LAYER_ALERT_CONTENT).html(_msg);
@@ -38,7 +38,7 @@ syusyu.common.Popup = {
     },
 
     alert: (_msg) => {
-        syusyu.common.Ajax.sendPOPRequest('GET', '/alertPopup', '', res => {
+        syusyu.common.Ajax.sendPOPRequest('GET', '/fos/alertPopup', '', res => {
             const $popupAlert = document.querySelector('.popup-alert');
             $(".popup-alert").html(res);
             document.querySelector('.popup-alert .popup-content').innerHTML = _msg;
@@ -55,7 +55,7 @@ syusyu.common.Popup = {
     },
 
     confirm: (_msg) => {
-        syusyu.common.Ajax.sendPOPRequest('GET', '/alertPopup', '', res => {
+        syusyu.common.Ajax.sendPOPRequest('GET', '/fos/alertPopup', '', res => {
             const $popupAlert = document.querySelector('.popup-alert');
             $(".popup-alert").html(res);
             document.querySelector('.popup-alert .popup-content').innerHTML = _msg;

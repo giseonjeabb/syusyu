@@ -72,7 +72,7 @@ function register() {
         shoeSize:    document.getElementById('shoe_size').value
     };
 
-    syusyu.common.Ajax.sendJSONRequest('POST', '/register/add', param, res => {
+    syusyu.common.Ajax.sendJSONRequest('POST', '/fos/register', param, res => {
         if (res === 'success') {
             location.href = '/fos/login';
         } else {

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/fos")
+public class FOS_RegisterController {
     @Autowired
     MemberService memberService;
 
@@ -26,7 +26,7 @@ public class RegisterController {
         System.out.println("validatorList = " + validatorList);
     }
 
-    @GetMapping("/add")
+    @GetMapping("/register")
     public String registerForm() {
         return ViewPath.FOS_MEMBER + "registerForm";
     }
@@ -37,7 +37,7 @@ public class RegisterController {
     * 매개변수 :
     * 반환타입 :
     * */
-    @PostMapping("/add")
+    @PostMapping("/register")
     @ResponseBody
     public String register(@RequestBody MemberDTO memberDTO) {
         try {
