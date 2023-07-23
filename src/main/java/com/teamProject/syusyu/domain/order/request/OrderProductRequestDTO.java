@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.domain.order;
+package com.teamProject.syusyu.domain.order.request;
 
 public class OrderProductRequestDTO {
     private int prodId;

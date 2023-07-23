@@ -12,7 +12,7 @@ public class ViewPath {
     public static final String FOS_HELP = ".help" + FOS + "/cs/help/";
 
     //  BOS
-    public static final String BOS = "bos";
+    public static final String BOS = "/bos";
     public static final String BOS_MEMBER = ".dashboard" + BOS + "/member/";
     public static final String BOS_PRODUCT = ".dashboard" + BOS + "/product/";
     public static final String BOS_ORDER = ".dashboard" + BOS + "/order/";
