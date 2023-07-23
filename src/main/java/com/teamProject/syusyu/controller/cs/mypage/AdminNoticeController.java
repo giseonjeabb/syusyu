@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.controller.cs.mypage;
 
 import com.mysql.cj.Session;
+import com.mysql.cj.protocol.x.Notice;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
@@ -166,12 +167,28 @@ public class AdminNoticeController {
      * 결론은 return 이아니라  return redirect: 붙으면 RedirectAttributes 써야함
      */
     @PostMapping("/write")
-    public String write(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
+    public String write(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr,@SessionAttribute int mbrId) {
 
         try {
+            noticeDTO.setRegrId(mbrId);
+            rattr.addFlashAttribute("noticeDTO", noticeDTO);
+
+
             // 작성된 공지사항을 DB에 등록하고 처리된 행의 수를 반환
             int rowCnt = noticeService.write(noticeDTO);
 
+            // 날짜를 모델에 추가함
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
+
+            System.out.println("mbrId = " + mbrId);
+
+            System.out.println("공지사항 종류: " + noticeDTO.getNotcTp());
+            System.out.println("제목 = " + noticeDTO.getTitle());
+            System.out.println("등록날짜 = " +noticeDTO.getRegDttm());
+            System.out.println("종료날짜 = " + noticeDTO.getEndDttm());
+            System.out.println("시작날짜 = " + noticeDTO.getStartDttm());
             // 처리된 행의 수가 1이 아니면 예외를 발생시킴
             if (rowCnt != 1)
                 throw new Exception("Write failed!!!!!!!!!!!!!");
@@ -180,6 +197,8 @@ public class AdminNoticeController {
             // 성공적으로 작성되었음을 나타내는 메시지를 FlashAttribute에 추가하여 리다이렉트 시 전달
             rattr.addFlashAttribute("msg", "WRT_OK");
 
+
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -187,27 +206,25 @@ public class AdminNoticeController {
             rattr.addFlashAttribute("noticeDTO", noticeDTO);
             rattr.addFlashAttribute("msg", "WRT_ERR");
 
+            return "redirect:/adminNotice/write";
 
-//            m.addAttribute("noticeDTO", noticeDTO);
+
 //            m.addAttribute("msg", "WRT_ERR");
 //             작동하지않음 , 왜 ?
-//             redirect:/adminNotice/write 리턴하고있기때문
-//             m.addAttribute("msg", "WRT_ERR");로 설정한 메시지는 리다이렉트 이후에는 유효하지 않는다고 함
 //             FlashAttribute는 리다이렉트 시에만 유효하며 다음 요청까지 유지되기 때문에 리다이렉트 이후에도 메시지가 유지됩니다.
-
-            return "redirect:/adminNotice/write";
         }
 
         // 성공적으로 작성되었음을 나타내는 메시지를 FlashAttribute에 추가하여 공지사항 목록으로 리다이렉트
+//        return ViewPath.BOS_CS + "adminNotice/list";
         return "redirect:/adminNotice/list";
     }
 
 
 
+
     @GetMapping("/write")
-    public String write(Model m) {
-        NoticeDTO noticeDTO =new NoticeDTO();
-        m.addAttribute("noticeDTO",noticeDTO);
+    public String showWriteForm() {
+
         return ViewPath.BOS_CS + "adminNoticeWrite";
     }
 
@@ -215,30 +232,41 @@ public class AdminNoticeController {
 
 
 
+    @PostMapping("/modify")
+    public String modify(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
 
 
-//    @PostMapping("/modify")
-//    public String modify(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
-//        String writer = (String) session.getAttribute("id");
-//        boardDto.setWriter(writer);
-//
-//        try {
-//            int rowCnt = noticeService.modify(noticeDTO);
-//
-//            if (rowCnt != 1)
-//                throw new Exception("modify failed");
-//
-//            rattr.addFlashAttribute("msg", "MOD_OK");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            m.addAttribute("boardDto", boardDto);
-//            m.addAttribute("msg", "MOD_ERR");
-//            return "board";
-//        }
-//
-//        return "redirect:/adminNotice/list";
-//    }
+        try {
+            int rowCnt = noticeService.modify(noticeDTO);
+
+            if (rowCnt != 1)
+                throw new Exception("modify failed");
+
+            rattr.addFlashAttribute("msg", "MOD_OK");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("noticeDTO", noticeDTO);
+            m.addAttribute("msg", "MOD_ERR");
+            return "redirect:/adminNotice/modify";
+        }
+
+        return "redirect:/adminNotice/list";
+    }
+
+@GetMapping("/modify")
+    public String showModifyForm(Integer notcNo,Model m){
+
+    try {
+        NoticeDTO noticeDTO = noticeService.read(notcNo);
+        m.addAttribute("noticeDTO",noticeDTO);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return ViewPath.BOS_CS + "adminNoticeModify";
+}
+
 //
 //    private boolean loginCheck(HttpServletRequest request) {
 //        // 1. 세션을 얻어서
