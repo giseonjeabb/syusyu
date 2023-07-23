@@ -71,15 +71,19 @@ public class NoticeController {
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
             List<NoticeDTO> list = noticeService.getSearchResultPage(sc);
+
             // List<NoticeDTO> list 에 담아서 오는 지 보려고
             System.out.println("noticelist = " + list);
+
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
+            //           m.addAttribute("page",page);
+            //           m.addAttribute("pageSize",pageSize);
+
+            // 날짜를 모델에 추가함
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-//           m.addAttribute("page",page);
-//           m.addAttribute("pageSize",pageSize);
-            m.addAttribute("now", LocalDateTime.now());
+
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("msg", "LIST_ERR");

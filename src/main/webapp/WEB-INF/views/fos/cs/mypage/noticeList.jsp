@@ -90,7 +90,7 @@
             </tr>
 
 <%--            list에다가 noticeDTO 내용 순차적으로 싹 담아줌--%>
-            <c:forEach var="noticeDto" items="${list}">
+            <c:forEach var="noticeDTO" items="${list}">
                 <tr>
                         <%--글 번호--%>
                         <%--<td class="notcNo">${noticeDto.notcNo}</td>--%>
@@ -99,18 +99,31 @@
 
                         <%--제목--%>
                     <td class="fw-7"><a
-                            href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
+                            href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>">${noticeDTO.title}</a>
                     </td>
 
                                 <%---공지사항 등록날짜---%>
-                            <c:choose>
-                                <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">
-                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
-                                </c:otherwise>
-                            </c:choose>
+
+<%--                DTO에 Date 타입일시 이렇게 사용--%>
+                    <%---공지사항 등록날짜---%>
+                <c:choose>
+                    <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
+                    </c:when>
+
+                    <c:otherwise>
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                    </c:otherwise>
+                </c:choose>
+
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">--%>
+<%--                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
 
 
 
