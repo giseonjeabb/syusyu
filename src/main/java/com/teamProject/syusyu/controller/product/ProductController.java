@@ -181,7 +181,17 @@ public class ProductController {
         return new ResponseEntity<>(productStatusList, HttpStatus.OK);
     }
 
-
+    /**
+     * 이 메소드는 주어진 상품 ID에 대한 상세 정보, 이미지 리스트, 상품 옵션 사이즈 리스트를 가져와 모델에 추가하는 기능을 수행합니다.
+     * HTTP GET 요청을 통해 호출되며, 반환 값은 view의 경로와 모델에 추가된 상품 정보입니다.
+     *
+     * @param prodId 상품 ID.
+     * @param m Model 객체. 상품 정보를 view로 전달하기 위해 사용됩니다.
+     * @return 상품 정보를 보여주는 view의 경로를 반환합니다. 예외가 발생한 경우 스택 트레이스를 출력합니다.
+     * @throws Exception 상품 서비스에서 상품 정보를 가져오는 도중 발생할 수 있는 예외
+     * @author soso
+     * @since 2023/07/19
+     */
     @GetMapping("/product/{prodId}")
     public String getProduct(@PathVariable int prodId, Model m) {
         Map<String, Object> productDetail = null;
@@ -200,7 +210,7 @@ public class ProductController {
             m.addAttribute("imageList", imageList);
 
             shoesSizeList = (List<ProdOptDTO>) productDetail.get("shoesSizeList");
-            m.addAttribute("shoesSizeList" + shoesSizeList);
+            m.addAttribute("shoesSizeList", shoesSizeList);
             System.out.println("size : " + shoesSizeList.get(0).getShoesSize());
             System.out.println("size : " + shoesSizeList.get(1).getShoesSize());
             System.out.println("size : " + shoesSizeList.get(2).getShoesSize());

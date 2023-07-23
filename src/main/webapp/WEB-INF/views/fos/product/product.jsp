@@ -148,6 +148,7 @@
                                             </button>
                                         </span>
                                         <p>상품 50,000원 이상 구매시 무료배송</p>
+
                                     </span>
                                 </li>
 
@@ -160,52 +161,50 @@
 
 
 											<div class="custom_select" type="general">
-
+<%--${shoesSizeList.get(0).shoesSize}--%>
 												<div class="ui selection dropdown option-select" tabindex="0">
 													<input type="hidden" id="opt_picker_1_1" value="">
-													<div class="default text">사이즈</div>
-													    <div class="menu" tabindex="-1" style="display: block !important;">
-<%--                                                        <c:forEach var="size" items="shoesSizeList" varStatus="idx">--%>
-
-<%--                                                            <div class="item" data-value="idx">--%>
-<%--                                                                <span>${size.shoesSize}</span>--%>
-<%--                                                            </div>--%>
-
-
-<%--                                                        </c:forEach>--%>
-
+													<div class="default text">사이즈를 선택하세요</div>
+                                                    <div class="menu" tabindex="-1">
+                                                        <c:forEach var="item" items="${shoesSizeList}">
+                                                            <div class="item" data-value="${item.shoesSize}" data-opt-prc="${item.optPrc}">
+                                                                <span>${item.shoesSize} ${item.optPrc != 0 ?'(+'+= item.optPrc+=')':''} </span>
+                                                            </div>
+                                                        </c:forEach>
                                                     </div>
-												</div>
-
+                                                </div>
 											</div><!-- // custom_select -->
-
-
-
-
 										</span>
                                 </li><!--//옵션선택 -->
+                                <div class="option-selected-list" style="display: none;"><!-- 선택한 상품 옵션 리스트 -->
+                                    <div class="option-select-item" idx="">
+                                        <p class="option-tit">
+                                            <span></span>
+                                            <button type="button" class="btn icon remove_18" data-type="del"><span>옵션삭제</span></button>
+                                        </p>
+                                        <div class="option-control-box">
+                                            <div class="item-qty">
+                                                <input type="hidden" id="product-price" name="copt" price="" value="">
+                                                <input class="item_qty_count" id="item-quantity" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="0" max="0" stock="33" numeral="number">
+                                                <button type="button" id="minus-btn" class="btn icon minus"><span>상품수량 빼기</span></button>
+                                                <button type="button" id="plus-btn" class="btn icon plus"><span>상품수량 더하기</span></button>
+                                            </div>
+                                            <div class="option-price">
+                                                <del style="display: none;"></del>
+                                                <span id="display-price" data-name="price">
 
+
+                                                    <fmt:formatNumber value="${productDetail.salePrc}" pattern="#,###"/>
+                                                </span>
+                                                <span class="won">원</span>
+                                            </div>
+                                        </div>
+                                    </div><!-- 선택한 상품 옵션 리스트 -->
+                                </div>
                             </ul><!--//goods-guide-->
 
                             <div class="option-selected-list"></div><!--//option-selected-list-->
 
-                            <script id="tpl_basket_product" type="text/x-handlebars-template"><!-- 선택한 상품 옵션 리스트 -->
-                            <div class="option-select-item" idx="{{idx}}">
-                                <p class="option-tit">
-                                    <span>{{text}}</span>
-                                    <button type="button" class="btn icon remove_18" data-type="del"><span>옵션삭제</span></button>
-                                </p>
-                                <div class="option-control-box">
-                                    <div class="item-qty">
-                                        <input type="hidden" name="copt" price="0" />
-                                        <input class="item_qty_count" name="cqty" type="number" title="상품수량" value="1" maxlength="4" min="1" max="0" stock="0" >
-                                        <button type="button" class="btn icon minus"><span>상품수량 빼기</span></button>
-                                        <button type="button" class="btn icon plus"><span>상품수량 더하기</span></button>
-                                    </div>
-                                    <div class="option-price"><del>0원</del><span data-name="price"></span><span class="won">원</span></div>
-                                </div>
-                            </div>
-                            </script>
 
                             <div class="total-price-area">
                                 <div class="total-price">
@@ -219,10 +218,10 @@
 
 
 
-                                <a href="javascript:" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></a>
+                                <a href="#" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></a>
 
-                                <a href="javascript:" class="btn ty4 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></a>
-                                <a href="javascript:" class="btn ty4 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></a>
+                                <a href="#" class="btn ty4 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></a>
+                                <a href="#" class="btn ty4 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></a>
 
 
                             </div><!--//btn-area-->
@@ -586,9 +585,14 @@
 
                                             <div class="ui selection dropdown option-select" tabindex="0">
                                                 <input type="hidden" id="opt_picker_2_1" value="">
-                                                <div class="default text">옵션을 선택하세요</div>
+                                                <div class="default text">사이즈를 선택하세요</div>
                                                 <div class="menu" tabindex="-1">
-                                                    <div class="item" data-value="5"><span>풋팟퐁카레 + 오뚜기밥 작은밥</span></div><div class="item" data-value="6"><span>치킨마살라 + 오뚜기밥 작은밥</span></div><div class="item" data-value="7"><span>치킨마크니 + 오뚜기밥 작은밥</span></div><div class="item" data-value="8"><span>비프코르마 + 오뚜기밥 작은밥</span></div></div>
+                                                    <c:forEach var="item" items="${shoesSizeList}">
+                                                        <div class="item" data-value="${item.shoesSize}">
+                                                            <span>${item.shoesSize}</span>
+                                                        </div>
+                                                    </c:forEach>
+
                                             </div>
 
                                         </div><!-- // custom_select -->
@@ -674,72 +678,72 @@
             </div>
         </div>
     </div>
-    <script>
-        //<![CDATA[
-        $(function(){
-            let pno = "2057";
-            bta.prdOption.init().bind({container: ".goods-detail-wrap"}).setProdOpt(pno);
+<%--    <script>--%>
+<%--        //<![CDATA[--%>
+<%--        $(function(){--%>
+<%--            let pno = "2057";--%>
+<%--            bta.prdOption.init().bind({container: ".goods-detail-wrap"}).setProdOpt(pno);--%>
 
-            // 쿠폰 목록
-            bta.couponProduct.open({
-                type: "issue",
-                product: $('#prod_no').val(),
-            });
+<%--            // 쿠폰 목록--%>
+<%--            bta.couponProduct.open({--%>
+<%--                type: "issue",--%>
+<%--                product: $('#prod_no').val(),--%>
+<%--            });--%>
 
-            // 할인가 안내 팝업
-            $(".price .tooltip-btn").on("click", function(){
-                bta.alert.open(".discount-price-guide");
-            });
+<%--            // 할인가 안내 팝업--%>
+<%--            $(".price .tooltip-btn").on("click", function(){--%>
+<%--                bta.alert.open(".discount-price-guide");--%>
+<%--            });--%>
 
-            // 상품 문의 작성
-            $("a[data-type='qna_regist']").on('click', function() {
-                bta.opener.qnaRegist({
-                    pno: 2057,
-                    oncompleted: function(idx) {
-                        if (! idx) {
-                            prodQna.setParams({
-                                sclassify: $('#qna_classify', '#qna_search').find('li.active a').attr('idx'),
-                                sanswer: $('#qna_answer', '#qna_search').val(),
-                                ssecret: ($('#qna_secret', '#qna_search').is(':checked') ? 1 : 0),
-                                smine: ($('#qna_mine', '#qna_search').is(':checked') ? 1 : 0),
-                            });
-                            prodQna.setPage(0);
-                        }
-                        prodQna.getList();
-                    }
-                });
-            });
+<%--            // 상품 문의 작성--%>
+<%--            $("a[data-type='qna_regist']").on('click', function() {--%>
+<%--                bta.opener.qnaRegist({--%>
+<%--                    pno: 2057,--%>
+<%--                    oncompleted: function(idx) {--%>
+<%--                        if (! idx) {--%>
+<%--                            prodQna.setParams({--%>
+<%--                                sclassify: $('#qna_classify', '#qna_search').find('li.active a').attr('idx'),--%>
+<%--                                sanswer: $('#qna_answer', '#qna_search').val(),--%>
+<%--                                ssecret: ($('#qna_secret', '#qna_search').is(':checked') ? 1 : 0),--%>
+<%--                                smine: ($('#qna_mine', '#qna_search').is(':checked') ? 1 : 0),--%>
+<%--                            });--%>
+<%--                            prodQna.setPage(0);--%>
+<%--                        }--%>
+<%--                        prodQna.getList();--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            });--%>
 
-            // 골라담기 상품 상세 팝업
-            $(".goods-detail-img .prd-item .thumbs a").on("click", function(){
-                const pno = $(this).data("no");
-                bta.laypop.prdDetail({
-                    id:'prd-pick-detail',
-                    url: URI_FRONT_CW+"/product/product_content",
-                    data: $.extend({
-                        prodNo:pno
-                    }, this.params),
-                    oncompleted: function(result) {
-                        const $popup = $('#'+this.id);
-                        $popup.find('.inner').children().remove().end().append(result);
-                    }
-                });
-            });
+<%--            // 골라담기 상품 상세 팝업--%>
+<%--            $(".goods-detail-img .prd-item .thumbs a").on("click", function(){--%>
+<%--                const pno = $(this).data("no");--%>
+<%--                bta.laypop.prdDetail({--%>
+<%--                    id:'prd-pick-detail',--%>
+<%--                    url: URI_FRONT_CW+"/product/product_content",--%>
+<%--                    data: $.extend({--%>
+<%--                        prodNo:pno--%>
+<%--                    }, this.params),--%>
+<%--                    oncompleted: function(result) {--%>
+<%--                        const $popup = $('#'+this.id);--%>
+<%--                        $popup.find('.inner').children().remove().end().append(result);--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            });--%>
 
-            // 골라담기 상품 상세정보에서 담기 클릭 시
-            let click = false;
-            $(".prd-item button[data-type='add']").on("click", function(){
-                let idx = $(this).attr("idx");
-                $(".selection.dropdown").eq(0).find(".item[data-idx='"+idx+"']").click();
-            });
-        });
-        //]]>
+<%--            // 골라담기 상품 상세정보에서 담기 클릭 시--%>
+<%--            let click = false;--%>
+<%--            $(".prd-item button[data-type='add']").on("click", function(){--%>
+<%--                let idx = $(this).attr("idx");--%>
+<%--                $(".selection.dropdown").eq(0).find(".item[data-idx='"+idx+"']").click();--%>
+<%--            });--%>
+<%--        });--%>
+<%--        //]]>--%>
 
-        kakaoPixel('50193296942939463').pageView();
-        kakaoPixel('50193296942939463').viewContent({
-            id: '2057'
-        });
-    </script>
+<%--        kakaoPixel('50193296942939463').pageView();--%>
+<%--        kakaoPixel('50193296942939463').viewContent({--%>
+<%--            id: '2057'--%>
+<%--        });--%>
+<%--    </script>--%>
 
 
 

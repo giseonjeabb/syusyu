@@ -67,6 +67,15 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.selectProductStatus(prodIdArr);
     }
 
+    /**
+     * 상품 ID를 사용하여 해당 상품의 상세 정보, 이미지 리스트, 상품 옵션 사이즈 리스트를 가져오는 메소드입니다.
+     *
+     * @param prodId 상품 ID.
+     * @return 해당 상품 ID에 대한 상세 정보, 이미지 리스트, 상품 옵션 사이즈 리스트를 담은 Map 객체를 반환합니다.
+     * @throws Exception 상품 서비스에서 상품 정보를 가져오는 도중 발생할 수 있는 예외
+     * @author soso
+     * @since 2023/07/19
+     */
     @Override
     public Map<String, Object> getProduct(int prodId) throws Exception{
         ProductDTO productDetail=productDAO.selectProduct(prodId);
