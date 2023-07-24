@@ -5,7 +5,7 @@ import com.teamProject.syusyu.domain.product.ProductDTO;
 import java.util.List;
 import java.util.Map;
 
-public interface ProductService {
+public interface FOS_ProductService {
 
     Map<String, Object> getProductList(int middleNo, int smallNo) throws Exception;
 
