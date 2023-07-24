@@ -30,6 +30,6 @@
 <script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
 
 <%--공통함수--%>
-<script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
