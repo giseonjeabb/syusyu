@@ -78,7 +78,7 @@ public class NoticeDAOImpl implements NoticeDAO {
     @Override
     public List<NoticeDTO> searchSelectPage(SearchCondition sc) throws Exception{
         List<NoticeDTO> test = session.selectList(namespace+"searchSelectPage", sc);
-        System.out.println("test = " + test);
+        System.out.println("noticetest = " + test);
         return test;
     }
 

@@ -35,8 +35,8 @@
 
     <!--        공지사항 등록 -->
     <insert id="insert" parameterType="NoticeDTO">
-        INSERT INTO notice (NOTC_TP, TITLE, CONTENT, START_DTTM, END_DTTM)
-        VALUES (#{notcTp}, #{title}, #{content}, #{startDttm}, #{endDttm})
+        INSERT INTO notice (REGR_ID,NOTC_TP, TITLE, CONTENT, START_DTTM, END_DTTM)
+        VALUES (#{regrId},#{notcTp}, #{title}, #{content}, #{startDttm}, #{endDttm})
     </insert>
 
 
@@ -46,6 +46,8 @@
         SET TITLE    = #{title}
           , CONTENT  = #{content}
           , UPD_DTTM = now()
+          , START_DTTM = #{startDttm}
+          , END_DTTM = #{endDttm}
         WHERE NOTC_NO = #{notcNo}
 --           and REGR_ID = #{regrId}
     </update>
@@ -64,7 +66,8 @@
                REG_DTTM,
                UPD_DTTM,
                START_DTTM,
-               END_DTTM
+               END_DTTM,
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
         FROM notice
         where DEL_YN = 'N'
         ORDER BY REG_DTTM DESC, NOTC_NO DESC
@@ -82,7 +85,8 @@
                REG_DTTM,
                UPD_DTTM,
                START_DTTM,
-               END_DTTM
+               END_DTTM,
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
         FROM notice
     </sql>
 
@@ -103,13 +107,13 @@
                REG_DTTM,
                UPD_DTTM,
                START_DTTM,
-               END_DTTM
+               END_DTTM,
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
+
         FROM notice
         ORDER BY REG_DTTM DESC, NOTC_NO DESC
             LIMIT #{offset}, #{pageSize}
     </select>
-
-
 
 
     <!--    공지사항에는 코멘트 필요없어서 주석 처리함 나중에 리뷰에서 써야지-->
@@ -146,8 +150,18 @@
     </sql>
 
     <!--    검색조건에 맞게 페이지별로 공지 조회-->
+<!--    <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDTO">-->
+<!--        SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP ,START_DTTM , END_DTTM , UPD_DTTM-->
+<!--        FROM notice-->
+<!--        WHERE TRUE-->
+<!--        <include refid="searchCondition"/>-->
+<!--        ORDER BY REG_DTTM DESC, NOTC_NO DESC-->
+<!--        LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDTO">
-        SELECT NOTC_NO ,TITLE ,CONTENT ,REGR_ID ,VIEW_CNT ,REG_DTTM ,NOTC_TP ,START_DTTM , END_DTTM , UPD_DTTM
+        SELECT NOTC_NO, TITLE, CONTENT, REGR_ID, VIEW_CNT, REG_DTTM, NOTC_TP, START_DTTM, END_DTTM, UPD_DTTM,
+        GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM
         FROM notice
         WHERE TRUE
         <include refid="searchCondition"/>

@@ -28,7 +28,7 @@
             <a disabled="disabled" href="#" id="btn_login" class="btn full solid disabled"> 로그인</a>
         </div>
         <ul class="look_box">
-            <li class="look_list"><a href="<c:url value="/register/add"/>" class="look_link">회원가입</a></li>
+            <li class="look_list"><a href="<c:url value="/fos/register"/>" class="look_link">회원가입</a></li>
             <li class="look_list"><a href="" class="look_link">아이디 찾기</a></li>
             <li class="look_list"><a href="" class="look_link">비밀번호 찾기</a></li>
         </ul>

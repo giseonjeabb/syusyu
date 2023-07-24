@@ -15,7 +15,7 @@ import java.util.List;
 //    @Override
 //    public void init(FilterConfig filterConfig) {
 //        //TODO 얘 왜 동작 안 하지
-////        urlList = Arrays.asList("/login/login", "/static");
+////        urlList = Arrays.asList("/fos/login", "/static");
 ////        Filter.super.init(filterConfig);
 //    }
 //
@@ -25,7 +25,7 @@ import java.util.List;
 //        HttpServletResponse response = (HttpServletResponse) servletResponse;
 //        // 로그인이 필요하지 않은 URL 목록을 정의한다.
 //
-//        List<String> urlList = Arrays.asList("/login/login", "/static", "/register/register","/prodList");
+//        List<String> urlList = Arrays.asList("/fos/login", "/static", "/register/register","/prodList");
 //
 //        String requestUrl = request.getRequestURI();
 //
@@ -42,7 +42,7 @@ import java.util.List;
 //            HttpSession session = request.getSession();
 //            if (session == null || session.getAttribute("id") == null) {
 //                // 1-2. 로그인이 되어있지 않으면 login.jsp로 redirect.
-//                response.sendRedirect("/login/login?toURL=" + request.getRequestURI());
+//                response.sendRedirect("/fos/login?toURL=" + request.getRequestURI());
 //                return;
 //            }
 //        }

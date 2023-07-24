@@ -75,7 +75,7 @@ public class FaqDAOImpl implements FaqDAO {
 
     public List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception{
         List<FaqDTO> test = session.selectList(namespace+"searchSelectPage", fsc);
-        System.out.println("test = " + test);
+        System.out.println("faqtest = " + test);
         return test;
     }
 

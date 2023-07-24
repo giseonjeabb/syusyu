@@ -3,6 +3,7 @@ package com.teamProject.syusyu.dao.order.impl;
 import com.teamProject.syusyu.domain.order.OrdDlvAddrDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.PayInfoDTO;
+import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -72,5 +73,19 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     @Override
     public PayInfoDTO selectPayInfo(Map<String, Integer> param) throws Exception {
         return session.selectOne(namespace + "selectPayInfo", param);
+    }
+
+    /**
+     * 주어진 조회 조건에 따라 관리자 화면의 주문 정보 리스트를 조회한다.
+     *
+     * @param orderSearchRequestDTO 조회 조건을 담고 있는 OrderSearchRequestDTO 객체.
+     * @return 조회 조건을 만족하는 주문 정보를 담은 OrderInfoDTO 객체의 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/23
+     */
+    @Override
+    public List<OrderInfoDTO> selectBosOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception {
+        return session.selectList(namespace + "selectBosOrderList", orderSearchRequestDTO);
     }
 }

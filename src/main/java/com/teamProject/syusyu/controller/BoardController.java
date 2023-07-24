@@ -116,7 +116,7 @@ public class BoardController {
 //    public String list(int page, int pageSize, Model m, HttpServletRequest request) {
     public String list(SearchCondition sc, Model m, HttpServletRequest request) { // page 값이 안 들어왔을 때 에러 발생 X
         if (!loginCheck(request))
-            return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+            return "redirect:/fos/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
         try {
             int totalCnt = boardService.getSearchResultCnt(sc);

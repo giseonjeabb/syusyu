@@ -1,17 +1,17 @@
 package com.teamProject.syusyu.domain.order;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.Date;
 
 public class PayInfoDTO {
 
     private int ordAmt; // 주문금액
     private int dlvFee; // 배송비
-    private double cpnDcAmt; // 쿠폰할인
+    private int cpnDcAmt; // 쿠폰할인
     private int pntUseAmt; // 포인트 사용
     private int realPayAmt; // 총 결제금액(실결제금액)
     private int payTp; // 결제방법
-    private LocalDateTime aprvDttm; // 승일일시(결제일시)
+    private String payTpNm; // 결제방법이름
+    private Date aprvDttm; // 승일일시(결제일시)
 
     public int getOrdAmt() {
         return ordAmt;
@@ -29,11 +29,11 @@ public class PayInfoDTO {
         this.dlvFee = dlvFee;
     }
 
-    public double getCpnDcAmt() {
+    public int getCpnDcAmt() {
         return cpnDcAmt;
     }
 
-    public void setCpnDcAmt(double cpnDcAmt) {
+    public void setCpnDcAmt(int cpnDcAmt) {
         this.cpnDcAmt = cpnDcAmt;
     }
 
@@ -61,11 +61,19 @@ public class PayInfoDTO {
         this.payTp = payTp;
     }
 
-    public LocalDateTime getAprvDttm() {
+    public String getPayTpNm() {
+        return payTpNm;
+    }
+
+    public void setPayTpNm(String payTpNm) {
+        this.payTpNm = payTpNm;
+    }
+
+    public Date getAprvDttm() {
         return aprvDttm;
     }
 
-    public void setAprvDttm(LocalDateTime aprvDttm) {
+    public void setAprvDttm(Date aprvDttm) {
         this.aprvDttm = aprvDttm;
     }
 
@@ -78,6 +86,7 @@ public class PayInfoDTO {
                 ", pntUseAmt=" + pntUseAmt +
                 ", realPayAmt=" + realPayAmt +
                 ", payTp=" + payTp +
+                ", payTpNm='" + payTpNm + '\'' +
                 ", aprvDttm=" + aprvDttm +
                 '}';
     }

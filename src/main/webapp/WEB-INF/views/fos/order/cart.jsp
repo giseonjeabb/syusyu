@@ -14,7 +14,7 @@
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
         <a href="<c:url value="/"/>">홈</a>
-        <a href="<c:url value="/cart"/>" onclick="location.reload();">장바구니</a>
+        <a href="<c:url value="/fos/cart"/>" onclick="location.reload();">장바구니</a>
     </div>
 </div>
 <div class="content-title">
