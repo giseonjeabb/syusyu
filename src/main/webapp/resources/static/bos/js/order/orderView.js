@@ -1,13 +1,18 @@
 namespace("orderView");
 orderView = {
     initLoad: () => {
-        // 기본은 캘린더 1개월 범위로 세팅
-        setCalendarRangeByMonths(orderView.startDate, orderView.endDate, -1);
+        // 기본은 오늘 날짜로 세팅(from ~ to)
+        setCalendarRangeByDays(orderView.startDate, orderView.endDate, 0);
 
-        orderView.function.showOrderList();
+        orderView.function.getOrderList();
     },
 
     bindButtonEvent: () => {
+        const searchBtn = document.querySelector('#btn_search');
+        const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
+
+        searchBtn.addEventListener('click', orderView.function.getOrderList);
+        $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -15,77 +20,56 @@ orderView = {
 }
 
 namespace("orderView.eventHandler");
-orderView.eventHandler = {}
+orderView.eventHandler = {
+    dateRangeContainerClick(e) {
+        const that = e.target;
+
+        // 현재 클릭된 버튼에 'active' 클래스를 추가한다.
+        that.classList.add("active");
+
+        // 다른 버튼들은 'active' 클래스를 제거한다.
+        const $buttons = document.querySelectorAll(".date_range"); // 결제수단 버튼
+        $buttons.forEach(btn => {
+            if (btn !== that) {
+                btn.classList.remove("active");
+            }
+        });
+
+        // 클릭한 요소의 데이터 속성의 interval을 지용해 캘린더의 범위를 설정한다.
+        setCalendarRangeByDays(orderView.startDate, orderView.endDate, that.dataset.interval);
+
+    },
+}
 
 namespace("orderView.function");
 orderView.function = {
-    showOrderList() {
+    getOrderList() {
         // 1. 주문조회 시 사용할 조회조건을 가져온다.
-        // 0) 조회할 날짜의 종류
-        const dateType = document.querySelector('#start_date').selectedOptions[0].value;
-        debugger;
-        // 1) 시작일
-        // 2) 종료일
-        // 3) 조회조건
-        // 4) 검색어
+        const dateType = document.querySelector('#date_type').selectedOptions[0].value; // 조회할 날짜의 종류
+        const startDate = document.querySelector('#start_date').value; // 시작일
+        const endDate = document.querySelector('#end_date').value; // 종료일
+        const searchType = document.querySelector('#search_type').value; // 조회조건
+        const searchKeyword = document.querySelector('#search_keyword').value; // 검색어
 
         // 2. 조회조건을 param으로 넘겨서 데이터를 받아온다.
+        const param = {
+            dateType
+            , startDate
+            , endDate
+            , searchType
+            , searchKeyword
+        };
 
+        syusyu.common.Ajax.sendJSONRequest('GET', '/bos/orders', param, res => {
+            orderView.function.showOrderList(res);
+        });
+    },
+
+    showOrderList(orderList) {
         // 3. 받아온 데이터를 tableDate에 넣어준다.
 
         // 테이블에 사용될 데이터를 정의한다.
         const gridId = '#example-table';
-
-        const tableData = [
-            {
-                ordNo: 89,
-                ordDtlNo: 246,
-                ordDttm: "2023-07-23 19:15:13",
-                ordStusNm: "결제완료",
-                claimStus: "",
-                prodId: 10001,
-                prodNm: "반스 올드스쿨",
-                optNm: "color : BLACK, size : 220",
-                qty: 3,
-                prodAmt: 213600,
-                payTp: 20,
-                realPayAmt: 19280,
-                ordrNm: "홍길동",
-                recipient: "방채민"
-            },
-            {
-                ordNo: 89,
-                ordDtlNo: 247,
-                ordDttm: "2023-07-23 19:15:13",
-                ordStusNm: "결제완료",
-                claimStus: "",
-                prodId: 10007,
-                prodNm: "아딜렛 클로그",
-                optNm: "",
-                qty: 1,
-                prodAmt: 39600,
-                payTp: 20,
-                realPayAmt: 19280,
-                ordrNm: "홍길동",
-                recipient: "방채민"
-            },
-            {
-                ordNo: 89,
-                ordDtlNo: 248,
-                ordDttm: "2023-07-23 19:15:13",
-                ordStusNm: "결제완료",
-                claimStus: "",
-                prodId: 10011,
-                prodNm: "로그 2.0",
-                optNm: "",
-                qty: 4,
-                prodAmt: 384000,
-                payTp: 20,
-                realPayAmt: 19280,
-                ordrNm: "홍길동",
-                recipient: "방채민"
-            },
-        ];
 
         const columns = [ // 테이블의 열을 정의한다.
             {title: "주문번호", field: "ordNo"},
@@ -96,30 +80,16 @@ orderView.function = {
             {title: "상품ID", field: "prodId"},
             {title: "상품명", field: "prodNm"},
             {title: "옵션", field: "optNm"},
-            {title: "수량", field: "qty"},
-            {title: "상품금액", field: "prodAmt"},
+            {title: "수량", field: "qty", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
+            {title: "상품금액", field: "prodAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "결제방법", field: "payTp"},
-            {title: "결제금액", field: "realPayAmt"},
+            {title: "결제금액", field: "realPayAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "구매자명", field: "ordrNm"},
             {title: "수령인", field: "recipient"},
         ];
 
-        // "example-table" 요소에 새로운 Tabulator 테이블을 생성한다.
-        const table = new Tabulator(gridId, {
-            data: tableData, // 테이블에 데이터를 연결한다.
-            columns: columns,
-            layout: "fitColumns", // 테이블의 너비에 열을 맞춘다.
-            responsiveLayout: "hide", // 테이블에 맞지 않는 열을 숨긴다.
-            tooltips: true, // 셀에 툴팁을 표시한다.
-            addRowPos: "top", // 새로운 행을 추가할 때 테이블의 위쪽에 추가한다.
-            history: true, // 실행 취소 및 다시 실행 작업을 허용한다.
-            pagination: "local", // 데이터를 페이지네이션한다.
-            paginationSize: 7, // 페이지 당 7행의 데이터를 허용한다.
-            movableColumns: true, // 열 순서를 변경할 수 있게 한다.
-            resizableRows: true, // 행 크기를 조절할 수 있게 한다.
-            initialSort: [ // 데이터의 초기 정렬 순서를 설정한다.
-                {column: "name", dir: "asc"},
-            ],
-        });
-    }
+        syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns);
+    },
 }
+
+const numberWithCommas = (cell) => cell.getValue().toLocaleString();
