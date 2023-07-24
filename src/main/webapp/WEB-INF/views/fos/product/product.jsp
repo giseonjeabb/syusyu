@@ -23,16 +23,7 @@
         </div>
     </div>
     <form id="frm_product" method="post">
-<%--        <input type="hidden" name="pno" id="prod_no" value="2057">--%>
-<%--        <input type="hidden" name="cate" id="prod_cate" value="33">--%>
-<%--        <input type="hidden" name="params" value="">--%>
-<%--        <input type="hidden" id="opt_kind" name="optKind" value="1">--%>
-<%--        <input type="hidden" id="opt_type" name="optType" value="100">--%>
-<%--        <input type="hidden" id="stock_qty" name="stockQty" value="74">--%>
-<%--        <input type="hidden" id="prod_sale_price" value="3380.00">--%>
-<%--        <input type="hidden" id="prod_disc_event" value="">--%>
-<%--        <input type="hidden" id="prod_delivery" value="" fee="3000.00" limit="30000.00">--%>
-<%--        <input type="hidden" id="pdInfo" data-pno="2057" data-optkind="1" data-cateidx="33">--%>
+
         <div class="goods-detail-wrap">
 <%--            <input type="hidden" id="pdPrice" data-baseprice="3380.00" data-finalprice="3380.00" data-discrate="0">--%>
 
@@ -162,7 +153,6 @@
 
 
 											<div class="custom_select" type="general">
-<%--${shoesSizeList.get(0).shoesSize}--%>
 												<div class="ui selection dropdown option-select" tabindex="0">
 													<input type="hidden" id="opt_picker_1_1" value="">
 													<div class="default text">사이즈를 선택하세요</div>
@@ -189,10 +179,20 @@
                                 </div>
                             </div><!--//total-price-area-->
                             <div class="btn-area">
+<%--                                <input type="hidden" name="pno" id="prod_no" value="${productDetail.prodId}">--%>
+<%--                                <input type="hidden" name="cate" id="prod_cate" value="${productDetail.cateId}">--%>
+<%--                                <input type="hidden" id="prod_sale_price" value="${productDetail.salePrc}">--%>
+<%--                                &lt;%&ndash;        <input type="hidden" name="params" value="">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="opt_kind" name="optKind" value="1">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="opt_type" name="optType" value="100">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="stock_qty" name="stockQty" value="74">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="prod_disc_event" value="">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="prod_delivery" value="" fee="3000.00" limit="30000.00">&ndash;%&gt;--%>
+<%--                                &lt;%&ndash;        <input type="hidden" id="pdInfo" data-pno="2057" data-optkind="1" data-cateidx="33">&ndash;%&gt;--%>
 
                                 <a href="#" class="btn ty4 c-ty2 icon gift" data-name="order-by" data-type="gift" data-boolean="true"><span>선물함 담기</span></a>
 
-                                <a href="#" class="btn ty4 c-ty2" data-name="order-by" data-type=""><span>장바구니</span></a>
+                                <a href="#" class="btn ty4 c-ty2" data-name="order-by" data-type="cart"><span>장바구니</span></a>
                                 <a href="#" class="btn ty4 c-ty1" data-name="order-by" data-type="order "><span>바로구매</span></a>
 
 
@@ -264,7 +264,6 @@
                                         </div><!--//sorting-->
 
                                         <div class="reviews-list-wrap" page-no="1" total-size="1" total-page="1" total-review="1" rating-avg="5.0" rating-star="5">
-
 
 
                                             <div class="rev-list view-list" data-idx="1388">
@@ -512,12 +511,6 @@
                             <!-- 상품문의 -->
                             <div class="tab-cont goods-qna">
 
-
-
-
-
-
-
                                 <h4 class="tit">상품문의 <strong class="count color-1" name="tab_qna_size">0</strong></h4>
                                 <div class="qna-head flex space-between">
                                     <div class="chkbox">
@@ -607,13 +600,13 @@
     <div class="popup-wrap discount-price-guide" active-popup="true">
         <div class="popup-layer w-430 pd-c-30">
             <div class="popup-head">
-                <h5>오뚜기몰 할인가 안내</h5>
+                <h5>슈슈몰 할인가 안내</h5>
                 <button type="button" class="btn icon remove_19"><span class="text">닫기</span></button>
             </div>
             <div class="popup-content">
                 <div class="inner">
                     <p>
-                        상시 판매가 대비 오뚜기 몰 내에서 혜택으로 드리는 할인가
+                        상시 판매가 대비 슈슈 몰 내에서 혜택으로 드리는 할인가
                         입니다. 적용된 할인가는 옵션에 따라 할인 혜택이 다를 수
                         있으며 당사 사정에 따라 변경될 수 있습니다.
                     </p>
@@ -650,76 +643,6 @@
             </div>
         </div>
     </div>
-<%--    <script>--%>
-<%--        //<![CDATA[--%>
-<%--        $(function(){--%>
-<%--            let pno = "2057";--%>
-<%--            bta.prdOption.init().bind({container: ".goods-detail-wrap"}).setProdOpt(pno);--%>
-
-<%--            // 쿠폰 목록--%>
-<%--            bta.couponProduct.open({--%>
-<%--                type: "issue",--%>
-<%--                product: $('#prod_no').val(),--%>
-<%--            });--%>
-
-<%--            // 할인가 안내 팝업--%>
-<%--            $(".price .tooltip-btn").on("click", function(){--%>
-<%--                bta.alert.open(".discount-price-guide");--%>
-<%--            });--%>
-
-<%--            // 상품 문의 작성--%>
-<%--            $("a[data-type='qna_regist']").on('click', function() {--%>
-<%--                bta.opener.qnaRegist({--%>
-<%--                    pno: 2057,--%>
-<%--                    oncompleted: function(idx) {--%>
-<%--                        if (! idx) {--%>
-<%--                            prodQna.setParams({--%>
-<%--                                sclassify: $('#qna_classify', '#qna_search').find('li.active a').attr('idx'),--%>
-<%--                                sanswer: $('#qna_answer', '#qna_search').val(),--%>
-<%--                                ssecret: ($('#qna_secret', '#qna_search').is(':checked') ? 1 : 0),--%>
-<%--                                smine: ($('#qna_mine', '#qna_search').is(':checked') ? 1 : 0),--%>
-<%--                            });--%>
-<%--                            prodQna.setPage(0);--%>
-<%--                        }--%>
-<%--                        prodQna.getList();--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            });--%>
-
-<%--            // 골라담기 상품 상세 팝업--%>
-<%--            $(".goods-detail-img .prd-item .thumbs a").on("click", function(){--%>
-<%--                const pno = $(this).data("no");--%>
-<%--                bta.laypop.prdDetail({--%>
-<%--                    id:'prd-pick-detail',--%>
-<%--                    url: URI_FRONT_CW+"/product/product_content",--%>
-<%--                    data: $.extend({--%>
-<%--                        prodNo:pno--%>
-<%--                    }, this.params),--%>
-<%--                    oncompleted: function(result) {--%>
-<%--                        const $popup = $('#'+this.id);--%>
-<%--                        $popup.find('.inner').children().remove().end().append(result);--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            });--%>
-
-<%--            // 골라담기 상품 상세정보에서 담기 클릭 시--%>
-<%--            let click = false;--%>
-<%--            $(".prd-item button[data-type='add']").on("click", function(){--%>
-<%--                let idx = $(this).attr("idx");--%>
-<%--                $(".selection.dropdown").eq(0).find(".item[data-idx='"+idx+"']").click();--%>
-<%--            });--%>
-<%--        });--%>
-<%--        //]]>--%>
-
-<%--        kakaoPixel('50193296942939463').pageView();--%>
-<%--        kakaoPixel('50193296942939463').viewContent({--%>
-<%--            id: '2057'--%>
-<%--        });--%>
-<%--    </script>--%>
-
-
-
-
 
 
     <!-- 상품 옵션 팝업 -->
