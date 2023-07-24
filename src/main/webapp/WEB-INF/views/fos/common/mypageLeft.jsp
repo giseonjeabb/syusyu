@@ -5,7 +5,7 @@
         <h3 class="title-t ty3">마이페이지</h3>
         <dl class="mypage-menu-list">
             <dt class="title-t ty7">쇼핑정보</dt>
-            <dd><a href="<c:url value="/orderView"/>" class="">주문배송조회</a></dd>
+            <dd><a href="<c:url value="/fos/orderView"/>" class="">주문배송조회</a></dd>
             <dd><a href="" class="">취소/교환/반품 조회</a></dd>
             <dt class="title-t ty7">혜택정보</dt>
             <dd><a href="" class="">쿠폰</a></dd>

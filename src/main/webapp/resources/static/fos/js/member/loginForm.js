@@ -44,7 +44,7 @@ function login() {
         lginPwd: document.getElementById('login_pwd').value
     }
 
-    syusyu.common.Ajax.sendJSONRequest('POST', '/login/login', param, res => {
+    syusyu.common.Ajax.sendJSONRequest('POST', '/fos/login', param, res => {
         if (res === 'success') {
             location.href = '/';
         } else {

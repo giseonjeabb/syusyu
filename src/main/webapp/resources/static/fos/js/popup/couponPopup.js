@@ -45,7 +45,6 @@ couponPopup.eventHandler = {
         document.querySelector('#useCpnIssNo').value = cpnIssNo;    // 쿠폰발행번호
         document.querySelector('#couponDcAmt').value = couponDcAmt; // 쿠폰할인금액
 
-        debugger;
         // 1-2. 단순 보여주기용 txt couponDcAmtTxt
         document.querySelector('#couponDcAmtTxt').value = formatPrice(couponDcAmt);
 
@@ -65,7 +64,7 @@ couponPopup.function = {
             totProdAmt: document.getElementById('totProdAmt').value
         };
 
-        syusyu.common.Ajax.sendJSONRequest("GET", "/orders/available-coupons", param, function (res) {
+        syusyu.common.Ajax.sendJSONRequest("GET", "/fos/orders/available-coupons", param, function (res) {
             const $productCoupon = document.querySelector('select[name="productCoupon"]'); // input select
 
             // 응답으로 온 사용 가능한 쿠폰 리스트를 option으로 생성해서 넣어준다.
