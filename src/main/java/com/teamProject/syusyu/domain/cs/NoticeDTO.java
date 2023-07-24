@@ -38,6 +38,15 @@ public class NoticeDTO {
     public NoticeDTO() {
     }
 
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Date startDttm, Date endDttm) {
+        this.notcNo = notcNo;
+        this.notcTp = notcTp;
+        this.title = title;
+        this.content = content;
+        this.startDttm = startDttm;
+        this.endDttm = endDttm;
+    }
+
     public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Date startDttm, Date endDttm, Date regDttm) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
