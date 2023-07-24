@@ -21,6 +21,19 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="<c:url value="${jsUrlBos}/common/dashboard_demo.js"/>"></script>
 
+<!-- Tabulator CSS를 페이지에 포함시킨다. -->
+<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+<!-- Tabulator 자바스크립트 라이브러리를 페이지에 포함시킨다. -->
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 
 <%--상품등록--%>
 <script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
+
+<%--공통함수--%>
+<script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
+<%--ajax 요청 공통 함수 라이브러리--%>
+<script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
+
+<%-- flatpickr 캘린더 라이브러리 --%>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>

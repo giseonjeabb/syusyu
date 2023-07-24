@@ -1,10 +1,19 @@
 package com.teamProject.syusyu.domain.order.request;
 
 public class OrderSearchRequestDTO {
+    String dateType; // 조회할 날짜의 종류(예: 주문일, 결제일, 구매확정일)
     String startDate; // 조회시작일
     String endDate; // 조회종료일
     String searchType; // 조회조건
     String searchKeyword; // 검색어
+
+    public String getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(String dateType) {
+        this.dateType = dateType;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -40,15 +49,17 @@ public class OrderSearchRequestDTO {
 
     @Override
     public String toString() {
-        return "OrderSearchDTO{" +
-                "startDate='" + startDate + '\'' +
+        return "OrderSearchRequestDTO{" +
+                "dateType='" + dateType + '\'' +
+                ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", searchType='" + searchType + '\'' +
-                ", keyword='" + searchKeyword + '\'' +
+                ", searchKeyword='" + searchKeyword + '\'' +
                 '}';
     }
 
     public static final class Builder {
+        private String dateType;
         private String startDate;
         private String endDate;
         private String searchType;
@@ -59,6 +70,11 @@ public class OrderSearchRequestDTO {
 
         public static Builder anOrderSearchRequestDTO() {
             return new Builder();
+        }
+
+        public Builder dateType(String dateType) {
+            this.dateType = dateType;
+            return this;
         }
 
         public Builder startDate(String startDate) {
@@ -83,6 +99,7 @@ public class OrderSearchRequestDTO {
 
         public OrderSearchRequestDTO build() {
             OrderSearchRequestDTO orderSearchRequestDTO = new OrderSearchRequestDTO();
+            orderSearchRequestDTO.setDateType(dateType);
             orderSearchRequestDTO.setStartDate(startDate);
             orderSearchRequestDTO.setEndDate(endDate);
             orderSearchRequestDTO.setSearchType(searchType);
