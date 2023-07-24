@@ -2,6 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page session="true" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <head>
     <style>
@@ -81,34 +83,47 @@
             <tbody>
             <tr>
                 <%--<th class="notcNo">번호</th>--%>
-                <%--<th class="notcTp">분류</th>--%>
+<%--                <th class="notcTp">분류</th>--%>
                 <th class="notice-title">제목</th>
                 <th class="regDttm">등록일</th>
                 <%--<th class="viewCnt">조회수</th>--%>
             </tr>
 
 <%--            list에다가 noticeDTO 내용 순차적으로 싹 담아줌--%>
-            <c:forEach var="noticeDto" items="${list}">
+            <c:forEach var="noticeDTO" items="${list}">
                 <tr>
                         <%--글 번호--%>
                         <%--<td class="notcNo">${noticeDto.notcNo}</td>--%>
                         <%--타입--%>
-                        <%--<td class="notcTp"><c:out value="${noticeDto.notcTp}"/></td>--%>
+<%--                        <td class="notcTp"><c:out value="${noticeDto.notcTpNm}"/></td>--%>
 
                         <%--제목--%>
                     <td class="fw-7"><a
-                            href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDto.notcNo}"/>">${noticeDto.title}</a>
+                            href="<c:url value="/notice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>">${noticeDTO.title}</a>
                     </td>
-                        <%--등록날짜--%>
 
-                            <c:choose>
-                                <c:when test="${noticeDTO.regDttm.isAfter(now)}">
-                                    <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>${noticeDTO.regDttm.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>
-                                </c:otherwise>
-                            </c:choose>
+                                <%---공지사항 등록날짜---%>
+
+<%--                DTO에 Date 타입일시 이렇게 사용--%>
+                    <%---공지사항 등록날짜---%>
+                <c:choose>
+                    <c:when test="${noticeDTO.regDttm.time >= startOfToday}">
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="HH:mm" type="time"/></td>
+                    </c:when>
+
+                    <c:otherwise>
+                        <td><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
+                    </c:otherwise>
+                </c:choose>
+
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">--%>
+<%--                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
 
 
 

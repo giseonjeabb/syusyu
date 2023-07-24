@@ -72,9 +72,9 @@ function register() {
         shoeSize:    document.getElementById('shoe_size').value
     };
 
-    syusyu.common.Ajax.sendJSONRequest('POST', '/register/add', param, res => {
+    syusyu.common.Ajax.sendJSONRequest('POST', '/fos/register', param, res => {
         if (res === 'success') {
-            location.href = '/login/login';
+            location.href = '/fos/login';
         } else {
             alert("정보를 올바르게 다시 입력해 주세요.");
         }

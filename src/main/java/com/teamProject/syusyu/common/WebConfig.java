@@ -10,22 +10,27 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        /* ===== FOS ===== */
         // 공통
-        registry.addViewController("/alertPopup").setViewName("/fos/common/alertPopup");
+        registry.addViewController(ViewPath.FOS + "alertPopup").setViewName("/fos/common/alertPopup");
 
         // 팝업
-        registry.addViewController("/dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
-        registry.addViewController("/couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
+        registry.addViewController(ViewPath.FOS + "dlvAddrPopup").setViewName(ViewPath.FOS_POPUP + "dlvAddrPopup");
+        registry.addViewController(ViewPath.FOS + "couponPopup").setViewName(ViewPath.FOS_POPUP + "couponPopup");
 
         // MEMBER
 
         // PRODUCT
 
         // ORDER
-        registry.addViewController("/cart").setViewName(ViewPath.FOS_ORDER + "cart");
-        registry.addViewController("/orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
-        registry.addViewController("/orderComplete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
+        registry.addViewController(ViewPath.FOS + "cart").setViewName(ViewPath.FOS_ORDER + "cart");
+        registry.addViewController(ViewPath.FOS + "orderView").setViewName(ViewPath.FOS_MYPAGE + "orderView");
+        registry.addViewController(ViewPath.FOS + "order/complete").setViewName(ViewPath.FOS_ORDER + "orderComplete");
 
         // CS
+        registry.addViewController(ViewPath.FOS + "mypage/main").setViewName(ViewPath.FOS_MYPAGE + "mypageMain");
+
+        /* ===== BOS ===== */
+        registry.addViewController(ViewPath.BOS + "orders/view").setViewName(ViewPath.BOS_ORDER + "orderView");
     }
 }

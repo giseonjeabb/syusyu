@@ -5,9 +5,13 @@
   Time: 오전 10:41
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+
 
 <head>
     <style>
@@ -43,9 +47,7 @@
                         <h3 class="panel-title"> 공지사항 조회 </h3>
                     </div>
 
-                    <div class="pull-right">
-                        <button type="writeBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value="/adminNotice/write"/>'"><i class="fa fa-pen-nib"></i> &nbsp; 공지사항 작성</button>
-                    </div>
+
                 </div>
 
 
@@ -74,7 +76,15 @@
 
         </form>
 
+
+
+        <div class="pull-right">
+            <button type="button" id="writeNewBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value='/adminNotice/write'/>'">
+                <i class="fa fa-pen-nib"></i> &nbsp; 공지사항 작성</button>
+        </div>
+
     </div>   <%---search--%>
+
 
 
 
@@ -84,6 +94,9 @@
             <span class="notice_count">
                 (총 ${ph.totalCnt}개)
             </span>
+
+
+
         </div>
 
         <table class="table table-hover">
@@ -110,6 +123,45 @@
                         <%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
                     <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>
 
+
+                        <%---LocalDateTime 공지사항 등록날짜---%>
+
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.regDttm.isAfter(LocalDateTime.now())}">--%>
+<%--                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.regDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+<%--                        &lt;%&ndash;-공지사항 시작 날짜-&ndash;%&gt;--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.startDttm.isAfter(now)}">--%>
+<%--                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("HH:mm"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.startDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+
+<%--                        &lt;%&ndash;-공지사항 종료 날짜-&ndash;%&gt;--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${noticeDTO.endDttm.isAfter(now)}">--%>
+<%--                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td>${noticeDTO.endDttm.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}</td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+
+
+
+
+<%--                    DTO에 Date 타입일시 이렇게 사용 --%>
 
                         <%---공지사항 등록날짜---%>
                     <c:choose>
@@ -145,7 +197,9 @@
                         </c:otherwise>
                     </c:choose>
 
-<%--                    <td> <input class="" type="button" value="수정"> </td>--%>
+
+
+                        <%--                    <td> <input class="" type="button" value="수정"> </td>--%>
                     <td><button type="button" id="modifyBtn" class="modifyBtn">수정</button></td>
                     <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
                 </tr>
@@ -155,50 +209,50 @@
         </table>
 
 
-<%--            오류나는 부분 끝--%>
+        <%--            오류나는 부분 끝--%>
 
 
 
-    <%--페이지 이동 페이지 핸들링--%>
-    <%--  << <  1 2 3 4 5 6 7 8 9 10 > >>  --%>
-    <br>
+        <%--페이지 이동 페이지 핸들링--%>
+        <%--  << <  1 2 3 4 5 6 7 8 9 10 > >>  --%>
+        <br>
 
 
-    <div id="devPageWrap">
-        <div class="wrap-pagination">
-            <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
-                <div> 게시물이 없습니다.</div>
-            </c:if>
-
-            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
-
-                <c:if test="${ph.showFirst}">
-                    <a class="page" href="<c:url value='/adminNotice/list${pg.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+        <div id="devPageWrap">
+            <div class="wrap-pagination">
+                <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
+                    <div> 게시물이 없습니다.</div>
                 </c:if>
 
-                <c:if test="${ph.showPrev}">
-                    <a class="page"
-                       href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
+                <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
+
+                    <c:if test="${ph.showFirst}">
+                        <a class="page" href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+                    </c:if>
+
+                    <c:if test="${ph.showPrev}">
+                        <a class="page"
+                           href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
+                    </c:if>
+
+                    <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                        <a class="page ${i==ph.sc.page? "paging-active" : ""}"
+                           href="<c:url value='/adminNotice/list${ph.sc.getQueryString(i)}'/>">${i}</a>
+                    </c:forEach>
+
+                    <c:if test="${ph.showNext}">
+                        <a class="page" href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
+                    </c:if>
+
+                    <c:if test="${ph.showLast}">
+                        <a class="page"
+                           href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
+                    </c:if>
+
                 </c:if>
 
-                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                    <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-                       href="<c:url value='/adminNotice/list${ph.sc.getQueryString(i)}'/>">${i}</a>
-                </c:forEach>
-
-                <c:if test="${ph.showNext}">
-                    <a class="page" href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
-                </c:if>
-
-                <c:if test="${ph.showLast}">
-                    <a class="page"
-                       href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
-                </c:if>
-
-            </c:if>
-
+            </div>
         </div>
-    </div>
 
     </form>
 </div>
@@ -216,5 +270,21 @@
             form.submit();
         });
 
+
+        $("#writeNewBtn").on("click", function () {
+            location.href = "<c:url value='/adminNotice/write'/>";
+        });
+
+        $("#modifyBtn").on("click", function () {
+            location.href = "<c:url value='/adminNotice/modify?notcNo=${noticeDTO.notcNo}'/>";
+        });
+
+        <%--$("#modifyBtn").on("click", function () {--%>
+        <%--    location.href = '/adminNotice/modify?notcNo=${noticeDTO.notcNo}';--%>
+        <%--});--%>
+
+
     });
+
+
 </script>

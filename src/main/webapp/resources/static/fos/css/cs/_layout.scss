@@ -387,6 +387,9 @@ header {
     position: relative;
     height: 75px;
     line-height: 75px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     .category_btn {
       position: relative;
       &::before {
@@ -1119,7 +1122,7 @@ main {
       width: 20px;
       height: 20px;
       margin-top: 0;
-      background: url(../images/icon_arrow_down_20.svg) no-repeat;
+      background: url("../../../image/icon_arrow_down_20.svg") no-repeat;
       transform: translateX(-50%);
       &::after {
         content: none;

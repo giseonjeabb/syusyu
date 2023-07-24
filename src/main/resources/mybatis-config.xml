@@ -30,6 +30,7 @@
 
         <typeAlias alias="OrderInfoDTO" type="com.teamProject.syusyu.domain.order.OrderInfoDTO"/>
         <typeAlias alias="PayInfoDTO" type="com.teamProject.syusyu.domain.order.PayInfoDTO"/>
+        <typeAlias alias="orderSearchRequestDTO" type="com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO"/>
 
         <!-- cs -->
         <typeAlias alias="NoticeDTO" type="com.teamProject.syusyu.domain.cs.NoticeDTO"/>

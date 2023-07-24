@@ -1,23 +1,31 @@
 package com.teamProject.syusyu.domain.cs;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+import java.util.Date;
 import java.util.Objects;
 
 public class NoticeDTO {
 
     private Integer notcNo;
     private String notcTp;
+    private String notcTpNm;
     private String title;
     private String content;
     private Integer viewCnt;
     private char fixYn;
-    private LocalDateTime startDttm;
-    private LocalDateTime endDttm;
-    private LocalDateTime regDttm;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDttm;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDttm;
+    private Date regDttm;
     private Integer regrId;
-    private LocalDateTime updDttm;
+    private Date updDttm;
     private Integer updrId;
-    private LocalDateTime delDttm;
+    private Date delDttm;
     private Integer delrId;
     private char delYn;
 
@@ -27,13 +35,20 @@ public class NoticeDTO {
     private Integer nextNo;
 
 
+    public NoticeDTO() {
+    }
 
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Date startDttm, Date endDttm, Date regDttm) {
+        this.notcNo = notcNo;
+        this.notcTp = notcTp;
+        this.title = title;
+        this.content = content;
+        this.startDttm = startDttm;
+        this.endDttm = endDttm;
+        this.regDttm = regDttm;
+    }
 
-    public NoticeDTO(){}
-
-
-
-    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Integer viewCnt, LocalDateTime startDttm, LocalDateTime endDttm, LocalDateTime regDttm) {
+    public NoticeDTO(Integer notcNo, String notcTp, String title, String content, Integer viewCnt, Date startDttm, Date endDttm, Date regDttm) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
         this.title = title;
@@ -90,12 +105,11 @@ public class NoticeDTO {
         this.content = content;
     }
 
-    public NoticeDTO(Integer notcNo, String notcTp, String title, String content,
-                     Integer viewCnt, char fixYn, LocalDateTime startDttm, LocalDateTime endDttm, LocalDateTime regDttm,
-                     Integer regrId, LocalDateTime updDttm, Integer updrId, LocalDateTime delDttm, Integer delrId,
-                     char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
+
+    public NoticeDTO(Integer notcNo, String notcTp, String notcTpNm, String title, String content, Integer viewCnt, char fixYn, Date startDttm, Date endDttm, Date regDttm, Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId, char delYn, String prevTitle, String nextTitle, Integer prevNo, Integer nextNo) {
         this.notcNo = notcNo;
         this.notcTp = notcTp;
+        this.notcTpNm = notcTpNm;
         this.title = title;
         this.content = content;
         this.viewCnt = viewCnt;
@@ -117,43 +131,6 @@ public class NoticeDTO {
 
 
 
-    @Override
-    public String toString() {
-        return "NoticeDto{" +
-                "notcNo=" + notcNo +
-                ", notcTp='" + notcTp + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", viewCnt=" + viewCnt +
-                ", fixYn=" + fixYn +
-                ", startDttm=" + startDttm +
-                ", endDttm=" + endDttm +
-                ", regDttm=" + regDttm +
-                ", regrId=" + regrId +
-                ", updDttm=" + updDttm +
-                ", updrId=" + updrId +
-                ", delDttm=" + delDttm +
-                ", delrId=" + delrId +
-                ", delYn=" + delYn +
-                ", prevTitle='" + prevTitle + '\'' +
-                ", nextTitle='" + nextTitle + '\'' +
-                ", prevNo=" + prevNo +
-                ", nextNo=" + nextNo +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NoticeDTO noticeDto = (NoticeDTO) o;
-        return fixYn == noticeDto.fixYn && delYn == noticeDto.delYn && Objects.equals(notcNo, noticeDto.notcNo) && Objects.equals(notcTp, noticeDto.notcTp) && Objects.equals(title, noticeDto.title) && Objects.equals(content, noticeDto.content) && Objects.equals(viewCnt, noticeDto.viewCnt) && Objects.equals(startDttm, noticeDto.startDttm) && Objects.equals(endDttm, noticeDto.endDttm) && Objects.equals(regDttm, noticeDto.regDttm) && Objects.equals(regrId, noticeDto.regrId) && Objects.equals(updDttm, noticeDto.updDttm) && Objects.equals(updrId, noticeDto.updrId) && Objects.equals(delDttm, noticeDto.delDttm) && Objects.equals(delrId, noticeDto.delrId) && Objects.equals(prevTitle, noticeDto.prevTitle) && Objects.equals(nextTitle, noticeDto.nextTitle) && Objects.equals(prevNo, noticeDto.prevNo) && Objects.equals(nextNo, noticeDto.nextNo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(notcNo, notcTp, title, content, viewCnt, fixYn, startDttm, endDttm, regDttm, regrId, updDttm, updrId, delDttm, delrId, delYn, prevTitle, nextTitle, prevNo, nextNo);
-    }
 
     public Integer getNotcNo() {
         return notcNo;
@@ -169,6 +146,14 @@ public class NoticeDTO {
 
     public void setNotcTp(String notcTp) {
         this.notcTp = notcTp;
+    }
+
+    public String getNotcTpNm() {
+        return notcTpNm;
+    }
+
+    public void setNotcTpNm(String notcTpNm) {
+        this.notcTpNm = notcTpNm;
     }
 
     public String getTitle() {
@@ -203,27 +188,27 @@ public class NoticeDTO {
         this.fixYn = fixYn;
     }
 
-    public LocalDateTime getStartDttm() {
+    public Date getStartDttm() {
         return startDttm;
     }
 
-    public void setStartDttm(LocalDateTime startDttm) {
+    public void setStartDttm(Date startDttm) {
         this.startDttm = startDttm;
     }
 
-    public LocalDateTime getEndDttm() {
+    public Date getEndDttm() {
         return endDttm;
     }
 
-    public void setEndDttm(LocalDateTime endDttm) {
+    public void setEndDttm(Date endDttm) {
         this.endDttm = endDttm;
     }
 
-    public LocalDateTime getRegDttm() {
+    public Date getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(LocalDateTime regDttm) {
+    public void setRegDttm(Date regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -235,11 +220,11 @@ public class NoticeDTO {
         this.regrId = regrId;
     }
 
-    public LocalDateTime getUpdDttm() {
+    public Date getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(LocalDateTime updDttm) {
+    public void setUpdDttm(Date updDttm) {
         this.updDttm = updDttm;
     }
 
@@ -251,11 +236,11 @@ public class NoticeDTO {
         this.updrId = updrId;
     }
 
-    public LocalDateTime getDelDttm() {
+    public Date getDelDttm() {
         return delDttm;
     }
 
-    public void setDelDttm(LocalDateTime delDttm) {
+    public void setDelDttm(Date delDttm) {
         this.delDttm = delDttm;
     }
 
@@ -305,6 +290,45 @@ public class NoticeDTO {
 
     public void setNextNo(Integer nextNo) {
         this.nextNo = nextNo;
+    }
+
+    @Override
+    public String toString() {
+        return "NoticeDTO{" +
+                "notcNo=" + notcNo +
+                ", notcTp='" + notcTp + '\'' +
+                ", notcTpNm='" + notcTpNm + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", viewCnt=" + viewCnt +
+                ", fixYn=" + fixYn +
+                ", startDttm=" + startDttm +
+                ", endDttm=" + endDttm +
+                ", regDttm=" + regDttm +
+                ", regrId=" + regrId +
+                ", updDttm=" + updDttm +
+                ", updrId=" + updrId +
+                ", delDttm=" + delDttm +
+                ", delrId=" + delrId +
+                ", delYn=" + delYn +
+                ", prevTitle='" + prevTitle + '\'' +
+                ", nextTitle='" + nextTitle + '\'' +
+                ", prevNo=" + prevNo +
+                ", nextNo=" + nextNo +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NoticeDTO noticeDTO = (NoticeDTO) o;
+        return fixYn == noticeDTO.fixYn && delYn == noticeDTO.delYn && Objects.equals(notcNo, noticeDTO.notcNo) && Objects.equals(notcTp, noticeDTO.notcTp) && Objects.equals(notcTpNm, noticeDTO.notcTpNm) && Objects.equals(title, noticeDTO.title) && Objects.equals(content, noticeDTO.content) && Objects.equals(viewCnt, noticeDTO.viewCnt) && Objects.equals(startDttm, noticeDTO.startDttm) && Objects.equals(endDttm, noticeDTO.endDttm) && Objects.equals(regDttm, noticeDTO.regDttm) && Objects.equals(regrId, noticeDTO.regrId) && Objects.equals(updDttm, noticeDTO.updDttm) && Objects.equals(updrId, noticeDTO.updrId) && Objects.equals(delDttm, noticeDTO.delDttm) && Objects.equals(delrId, noticeDTO.delrId) && Objects.equals(prevTitle, noticeDTO.prevTitle) && Objects.equals(nextTitle, noticeDTO.nextTitle) && Objects.equals(prevNo, noticeDTO.prevNo) && Objects.equals(nextNo, noticeDTO.nextNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(notcNo, notcTp, notcTpNm, title, content, viewCnt, fixYn, startDttm, endDttm, regDttm, regrId, updDttm, updrId, delDttm, delrId, delYn, prevTitle, nextTitle, prevNo, nextNo);
     }
 }
 

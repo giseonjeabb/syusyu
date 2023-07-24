@@ -2,12 +2,13 @@ package com.teamProject.syusyu.domain.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class OrderInfoDTO {
     private int ordNo;          // 주문번호
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime ordDttm;  // 주문일시
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date ordDttm;  // 주문일시
+    private int prodId;         // 상품아이디
     private String prodNm;      // 상품명
     private String ordStusNm;     // 주문상태
     private int qty;            // 수량
@@ -28,12 +29,20 @@ public class OrderInfoDTO {
         this.ordNo = ordNo;
     }
 
-    public LocalDateTime getOrdDttm() {
+    public Date getOrdDttm() {
         return ordDttm;
     }
 
-    public void setOrdDttm(LocalDateTime ordDttm) {
+    public void setOrdDttm(Date ordDttm) {
         this.ordDttm = ordDttm;
+    }
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
     }
 
     public String getProdNm() {
@@ -105,6 +114,7 @@ public class OrderInfoDTO {
         return "OrderInfoDTO{" +
                 "ordNo=" + ordNo +
                 ", ordDttm=" + ordDttm +
+                ", prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
                 ", ordStusNm='" + ordStusNm + '\'' +
                 ", qty=" + qty +

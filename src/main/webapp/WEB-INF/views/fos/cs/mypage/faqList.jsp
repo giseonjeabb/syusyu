@@ -36,7 +36,7 @@
 
         <div class="faqType-middle">
             <input class="faqType-small" type="button" key = "00" value="전체">
-            <input class="faqType-small" type="button" key = "10" value="회원">
+            <input class="faqType-small" type="button" key = "10" value="회원 정보">
             <input class="faqType-small" type="button" key = "20" value="배송">
             <input class="faqType-small" type="button" key = "30" value="주문 / 결제">
             <input class="faqType-small" type="button" key = "40" value="교환 / 반품">
@@ -54,7 +54,7 @@
                 <div class="slide-title">
                     <button type="button" class="slide-trg" faqTp="${faqDto.faqTp}" faqNo="${faqDto.faqNo}">
                         <em>Q.</em>
-                        <strong>[ ${faqDto.faqTp} ]  ${faqDto.title}</strong>
+                        <strong>[ ${faqDto.faqTpNm} ]  ${faqDto.title}</strong>
                     </button>
                 </div>
 
