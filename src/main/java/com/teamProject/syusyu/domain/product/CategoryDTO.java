@@ -1,6 +1,7 @@
 package com.teamProject.syusyu.domain.product;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class CategoryDTO {
@@ -13,10 +14,10 @@ public class CategoryDTO {
     private int smallNo;
     private boolean dspyYn;
     private String regrId;
-    private LocalDateTime regDttm;
+    private Date regDttm;
     private String updrId;
-    private LocalDateTime updDttm;
-    private LocalDateTime delDttm;
+    private Date updDttm;
+    private Date delDttm;
     private String delrId;
     private boolean deletionYn;
 
@@ -32,7 +33,7 @@ public class CategoryDTO {
         this.smallNo = smallNo;
     }
 
-    public CategoryDTO(int cateId, String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo, boolean dspyYn, String regrId, LocalDateTime regDttm, String updrId, LocalDateTime updDttm, LocalDateTime delDttm, String delrId, boolean deletionYn) {
+    public CategoryDTO(int cateId, String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo, boolean dspyYn, String regrId, Date regDttm, String updrId, Date updDttm, Date delDttm, String delrId, boolean deletionYn) {
         this.cateId = cateId;
         this.largeNm = largeNm;
         this.largeNo = largeNo;
@@ -135,11 +136,11 @@ public class CategoryDTO {
         this.regrId = regrId;
     }
 
-    public LocalDateTime getRegDttm() {
+    public Date getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(LocalDateTime regDttm) {
+    public void setRegDttm(Date regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -151,19 +152,19 @@ public class CategoryDTO {
         this.updrId = updrId;
     }
 
-    public LocalDateTime getUpdDttm() {
+    public Date getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(LocalDateTime updDttm) {
+    public void setUpdDttm(Date updDttm) {
         this.updDttm = updDttm;
     }
 
-    public LocalDateTime getDelDttm() {
+    public Date getDelDttm() {
         return delDttm;
     }
 
-    public void setDelDttm(LocalDateTime delDttm) {
+    public void setDelDttm(Date delDttm) {
         this.delDttm = delDttm;
     }
 

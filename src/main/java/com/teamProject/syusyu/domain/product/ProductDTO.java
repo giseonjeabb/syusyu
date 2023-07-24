@@ -1,8 +1,8 @@
 package com.teamProject.syusyu.domain.product;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class ProductDTO {
@@ -11,7 +11,7 @@ public class ProductDTO {
     private String prodNm;
     private String modelNm;
     private int brndId;
-    private LocalDate rlesDt;//출시일
+    private Date rlesDt;//출시일
     private int salePrc;
     private Integer dcPer;
     private Integer dcPrc;
@@ -25,15 +25,15 @@ public class ProductDTO {
     private int mftNatn; //제조국
     private String repImg;
     private int status;
-    private LocalDateTime saleStDttm;
-    private LocalDateTime saleEdDttm;
-    private LocalDateTime dcStDttm;
-    private LocalDateTime dcEdDttm;
-    private LocalDateTime regDttm;
+    private Date saleStDttm;
+    private Date saleEdDttm;
+    private Date dcStDttm;
+    private Date dcEdDttm;
+    private Date regDttm;
     private int regrId;
-    private LocalDateTime updDttm;
+    private Date updDttm;
     private int updrId;
-    private LocalDateTime delDttm;
+    private Date delDttm;
     private int dertId;
     private String delYn;
 
@@ -71,7 +71,7 @@ public class ProductDTO {
 
 
 
-    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcStDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, int regrId, double avgStarRating, Integer revwCnt) {
+    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.middleNo = middleNo;
@@ -97,7 +97,7 @@ public class ProductDTO {
         this.revwCnt = revwCnt;
     }
 
-    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, LocalDate rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, LocalDateTime saleStDttm, LocalDateTime saleEdDttm, LocalDateTime dcEdDttm, LocalDateTime regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm) {
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcEdDttm, Date regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.prodNm = prodNm;
@@ -140,358 +140,6 @@ public class ProductDTO {
         return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftNatn, repImg, status, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty);
     }
 
-
-
-    public int getProdId() {
-        return prodId;
-    }
-
-    public void setProdId(int prodId) {
-        this.prodId = prodId;
-    }
-
-    public int getCateId() {
-        return cateId;
-    }
-
-    public void setCateId(int cateId) {
-        this.cateId = cateId;
-    }
-
-    public String getProdNm() {
-        return prodNm;
-    }
-
-    public void setProdNm(String prodNm) {
-        this.prodNm = prodNm;
-    }
-
-    public String getModelNm() {
-        return modelNm;
-    }
-
-    public void setModelNm(String modelNm) {
-        this.modelNm = modelNm;
-    }
-
-    public int getBrndId() {
-        return brndId;
-    }
-
-    public void setBrndId(int brndId) {
-        this.brndId = brndId;
-    }
-
-    public LocalDate getRlesDt() {
-        return rlesDt;
-    }
-
-    public void setRlesDt(LocalDate rlesDt) {
-        this.rlesDt = rlesDt;
-    }
-
-    public int getSalePrc() {
-        return salePrc;
-    }
-
-    public void setSalePrc(int salePrc) {
-        this.salePrc = salePrc;
-    }
-
-    public Integer getDcPer() {
-        return dcPer;
-    }
-
-    public void setDcPer(Integer dcPer) {
-        this.dcPer = dcPer;
-    }
-
-    public Integer getDcPrc() {
-        return dcPrc;
-    }
-
-    public void setDcPrc(Integer dcPrc) {
-        this.dcPrc = dcPrc;
-    }
-
-    public double getAvgStarRating() {
-        return avgStarRating;
-    }
-
-    public void setAvgStarRating(double avgStarRating) {
-        this.avgStarRating = avgStarRating;
-    }
-
-    public Integer getRevwCnt() {
-        return revwCnt;
-    }
-
-    public void setRevwCnt(Integer revwCnt) {
-        this.revwCnt = revwCnt;
-    }
-
-    public Integer getDlvGhg() {
-        return dlvGhg;
-    }
-
-    public void setDlvGhg(Integer dlvGhg) {
-        this.dlvGhg = dlvGhg;
-    }
-
-    public Integer getDlvChgDtl() {
-        return dlvChgDtl;
-    }
-
-    public void setDlvChgDtl(Integer dlvChgDtl) {
-        this.dlvChgDtl = dlvChgDtl;
-    }
-
-    public String getProdDtlDesc() {
-        return prodDtlDesc;
-    }
-
-    public void setProdDtlDesc(String prodDtlDesc) {
-        this.prodDtlDesc = prodDtlDesc;
-    }
-
-    public String getMfgdMatr() {
-        return mfgdMatr;
-    }
-
-    public void setMfgdMatr(String mfgdMatr) {
-        this.mfgdMatr = mfgdMatr;
-    }
-
-    public int getMftco() {
-        return mftco;
-    }
-
-    public void setMftco(int mftco) {
-        this.mftco = mftco;
-    }
-
-    public int getMftNatn() {
-        return mftNatn;
-    }
-
-    public void setMftNatn(int mftNatn) {
-        this.mftNatn = mftNatn;
-    }
-
-    public String getRepImg() {
-        return repImg;
-    }
-
-    public void setRepImg(String repImg) {
-        this.repImg = repImg;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getSaleStDttm() {
-        return saleStDttm;
-    }
-
-    public void setSaleStDttm(LocalDateTime saleStDttm) {
-        this.saleStDttm = saleStDttm;
-    }
-
-    public LocalDateTime getSaleEdDttm() {
-        return saleEdDttm;
-    }
-
-    public void setSaleEdDttm(LocalDateTime saleEdDttm) {
-        this.saleEdDttm = saleEdDttm;
-    }
-
-    public LocalDateTime getDcStDttm() {
-        return dcStDttm;
-    }
-
-    public void setDcStDttm(LocalDateTime dcStDttm) {
-        this.dcStDttm = dcStDttm;
-    }
-
-    public LocalDateTime getDcEdDttm() {
-        return dcEdDttm;
-    }
-
-    public void setDcEdDttm(LocalDateTime dcEdDttm) {
-        this.dcEdDttm = dcEdDttm;
-    }
-
-    public LocalDateTime getRegDttm() {
-        return regDttm;
-    }
-
-    public void setRegDttm(LocalDateTime regDttm) {
-        this.regDttm = regDttm;
-    }
-
-    public int getRegrId() {
-        return regrId;
-    }
-
-    public void setRegrId(int regrId) {
-        this.regrId = regrId;
-    }
-
-    public LocalDateTime getUpdDttm() {
-        return updDttm;
-    }
-
-    public void setUpdDttm(LocalDateTime updDttm) {
-        this.updDttm = updDttm;
-    }
-
-    public int getUpdrId() {
-        return updrId;
-    }
-
-    public void setUpdrId(int updrId) {
-        this.updrId = updrId;
-    }
-
-    public LocalDateTime getDelDttm() {
-        return delDttm;
-    }
-
-    public void setDelDttm(LocalDateTime delDttm) {
-        this.delDttm = delDttm;
-    }
-
-    public int getDertId() {
-        return dertId;
-    }
-
-    public void setDertId(int dertId) {
-        this.dertId = dertId;
-    }
-
-    public String getDelYn() {
-        return delYn;
-    }
-
-    public void setDelYn(String delYn) {
-        this.delYn = delYn;
-    }
-
-    public String getBrndNm() {
-        return brndNm;
-    }
-
-    public void setBrndNm(String brndNm) {
-        this.brndNm = brndNm;
-    }
-
-    public int getLargeNo() {
-        return largeNo;
-    }
-
-    public void setLargeNo(int largeNo) {
-        this.largeNo = largeNo;
-    }
-
-    public String getLargeNm() {
-        return largeNm;
-    }
-
-    public void setLargeNm(String largeNm) {
-        this.largeNm = largeNm;
-    }
-
-    public int getMiddleNo() {
-        return middleNo;
-    }
-
-    public void setMiddleNo(int middleNo) {
-        this.middleNo = middleNo;
-    }
-
-    public String getMiddleNm() {
-        return middleNm;
-    }
-
-    public void setMiddleNm(String middleNm) {
-        this.middleNm = middleNm;
-    }
-
-    public int getSmallNo() {
-        return smallNo;
-    }
-
-    public void setSmallNo(int smallNo) {
-        this.smallNo = smallNo;
-    }
-
-    public String getSmallNm() {
-        return smallNm;
-    }
-
-    public void setSmallNm(String smallNm) {
-        this.smallNm = smallNm;
-    }
-
-    public int getOptGrpId() {
-        return optGrpId;
-    }
-
-    public void setOptGrpId(int optGrpId) {
-        this.optGrpId = optGrpId;
-    }
-
-    public String getOptGrpNm() {
-        return optGrpNm;
-    }
-
-    public void setOptGrpNm(String optGrpNm) {
-        this.optGrpNm = optGrpNm;
-    }
-
-    public int getOptItemId() {
-        return optItemId;
-    }
-
-    public void setOptItemId(int optItemId) {
-        this.optItemId = optItemId;
-    }
-
-    public String getOptItemNm() {
-        return optItemNm;
-    }
-
-    public void setOptItemNm(String optItemNm) {
-        this.optItemNm = optItemNm;
-    }
-
-    public int getOptCombNo() {
-        return optCombNo;
-    }
-
-    public void setOptCombNo(int optCombNo) {
-        this.optCombNo = optCombNo;
-    }
-
-    public int getOptPrc() {
-        return optPrc;
-    }
-
-    public void setOptPrc(int optPrc) {
-        this.optPrc = optPrc;
-    }
-
-    public int getInvQty() {
-        return invQty;
-    }
-
-    public void setInvQty(int invQty) {
-        this.invQty = invQty;
-    }
+    
 }
 

@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.domain.product;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class ProdOptDTO {
@@ -21,11 +21,11 @@ public class ProdOptDTO {
     private int prodId;
     private String shoesSize;
 
-    private LocalDateTime regDttm;
+    private Date regDttm;
     private int regrId;
-    private LocalDateTime updDttm;
+    private Date updDttm;
     private int updrId;
-    private LocalDateTime delDttm;
+    private Date delDttm;
     private int dertId;
     private String delYn;
 
@@ -35,28 +35,6 @@ public class ProdOptDTO {
         this.optPrc = optPrc;
         this.invQty = invQty;
         this.shoesSize = shoesSize;
-    }
-
-    @Override
-    public String toString() {
-        return "ProdOptDTO{" +
-                "optGrpId=" + optGrpId +
-                ", optGrpNm='" + optGrpNm + '\'' +
-                ", optItemId=" + optItemId +
-                ", optItemNm='" + optItemNm + '\'' +
-                ", optCombNo=" + optCombNo +
-                ", optPrc=" + optPrc +
-                ", invQty=" + invQty +
-                ", prodId=" + prodId +
-                ", shoesSize='" + shoesSize + '\'' +
-                ", regDttm=" + regDttm +
-                ", regrId=" + regrId +
-                ", updDttm=" + updDttm +
-                ", updrId=" + updrId +
-                ", delDttm=" + delDttm +
-                ", dertId=" + dertId +
-                ", delYn='" + delYn + '\'' +
-                '}';
     }
 
     @Override
@@ -70,22 +48,6 @@ public class ProdOptDTO {
     @Override
     public int hashCode() {
         return Objects.hash(optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty, prodId, shoesSize, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn);
-    }
-
-    public String getShoesSize() {
-        return shoesSize;
-    }
-
-    public void setShoesSize(String shoesSize) {
-        this.shoesSize = shoesSize;
-    }
-
-    public int getProdId() {
-        return prodId;
-    }
-
-    public void setProdId(int prodId) {
-        this.prodId = prodId;
     }
 
     public int getOptGrpId() {
@@ -144,11 +106,27 @@ public class ProdOptDTO {
         this.invQty = invQty;
     }
 
-    public LocalDateTime getRegDttm() {
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
+    }
+
+    public String getShoesSize() {
+        return shoesSize;
+    }
+
+    public void setShoesSize(String shoesSize) {
+        this.shoesSize = shoesSize;
+    }
+
+    public Date getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(LocalDateTime regDttm) {
+    public void setRegDttm(Date regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -160,11 +138,11 @@ public class ProdOptDTO {
         this.regrId = regrId;
     }
 
-    public LocalDateTime getUpdDttm() {
+    public Date getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(LocalDateTime updDttm) {
+    public void setUpdDttm(Date updDttm) {
         this.updDttm = updDttm;
     }
 
@@ -176,11 +154,11 @@ public class ProdOptDTO {
         this.updrId = updrId;
     }
 
-    public LocalDateTime getDelDttm() {
+    public Date getDelDttm() {
         return delDttm;
     }
 
-    public void setDelDttm(LocalDateTime delDttm) {
+    public void setDelDttm(Date delDttm) {
         this.delDttm = delDttm;
     }
 
@@ -198,5 +176,27 @@ public class ProdOptDTO {
 
     public void setDelYn(String delYn) {
         this.delYn = delYn;
+    }
+
+    @Override
+    public String toString() {
+        return "ProdOptDTO{" +
+                "optGrpId=" + optGrpId +
+                ", optGrpNm='" + optGrpNm + '\'' +
+                ", optItemId=" + optItemId +
+                ", optItemNm='" + optItemNm + '\'' +
+                ", optCombNo=" + optCombNo +
+                ", optPrc=" + optPrc +
+                ", invQty=" + invQty +
+                ", prodId=" + prodId +
+                ", shoesSize='" + shoesSize + '\'' +
+                ", regDttm=" + regDttm +
+                ", regrId=" + regrId +
+                ", updDttm=" + updDttm +
+                ", updrId=" + updrId +
+                ", delDttm=" + delDttm +
+                ", dertId=" + dertId +
+                ", delYn='" + delYn + '\'' +
+                '}';
     }
 }
