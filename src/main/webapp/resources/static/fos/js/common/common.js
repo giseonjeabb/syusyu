@@ -85,7 +85,6 @@ const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
     if (typeof month !== 'number')
         month = parseInt(month);
 
-    debugger;
     let endDate = new Date();
     let startDate = new Date();
     startDate.setMonth(endDate.getMonth() + month);

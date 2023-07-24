@@ -8,8 +8,9 @@
              , O.ORD_DTTM                                                                                # 주문일시
              , PROD.REP_IMG                                                                              # 이미지
              , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM # 주문상태
+             , OD.PROD_ID
              , OD.PROD_NM                                                                                # 상품명
-             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS 상품금액        # (할인가격 + 옵션가) * 주문수량
+             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS PROD_AMT        # 상품금액(할인가격 + 옵션가) * 주문수량
              , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
                 FROM OPT_GRP OG
                          JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
@@ -28,7 +29,7 @@
     <select id="selectOrderList" parameterType="Map" resultType="OrderInfoDTO">
         <include refid="orderInfo"/>
         WHERE O.ORDR_ID = #{mbrId}
-        AND ORD_DTTM BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        AND STR_TO_DATE(ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>
 
@@ -41,7 +42,7 @@
 
     <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
         SELECT RECIPIENT
-             , CONCAT('(', ZIPCODE, ') ', DFLT_ADDR) AS ADDR
+             , DFLT_ADDR
              , DTL_ADDR
              , MP_NO
              , DLV_REQ_COMT
@@ -57,10 +58,46 @@
              , P.PNT_USE_AMT                                     # 포인트 사용
              , P.REAL_PAY_AMT                                    # 총 결제금액(실결제금액)
              , P.PAY_TP                                          # 결제방법
+             , GET_CD_NM('O0010', P.PAY_TP)        AS PAY_TP_NM  # 결제방법이름
              , PR.APRV_DTTM                                      # 승일일시(결제일시)
         FROM PAY P
                  JOIN PAY_RSLT PR ON P.PAY_NO = PR.PAY_NO
         WHERE P.PAYER_ID = #{mbrId}
           AND ORD_NO = #{ordNo};
     </select>
+
+    <select id="selectBosOrderList" parameterType="orderSearchRequestDTO" resultType="OrderInfoDTO">
+        SELECT O.ORD_NO                                                                    # 주문번호
+             , OD.ORD_DTL_NO                                                               # 주문상세번호
+             , O.ORD_DTTM                                                                  # 주문일시
+             , GET_CD_NM('O0001', OD.ORD_STUS)                              AS ORD_STUS_NM # 주문상태
+             , OC.CLAIM_STUS                                                               # 클레임 처리상태
+             , OD.PROD_ID
+             , OD.PROD_NM                                                                  # 상품명
+             , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                FROM OPT_GRP OG
+                         JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                         JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                WHERE OPT_COMB_NO = OD.OPT_COMB_NO)                         AS OPT_NM      # 옵션
+             , OD.QTY                                                                      # 수량
+             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) *
+               OD.QTY                                                       AS PROD_AMT    # 상품금액(할인가격 + 옵션가) * 주문수량
+             , P.PAY_TP                                                                    # 결제방법
+             , P.REAL_PAY_AMT                                                              # 결제금액
+             , (SELECT NAME FROM MEMBER WHERE MBR_ID = O.ORDR_ID)           AS ORDR_NM     # 구매자명
+             , (SELECT RECIPIENT FROM ord_dlv_addr WHERE ORD_NO = O.ORD_NO) AS RECIPIENT   # 수령인
+        FROM ORD O
+                 JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
+                 JOIN PAY P ON OD.ORD_NO = P.ORD_NO
+                 JOIN PRODUCT PROD ON OD.PROD_ID = PROD.PROD_ID
+                 LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
+                 LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
+        WHERE STR_TO_DATE(ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND ${searchType} = #{searchKeyword}
+        </if>
+        ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
+    </select>
+
+
 </mapper>

@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value="${jsUrlFos}/popup/dlvAddrPopup.js"/>"></script>
+<script>
+    dlvAddrPopup.initLoad();
+    dlvAddrPopup.bindButtonEvent();
+</script>
 <div class="popup-layer w-510">
     <div class="popup-head">
         <h4>배송지 목록</h4>
