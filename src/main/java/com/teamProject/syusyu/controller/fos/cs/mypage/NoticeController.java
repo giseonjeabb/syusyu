@@ -4,7 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.fos.cs.NoticeService;
+import com.teamProject.syusyu.service.fos.cs.F_NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import java.util.List;
 public class NoticeController {
 
     @Autowired
-    NoticeService noticeService;
+    F_NoticeService FnoticeService;
 
 
     // List/read?page=?&pageSize=?
@@ -31,11 +30,11 @@ public class NoticeController {
     @GetMapping("/read")
     public String read(Integer notcNo, SearchCondition sc, Model m) throws Exception {
         try {
-            NoticeDTO noticeDto = noticeService.read(notcNo);
+            NoticeDTO noticeDto = FnoticeService.read(notcNo);
 
             // 이전 글과 다음 글의 제목 가져오기
-            NoticeDTO prevNotice = noticeService.getPrevTitle(notcNo);
-            NoticeDTO nextNotice = noticeService.getNextTitle(notcNo);
+            NoticeDTO prevNotice = FnoticeService.getPrevTitle(notcNo);
+            NoticeDTO nextNotice = FnoticeService.getNextTitle(notcNo);
             // 이전 글과 다음 글의 제목을 모델에 추가
             m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
             m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
@@ -65,12 +64,12 @@ public class NoticeController {
 
         try {
             // 페이지 핸들러  << < 1,2,3,4,5,6,7,8,9,10 > >>
-            int totalCnt = noticeService.getSearchResultCnt(sc);
+            int totalCnt = FnoticeService.getSearchResultCnt(sc);
             m.addAttribute("totalCnt", totalCnt);
 
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            List<NoticeDTO> list = noticeService.getSearchResultPage(sc);
+            List<NoticeDTO> list = FnoticeService.getSearchResultPage(sc);
 
             // List<NoticeDTO> list 에 담아서 오는 지 보려고
             System.out.println("noticelist = " + list);

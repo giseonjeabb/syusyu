@@ -21,8 +21,10 @@
 
 <!-- Form for writing a notice -->
 <div class="container">
-  <h2 class="title-t ty3 mb-30">공지사항 작성</h2>
+  <h2 class="title-t ty3 mb-30">공지사항 수정</h2>
 
+
+<%--  <form id="form" class="frm" action="<c:url value='/adminNotice/modify'/>" method="post">--%>
   <form id="form" class="frm" action="<c:url value='/adminNotice/modify'/>" method="post">
 
        <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
@@ -37,6 +39,7 @@
       </select>
     </div><br>
 
+    <input name = notcNo type="hidden" value="${noticeDTO.notcNo}">
 
     <!-- Notice Title -->
     제목

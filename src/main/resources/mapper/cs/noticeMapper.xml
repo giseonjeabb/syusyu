@@ -49,7 +49,7 @@
           , START_DTTM = #{startDttm}
           , END_DTTM = #{endDttm}
         WHERE NOTC_NO = #{notcNo}
---           and REGR_ID = #{regrId}
+          and REGR_ID = #{regrId}
     </update>
 
 
