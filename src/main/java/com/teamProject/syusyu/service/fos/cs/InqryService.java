@@ -10,6 +10,8 @@ public interface InqryService {
 
     int getCount() throws Exception;
 
+    String getContent(Integer inqryNo) throws Exception;
+
     int remove(Integer inqry_no, String regrId) throws Exception;
 
     int write(InqryDTO inqryDTO) throws Exception;

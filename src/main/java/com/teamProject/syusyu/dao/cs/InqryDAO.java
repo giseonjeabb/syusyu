@@ -12,6 +12,7 @@ public interface InqryDAO {
 
     List<InqryDTO> selectAll() throws Exception;
 
+    String content(Integer inqryNo) throws Exception;
 
     int count() throws Exception;
 

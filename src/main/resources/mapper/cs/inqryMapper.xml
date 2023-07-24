@@ -59,6 +59,10 @@
         SELECT count(*) FROM inqry
     </select>
 
+    <select id="content" resultType="String">
+        SELECT CONTENT FROM inqry WHERE INQRY_NO = #{inqryno}
+    </select>
+
 <!--    <delete id="deleteAll">-->
 <!--        DELETE FROM inqry-->
 <!--    </delete>-->
