@@ -1,13 +1,90 @@
 namespace("orderView");
 orderView = {
     initLoad: () => {
-    // 테이블에 사용될 데이터를 정의한다.
+        // 기본은 캘린더 1개월 범위로 세팅
+        setCalendarRangeByMonths(orderView.startDate, orderView.endDate, -1);
+
+        orderView.function.showOrderList();
+    },
+
+    bindButtonEvent: () => {
+    },
+
+    startDate: 'start_date', // 조회시작일
+    endDate: 'end_date', // 조회종료일
+}
+
+namespace("orderView.eventHandler");
+orderView.eventHandler = {}
+
+namespace("orderView.function");
+orderView.function = {
+    showOrderList() {
+        // 1. 주문조회 시 사용할 조회조건을 가져온다.
+        // 0) 조회할 날짜의 종류
+        const dateType = document.querySelector('#start_date').selectedOptions[0].value;
+        debugger;
+        // 1) 시작일
+        // 2) 종료일
+        // 3) 조회조건
+        // 4) 검색어
+
+        // 2. 조회조건을 param으로 넘겨서 데이터를 받아온다.
+
+        // 3. 받아온 데이터를 tableDate에 넣어준다.
+
+        // 테이블에 사용될 데이터를 정의한다.
         const gridId = '#example-table';
 
         const tableData = [
-            { ordNo: 89, ordDtlNo: 246, ordDttm: "2023-07-23 19:15:13", ordStusNm: "결제완료", claimStus: "", prodId: 10001, prodNm: "반스 올드스쿨", optNm: "color : BLACK, size : 220", qty: 3, prodAmt: 213600, payTp: 20, realPayAmt: 19280, ordrNm: "홍길동", recipient: "방채민" },
-            { ordNo: 89, ordDtlNo: 247, ordDttm: "2023-07-23 19:15:13", ordStusNm: "결제완료", claimStus: "", prodId: 10007, prodNm: "아딜렛 클로그", optNm: "", qty: 1, prodAmt: 39600, payTp: 20, realPayAmt: 19280, ordrNm: "홍길동", recipient: "방채민" },
-            { ordNo: 89, ordDtlNo: 248, ordDttm: "2023-07-23 19:15:13", ordStusNm: "결제완료", claimStus: "", prodId: 10011, prodNm: "로그 2.0", optNm: "", qty: 4, prodAmt: 384000, payTp: 20, realPayAmt: 19280, ordrNm: "홍길동", recipient: "방채민" },
+            {
+                ordNo: 89,
+                ordDtlNo: 246,
+                ordDttm: "2023-07-23 19:15:13",
+                ordStusNm: "결제완료",
+                claimStus: "",
+                prodId: 10001,
+                prodNm: "반스 올드스쿨",
+                optNm: "color : BLACK, size : 220",
+                qty: 3,
+                prodAmt: 213600,
+                payTp: 20,
+                realPayAmt: 19280,
+                ordrNm: "홍길동",
+                recipient: "방채민"
+            },
+            {
+                ordNo: 89,
+                ordDtlNo: 247,
+                ordDttm: "2023-07-23 19:15:13",
+                ordStusNm: "결제완료",
+                claimStus: "",
+                prodId: 10007,
+                prodNm: "아딜렛 클로그",
+                optNm: "",
+                qty: 1,
+                prodAmt: 39600,
+                payTp: 20,
+                realPayAmt: 19280,
+                ordrNm: "홍길동",
+                recipient: "방채민"
+            },
+            {
+                ordNo: 89,
+                ordDtlNo: 248,
+                ordDttm: "2023-07-23 19:15:13",
+                ordStusNm: "결제완료",
+                claimStus: "",
+                prodId: 10011,
+                prodNm: "로그 2.0",
+                optNm: "",
+                qty: 4,
+                prodAmt: 384000,
+                payTp: 20,
+                realPayAmt: 19280,
+                ordrNm: "홍길동",
+                recipient: "방채민"
+            },
         ];
 
         const columns = [ // 테이블의 열을 정의한다.
@@ -44,15 +121,5 @@ orderView = {
                 {column: "name", dir: "asc"},
             ],
         });
-
-    },
-
-    bindButtonEvent: () => {
-    },
+    }
 }
-
-namespace("orderView.eventHandler");
-orderView.eventHandler = {}
-
-namespace("orderView.function");
-orderView.function = {}

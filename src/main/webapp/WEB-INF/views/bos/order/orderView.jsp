@@ -17,7 +17,7 @@
             <tr>
                 <th>기간</th>
                 <td colspan="3" style="position:relative;">
-                    <select name="date_type" style="width:115px;" class="fSelect disabled">
+                    <select id="date_type" style="width:115px;">
                         <option value="order_date" selected="selected">주문일</option>
                         <option value="memo_date">메모작성일</option>
                         <option value="pay_date">결제일</option>
@@ -26,35 +26,32 @@
                         <option value="shipend_date">배송완료일</option>
                         <option value="purchaseconfirmation_date">구매확정일</option>
                     </select>
-                    <a href="#none" class="btnDate   " date-interval="0"><span>오늘</span></a>
-                    <a href="#none" class="btnDate   " date-interval="1"><span>어제</span></a>
-                    <a href="#none" class="btnDate   " date-interval="3"><span>3일</span></a>
-                    <a href="#none" class="btnDate  selected " date-interval="7"><span>7일</span></a>
-                    <a href="#none" class="btnDate   " date-interval="15"><span>15일</span></a>
-                    <a href="#none" class="btnDate   " date-interval="30"><span>1개월</span></a>
-                    <a href="#none" class="btnDate   " date-interval="90"><span>3개월</span></a>
-                    <a href="#none" class="btnDate   " date-interval="180"><span>6개월</span></a>
+                    <a href="#none" class="btnDate" date-interval="0"><span>오늘</span></a>
+                    <a href="#none" class="btnDate" date-interval="1"><span>어제</span></a>
+                    <a href="#none" class="btnDate" date-interval="3"><span>3일</span></a>
+                    <a href="#none" class="btnDate selected" date-interval="7"><span>7일</span></a>
+                    <a href="#none" class="btnDate" date-interval="15"><span>15일</span></a>
+                    <a href="#none" class="btnDate" date-interval="30"><span>1개월</span></a>
+                    <a href="#none" class="btnDate" date-interval="90"><span>3개월</span></a>
+                    <a href="#none" class="btnDate" date-interval="180"><span>6개월</span></a>
+                    <input type="text" name="start_date" id="start_date" readonly="readonly" >
+                    <input type="text" name="end_date" id="end_date" readonly="readonly" >
                 </td>
             </tr>
             <tr>
                 <th>검색어</th>
                 <td>
-                    <select class="fSelect" name="MSK[]" style="width:163px;">
+                    <select name="searchType">
                         <option value="choice">-검색항목선택-</option>
-                        <option value="order_id" selected="">주문번호</option>
-                        <option value="ord_item_code">품목별 주문번호</option>
-                        <option value="delivery_code">배송번호</option>
-                        <option value="invoice_no">운송장번호</option>
-                        <option value="s_order_info">마켓주문번호</option>
-                        <option value="line1">-----------------</option>
-                        <option value="o_name">주문자명</option>
-                        <option value="member_id">주문자 아이디</option>
-                        <option value="member_email">회원 이메일</option>
-                        <option value="o_email">주문서 이메일</option>
-                        <option value="o_phone2">주문자 휴대전화</option>
-                        <option value="o_phone1">주문자 일반전화</option>
+                        <option value="ODA.RECIPIENT">수령인명</option>
+                        <option value="M.NAME">구매자명</option>
+                        <option value="M.LGIN_ID">구매자ID</option>
+                        <option value="ODA.MP_NO">구매자연락처</option>
+                        <option value="O.ORD_NO">주문번호</option>
+                        <option value="OD.ORD_DTL_NO">주문상세번호</option>
+                        <option value="OD.PROD_ID">상품번호</option>
                     </select>
-                    <input type="text" class="fText sBaseSearchBox eSearchText" name="MSV[]" id="sBaseSearchBox" style="width:400px;" value="">
+                    <input type="text" id="searchKeyword">
                 </td>
             </tr>
         </table>
