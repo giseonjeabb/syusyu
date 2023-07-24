@@ -6,7 +6,10 @@
 
 <%--부트스트랩 css--%>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+
+<%-- flatpickr 캘린더 라이브러리 CSS --%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <style>
     @import url(${cssUrlBos}/common/dashboard.css);
-
 </style>

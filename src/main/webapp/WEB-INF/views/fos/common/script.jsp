@@ -7,10 +7,13 @@
 <%--underscore 라이브러리(디바운드 사용 위함)--%>
 <script src= "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"> </script>
 
+<%--공통 전역변수 --%>
+<%@ include file="global.jsp" %>
+
 <%--공통함수--%>
-<script src="<c:url value="${jsUrlFos}/common/common.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
 <%--ajax 요청 공통 함수 라이브러리--%>
-<script src="<c:url value="${jsUrlFos}/common/ajax.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
 <%--팝업 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlFos}/common/popup.js"/>"></script>
 <%-- flatpickr 캘린더 라이브러리 --%>

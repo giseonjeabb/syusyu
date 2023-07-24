@@ -50,7 +50,7 @@
             </a>
             <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="#">주문 통합 검색</a>
+                    <a class="nav-link" href="/bos/orders/view">주문 통합 검색</a>
                     <a class="nav-link" href="#">발주(주문)확인/발송관리 </a>
                     <a class="nav-link" href="#">배송 현황 관리</a>
                     <a class="nav-link" href="#">구매 확정 내역</a>
