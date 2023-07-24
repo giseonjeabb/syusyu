@@ -94,7 +94,7 @@
                  JOIN MEMBER M ON O.ORDR_ID = M.MBR_ID
                  LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
                  LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
-        WHERE STR_TO_DATE(ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        WHERE STR_TO_DATE(O.ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         <if test="searchKeyword != null and searchKeyword != ''">
             AND ${searchType} = #{searchKeyword}
         </if>
