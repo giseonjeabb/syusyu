@@ -127,6 +127,358 @@ public class ProductDTO {
 
     }
 
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
+    }
+
+    public int getCateId() {
+        return cateId;
+    }
+
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
+    }
+
+    public String getProdNm() {
+        return prodNm;
+    }
+
+    public void setProdNm(String prodNm) {
+        this.prodNm = prodNm;
+    }
+
+    public String getModelNm() {
+        return modelNm;
+    }
+
+    public void setModelNm(String modelNm) {
+        this.modelNm = modelNm;
+    }
+
+    public int getBrndId() {
+        return brndId;
+    }
+
+    public void setBrndId(int brndId) {
+        this.brndId = brndId;
+    }
+
+    public Date getRlesDt() {
+        return rlesDt;
+    }
+
+    public void setRlesDt(Date rlesDt) {
+        this.rlesDt = rlesDt;
+    }
+
+    public int getSalePrc() {
+        return salePrc;
+    }
+
+    public void setSalePrc(int salePrc) {
+        this.salePrc = salePrc;
+    }
+
+    public Integer getDcPer() {
+        return dcPer;
+    }
+
+    public void setDcPer(Integer dcPer) {
+        this.dcPer = dcPer;
+    }
+
+    public Integer getDcPrc() {
+        return dcPrc;
+    }
+
+    public void setDcPrc(Integer dcPrc) {
+        this.dcPrc = dcPrc;
+    }
+
+    public double getAvgStarRating() {
+        return avgStarRating;
+    }
+
+    public void setAvgStarRating(double avgStarRating) {
+        this.avgStarRating = avgStarRating;
+    }
+
+    public Integer getRevwCnt() {
+        return revwCnt;
+    }
+
+    public void setRevwCnt(Integer revwCnt) {
+        this.revwCnt = revwCnt;
+    }
+
+    public Integer getDlvGhg() {
+        return dlvGhg;
+    }
+
+    public void setDlvGhg(Integer dlvGhg) {
+        this.dlvGhg = dlvGhg;
+    }
+
+    public Integer getDlvChgDtl() {
+        return dlvChgDtl;
+    }
+
+    public void setDlvChgDtl(Integer dlvChgDtl) {
+        this.dlvChgDtl = dlvChgDtl;
+    }
+
+    public String getProdDtlDesc() {
+        return prodDtlDesc;
+    }
+
+    public void setProdDtlDesc(String prodDtlDesc) {
+        this.prodDtlDesc = prodDtlDesc;
+    }
+
+    public String getMfgdMatr() {
+        return mfgdMatr;
+    }
+
+    public void setMfgdMatr(String mfgdMatr) {
+        this.mfgdMatr = mfgdMatr;
+    }
+
+    public int getMftco() {
+        return mftco;
+    }
+
+    public void setMftco(int mftco) {
+        this.mftco = mftco;
+    }
+
+    public int getMftNatn() {
+        return mftNatn;
+    }
+
+    public void setMftNatn(int mftNatn) {
+        this.mftNatn = mftNatn;
+    }
+
+    public String getRepImg() {
+        return repImg;
+    }
+
+    public void setRepImg(String repImg) {
+        this.repImg = repImg;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getSaleStDttm() {
+        return saleStDttm;
+    }
+
+    public void setSaleStDttm(Date saleStDttm) {
+        this.saleStDttm = saleStDttm;
+    }
+
+    public Date getSaleEdDttm() {
+        return saleEdDttm;
+    }
+
+    public void setSaleEdDttm(Date saleEdDttm) {
+        this.saleEdDttm = saleEdDttm;
+    }
+
+    public Date getDcStDttm() {
+        return dcStDttm;
+    }
+
+    public void setDcStDttm(Date dcStDttm) {
+        this.dcStDttm = dcStDttm;
+    }
+
+    public Date getDcEdDttm() {
+        return dcEdDttm;
+    }
+
+    public void setDcEdDttm(Date dcEdDttm) {
+        this.dcEdDttm = dcEdDttm;
+    }
+
+    public Date getRegDttm() {
+        return regDttm;
+    }
+
+    public void setRegDttm(Date regDttm) {
+        this.regDttm = regDttm;
+    }
+
+    public int getRegrId() {
+        return regrId;
+    }
+
+    public void setRegrId(int regrId) {
+        this.regrId = regrId;
+    }
+
+    public Date getUpdDttm() {
+        return updDttm;
+    }
+
+    public void setUpdDttm(Date updDttm) {
+        this.updDttm = updDttm;
+    }
+
+    public int getUpdrId() {
+        return updrId;
+    }
+
+    public void setUpdrId(int updrId) {
+        this.updrId = updrId;
+    }
+
+    public Date getDelDttm() {
+        return delDttm;
+    }
+
+    public void setDelDttm(Date delDttm) {
+        this.delDttm = delDttm;
+    }
+
+    public int getDertId() {
+        return dertId;
+    }
+
+    public void setDertId(int dertId) {
+        this.dertId = dertId;
+    }
+
+    public String getDelYn() {
+        return delYn;
+    }
+
+    public void setDelYn(String delYn) {
+        this.delYn = delYn;
+    }
+
+    public String getBrndNm() {
+        return brndNm;
+    }
+
+    public void setBrndNm(String brndNm) {
+        this.brndNm = brndNm;
+    }
+
+    public int getLargeNo() {
+        return largeNo;
+    }
+
+    public void setLargeNo(int largeNo) {
+        this.largeNo = largeNo;
+    }
+
+    public String getLargeNm() {
+        return largeNm;
+    }
+
+    public void setLargeNm(String largeNm) {
+        this.largeNm = largeNm;
+    }
+
+    public int getMiddleNo() {
+        return middleNo;
+    }
+
+    public void setMiddleNo(int middleNo) {
+        this.middleNo = middleNo;
+    }
+
+    public String getMiddleNm() {
+        return middleNm;
+    }
+
+    public void setMiddleNm(String middleNm) {
+        this.middleNm = middleNm;
+    }
+
+    public int getSmallNo() {
+        return smallNo;
+    }
+
+    public void setSmallNo(int smallNo) {
+        this.smallNo = smallNo;
+    }
+
+    public String getSmallNm() {
+        return smallNm;
+    }
+
+    public void setSmallNm(String smallNm) {
+        this.smallNm = smallNm;
+    }
+
+    public int getOptGrpId() {
+        return optGrpId;
+    }
+
+    public void setOptGrpId(int optGrpId) {
+        this.optGrpId = optGrpId;
+    }
+
+    public String getOptGrpNm() {
+        return optGrpNm;
+    }
+
+    public void setOptGrpNm(String optGrpNm) {
+        this.optGrpNm = optGrpNm;
+    }
+
+    public int getOptItemId() {
+        return optItemId;
+    }
+
+    public void setOptItemId(int optItemId) {
+        this.optItemId = optItemId;
+    }
+
+    public String getOptItemNm() {
+        return optItemNm;
+    }
+
+    public void setOptItemNm(String optItemNm) {
+        this.optItemNm = optItemNm;
+    }
+
+    public int getOptCombNo() {
+        return optCombNo;
+    }
+
+    public void setOptCombNo(int optCombNo) {
+        this.optCombNo = optCombNo;
+    }
+
+    public int getOptPrc() {
+        return optPrc;
+    }
+
+    public void setOptPrc(int optPrc) {
+        this.optPrc = optPrc;
+    }
+
+    public int getInvQty() {
+        return invQty;
+    }
+
+    public void setInvQty(int invQty) {
+        this.invQty = invQty;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

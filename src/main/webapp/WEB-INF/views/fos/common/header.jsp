@@ -37,7 +37,7 @@
                                 <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
                                     <li>
                                         <a class="mainCategory"
-                                           href="/productList/${middle.key}"
+                                           href="/fos/products/${middle.key}"
                                            idx=${middle.key} data-idx=${middle.key}> <c:out value="${middle.value}"/> </a>
                                         <div class="depth2">
                                             <ul class="subCategory">
@@ -46,8 +46,8 @@
                                                 <c:forEach var="small" items="${categories.smallCategories}">
                                                     <c:if test="${middle.key eq small.key}">
                                                         <c:forEach var="smallCategoryItem" items="${small.value}">
-                                                            <li><a href="<c:url value='/productList/${small.key}/${smallCategoryItem.key}'/>"><c:out
-                                                                    value="${smallCategoryItem.value}"/></a></li>
+                                                            <li><a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>">
+                                                                <c:out value="${smallCategoryItem.value}"/></a></li>
                                                         </c:forEach>
                                                     </c:if>
                                                 </c:forEach>
