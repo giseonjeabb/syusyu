@@ -34,6 +34,9 @@
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
 
+<%--tabulator 공통 함수--%>
+<script src="<c:url value="${jsUrlBos}/common/tabulator-common.js"/>"></script>
+
 <%-- flatpickr 캘린더 라이브러리 --%>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
