@@ -21,8 +21,6 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="<c:url value="${jsUrlBos}/common/dashboard_demo.js"/>"></script>
 
-<!-- Tabulator CSS를 페이지에 포함시킨다. -->
-<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
 <!-- Tabulator 자바스크립트 라이브러리를 페이지에 포함시킨다. -->
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 

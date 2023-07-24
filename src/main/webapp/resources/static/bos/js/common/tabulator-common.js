@@ -24,6 +24,7 @@ syusyu.common.Tabulator = {
      */
     createTabulatorTable: (gridId, tableData, columns) => {
         new Tabulator(gridId, {
+            theme: "bootstrap",
             data: tableData,
             columns: columns,
             layout: "fitColumns",
