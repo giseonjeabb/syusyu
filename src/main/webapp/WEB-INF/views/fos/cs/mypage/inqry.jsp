@@ -281,9 +281,9 @@
         inqryTitle = value; // 문의 제목을 저장
     }
 
-    // for (let i = 0; i < photoImg.length; i++) {
-    //     photoImg[i].addEventListener('change', click_imgBtn);
-    // }
+    for (let i = 0; i < photoImg.length; i++) {
+        photoImg[i].addEventListener('change', click_imgBtn);
+    }
 
 
     function click_imgBtn() {
