@@ -2,7 +2,7 @@ namespace("orderView");
 orderView = {
     initLoad: () => {
         // 기본은 캘린더 1개월 범위로 세팅
-        setCalendarRangeByMonths(orderView.startDate, orderView.endDate, -1);
+        setCalendarRangeByMonths(orderView.startDate, orderView.endDate, 1);
         // 주문 목록 정보를 가져온다.
         orderView.eventHandler.getOrderInfoList();
     },
