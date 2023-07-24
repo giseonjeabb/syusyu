@@ -8,6 +8,8 @@ public class MyServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc = sce.getServletContext();
+        // 공통
+        sc.setAttribute("jsUrlCommon", "/static/common/js");
 
         // FOS
         sc.setAttribute("cssUrlFos", "/static/fos/css");
