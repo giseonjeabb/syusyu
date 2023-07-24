@@ -52,30 +52,30 @@
                 </tr>
 
 
-                <tr>
-                    <td>
-                        <div class="inp-label ty3">
-                            <span id="production" class="label">문의상품</span>
-                        </div>
-                    </td>
+<%--                <tr>--%>
+<%--                    <td>--%>
+<%--                        <div class="inp-label ty3">--%>
+<%--                            <span id="production" class="label">문의상품</span>--%>
+<%--                        </div>--%>
+<%--                    </td>--%>
 
-                    <td>
-                        <div class="input w-450 flex space-between">
-                            <div class="input input-btn flex-1">
-                                <input type="text" name="ordNo" id="ordNo" class="inp del-input" value="" readonly>
-                                <button type="button" class="btn text-del" style="display: none;">
-                                    <span>초기화</span>
-                                </button>
-                            </div>
-                                <a href="#" class="btn ty2 c-ty5 w-90 free ml-10 bt-order-search">
-                                    <span>주문선택</span>
-                                </a>
-                        </div>
-                        <!-- 주문선택시 -->
+<%--                    <td>--%>
+<%--                        <div class="input w-450 flex space-between">--%>
+<%--                            <div class="input input-btn flex-1">--%>
+<%--                                <input type="text" name="ordNo" id="ordNo" class="inp del-input" value="" readonly>--%>
+<%--                                <button type="button" class="btn text-del" style="display: none;">--%>
+<%--                                    <span>초기화</span>--%>
+<%--                                </button>--%>
+<%--                            </div>--%>
+<%--                                <a href="#" class="btn ty2 c-ty5 w-90 free ml-10 bt-order-search">--%>
+<%--                                    <span>주문선택</span>--%>
+<%--                                </a>--%>
+<%--                        </div>--%>
+<%--                        <!-- 주문선택시 -->--%>
 
-                        <div id="order_product" class="product_line order mgt10 blind">
-                        </div>
-                    </td>
+<%--                        <div id="order_product" class="product_line order mgt10 blind">--%>
+<%--                        </div>--%>
+<%--                    </td>--%>
 
                 </tr>
 
@@ -88,11 +88,11 @@
 
                     <td>
                         <div class="input w-full mb-10">
-                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요." oninput="save(this.value)">
-                            <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
+                            <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요." oninput="save(this.value)" value="${totalCnt}" />
+                        <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                         </div>
                         <div class="textarea word-chker ty-2 mb-18">
-                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>
+                            <textarea name="content" id="inquiry_content" maxlength="1000" rows="5" placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)">${totalCnt}</textarea>
                             <span id="count" style="float: right; margin-right: 20px; color: #aaa;">
                                 0/1,000
                             </span>
@@ -149,28 +149,28 @@
                         </ul>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="inp-label ty3">
-                            <span class="label">답변받기</span>
-                        </div>
-                    </td>
-                    <td>
-                        <input type="hidden" name="reAllow" />
-                        <div class="chkbox">
-                            <label for="re_allow_mobile">
-                                <input type="checkbox" name="_reAllow" id="re_allow_mobile" value="1" />
-                                <span class="text">문자/알림톡</span>
-                            </label>
-                        </div>
-                        <div class="chkbox">
-                            <label for="re_allow_email">
-                                <input type="checkbox" name="_reAllow" id="re_allow_email" value="2" />
-                                <span class="text">이메일</span>
-                            </label>
-                        </div>
-                    </td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>--%>
+<%--                        <div class="inp-label ty3">--%>
+<%--                            <span class="label">답변받기</span>--%>
+<%--                        </div>--%>
+<%--                    </td>--%>
+<%--                    <td>--%>
+<%--                        <input type="hidden" name="reAllow" />--%>
+<%--                        <div class="chkbox">--%>
+<%--                            <label for="re_allow_mobile">--%>
+<%--                                <input type="checkbox" name="_reAllow" id="re_allow_mobile" value="1" />--%>
+<%--                                <span class="text">문자/알림톡</span>--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                        <div class="chkbox">--%>
+<%--                            <label for="re_allow_email">--%>
+<%--                                <input type="checkbox" name="_reAllow" id="re_allow_email" value="2" />--%>
+<%--                                <span class="text">이메일</span>--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
                 </tbody>
             </table>
 

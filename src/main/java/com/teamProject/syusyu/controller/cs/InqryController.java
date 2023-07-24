@@ -10,14 +10,20 @@ import com.teamProject.syusyu.domain.cs.inqryData;
 import com.teamProject.syusyu.service.BoardService;
 import com.teamProject.syusyu.service.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +34,8 @@ public class InqryController {
 
         @Autowired
         InqryService inqryService;
+
+        private static final String CURR_IMAGE_REPO_PATH = "../../../image/inqry";
 
 //        @PostMapping("/remove")
 //        public String remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
@@ -117,7 +125,6 @@ public class InqryController {
 
             try {
                 int totalCnt = inqryService.getCount();
-                System.out.println("totalCnt = " + totalCnt);
                 PageHandler2 pageHandler = new PageHandler2(totalCnt, page, pageSize);
 
                 Map map = new HashMap();
@@ -143,16 +150,38 @@ public class InqryController {
 
             try {
                 InqryDTO inqryDTO = inqryService.read(inqryNo);
+                String Content = inqryService.getContent(inqryNo);
                 System.out.println(inqryDTO); // 또는 로깅을 이용하여 값 확인
                 m.addAttribute("inqryDTO", inqryDTO);
-//                return ViewPath.FOS_MYPAGE +"inqrymodify";
-//                원래 return문
-//                return "redirect:/inqry/inqryList";
+                m.addAttribute("Content", Content);
             } catch (Exception e) {
                 e.printStackTrace();
             }
                 return ViewPath.FOS_MYPAGE +"inqrymodify";
         }
+
+    @PostMapping("/imgUpload")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile[] files) {
+        System.out.println(" 진입 ");
+        try {
+            List<String> fileNames = new ArrayList<>();
+            for (MultipartFile file : files) {
+                String originalFilename = file.getOriginalFilename();
+                String filePath = CURR_IMAGE_REPO_PATH + "/" + originalFilename;
+                File destFile = new File(filePath);
+                file.transferTo(destFile);
+                fileNames.add(originalFilename);
+            }
+            return ResponseEntity.ok("파일 업로드 성공: " + fileNames);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 실패");
+        }
+    }
+
+    //파일명 같을시 나중에것이 기존거 덮어씌움. 파일명 있는지 확인하고 같은거 있으면 폴더생성하고 거기에 넣기. 폴더명은 일련번호로 넣고
+    //경로에도 뒤에추가해주기.
+    //등록버튼누르면 이미지명, 이미지 순서까지 같이 보내기. session으로 id확인해서 자기꺼 이미지 저장.
+    //데이터 많이 보낼때 배열사용.(어차피 자스 배열은 맵으로 되어있음)
 
 //
 //

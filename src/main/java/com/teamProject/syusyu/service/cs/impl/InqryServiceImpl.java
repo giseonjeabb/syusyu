@@ -28,6 +28,11 @@ public class InqryServiceImpl implements InqryService {
     }
 
     @Override
+    public String getContent(Integer inqryNo) throws Exception{
+        return inqryDAO.content(inqryNo);
+    };
+
+    @Override
     public int remove(Integer inqry_no, String regrId) throws Exception {
         return inqryDAO.delete(inqry_no, regrId);
     }
