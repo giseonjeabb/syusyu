@@ -26,7 +26,7 @@ public class FOS_CartController {
      * @author min
      * @since  2023/07/03
      */
-    @PostMapping("/carts")
+    @PostMapping("carts")
     public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO) {
         try {
             // 1. 재고수량이 있는지 체크한다.
@@ -51,7 +51,7 @@ public class FOS_CartController {
      * @author min
      * @since  2023/07/03
      */
-    @GetMapping("/carts")
+    @GetMapping("carts")
     public ResponseEntity<List<CartProdDTO>> list(@SessionAttribute int mbrId) {
         List<CartProdDTO> cartProdList = null;
 
@@ -75,7 +75,7 @@ public class FOS_CartController {
      * @author min
      * @since  2023/07/03
      */
-    @PatchMapping("/carts/{cartProdNo}")
+    @PatchMapping("carts/{cartProdNo}")
     public ResponseEntity<String> modify(@PathVariable Integer cartProdNo, @RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {
         try {
             cartProductDTO.setCartProdNo(cartProdNo);
@@ -98,7 +98,7 @@ public class FOS_CartController {
      * @author min
      * @since  2023/07/03
      */
-    @DeleteMapping("/carts")
+    @DeleteMapping("carts")
     public ResponseEntity<String> remove(@RequestBody int[] cartProdNoArr, @SessionAttribute int mbrId) {
         try {
             service.remove(cartProdNoArr, mbrId);

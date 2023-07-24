@@ -36,7 +36,7 @@ public class FOS_OrderController {
      * @author min
      * @since 2023/07/07
      */
-    @GetMapping("/orderSheet")
+    @GetMapping("orderSheet")
     public String orderSheet(Model m, int[] cartProdNoArr, @SessionAttribute int mbrId) {
         try {
             Map<String, Object> orderInfo = service.orderSheet(cartProdNoArr, mbrId);
@@ -64,7 +64,7 @@ public class FOS_OrderController {
      * @author min
      * @since 2023/07/11
      */
-    @PostMapping("/orders")
+    @PostMapping("orders")
     @ResponseBody
     public ResponseEntity<String> order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) {
         try {
@@ -87,7 +87,7 @@ public class FOS_OrderController {
      * @author min
      * @since  2023/07/16
      */
-    @GetMapping("/orders/available-coupons")
+    @GetMapping("orders/available-coupons")
     @ResponseBody
     public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) {
         List<CouponDTO> couponList = null;
@@ -113,7 +113,7 @@ public class FOS_OrderController {
      * @author min
      * @since 2023/07/18
      */
-    @GetMapping("/orders")
+    @GetMapping("orders")
     @ResponseBody
     public ResponseEntity<Map<Integer, List<OrderInfoDTO>>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
         Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = null;
@@ -132,7 +132,7 @@ public class FOS_OrderController {
         return new ResponseEntity<>(orderInfoListByOrdNo, HttpStatus.OK);
     }
 
-    @GetMapping("/orders/{ordNo}")
+    @GetMapping("orders/{ordNo}")
     public String orderDeatil(Model m, @SessionAttribute int mbrId, @PathVariable int ordNo) {
         try {
             Map<String, Integer> param = new HashMap<>();
