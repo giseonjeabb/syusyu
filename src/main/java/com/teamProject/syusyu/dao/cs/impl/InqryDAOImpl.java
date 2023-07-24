@@ -28,6 +28,11 @@ public class InqryDAOImpl implements InqryDAO {
     }
 
     @Override
+    public String content(Integer inqryNo) throws Exception{
+        return session.selectOne(namespace+"content");
+    };
+
+    @Override
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
     }

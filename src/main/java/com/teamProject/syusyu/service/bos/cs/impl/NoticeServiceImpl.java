@@ -1,9 +1,9 @@
-package com.teamProject.syusyu.service.fos.cs.impl;
+package com.teamProject.syusyu.service.bos.cs.impl;
 
 import com.teamProject.syusyu.dao.cs.NoticeDAO;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.fos.cs.NoticeService;
+import com.teamProject.syusyu.service.bos.cs.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

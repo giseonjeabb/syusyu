@@ -1,25 +1,20 @@
-package com.teamProject.syusyu.controller.fos.cs.mypage;
+package com.teamProject.syusyu.controller.bos.cs.mypage;
 
-import com.mysql.cj.Session;
-import com.mysql.cj.protocol.x.Notice;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.fos.cs.NoticeService;
+import com.teamProject.syusyu.service.bos.cs.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -29,8 +24,7 @@ public class AdminNoticeController {
 
     @Autowired
     NoticeService noticeService;
-
-
+    
 
     /**
      * 공지사항 목록을 조회하고, 페이징 처리된 결과를 화면에 표시한다.
@@ -230,31 +224,36 @@ public class AdminNoticeController {
 
 
 
-
     @PostMapping("/modify")
-    public String modify(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr) {
-
+    public String modify(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr, @SessionAttribute int mbrId) {
 
         try {
+            System.out.println("noticeDTO: " + noticeDTO);
+
+            noticeDTO.setRegrId(mbrId);
+            m.addAttribute("noticeDTO", noticeDTO);
             int rowCnt = noticeService.modify(noticeDTO);
 
             if (rowCnt != 1)
-                throw new Exception("modify failed");
+                throw new Exception("modify failed!!!!!!!!!!!!!!!!!!!!!");
 
             rattr.addFlashAttribute("msg", "MOD_OK");
+            return "redirect:/adminNotice/list";
 
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("noticeDTO", noticeDTO);
+
             m.addAttribute("msg", "MOD_ERR");
+            rattr.addAttribute("notcNo", noticeDTO.getNotcNo());
+
             return "redirect:/adminNotice/modify";
         }
 
-        return "redirect:/adminNotice/list";
     }
 
 @GetMapping("/modify")
-    public String showModifyForm(Integer notcNo,Model m){
+    public String showModifyForm(Integer notcNo, Model m){
 
     try {
         NoticeDTO noticeDTO = noticeService.read(notcNo);
