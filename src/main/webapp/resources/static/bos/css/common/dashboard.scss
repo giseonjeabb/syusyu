@@ -661,6 +661,11 @@ progress {
   margin-left: auto;
 }
 
+.container-fluid {
+  min-height: 750px;
+  min-width: 960px;
+}
+
 
 @media (min-width: 576px) {
   .container-sm, .container {
