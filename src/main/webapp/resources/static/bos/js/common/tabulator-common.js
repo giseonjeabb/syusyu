@@ -12,4 +12,30 @@ syusyu.common.Tabulator = {
     formatNumberForTabulator: (cell) => {
         return cell.getValue().toLocaleString();
     },
+
+    /**
+     * Tabulator 테이블을 생성한다.
+     *
+     * @param gridId 테이블을 표시할 HTML 요소의 id
+     * @param tableData 테이블에 표시할 데이터
+     * @param columns 테이블의 컬럼 정보를 정의한 객체 배열
+     * @author min
+     * @since 2023/07/24
+     */
+    createTabulatorTable: (gridId, tableData, columns) => {
+        new Tabulator(gridId, {
+            data: tableData,
+            columns: columns,
+            layout: "fitColumns",
+            responsiveLayout: "hide",
+            tooltips: true,
+            addRowPos: "top",
+            history: true,
+            pagination: "local",
+            paginationSize: 15,
+            movableColumns: true,
+            resizableRows: true,
+            initialSort: [{column: "name", dir: "asc"},],
+        });
+    }
 }
