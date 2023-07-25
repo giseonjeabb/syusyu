@@ -38,15 +38,15 @@ function validateLogin() {
 function login() {
     // ajax로 로그인 컨트롤러 메서드를 ajax로 호출한다.
     // 매개변수 : 아이디, pw
-
     const param = {
         lginId: document.getElementById('login_id').value,
         lginPwd: document.getElementById('login_pwd').value
     }
 
     syusyu.common.Ajax.sendJSONRequest('POST', '/fos/login', param, res => {
-        if (res === 'success') {
-            location.href = '/';
+        if (res) {
+            // 이전 페이지로 이동한다.
+            location.href = res;
         } else {
             alert("아이디나 비밀번호를 잘못 입력하셨습니다.");
         }

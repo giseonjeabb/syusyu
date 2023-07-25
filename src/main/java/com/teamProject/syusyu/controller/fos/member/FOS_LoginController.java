@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -19,7 +20,14 @@ public class FOS_LoginController {
 
 
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(HttpServletRequest request) {
+        // 이전 페이지 URL 저장
+        HttpSession session = request.getSession();
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            session.setAttribute("prevPage", referer);
+        }
+
         return ViewPath.FOS_MEMBER + "loginForm";
     }
 
@@ -33,7 +41,7 @@ public class FOS_LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO, HttpSession session) {
+    public ResponseEntity<String> login(@RequestBody MemberDTO memberDTO, HttpServletRequest request) {
         MemberDTO checkedMember;
         try {
             // 1. id와 pwd를 확인한다.
@@ -47,10 +55,14 @@ public class FOS_LoginController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
-        // 2. id와 pwd가 일치하면 세션에 id를 저장한다.
+        //2. id와 pwd가 일치하면 세션에 id를 저장한다.
+        HttpSession session = request.getSession();
         session.setAttribute("mbrId", checkedMember.getMbrId());
 
-        // 3. 클라이언트에게 성공 메시지를 보낸다.
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        //3. 이전 페이지 URL 가져오기
+        String prevPage = (String) session.getAttribute("prevPage");
+
+        //4. 클라이언트에게 성공 메시지와 이전 페이지 URL을 보낸다.
+        return new ResponseEntity<>(prevPage, HttpStatus.OK);
     }
 }
