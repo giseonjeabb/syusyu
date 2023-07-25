@@ -172,8 +172,6 @@
                                 <li class="flex">
                                     <span class="g-tit pt-10">옵션선택</span>
                                     <span class="g-cont">
-
-
 											<div class="custom_select" type="general">
 												<div class="ui selection dropdown option-select" tabindex="0">
 													<input type="hidden" id="opt_picker_1_1" value="">
@@ -181,7 +179,7 @@
                                                     <div class="menu" tabindex="-1">
                                                         <c:forEach var="item" items="${shoesSizeList}">
                                                             <div class="item" data-value="${item.shoesSize}" data-opt-prc="${item.optPrc}" data-inv-qty="${item.invQty}" data-purchase-limit="${productDetail.dlvChgDtl}" data-opt-comb-no="${item.optCombNo}">
-                                                                <span>${item.shoesSize} ${item.optPrc != 0 ?'(+'+= item.optPrc+=')':''} </span>
+                                                                <span>${item.shoesSize} <c:if test="${item.optPrc != 0}">(+<fmt:formatNumber value="${item.optPrc}" pattern="#,###"/>)</c:if></span>
                                                             </div>
                                                         </c:forEach>
                                                     </div>

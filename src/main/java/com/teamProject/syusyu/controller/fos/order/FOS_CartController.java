@@ -19,12 +19,17 @@ public class FOS_CartController {
     }
 
     /**
-     * 장바구니에 상품을 추가한다.
+     * 사용자의 장바구니에 상품을 추가한다.
+     * 사용자가 로그인하면 섹션에 저장된 아이디를 가져온다.
      *
-     * @param cartProductDTO 추가할 상품 정보
+     * @param cartProductDTO 장바구니에 추가할 상품 정보
+     * @param mbrId 현재 세션에 저장된 사용자의 ID
      * @return 결과 메시지와 HTTP 상태 코드
+     * @throws Exception 장바구니에 상품을 추가하는 동안 발생할 수 있는 예외를 처리합니다.
      * @author min
      * @since  2023/07/03
+     * @modifier soso
+     * @modified 2023/07/25
      */
     @PostMapping("carts")
     public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {

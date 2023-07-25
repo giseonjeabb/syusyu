@@ -309,8 +309,18 @@ function updateTotalPrice() {
     $('strong[data-type="price"]').text(grandTotal.toLocaleString());
 }
 
-
-
+/**
+ * 장바구니에 상품을 추가하는 함수입니다.
+ * 로그인이 되어 있지 않다면 로그인 페이지로 이동하고, 로그인이 되어 있다면 선택한 상품의 정보를 서버에 전송합니다.
+ * 상품의 ID, 카테고리 ID, 수량, 옵션 번호, 등록자 ID를 JSON 형태로 변환하여 서버에 POST 요청을 합니다.
+ * 요청이 성공하면, 사용자에게 '장바구니로 이동하시겠습니까?'라는 메시지를 보여줍니다.
+ * 사용자가 'OK'를 선택하면 장바구니 페이지(/fos/cart)로 이동하고, 'Cancel'을 선택하면 이동하지 않습니다.
+ *
+ * @return false를 반환하여 a 태그의 기본 동작(페이지 이동)을 방지합니다.
+ * @throws Exception 상품 정보를 서버로 전송하는 동안 발생할 수 있는 예외를 처리합니다.
+ * @author soso
+ * @since 2023/07/25
+ */
 function productIntoCart() {
     const loginId=$("#login_id").val();
 

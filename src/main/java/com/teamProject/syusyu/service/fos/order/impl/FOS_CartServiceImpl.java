@@ -18,13 +18,18 @@ public class FOS_CartServiceImpl implements FOS_CartService {
     }
 
     /**
-     * 장바구니에 상품을 추가한다.
+     * 사용자의 장바구니에 상품을 추가하는 메소드입니다.
+     * 전달받은 상품 정보(cartProductDTO)를 이용하여 장바구니에 해당 상품이 이미 있는지 확인한 후, 없다면 새로 장바구니에 추가합니다.
+     * 장바구니에 상품 추가에 성공하면 장바구니 상품 번호를 반환합니다.
+     * 상품 추가에 실패하면 Exception을 발생시킵니다.
      *
      * @param cartProductDTO 장바구니에 추가할 상품 정보
-     * @return 추가된 상품의 ID
-     * @throws Exception DB 삽입 도중 발생할 수 있는 예외
+     * @return 장바구니에 추가된 상품의 번호
+     * @throws Exception 장바구니에 상품을 추가하는 동안 발생할 수 있는 예외를 처리합니다.
      * @author min
      * @since  2023/07/03
+     * @modifier soso
+     * @modified 2023/07/25
      */
     @Override
     public int addProductIntoCart(CartProdDTO cartProductDTO) throws Exception {
