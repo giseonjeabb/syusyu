@@ -11271,15 +11271,22 @@ body {
 
 .layoutSidenav_content {
   width: 100%;
+  background-color: #f9f9f9;
 }
 
+.button_area {
+  position: relative;
+  text-align: right;
+  padding: 10px 10px 10px 0;
+}
 
 .search_form {
-  table, th, td {
-    border: 1px solid #dcdcdc;
-  }
+  background-color: white;
   table {
     width: 100%;
+  }
+  th, td {
+    border: 1px solid #d9dadc;
   }
   th {
     padding-left: 10px;
@@ -11292,8 +11299,15 @@ body {
       float: left;
     }
   }
-}
 
+  .button_area {
+    position: relative;
+    text-align: right;
+    border: 1px solid #d9dadc;
+    border-top: none;
+    padding: 10px 10px 10px 0;
+  }
+}
 
 /* input */
 .input {
@@ -11322,8 +11336,4 @@ body {
   }
 }
 
-.button_area {
-  position: relative;
-  text-align: center;
-  margin: 10px 0;
-}
+
