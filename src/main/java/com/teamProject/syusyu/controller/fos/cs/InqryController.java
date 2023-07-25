@@ -3,6 +3,7 @@ package com.teamProject.syusyu.controller.fos.cs;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.PageHandler2;
 import com.teamProject.syusyu.domain.cs.InqryDTO;
+import com.teamProject.syusyu.domain.cs.inqryData;
 import com.teamProject.syusyu.service.fos.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -178,27 +179,33 @@ public class InqryController {
     //등록버튼누르면 이미지명, 이미지 순서까지 같이 보내기. session으로 id확인해서 자기꺼 이미지 저장.
     //데이터 많이 보낼때 배열사용.(어차피 자스 배열은 맵으로 되어있음)
 
-//
-//
-//    @PostMapping("/write")
-//    @ResponseBody
-//    public int write(@RequestBody inqryData r, HttpSession session, RedirectAttributes rattr) {
-//
-//        int regYn = 1;
-//
-//        Integer mbrId = (Integer)session.getAttribute("mbrId");
-//        // 세션에서 regrId 값 가져오기
-//        try {
-//            if(inqryService.write(inqryNo, mbrId.toString())!=1)
-//                throw new Exception("Delote failed.");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            removeYn = 0;
-//        }
-//
-//
-//        return removeYn;
-//    }
+    @PostMapping("/write")
+    @ResponseBody
+    public int write(@RequestBody InqryDTO inqryDTO, HttpSession session, RedirectAttributes rattr, Model m) {
+        // inqryDTO 객체에 클라이언트에서 전송한 데이터가 이미 매핑되어 있습니다.
+        // 따라서 이후에 inqryDTO 객체를 사용하여 title과 RegDttm 정보를 가져와 사용할 수 있습니다.
+
+        // 예시: title과 RegDttm 정보를 로깅하여 확인해보기
+        System.out.println("title: " + inqryDTO.getTitle());
+        System.out.println("RegDttm: " + inqryDTO.getRegDttm());
+
+        // 모델에 inqryDTO 객체를 추가하여 클라이언트로 전달
+        m.addAttribute("inqryDTO", inqryDTO);
+
+        try {
+            // InqryService를 통해 데이터 삽입
+            int result = inqryService.insert(inqryDTO);
+            // 필요한 경우 'result' 변수를 사용합니다. (예: 오류 처리 또는 추가 처리).
+
+            // 성공적으로 등록되었음을 클라이언트에게 알리기 위해 1 반환
+            return 1;
+        } catch (Exception e) {
+            // 예외 처리가 필요한 경우 처리합니다.
+            e.printStackTrace();
+            // 오류가 발생했음을 나타내는 오류 코드를 반환
+            return -1;
+        }
+    }
 
 
 //        @GetMapping("/write")
