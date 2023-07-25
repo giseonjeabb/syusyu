@@ -80,7 +80,7 @@ td {
   border-bottom: 1px solid #eee;
 }
 
-.btn {
+#listBtn {
   background-color: rgb(236, 236, 236); /* Blue background */
   border: none; /* Remove borders */
   color: black; /* White text */
