@@ -5,16 +5,17 @@
 <mapper namespace="com.teamProject.syusyu.prodOptMapper">
     <select id="selectProdOptSizeList" parameterType="int" resultType="ProdOptDTO">
         SELECT REGEXP_REPLACE(OI.OPT_ITEM_NM, '[^0-9]', '') AS SHOES_SIZE /*신발 사이즈*/
-            , PO.OPT_PRC /*옵션가*/
-            , INV_QTY /*재고수량*/
+             , POC.OPT_COMB_NO /*옵션조합번호*/
+             , PO.OPT_PRC /*옵션가*/
+             , INV_QTY /*재고수량*/
         FROM PROD_OPT PO /*신발옵션*/
-        JOIN PROD_OPT_COMB POC ON PO.OPT_COMB_NO = POC.OPT_COMB_NO
-        JOIN OPT_ITEM OI ON OI.OPT_ITEM_ID = POC.OPT_ITEM_ID
+                 JOIN PROD_OPT_COMB POC ON PO.OPT_COMB_NO = POC.OPT_COMB_NO
+                 JOIN OPT_ITEM OI ON OI.OPT_ITEM_ID = POC.OPT_ITEM_ID
         WHERE PO.PROD_ID = #{prodId}
-        AND REGEXP_REPLACE(OI.OPT_ITEM_NM, '[^0-9]', '') != '' /*신발사이즈 외 빈칸 안나오게함*/
-        AND OI.DEL_YN = 'N'
-        AND POC.DEL_YN = 'N'
-        AND PO.DEL_YN = 'N'
+          AND REGEXP_REPLACE(OI.OPT_ITEM_NM, '[^0-9]', '') != '' /*신발사이즈 외 빈칸 안나오게함*/
+          AND OI.DEL_YN = 'N'
+          AND POC.DEL_YN = 'N'
+          AND PO.DEL_YN = 'N'
         ORDER BY OI.OPT_ITEM_NM
     </select>
 </mapper>

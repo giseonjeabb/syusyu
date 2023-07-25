@@ -4,8 +4,8 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
-import com.teamProject.syusyu.service.fos.product.CategoryService;
-import com.teamProject.syusyu.service.fos.product.ProductService;
+import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
+import com.teamProject.syusyu.service.fos.product.FOS_ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ProductController {
+@RequestMapping(ViewPath.FOS)
+public class FOS_ProductController {
 
     @Autowired
-    CategoryService categoryService;
+    FOS_CategoryService FOSFOSCategoryService;
     @Autowired
-    ProductService productService;
+    FOS_ProductService FOSFOSProductService;
 
 
     /**
@@ -39,10 +41,10 @@ public class ProductController {
      * @author soso
      * @since 2023/07/06
      */
-    @GetMapping("/categories")
+    @GetMapping("categories")
     public ResponseEntity<Map<String, Object>> CategoryAllList(HttpServletRequest request) {
         try {
-            Map<String, Object> categories = categoryService.getCategoryAllList();
+            Map<String, Object> categories = FOSFOSCategoryService.getCategoryAllList();
 
             if (categories == null) {
                 System.out.println("categories is null");
@@ -63,7 +65,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/productList")
+    @GetMapping("products")
     public String ProductLargeView() {
 
         return ViewPath.FOS_PRODUCT + "productList";
@@ -77,7 +79,7 @@ public class ProductController {
      * @author soso
      * @since 2023/07/06
      */
-    @GetMapping("/productList/{middleNo}/{smallNo}")
+    @GetMapping("products/{middleNo}/{smallNo}")
     public String ProductListView(@PathVariable("middleNo") Integer middleNo,
                                   @PathVariable("smallNo") Integer smallNo,
                                   Model model) {
@@ -99,19 +101,18 @@ public class ProductController {
      * @author soso
      * @since 2023/07/07
      */
-    @GetMapping("/productListData/{middleNo}/{smallNo}")
+    @GetMapping("productsData/{middleNo}/{smallNo}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getProductList(@PathVariable Integer middleNo, @PathVariable Integer smallNo) {
         Map<String, Object> productInfo = null;
-        System.out.println("middleNo" + middleNo);
-        System.out.println("smallNo" + smallNo);
+
         try {
             if (middleNo == null || smallNo == null) {
                 middleNo = 1;
                 smallNo = 1;
             }
-            productInfo = productService.getProductList(middleNo, smallNo);
-
+            productInfo = FOSFOSProductService.getProductList(middleNo, smallNo);
+            System.out.println(productInfo.get("확인"+"productList"));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
@@ -129,12 +130,11 @@ public class ProductController {
      * @author soso
      * @since 2023/07/10
      */
-    @GetMapping("/productList/{middleNo}")
+    @GetMapping("products/{middleNo}")
     public String getProductAllList(@PathVariable("middleNo") Integer middleNo, Model model) {
         model.addAttribute("middleNo", middleNo);
         return ViewPath.FOS_PRODUCT + "productList";
     }
-
     /**
      * 중분류 번호를 사용하여 해당 카테고리에 속한 모든 상품 목록을 보여주는 메소드입니다.
      * 이 메소드는 HTTP GET 요청을 통해 호출되며, 상품 목록을 보여주는 뷰 경로를 반환합니다.
@@ -144,7 +144,7 @@ public class ProductController {
      * @author soso
      * @since 2023/07/08
      */
-    @GetMapping("/productListData/{middleNo}")
+    @GetMapping("productsData/{middleNo}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getProductAllList(@PathVariable Integer middleNo) {
         Map<String, Object> productInfo = null;
@@ -155,8 +155,8 @@ public class ProductController {
         try {
 
             //중분류 카테고리별 전체 상품리스트와 전체 갯수, 카테고리를 map으로 보냄
-            productInfo = productService.getProductAllList(middleNo);
-
+            productInfo = FOSFOSProductService.getProductAllList(middleNo);
+            System.out.println("나와라!!:"+productInfo.get("productList"));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
@@ -172,7 +172,7 @@ public class ProductController {
         List<ProductDTO> productStatusList = null;
 
         try {
-            productStatusList = productService.getProductStatus(prodIdArr);
+            productStatusList = FOSFOSProductService.getProductStatus(prodIdArr);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productStatusList, HttpStatus.BAD_REQUEST);
@@ -192,7 +192,7 @@ public class ProductController {
      * @author soso
      * @since 2023/07/19
      */
-    @GetMapping("/product/{prodId}")
+    @GetMapping("products/product/{prodId}")
     public String getProduct(@PathVariable int prodId, Model m) {
         Map<String, Object> productDetail = null;
         ProductDTO product = null;
@@ -201,7 +201,7 @@ public class ProductController {
 
         try {
             System.out.println("prodId = " + prodId);
-            productDetail = productService.getProduct(prodId);
+            productDetail = FOSFOSProductService.getProduct(prodId);
 
             product = (ProductDTO) productDetail.get("productDetail");
             m.addAttribute("productDetail", product);

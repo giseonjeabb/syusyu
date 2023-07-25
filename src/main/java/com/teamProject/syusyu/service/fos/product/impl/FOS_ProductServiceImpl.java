@@ -5,8 +5,7 @@ import com.teamProject.syusyu.dao.product.ProductDAO;
 import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
-import org.checkerframework.checker.units.qual.A;
-import com.teamProject.syusyu.service.fos.product.ProductService;
+import com.teamProject.syusyu.service.fos.product.FOS_ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class FOS_ProductServiceImpl implements FOS_ProductService {
     @Autowired
     ProductDAO productDAO;
 

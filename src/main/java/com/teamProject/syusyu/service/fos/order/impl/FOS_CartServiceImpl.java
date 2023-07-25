@@ -27,8 +27,14 @@ public class FOS_CartServiceImpl implements FOS_CartService {
      * @since  2023/07/03
      */
     @Override
-    public int add(CartProdDTO cartProductDTO) throws Exception {
-        return cartProdDAO.insert(cartProductDTO);
+    public int addProductIntoCart(CartProdDTO cartProductDTO) throws Exception {
+        CartProdDTO checkCart =cartProdDAO.selectHaveCart(cartProductDTO.getMbrId());
+        if(checkCart == null){
+            cartProdDAO.insertCartNo(cartProductDTO);
+        }
+
+        return cartProdDAO.insertProductIntoCart(cartProductDTO);
+
     }
 
     /**
@@ -74,4 +80,6 @@ public class FOS_CartServiceImpl implements FOS_CartService {
     public int remove(int[] cartProdNo, int delrId) throws Exception {
         return cartProdDAO.delete(cartProdNo, delrId);
     }
+
+
 }

@@ -10,7 +10,7 @@
  */
 $(function() {
     $.ajax({
-        url: '/categories',
+        url: '/fos/categories',
         type: 'GET',
         dataType: 'json'
     }).done(function(data) {

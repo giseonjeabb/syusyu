@@ -10,10 +10,10 @@
 
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
-        <a href="<c:url value="/productList?middleNo=1&smallNo=1"/>">신발</a>
+        <a href="<c:url value='/fos/products?middleNo=1&smallNo=1'/>">신발</a>
 
         <%--   추후 카테고리 삽입하면 경로바꿀 예정임   --%>
-        <a href="<c:url value='/productList/${middleNo}'/>">운동화</a>
+        <a href="<c:url value='/fos/products/${middleNo}'/>">운동화</a>
 
         <%--<a href="javascript:">스니커즈</a>--%>
         <a href="#">스니커즈</a>
@@ -30,18 +30,18 @@
     <div class="tab-wrap">
         <div class="tab ty1">
             <div class="inner">
-                <a href="<c:url value='/productList/${middleNo}'/>" class="">전체</a>
+                <a href="<c:url value='/fos/products/${middleNo}'/>" class="allCategory">전체</a>
                 <%--                <c:out value="${middleNo}"/>--%>
                 <%--                <c:out value="${smallNo}"/>--%>
                 <c:forEach var="small" items="${categories.smallCategories}">
                     <c:if test="${small.key == middleNo}">
                         <c:forEach var="smallCategoryItem" items="${small.value}">
 
-                            <a href="<c:url value='/productList/${small.key}/${smallCategoryItem.key}'/>">
+                            <a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>" class ="smallCategory" data-category-name="${smallCategoryItem.value}">
                                 <c:out value="${smallCategoryItem.value}"/>
                             </a>
 
-                        </c:forEach>
+                        </c:forEach>시
                     </c:if>
                 </c:forEach>
 

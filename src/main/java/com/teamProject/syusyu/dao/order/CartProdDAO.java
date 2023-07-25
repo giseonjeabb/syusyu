@@ -5,9 +5,14 @@ import com.teamProject.syusyu.domain.order.CartProdDTO;
 import java.util.List;
 
 public interface CartProdDAO {
-    int insert(CartProdDTO cartProductDTO) throws Exception;
 
-    List<CartProdDTO> selectAll(int mbrCd) throws Exception;
+    CartProdDTO selectHaveCart(int mbrCd) throws Exception;
+
+    int insertCartNo(CartProdDTO cartProdDTO) throws Exception;
+
+    int insertProductIntoCart(CartProdDTO cartProductDTO) throws Exception;
+
+    List<CartProdDTO> selectAll(int mbrId) throws Exception;
 
     int update(CartProdDTO cartProductDTO) throws Exception;
 
