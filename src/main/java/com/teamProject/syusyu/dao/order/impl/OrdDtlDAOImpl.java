@@ -5,6 +5,8 @@ import com.teamProject.syusyu.domain.order.OrdDtlDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public class OrdDtlDAOImpl implements OrdDtlDAO {
     private final SqlSession session;
@@ -66,5 +68,19 @@ public class OrdDtlDAOImpl implements OrdDtlDAO {
     @Override
     public int countOrderDetail() throws Exception {
         return session.selectOne(namespace + "countOrdDtl");
+    }
+
+    /**
+     * 특정 주문의 주문 상태를 업데이트한다.
+     *
+     * @param param 주문상세번호와 주문상태를 포함하고 있는 맵
+     * @return 업데이트된 행의 수
+     * @throws Exception DB 업데이트 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/25
+     */
+    @Override
+    public int updateOrdStus(Map<String, Object> param) throws Exception {
+        return session.update(namespace + "updateOrdStus", param);
     }
 }

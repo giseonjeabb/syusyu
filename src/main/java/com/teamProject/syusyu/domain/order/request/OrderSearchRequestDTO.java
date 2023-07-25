@@ -6,6 +6,7 @@ public class OrderSearchRequestDTO {
     String endDate; // 조회종료일
     String searchType; // 조회조건
     String searchKeyword; // 검색어
+    String ordStus; // 주문상태코드
 
     public String getDateType() {
         return dateType;
@@ -47,6 +48,14 @@ public class OrderSearchRequestDTO {
         this.searchKeyword = searchKeyword;
     }
 
+    public String getOrdStus() {
+        return ordStus;
+    }
+
+    public void setOrdStus(String ordStus) {
+        this.ordStus = ordStus;
+    }
+
     @Override
     public String toString() {
         return "OrderSearchRequestDTO{" +
@@ -55,6 +64,7 @@ public class OrderSearchRequestDTO {
                 ", endDate='" + endDate + '\'' +
                 ", searchType='" + searchType + '\'' +
                 ", searchKeyword='" + searchKeyword + '\'' +
+                ", ordStus='" + ordStus + '\'' +
                 '}';
     }
 
@@ -64,6 +74,7 @@ public class OrderSearchRequestDTO {
         private String endDate;
         private String searchType;
         private String searchKeyword;
+        private String ordStus;
 
         private Builder() {
         }
@@ -97,6 +108,11 @@ public class OrderSearchRequestDTO {
             return this;
         }
 
+        public Builder ordStus(String ordStus) {
+            this.ordStus = ordStus;
+            return this;
+        }
+
         public OrderSearchRequestDTO build() {
             OrderSearchRequestDTO orderSearchRequestDTO = new OrderSearchRequestDTO();
             orderSearchRequestDTO.setDateType(dateType);
@@ -104,6 +120,7 @@ public class OrderSearchRequestDTO {
             orderSearchRequestDTO.setEndDate(endDate);
             orderSearchRequestDTO.setSearchType(searchType);
             orderSearchRequestDTO.setSearchKeyword(searchKeyword);
+            orderSearchRequestDTO.setOrdStus(ordStus);
             return orderSearchRequestDTO;
         }
     }
