@@ -97,23 +97,23 @@
     <!--    </update>-->
 
 
-    <!--    <sql id="searchConditionFaq">-->
-    <!--        <choose>-->
-    <!--            <when test='option=="T"'>-->
-    <!--                AND TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-    <!--            </when>-->
-    <!--            <when test='option=="W"'>-->
-    <!--                AND REGR_ID LIKE CONCAT('%', #{keyword}, '%')-->
-    <!--            </when>-->
-    <!--            <when test='option=="C"'>-->
-    <!--                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')-->
-    <!--            </when>-->
-    <!--            <otherwise>-->
-    <!--                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-    <!--                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))-->
-    <!--            </otherwise>-->
-    <!--        </choose>-->
-    <!--    </sql>-->
+    <sql id="searchConditionList">
+        <choose>
+            <when test='option=="T"'>
+                AND TITLE LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="N"'>
+                AND NOTC_NO LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
 
     <sql id="searchCondition">
         AND (TITLE LIKE CONCAT('%',#{keyword},'%' )
@@ -122,33 +122,13 @@
     </sql>
 
 
-    <sql id="selectSearchFaq">
-        <choose>
-            <when test='option == "T"'>
-                AND FAQ_TP LIKE concat('%', #{keyword} ,'%')
-            </when>
-            <otherwise>
-                AND FAQ_TP BETWEEN 10 AND 80
-            </otherwise>
-        </choose>
-    </sql>
-
-
-    <select id="selectFaqList" parameterType="FaqSearchCondition" resultType="FaqDTO">
-        select FAQ_TP, TITLE, CONTENT ,
-               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
-        from faq
-        where true
-        <include refid="selectSearchFaq"/>
-    </select>
-
 
     <select id="searchSelectPage" parameterType="FaqSearchCondition" resultType="FaqDTO">
         SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM,
                 GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         FROM faq
         WHERE TRUE
-        <include refid="searchCondition"/>
+        <include refid="searchConditionList"/>
         ORDER BY FAQ_NO asc
 
     </select>
@@ -157,7 +137,7 @@
         SELECT count(*)
         FROM faq
         WHERE TRUE
-        <include refid="searchCondition"/>
+        <include refid="searchConditionList"/>
     </select>
 
 
