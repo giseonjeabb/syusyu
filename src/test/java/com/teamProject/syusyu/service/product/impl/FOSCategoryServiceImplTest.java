@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.service.product.impl;
 
-import com.teamProject.syusyu.service.fos.product.CategoryService;
+import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
-public class CategoryServiceImplTest {
+public class FOSCategoryServiceImplTest {
 
     @Autowired
-    CategoryService categoryService;
+    FOS_CategoryService FOSFOSCategoryService;
 
     @Test
     public void getCategoryAllList() throws Exception {

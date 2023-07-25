@@ -3,17 +3,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.cartProdMapper">
-    <insert id="insert" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
+<!--고객이 cart_id를 가지고 있는지 확인-->
+    <select id="selectHaveCart" parameterType="int" resultType="CartProdDto">
+        SELECT CART_ID FROM CART WHERE MBR_Id = #{mbrId}
+    </select>
+
+<!--고객이 cart가지고 있지 않으면 CART_ID 생성-->
+    <insert id="insertCartNo" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartId">
+        INSERT INTO CART (MBR_ID, REGR_ID)
+        VALUES (#{mbrId},#{mbrId});
+    </insert>
+
+<!--장바구니에 상품 추가-->
+    <insert id="insertProductIntoCart" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
         INSERT INTO cart_prod ( CART_ID     # 회원장바구니번호
                               , PROD_ID     # 상품아이디
                               , QTY         # 수량
                               , OPT_COMB_NO # 옵션조합번호
                               , REGR_ID)    # 등록자
-        VALUES ( #{cartId}
-               , #{prodId}
-               , #{qty}
-               , #{optCombNo}
-               , #{regrId})
+        SELECT CART_ID
+             , #{prodId}
+             , #{qty}
+             , #{optCombNo}
+             , #{regrId}
+        FROM cart
+        WHERE MBR_ID = #{mbrId};
     </insert>
 
     <!-- 장바구니 리스트를 가져오는 쿼리. 장바구니 내의 상품 정보와 금액 정보를 가져온다.

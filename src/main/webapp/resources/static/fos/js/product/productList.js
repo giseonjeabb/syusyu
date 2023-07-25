@@ -10,36 +10,21 @@
   * @since 2023/07/07
   */
 $(function () {
+
+
     const path = window.location.pathname;
     const pathParts = path.split('/');
-    let middleNo = pathParts[2];
-    const smallNo = pathParts[3];
+    let middleNo = pathParts[3];
+    const smallNo = pathParts[4];
     if (middleNo === undefined || middleNo === null) {
         middleNo = 1;
     }
+    console.log(middleNo, smallNo)
     //카테고리 중분류만 클릭했을때 불러오는 상품리스트
     if (smallNo === undefined || smallNo === null) {
         $.ajax({
             type: 'GET',
-            url: "/productListData/" + middleNo,
-            contentType: 'application/json; charset=utf-8',
-            dataType : "json",
-            success : function(data) {
-                const productList = data.productList;
-                console.log("Data received: " + productList);
-                showProductList(data);
-            },
-            error : function(jqXHR, error, errorThrown) {
-                console.error("AJAX request failed. " + error);
-            }
-        });
-
-    } else {
-        //카테고리 소분류 클릭햇을때 불러오는 상품리스트
-
-        $.ajax({
-            type: 'GET',
-            url: "/productListData/" + middleNo + "/" + smallNo,
+            url: "/fos/productsData/" + middleNo,
             contentType: 'application/json; charset=utf-8',
             dataType : "json",
             success : function(data) {
@@ -51,9 +36,26 @@ $(function () {
                 console.error("AJAX request failed. " + error);
             }
         });
-    }
-});
 
+    } else {
+        //카테고리 소분류 클릭햇을때 불러오는 상품리스트
+        $.ajax({
+            type: 'GET',
+            url: "/fos/productsData/" + middleNo + "/" + smallNo,
+            contentType: 'application/json; charset=utf-8',
+            dataType : "json",
+            success : function(data) {
+                showProductList(data);
+                const productList = data.productList;
+                console.log("Data received: " + productList);
+            },
+            error : function(jqXHR, error, errorThrown) {
+                console.error("AJAX request failed. " + error);
+            }
+        });
+    }
+
+});
 
 /**
  * 상품 리스트를 화면에 표시하는 함수입니다.
@@ -67,6 +69,8 @@ const showProductList = (data) => {
 
     const productList = data.productList;
     const prodListTot = data.prodListTot;
+
+    console.log(productList, prodListTot)
     //상품리스트 아이템들을 초기화
     const productItems = document.querySelector('.prd-lists');
     productItems.innerHTML = '';// 기존에 있던 상품리스트 아이템들을 제거
@@ -94,7 +98,7 @@ const showProductList = (data) => {
 
             //클릭시 상세페이지로
             const itemImgA = document.createElement('a');
-            itemImgA.setAttribute('href', `/product/${item.prodId}`);
+            itemImgA.setAttribute('href', `/fos/products/product/${item.prodId}`);
             itemImgA.setAttribute('target', '_self');
             itemImgA.setAttribute('pno', `${item.prodId}`);
 
@@ -107,7 +111,7 @@ const showProductList = (data) => {
             itemDescDiv.setAttribute('class', 'desc');
 
             const itemDescA = document.createElement('a');
-            itemDescA.setAttribute('href', `/product/${item.prodId}`);
+            itemDescA.setAttribute('href', `/fos/products/product/${item.prodId}`);
             itemDescA.setAttribute('target', '_self');
             itemDescA.setAttribute('pno', `${item.prodId}`);
 
@@ -196,4 +200,15 @@ const showProductList = (data) => {
             productItems.appendChild(productItemDiv);
         });
     }
+    // $('a[data-category-name]').on('click', function(e) {
+    //     e.preventDefault();
+    //     console.log('a[data-category-name]')
+    //     let categoryName = $(this).data('category-name');
+    //     if (categoryName === undefined) {
+    //         categoryName = "전체";
+    //     }
+    //
+    //     $('.title-t.ty2').text(categoryName);
+    //     console.log(categoryName);
+    // });
 };

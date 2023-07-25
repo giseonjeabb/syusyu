@@ -31,34 +31,53 @@ public class CartProdDAOImplTest extends TestCase {
     public void afterEach() throws Exception {
         beforeEach();
 
-        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 16, 1, 80001, null, null);
-        assertTrue(dao.insert(cartProdDTO) == 1);
+        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 16, 1, 80001, null, null, 80001);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO) == 1);
         assertTrue(dao.selectAllTest().size() == 1);
 
-        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10007, 2, null, 80001, null, null);
-        assertTrue(dao.insert(cartProdDTO1) == 1);
+        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10007, 2, null, 80001, null, null, 80001);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO1) == 1);
         assertTrue(dao.selectAllTest().size() == 2);
 
-        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10011, 1, null, 80001, null, null);
-        assertTrue(dao.insert(cartProdDTO2) == 1);
+        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10011, 1, null, 80001, null, null, 80001);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO2) == 1);
         assertTrue(dao.selectAllTest().size() == 3);
 
-        CartProdDTO cartProdDTO3 = new CartProdDTO(1, 10007, 2, null, 80001, null, null);
-        assertTrue(dao.insert(cartProdDTO3) == 1);
+        CartProdDTO cartProdDTO3 = new CartProdDTO(1, 10007, 2, null, 80001, null, null, 80001);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO3) == 1);
         assertTrue(dao.selectAllTest().size() == 4);
     }
 
+
+
     // 장바구니 추가 검증
+    @Test
+    public void testSelectHaveCart() throws Exception{
+        System.out.println(dao.selectHaveCart(80002));
+    }
+
+    @Test
+    public void testInsertHaveCart() throws Exception{
+        CartProdDTO cartProdDTO = new CartProdDTO(80004, 80004);
+        assertTrue(dao.insertCartNo(cartProdDTO) == 1);
+
+    }
+    @Test
+    public void testInsertProductIntoCart() throws Exception{
+        CartProdDTO cartProdDTO =new CartProdDTO(10002,2,12,80003,80003);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO)==1);
+    }
+
     @Test
     public void testInsert() throws Exception {
         // 0. 장바구니에 존재하는 상품의 수가 0개인지 검증한다.
         assertTrue(dao.selectAllTest().size() == 0);
 
         // 장바구니를 하나 추가한다.
-        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
+        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
 
         // 1. insert한 결과가 1인지 확인(영향을 받은 row의 수)
-        assertTrue(dao.insert(cartProdDTO) == 1);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO) == 1);
         // 2. insert 후 카트에 존재하는 row의 수가 1인지 확인
         assertTrue(dao.selectAllTest().size() == 1);
 
@@ -68,10 +87,10 @@ public class CartProdDAOImplTest extends TestCase {
         assertTrue(cartProdDTO.equals(result));
 
         // 장바구니를 하나 더 추가한다.
-        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10007, 2, null, 80001, null, null);
+        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10007, 2, null, 80001, null, null, 80001);
 
         // 1. insert한 결과가 1인지 확인(영향을 받은 row의 수)
-        assertTrue(dao.insert(cartProdDTO2) == 1);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO2) == 1);
         // 2. insert 후에 카트에 존재하는 row의 수가 1인지 확인
         assertTrue(dao.selectAllTest().size() == 2);
 
@@ -92,9 +111,9 @@ public class CartProdDAOImplTest extends TestCase {
         assertTrue(dao.selectAllTest().size() == 0);
 
         // 1. 장바구니를 하나 추가한다.
-        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
+        CartProdDTO cartProdDTO = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
         // 1-1. 추가 후 영향을 받은 row의 수가 1개인지 확인한다.(insert 잘 되었는지 테스트)
-        assertTrue(dao.insert(cartProdDTO) == 1);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO) == 1);
         // 1-2. cart_prod 테이블에 존재하는 데이터의 수가 1개인지 검증한다.
         assertTrue(dao.selectAllTest().size() == 1);
         // 1-3. 위에서 insert한 객체를 조회해와서 두 객체의 값이 같은지 검증한다.
@@ -106,8 +125,8 @@ public class CartProdDAOImplTest extends TestCase {
         // 12개의 장바구니 상품을 추가한다.
         int cnt = 12;
         for (int i = 0; i < cnt; i++) {
-            cartProdDTO = new CartProdDTO(1, 10001 + i, 3 + i, 1, 80001, null, null);
-            assertTrue(dao.insert(cartProdDTO) == 1);
+            cartProdDTO = new CartProdDTO(1, 10001 + i, 3 + i, 1, 80001, null, null, 80001);
+            assertTrue(dao.insertProductIntoCart(cartProdDTO) == 1);
         }
 
         // 추가한 상품과 가져온 장바구니상품의 개수가 같은지 검증한다.
@@ -128,9 +147,9 @@ public class CartProdDAOImplTest extends TestCase {
         // 정상적인 상황에서의 업데이트 테스트
 
         // 1. 장바구니를 하나 추가한다.
-        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
+        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
         // 1-1. 추가 후 영향을 받은 row의 수가 1개인지 확인한다.(insert 잘 되었는지 테스트)
-        int result = dao.insert(cartProdDTO1);
+        int result = dao.insertProductIntoCart(cartProdDTO1);
         cartProdNo = cartProdDTO1.getCartProdNo();
         assertTrue(result == 1);
 
@@ -162,12 +181,12 @@ public class CartProdDAOImplTest extends TestCase {
     @Test
     public void testDelete() throws Exception {
         // 테스트에 필요한 객체 및 변수 설정
-        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
-        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
-        CartProdDTO cartProdDTO3 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null);
-        assertTrue(dao.insert(cartProdDTO1) == 1);
-        assertTrue(dao.insert(cartProdDTO2) == 1);
-        assertTrue(dao.insert(cartProdDTO3) == 1);
+        CartProdDTO cartProdDTO1 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
+        CartProdDTO cartProdDTO2 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
+        CartProdDTO cartProdDTO3 = new CartProdDTO(1, 10001, 3, 1, 80001, null, null, 80001);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO1) == 1);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO2) == 1);
+        assertTrue(dao.insertProductIntoCart(cartProdDTO3) == 1);
 
 
         int[] cartProdNoArr = {cartProdDTO1.getCartProdNo(), cartProdDTO2.getCartProdNo(), cartProdDTO3.getCartProdNo()}; // 삭제할 장바구니 상품 번호 배열

@@ -6,6 +6,8 @@ public class FaqSearchCondition {
 
     // 검색 에 필요한 클래스
 
+    // FAQ 는 페이징 처리 안할려고 page , pageSize 사용 x
+
     private String keyword = ""; // 검색어
     private String option = "";  // 검색 종류
     private String key = ""; // FAQ 타입 종류 검색

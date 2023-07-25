@@ -6,7 +6,7 @@ import com.teamProject.syusyu.domain.cs.SearchCondition;
 import java.util.List;
 import java.util.Map;
 
-public interface NoticeService {
+public interface B_NoticeService {
     int getCount() throws Exception;
 
     int remove(Integer notcNo) throws Exception;
