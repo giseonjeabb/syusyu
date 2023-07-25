@@ -4,7 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.bos.cs.NoticeService;
+import com.teamProject.syusyu.service.bos.cs.B_NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,7 @@ import java.util.List;
 public class AdminNoticeController {
 
     @Autowired
-    NoticeService noticeService;
+    B_NoticeService noticeService;
     
 
     /**
