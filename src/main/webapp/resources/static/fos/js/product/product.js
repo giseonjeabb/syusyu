@@ -88,19 +88,15 @@ $(function() {
     $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function(e) {
         // 선택한 옵션의 텍스트를 가져옵니다.
         let selectedSize = $(this).find('span').text();
-        // 선택한 사이즈에 (+) 문자가 포함되어 있다면, (+) 문자와 그 이후의 문자를 제거합니다.
-        let sizeOnly = selectedSize.includes("(+") ? selectedSize.split("(+")[0].trim() : selectedSize;
-
 
         // 클릭된 item의 data-inv-qty 값을 얻습니다.
         let invQty = $('.ui.selection.dropdown.option-select .menu .item').data('invQty');
         // 클릭된 item의 data-purchase-limit 값을 얻습니다.
         let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchaseLimit');
-
-        let prodOptNo=$('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
+        let prodOptNo = $('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
-        if ($('.option-selected-list .option-select-item span:contains("' + sizeOnly + '")').length === 0){
+        if ($('.option-selected-list .option-select-item span:contains("' + selectedSize + '")').length === 0){
             // 상품의 기본 가격을 가져옵니다.
             let basePrice = parseFloat($('.flex.al-center').data('price'));
             // 선택한 옵션의 추가 가격을 가져옵니다.
@@ -115,39 +111,34 @@ $(function() {
             // 생성한 DOM 요소에 고유 인덱스를 설정합니다.
             newItem.attr('data-inx', itemIndex);
             newItem.attr('data-purchase-limit', purchaseLimit);
-            // newItem.attr('data-inv-qty', invQty);
-            // newItem.attr('data-opt-comb-no', prodOptNo);
+            newItem.attr('data-opt-comb-no', prodOptNo);
 
             // 선택한 사이즈를 표시하는 요소를 추가합니다.
             let optionTitle = $('<p class="option-tit"></p>');
-            optionTitle.append('<span></span>').text(sizeOnly);
+            optionTitle.append('<span></span>').text(selectedSize);
             optionTitle.append('<button type="button" class="btn icon remove_18" data-type="del"><span>옵션삭제</span></button>');
             newItem.append(optionTitle);
             // 수량 조절 버튼과 가격을 표시하는 요소를 추가합니다.
             newItem.append(`
-                <div class="option-control-box">
-                    <div class="item-qty">
-                        <input class="item_qty_count" id="item-quantity-${itemIndex}" name="qty" type="number" title="상품수량" value="1" numeral="number">
-                        <button type="button" class="btn icon minus" id="minus-btn-${itemIndex}"><span>상품수량 빼기</span></button>
-                        <button type="button" class="btn icon plus" id="plus-btn-${itemIndex}"><span>상품수량 더하기</span></button>
-                    </div>
-                    <div class="option-price">
-                        <del style="display: none;"></del>
-                        <span class="display-price" id="display-price" data-name="price"></span>                      
-                        <span class="won">원</span>
-<!--                        <input type="hidden" id="prod_qty" name="qty" value="${invQty}">-->
-<!--                        <input type="hidden" id="prod_buy_limmit"  name="dlvChgDt" value="${purchaseLimit}">-->
-                        <input type="hidden" id="prod_opt_no" name="optCombNo" value="${prodOptNo}">
-                    </div>
-                </div>`);
+            <div class="option-control-box">
+                <div class="item-qty">
+                    <input class="item_qty_count" id="item-quantity-${itemIndex}" name="qty" type="number" title="상품수량" value="1" numeral="number">
+                    <button type="button" class="btn icon minus" id="minus-btn-${itemIndex}"><span>상품수량 빼기</span></button>
+                    <button type="button" class="btn icon plus" id="plus-btn-${itemIndex}"><span>상품수량 더하기</span></button>
+                </div>
+                <div class="option-price">
+                    <del style="display: none;"></del>
+                    <span class="display-price" id="display-price" data-name="price"></span>                      
+                    <span class="won">원</span>
+                    <input type="hidden" id="prod_opt_no" name="optCombNo" value="${prodOptNo}">
+                </div>
+            </div>`);
 
             // 인덱스 값을 1 증가시킵니다.
             itemIndex++;
 
             // 선택한 옵션 리스트에 새로 생성한 옵션 항목을 추가합니다.
             $('.option-selected-list').append(newItem);
-            // 선택한 옵션 리스트를 화면에 표시합니다.
-            $('.option-selected-list').css('display', 'block');
 
             // 선택한 상품의 수량을 가져옵니다.
             let productQuantity = parseInt(newItem.find('input.item_qty_count').val());
@@ -172,7 +163,6 @@ $(function() {
         // 이벤트 전파를 중지합니다.
         e.stopPropagation();
     });
-
 
     /**
      * 5. 옵션 삭제 이벤트
