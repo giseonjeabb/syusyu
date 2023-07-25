@@ -40,11 +40,13 @@
 
                     <div class="calendar">
                         <div class="input w-208">
-                            <input type="text" name="start_date" id="start_date" readonly="readonly" class="inp datepicker hasDatepicker">
+                            <input type="text" name="start_date" id="start_date" readonly="readonly"
+                                   class="inp datepicker hasDatepicker">
                         </div>
                         <span class="m">~</span>
                         <div class="input w-208">
-                            <input type="text" name="end_date" id="end_date" readonly="readonly" class="inp datepicker hasDatepicker">
+                            <input type="text" name="end_date" id="end_date" readonly="readonly"
+                                   class="inp datepicker hasDatepicker">
                         </div>
                     </div>
                 </td>
@@ -63,6 +65,20 @@
                         <option value="OD.PROD_ID">상품번호</option>
                     </select>
                     <input type="text" id="search_keyword" class="form-control" style="width: 500px">
+                </td>
+            </tr>
+            <tr>
+                <th>주문상태</th>
+                <td colspan="3" id="orderStatusCheck">
+                    <label><input type="checkbox" name="chk" class="chk-all" checked>전체</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="10" checked>결제완료</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="20" checked>주문확인</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="30" checked>배송중</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="37" checked>배송완료</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="40" checked>구매확정</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="50" checked>주문취소</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="60" checked>반품</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="70" checked>교환</label>
                 </td>
             </tr>
         </table>

@@ -99,6 +99,9 @@
         <if test="searchKeyword != null and searchKeyword != ''">
             AND ${searchType} = #{searchKeyword}
         </if>
+        <if test="ordStus != null and ordStus != ''">
+            AND OD.ORD_STUS = #{ordStus}
+        </if>
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>
 </mapper>

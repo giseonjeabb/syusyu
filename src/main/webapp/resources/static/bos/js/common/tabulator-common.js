@@ -24,7 +24,7 @@ syusyu.common.Tabulator = {
      * @since 2023/07/24
      */
     createTabulatorTable: (_gridId, _tableData, _columns, _selectable = false) => {
-        new Tabulator(_gridId, {
+        let table = new Tabulator(_gridId, {
             theme: "bootstrap",
             data: _tableData,
             columns: _columns,

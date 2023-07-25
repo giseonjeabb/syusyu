@@ -29,8 +29,9 @@ public class BOS_OrderServiceImplTest {
         OrderSearchRequestDTO orderSearchRequestDTO = OrderSearchRequestDTO.Builder.anOrderSearchRequestDTO()
                 .startDate("2023-01-01")
                 .endDate("2023-12-31")
-                .searchType("O.ORD_NO")
-                .searchKeyword("90")
+                .ordStus("20")
+//                .searchType("O.ORD_NO")
+//                .searchKeyword("90")
                 .build();
 
         List<OrderInfoDTO> orderInfoDTOList = service.getOrderList(orderSearchRequestDTO);
