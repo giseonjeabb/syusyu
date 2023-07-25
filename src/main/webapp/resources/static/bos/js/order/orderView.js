@@ -1,3 +1,4 @@
+let orderViewGrid;
 namespace("orderView");
 orderView = {
     initLoad: () => {
@@ -8,11 +9,13 @@ orderView = {
     },
 
     bindButtonEvent: () => {
-        const searchBtn = document.querySelector('#btn_search');
+        const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
+        const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
 
-        searchBtn.addEventListener('click', orderView.function.getOrderList);
+        $searchBtn.addEventListener('click', orderView.function.getOrderList);
         $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
+        $orderConfirmBtn.addEventListener('click', orderView.eventHandler.orderConfirmBtnClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -21,6 +24,24 @@ orderView = {
 
 namespace("orderView.eventHandler");
 orderView.eventHandler = {
+    // 0. 주문확인 버튼을 누른다.
+    orderConfirmBtnClick() {
+        // 1. 선택되어있는 셀을 가져온다.
+        const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
+        // 0. 선택한 셀에서 결제완료(10)이 아닌 데이터가 있는지 확인한다.
+        if (!orderView.function.validateOrderConfirm(checkedData))
+            return;
+
+        // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
+        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
+
+        // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/confirm', checkedOrdDtlNoArr, res => {
+            alert("주문확인 처리가 완료되었습니다.");
+            orderView.function.getOrderList();
+        });
+    },
+
     dateRangeContainerClick(e) {
         const that = e.target;
 
@@ -69,9 +90,10 @@ orderView.function = {
         // 3. 받아온 데이터를 tableDate에 넣어준다.
 
         // 테이블에 사용될 데이터를 정의한다.
-        const gridId = '#example-table';
+        const gridId = '#orderViewGrid';
 
         const columns = [ // 테이블의 열을 정의한다.
+            { title: "Select", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false }, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo"},
             {title: "주문상세번호", field: "ordDtlNo"},
             {title: "주문일시", field: "ordDttm"},
@@ -86,10 +108,25 @@ orderView.function = {
             {title: "결제금액", field: "realPayAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "구매자명", field: "ordrNm"},
             {title: "수령인", field: "recipient"},
+            {title: "주문상태코드", field: "ordStus", visible:false},
         ];
 
-        syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns);
+        orderViewGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);
     },
-}
 
-const numberWithCommas = (cell) => cell.getValue().toLocaleString();
+    // 주문확인으로 변경이 가능한 주문 건인지 검증한다.
+    validateOrderConfirm(checkedData) {
+        // 1. checkedData 중에서 ordDtlNo가 10이 아닌 걸 찾는다.(filter 이용)
+        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== '10'); // ordStus = 10(결제완료)
+
+        // 1-2. 존재하지 않으면 true를 반환한다.
+        if (notOrdStusPayCompleted.length === 0)
+            return true;
+
+        // 1-1. 아닌 게 존재하다면 주문확인 처리가 불가능한 주문건을 alert 창으로 띄워준다.
+        const alertOrdDtlNo = notOrdStusPayCompleted.map(data => data.ordDtlNo).join(', ');
+        alert("주문확인 처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
+
+        return false;
+    }
+}

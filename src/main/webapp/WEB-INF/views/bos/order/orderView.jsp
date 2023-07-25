@@ -66,11 +66,16 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div class="button_area">
-        <button id="btn_search" class="btn btn-dark">검색</button>
-        <button class="btn btn-light">초기화</button>
+        <div class="button_area">
+            <button id="btn_search" class="btn btn-dark">검색</button>
+            <button class="btn btn-light">초기화</button>
+        </div>
     </div>
 
-    <div id="example-table"></div>
+    <div class="grid-container">
+        <div class="button_area">
+            <button id="btn_order_confirm" class="btn btn-outline-dark date_range">주문확인</button>
+        </div>
+        <div id="orderViewGrid"></div>
+    </div>
 </div>

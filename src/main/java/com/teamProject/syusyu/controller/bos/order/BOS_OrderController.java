@@ -51,7 +51,8 @@ public class BOS_OrderController {
      * @since 2023/07/25
      */
     @PostMapping("/orders/status/confirm")
-    public ResponseEntity<String> confirmOrder(List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
+    @ResponseBody
+    public ResponseEntity<String> confirmOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
         try {
             service.confirmOrder(ordDtlNoList, mbrId);
 
