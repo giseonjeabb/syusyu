@@ -12,10 +12,12 @@ orderView = {
         const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
         const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
+        const $orderStatusCheck = document.querySelector('#orderStatusCheck');
 
         $searchBtn.addEventListener('click', orderView.function.getOrderList);
         $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
         $orderConfirmBtn.addEventListener('click', orderView.eventHandler.orderConfirmBtnClick);
+        $orderStatusCheck.addEventListener('click', (e) => orderView.eventHandler.orderStatusCheckClick(e));
     },
 
     startDate: 'start_date', // 조회시작일
@@ -24,6 +26,23 @@ orderView = {
 
 namespace("orderView.eventHandler");
 orderView.eventHandler = {
+    orderStatusCheckClick(e) {
+        const chkAll = document.querySelector('#chk-all');
+
+        // class가 all이면 하위 체크 박스를 전부 체크/체크 해제 해준다.
+        if (e.target.id == 'chk-all')
+            orderView.function.checkAll(e.target.checked);
+
+        // 만약 현재 체크되어있는 개수와 전체 체크박스의 개수가 다르면 전체 체크박스 체크 해제하기
+        const checkbox = document.querySelectorAll('.chk-point');
+        const allChkCnt = checkbox.length; // 전체 체크박수 개수
+        const chkCnt = orderView.function.getCheckedBox().length; // 체크된 체크박스 개수
+
+        // 모든 체크박스가 체크되어있는지 확인한다. 그렇지 않은 경우 전체 체크박스 선택 해제한다.
+        chkAll.checked = allChkCnt === chkCnt;
+
+    },
+
     // 0. 주문확인 버튼을 누른다.
     orderConfirmBtnClick() {
         // 1. 선택되어있는 셀을 가져온다.
@@ -64,6 +83,18 @@ orderView.eventHandler = {
 
 namespace("orderView.function");
 orderView.function = {
+    getCheckedBox() {
+        return [...document.querySelectorAll('.chk-point')].filter(input => input.checked); // 체크된 체크박스 개수
+    },
+
+    // 하위 체크 박스를 전부 체크/체크 해제 해준다.
+    checkAll(checked) {
+        const checkbox = document.querySelectorAll('input[name="chk"]');
+        for (const check of checkbox) {
+            check.checked = checked;
+        }
+    },
+
     getOrderList() {
         // 1. 주문조회 시 사용할 조회조건을 가져온다.
         const dateType = document.querySelector('#date_type').selectedOptions[0].value; // 조회할 날짜의 종류
@@ -71,6 +102,7 @@ orderView.function = {
         const endDate = document.querySelector('#end_date').value; // 종료일
         const searchType = document.querySelector('#search_type').value; // 조회조건
         const searchKeyword = document.querySelector('#search_keyword').value; // 검색어
+        const ordStus = orderView.function.getCheckedBox().map(input => input.value); // 주문상태 체크된 체크박스를 가져온다.
 
         // 2. 조회조건을 param으로 넘겨서 데이터를 받아온다.
         const param = {
@@ -79,11 +111,12 @@ orderView.function = {
             , endDate
             , searchType
             , searchKeyword
+            , ordStus
         };
 
         syusyu.common.Ajax.sendJSONRequest('GET', '/bos/orders', param, res => {
             orderView.function.showOrderList(res);
-        });
+        }, null, true);
     },
 
     showOrderList(orderList) {

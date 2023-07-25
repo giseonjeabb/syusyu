@@ -100,7 +100,10 @@
             AND ${searchType} = #{searchKeyword}
         </if>
         <if test="ordStus != null and ordStus != ''">
-            AND OD.ORD_STUS = #{ordStus}
+            AND OD.ORD_STUS IN
+            <foreach collection="ordStus" item="ordStus" open="(" close=")" separator=",">
+                #{ordStus}
+            </foreach>
         </if>
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>

@@ -70,7 +70,7 @@
             <tr>
                 <th>주문상태</th>
                 <td colspan="3" id="orderStatusCheck">
-                    <label><input type="checkbox" name="chk" class="chk-all" checked>전체</label>
+                    <label><input type="checkbox" id="chk-all" name="chk" checked>전체</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="10" checked>결제완료</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="20" checked>주문확인</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="30" checked>배송중</label>
