@@ -49,32 +49,17 @@
                 </td>
 
                 <td>
-<%--                    <div class="input w-full mb-10"> 전에 코드--%>
-<%--                        <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."--%>
-<%--                               oninput="save(this.value)">--%>
-<%--                        &lt;%&ndash;                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>&ndash;%&gt;--%>
-<%--                    </div>--%>
-
                     <div class="input w-full mb-10">
                         <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."
-                               oninput="saveTitle(this.value)"> <!-- saveTitle() 함수로 변경 -->
+                               oninput="save(this.value)">
                         <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                     </div>
-
-<%--                    <div class="textarea word-chker ty-2 mb-18"> 전에 코드--%>
-<%--                        <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"--%>
-<%--                                  placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>--%>
-<%--                        <span id="count" style="float: right; margin-right: 20px; color: #aaa;">--%>
-<%--                                0/1,000--%>
-<%--                            </span>--%>
-<%--                    </div>--%>
-
                     <div class="textarea word-chker ty-2 mb-18">
-                    <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"
-                              placeholder="문의내용을 입력해 주세요." oninput="saveContent(this.value)"></textarea> <!-- saveContent() 함수로 변경 -->
+                        <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"
+                                  placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>
                         <span id="count" style="float: right; margin-right: 20px; color: #aaa;">
-                            0/1,000
-                        </span>
+                                0/1,000
+                            </span>
                     </div>
                 </td>
             </tr>
@@ -190,16 +175,6 @@
     let fileInput;
 
     let photoItem;
-
-    // 제목 입력 시 호출되는 함수
-    function saveTitle(value) {
-        inqryTitle = value; // 문의 제목을 전역 변수에 저장
-    }
-
-    // 내용 입력 시 호출되는 함수
-    function saveContent(value) {
-        inqryContent = value; // 문의 내용을 전역 변수에 저장
-    }
 
     $("#btnRegister").on("click", function () {
         if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
