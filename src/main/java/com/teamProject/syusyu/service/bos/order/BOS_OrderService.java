@@ -4,9 +4,13 @@ import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BOS_OrderService {
-    //    @Override
     List<OrderInfoDTO> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception;
+
+    void confirmOrder(List<Integer> ordDtlNoList, int mbrId) throws Exception;
+
+    int updateOrderStatus(List<Integer> ordDtlNoList, int mbrId) throws Exception;
+
+    int addOrderStatusHistory(List<Integer> ordDtlNoList, int mbrId) throws Exception;
 }

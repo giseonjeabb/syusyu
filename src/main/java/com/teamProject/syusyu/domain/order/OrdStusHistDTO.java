@@ -12,6 +12,15 @@ public class OrdStusHistDTO {
     private LocalDateTime updDttm;
     private Integer updrId;
 
+    public OrdStusHistDTO() {}
+
+    public OrdStusHistDTO(int ordDtlNo, String nowOrdStus, String procMemo, int regrId) {
+        this.ordDtlNo = ordDtlNo;
+        this.nowOrdStus = nowOrdStus;
+        this.procMemo = procMemo;
+        this.regrId = regrId;
+    }
+
     public int getOrdStusHistNo() {
         return ordStusHistNo;
     }

@@ -39,11 +39,21 @@
     </select>
 
     <delete id="deleteAllOrdDtl">
-        DELETE FROM ORD_DTL
+        DELETE
+        FROM ORD_DTL
     </delete>
 
     <select id="countOrdDtl" resultType="int">
         SELECT COUNT(*)
         FROM ORD_DTL
     </select>
+
+    <!-- 특정 주문의 주문상태를 업데이트한다. -->
+    <update id="updateOrdStus" parameterType="Map">
+        UPDATE ORD_DTL
+        SET ORD_STUS = #{ordStus}
+          , UPD_DTTM = now()
+          , UPDR_ID = #{updrId}
+        WHERE ORD_DTL_NO = #{ordDtlNo}
+    </update>
 </mapper>
