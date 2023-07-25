@@ -21,10 +21,10 @@
 <form name="sFrm" id="frm_search">
     <div class="period-srch-box ty2 flex-wrap mt-30">
         <div class="date_range_container tab ty5">
-            <a id="btn_m1" data-interval="-1" class="date_range active">1개월</a>
-            <a id="btn_m3" data-interval="-3" class="date_range">3개월</a>
-            <a id="btn_m6" data-interval="-6" class="date_range">6개월</a>
-            <a id="btn_m12" data-interval="-12" class="date_range">12개월</a>
+            <a id="btn_m1" data-interval="1" class="date_range active">1개월</a>
+            <a id="btn_m3" data-interval="3" class="date_range">3개월</a>
+            <a id="btn_m6" data-interval="6" class="date_range">6개월</a>
+            <a id="btn_m12" data-interval="12" class="date_range">12개월</a>
         </div>
         <div class="calendar">
             <div class="input w-208">

@@ -661,6 +661,12 @@ progress {
   margin-left: auto;
 }
 
+.container-fluid {
+  min-height: 750px;
+  min-width: 960px;
+}
+
+
 @media (min-width: 576px) {
   .container-sm, .container {
     max-width: 540px;
@@ -11267,3 +11273,57 @@ body {
   width: 100%;
 }
 
+
+.search_form {
+  table, th, td {
+    border: 1px solid #dcdcdc;
+  }
+  table {
+    width: 100%;
+  }
+  th {
+    padding-left: 10px;
+    background-color: #fafafb;
+  }
+  td {
+    padding: 10px;
+    & * {
+      margin-right: 10px;
+      float: left;
+    }
+  }
+}
+
+
+/* input */
+.input {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+
+  > .inp {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 50px;
+    color: #333;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: 0.3s;
+
+    &.datepicker{
+      cursor: pointer;
+      padding-right: 40px;
+      background: #fff url("../../../image/icon_calendar.png") no-repeat right 20px center;
+    }
+  }
+}
+
+.button_area {
+  position: relative;
+  text-align: center;
+  margin: 10px 0;
+}

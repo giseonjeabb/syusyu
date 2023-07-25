@@ -65,7 +65,7 @@
               WHERE CP.DEL_YN = 'N'
                 AND CP.CART_ID = (SELECT CART_ID
                                   FROM CART
-                                  WHERE MBR_CD = #{mbrId})) AS T;
+                                  WHERE MBR_ID = #{mbrId})) AS T;
     </select>
 
     <update id="update" parameterType="CartProdDTO" useGeneratedKeys="true" keyProperty="cartProdNo">
