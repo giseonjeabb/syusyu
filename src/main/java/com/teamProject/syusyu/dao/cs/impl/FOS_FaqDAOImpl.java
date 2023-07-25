@@ -1,9 +1,8 @@
 package com.teamProject.syusyu.dao.cs.impl;
 
-import com.teamProject.syusyu.dao.cs.FaqDAO;
+import com.teamProject.syusyu.dao.cs.FOS_FaqDAO;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
-import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class FaqDAOImpl implements FaqDAO {
+public class FOS_FaqDAOImpl implements FOS_FaqDAO {
 
     @Autowired
     SqlSession session;
@@ -75,7 +74,7 @@ public class FaqDAOImpl implements FaqDAO {
 
     public List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception{
         List<FaqDTO> test = session.selectList(namespace+"searchSelectPage", fsc);
-        System.out.println("faqtest = " + test);
+        System.out.println("FOS_FaqList = " + test);
         return test;
     }
 

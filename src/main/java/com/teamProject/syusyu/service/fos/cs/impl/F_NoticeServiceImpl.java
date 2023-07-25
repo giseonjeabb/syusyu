@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FNoticeServiceImpl implements F_NoticeService {
+public class F_NoticeServiceImpl implements F_NoticeService {
 
     // DAO 주입시 생성자로 주입 받기!!!
     NoticeDAO noticeDao;
 
     @Autowired
-    public FNoticeServiceImpl(NoticeDAO noticeDao) {
+    public F_NoticeServiceImpl(NoticeDAO noticeDao) {
         this.noticeDao = noticeDao;
     }
 
