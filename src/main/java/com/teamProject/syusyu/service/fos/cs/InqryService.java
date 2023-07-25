@@ -14,7 +14,7 @@ public interface InqryService {
 
     int remove(Integer inqry_no, String regrId) throws Exception;
 
-    int write(InqryDTO inqryDTO) throws Exception;
+    int insert(InqryDTO inqryDTO) throws Exception;
 
     List<InqryDTO> getList() throws Exception;
 

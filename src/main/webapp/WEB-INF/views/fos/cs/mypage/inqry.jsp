@@ -41,34 +41,6 @@
                 </td>
             </tr>
 
-
-<%--            <tr>--%>
-<%--                <td>--%>
-<%--                    <div class="inp-label ty3">--%>
-<%--                        <span id="production" class="label">문의상품</span>--%>
-<%--                    </div>--%>
-<%--                </td>--%>
-
-<%--                <td>--%>
-<%--                    <div class="input w-450 flex space-between">--%>
-<%--                        <div class="input input-btn flex-1">--%>
-<%--                            <input type="text" name="ordNo" id="ordNo" class="inp del-input" value="" readonly>--%>
-<%--                            <button type="button" class="btn text-del" style="display: none;">--%>
-<%--                                <span>초기화</span>--%>
-<%--                            </button>--%>
-<%--                        </div>--%>
-<%--                        <a href="#" class="btn ty2 c-ty5 w-90 free ml-10 bt-order-search">--%>
-<%--                            <span>주문선택</span>--%>
-<%--                        </a>--%>
-<%--                    </div>--%>
-<%--                    <!-- 주문선택시 -->--%>
-
-<%--                    <div id="order_product" class="product_line order mgt10 blind">--%>
-<%--                    </div>--%>
-<%--                </td>--%>
-
-<%--            </tr>--%>
-
             <tr>
                 <td class="va-tt">
                     <div class="inp-label ty3 mt-15">
@@ -77,17 +49,32 @@
                 </td>
 
                 <td>
+<%--                    <div class="input w-full mb-10"> 전에 코드--%>
+<%--                        <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."--%>
+<%--                               oninput="save(this.value)">--%>
+<%--                        &lt;%&ndash;                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>&ndash;%&gt;--%>
+<%--                    </div>--%>
+
                     <div class="input w-full mb-10">
                         <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."
-                               oninput="save(this.value)">
+                               oninput="saveTitle(this.value)"> <!-- saveTitle() 함수로 변경 -->
                         <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                     </div>
+
+<%--                    <div class="textarea word-chker ty-2 mb-18"> 전에 코드--%>
+<%--                        <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"--%>
+<%--                                  placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>--%>
+<%--                        <span id="count" style="float: right; margin-right: 20px; color: #aaa;">--%>
+<%--                                0/1,000--%>
+<%--                            </span>--%>
+<%--                    </div>--%>
+
                     <div class="textarea word-chker ty-2 mb-18">
-                        <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"
-                                  placeholder="문의내용을 입력해 주세요." oninput="char_Count(this.value)"></textarea>
+                    <textarea name="content" id="inquiry_content" maxlength="1000" rows="5"
+                              placeholder="문의내용을 입력해 주세요." oninput="saveContent(this.value)"></textarea> <!-- saveContent() 함수로 변경 -->
                         <span id="count" style="float: right; margin-right: 20px; color: #aaa;">
-                                0/1,000
-                            </span>
+                            0/1,000
+                        </span>
                     </div>
                 </td>
             </tr>
@@ -143,28 +130,6 @@
                     </ul>
                 </td>
             </tr>
-<%--            <tr>--%>
-<%--                <td>--%>
-<%--                    <div class="inp-label ty3">--%>
-<%--                        <span class="label">답변받기</span>--%>
-<%--                    </div>--%>
-<%--                </td>--%>
-<%--                <td>--%>
-<%--                    <input type="hidden" name="reAllow"/>--%>
-<%--                    <div class="chkbox">--%>
-<%--                        <label for="re_allow_mobile">--%>
-<%--                            <input type="checkbox" name="_reAllow" id="re_allow_mobile" value="1"/>--%>
-<%--                            <span class="text">문자/알림톡</span>--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="chkbox">--%>
-<%--                        <label for="re_allow_email">--%>
-<%--                            <input type="checkbox" name="_reAllow" id="re_allow_email" value="2"/>--%>
-<%--                            <span class="text">이메일</span>--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
             </tbody>
         </table>
     </div>
@@ -225,6 +190,16 @@
     let fileInput;
 
     let photoItem;
+
+    // 제목 입력 시 호출되는 함수
+    function saveTitle(value) {
+        inqryTitle = value; // 문의 제목을 전역 변수에 저장
+    }
+
+    // 내용 입력 시 호출되는 함수
+    function saveContent(value) {
+        inqryContent = value; // 문의 내용을 전역 변수에 저장
+    }
 
     $("#btnRegister").on("click", function () {
         if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
@@ -407,40 +382,5 @@
 
 
 
-
-    // for (let i = 0; i < divImg.length; i++) {
-    //             divImg[i].addEventListener("change", function (event) {
-    //                 let closeTag2 = event.currentTarget.firstElementChild;
-    //         let forAttribute2 = closeTag2.id;
-    //
-    //         switch (forAttribute2) {
-    //             case 'photodel1' :
-    //                 let photo1 = document.getElementById("photodel1");
-    //                 let delBtn = document.createElement('button');
-    //                 delBtn.innerText = "X";
-    //                 delBtn.id = "delBtn1";
-    //                 delBtn.style.backgroundColor = "yellow";
-    //                 photo1.appendChild(delBtn);
-    //
-    //                 break;
-    //
-    //             case 'photodel2' :
-    //                 let photo2 = document.getElementById("photodel2");
-    //                 photo2.appendChild("<button id = 'photo1del' type='button'>X</button>");
-    //                 break;
-    //
-    //             case 'photodel3' :
-    //                 let photo3 = document.getElementById("photodel3");
-    //                 photo3.appendChild("<button id = 'photo1del' type='button'>X</button>");
-    //                 break;
-    //         }
-    //     })
-    // }
-
-
-    // 각 photo1, photo2, photo3 파일 업로드 input에 미리 보기 기능을 적용
-    // addImagePreview('photo1');
-    // addImagePreview('photo2');
-    // addImagePreview('photo3');
 
 </script>

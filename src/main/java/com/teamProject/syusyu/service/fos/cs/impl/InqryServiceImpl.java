@@ -37,7 +37,7 @@ public class InqryServiceImpl implements InqryService {
     }
 
     @Override
-    public int write(InqryDTO inqryDTO) throws Exception {
+    public int insert(InqryDTO inqryDTO) throws Exception {
         return inqryDAO.insert(inqryDTO);
     }
 

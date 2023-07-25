@@ -49,8 +49,8 @@
     </select>
 
     <insert id="insert" parameterType="InqryDTO">
-        INSERT INTO board
-            (title, content, regrId)
+        INSERT INTO inqry
+            (TITLE, CONTENT, REGR_ID)
         VALUES
             (#{title}, #{content}, #{regrId})
     </insert>
