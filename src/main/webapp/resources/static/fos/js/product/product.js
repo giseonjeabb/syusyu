@@ -313,8 +313,7 @@ function updateTotalPrice() {
 
 function productIntoCart() {
     const loginId=$("#login_id").val();
-    console.log("qty:"+$("#item-quantity-1").val());
-    console.log("prod_cate:"+$("#prod_cate").val());
+
     if(!loginId){
         window.location.href=`/fos/login`;
         return;
@@ -335,7 +334,10 @@ function productIntoCart() {
         contentType: "application/json", // 서버로 보내는 데이터의 타입 지정
         success: function (response) {
             console.log("Data sent successfully.");
-
+            let moveToCart = confirm("장바구니로 이동하시겠습니까?");
+            if (moveToCart) {
+                window.location.href = "/fos/cart";
+            }
         },
         error: function (err) {
             console.log("Error in sending data.");
@@ -344,3 +346,4 @@ function productIntoCart() {
 
     return false; // a 태그의 기본 동작(페이지 이동)을 방지
 }
+

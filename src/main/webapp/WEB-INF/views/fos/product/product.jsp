@@ -138,10 +138,17 @@
                                 <li class="flex">
                                     <span class="g-tit">적립정보</span>
                                     <span class="g-cont">
-                                        <span>로그인 후 적립혜택 제공
-                                            <em class="fw-7">0.5%</em>
-                                            (17 마일리지)
-                                        </span>
+                                        <c:choose>
+                                            <c:when test="${mbrId == null}">
+                                                <span>로그인 후 적립혜택 제공인</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span>
+                                                    <em class="fw-7">1%</em>
+                                                    (<fmt:formatNumber type="number" maxFractionDigits="0" value="${productDetail.salePrc*0.01}" /> 마일리지)
+                                                </span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </span>
                                 </li>
                                 <li class="flex">
