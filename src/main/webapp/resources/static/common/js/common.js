@@ -64,9 +64,12 @@ const setFlatpickrCalendar = (calendarId, date) => {
  * @since 2023/07/19
  */
 const setCalendarRangeByDays = (startDateId, endDateId, day) => {
+    if (typeof day !== 'number')
+        day = parseInt(day);
+
     let endDate = new Date();
     let startDate = new Date();
-    startDate.setDate(endDate.getDate() + day);
+    startDate.setDate(endDate.getDate() - day);
 
     setFlatpickrCalendar(startDateId, startDate);
     setFlatpickrCalendar(endDateId, endDate);
@@ -87,7 +90,7 @@ const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
 
     let endDate = new Date();
     let startDate = new Date();
-    startDate.setMonth(endDate.getMonth() + month);
+    startDate.setMonth(endDate.getMonth() - month);
 
     setFlatpickrCalendar(startDateId, startDate);
     setFlatpickrCalendar(endDateId, endDate);
