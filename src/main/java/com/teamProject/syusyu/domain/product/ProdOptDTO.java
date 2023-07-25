@@ -31,8 +31,9 @@ public class ProdOptDTO {
 
     public ProdOptDTO(){}
 
-    public ProdOptDTO(int optPrc, int invQty, String shoesSize) {
+    public ProdOptDTO(int optPrc, int optCombNo, int invQty, String shoesSize) {
         this.optPrc = optPrc;
+        this.optCombNo = optCombNo;
         this.invQty = invQty;
         this.shoesSize = shoesSize;
     }

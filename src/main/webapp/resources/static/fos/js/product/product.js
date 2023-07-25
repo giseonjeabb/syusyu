@@ -93,14 +93,11 @@ $(function() {
 
 
         // 클릭된 item의 data-inv-qty 값을 얻습니다.
-        // let invQty = $('.ui.selection.dropdown.option-select .menu .item').data('inv-qty');
-        // // 클릭된 item의 data-purchase-limit 값을 얻습니다.
-        // let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchase-limit');
-// 클릭된 item의 data-inv-qty 값을 얻습니다.
-        let invQty = $(this).data('inv-qty');
+        let invQty = $('.ui.selection.dropdown.option-select .menu .item').data('invQty');
         // 클릭된 item의 data-purchase-limit 값을 얻습니다.
-        let purchaseLimit = $(this).data('purchase-limit');
+        let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchaseLimit');
 
+        let prodOptNo=$('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
         if ($('.option-selected-list .option-select-item span:contains("' + sizeOnly + '")').length === 0){
@@ -118,6 +115,8 @@ $(function() {
             // 생성한 DOM 요소에 고유 인덱스를 설정합니다.
             newItem.attr('data-inx', itemIndex);
             newItem.attr('data-purchase-limit', purchaseLimit);
+            // newItem.attr('data-inv-qty', invQty);
+            // newItem.attr('data-opt-comb-no', prodOptNo);
 
             // 선택한 사이즈를 표시하는 요소를 추가합니다.
             let optionTitle = $('<p class="option-tit"></p>');
@@ -134,8 +133,11 @@ $(function() {
                     </div>
                     <div class="option-price">
                         <del style="display: none;"></del>
-                        <span class="display-price" id="display-price" data-name="price"></span>
+                        <span class="display-price" id="display-price" data-name="price"></span>                      
                         <span class="won">원</span>
+<!--                        <input type="hidden" id="prod_qty" name="qty" value="${invQty}">-->
+<!--                        <input type="hidden" id="prod_buy_limmit"  name="dlvChgDt" value="${purchaseLimit}">-->
+                        <input type="hidden" id="prod_opt_no" name="optCombNo" value="${prodOptNo}">
                     </div>
                 </div>`);
 
@@ -318,3 +320,37 @@ function updateTotalPrice() {
 }
 
 
+
+function productIntoCart() {
+    const loginId=$("#login_id").val();
+    console.log("qty:"+$("#item-quantity-1").val());
+    console.log("prod_cate:"+$("#prod_cate").val());
+    if(!loginId){
+        window.location.href=`/fos/login`;
+        return;
+    }
+
+    const data = {
+        prodId: $("#prod_no").val(),
+        cateId: $("#prod_cate").val(),
+        qty: $("#item-quantity-0").val(),
+        optCombNo: $("#prod_opt_no").val(),
+        regrId: $("#login_id").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/fos/carts",
+        data: JSON.stringify(data), // 데이터 객체를 JSON 문자열로 변환
+        contentType: "application/json", // 서버로 보내는 데이터의 타입 지정
+        success: function (response) {
+            console.log("Data sent successfully.");
+
+        },
+        error: function (err) {
+            console.log("Error in sending data.");
+        }
+    });
+
+    return false; // a 태그의 기본 동작(페이지 이동)을 방지
+}

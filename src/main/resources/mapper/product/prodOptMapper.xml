@@ -5,7 +5,7 @@
 <mapper namespace="com.teamProject.syusyu.prodOptMapper">
     <select id="selectProdOptSizeList" parameterType="int" resultType="ProdOptDTO">
         SELECT REGEXP_REPLACE(OI.OPT_ITEM_NM, '[^0-9]', '') AS SHOES_SIZE /*신발 사이즈*/
-             , POC.OPT_COMB_NO
+             , POC.OPT_COMB_NO /*옵션조합번호*/
              , PO.OPT_PRC /*옵션가*/
              , INV_QTY /*재고수량*/
         FROM PROD_OPT PO /*신발옵션*/
