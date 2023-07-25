@@ -10,7 +10,8 @@ public class OrderInfoDTO {
     private Date ordDttm; // 주문일시
     private int prodId; // 상품아이디
     private String prodNm; // 상품명
-    private String ordStusNm; // 주문상태
+    private String ordStus; // 주문상태
+    private String ordStusNm; // 주문상태명
     private int qty; // 수량
     private int prodAmt; // 상품금액 (할인가격 + 옵션가) * 주문수량
     private String optNm; // 옵션명
@@ -55,6 +56,14 @@ public class OrderInfoDTO {
 
     public void setProdNm(String prodNm) {
         this.prodNm = prodNm;
+    }
+
+    public String getOrdStus() {
+        return ordStus;
+    }
+
+    public void setOrdStus(String ordStus) {
+        this.ordStus = ordStus;
     }
 
     public String getOrdStusNm() {
@@ -152,6 +161,7 @@ public class OrderInfoDTO {
                 ", ordDttm=" + ordDttm +
                 ", prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
+                ", ordStus='" + ordStus + '\'' +
                 ", ordStusNm='" + ordStusNm + '\'' +
                 ", qty=" + qty +
                 ", prodAmt=" + prodAmt +
@@ -172,6 +182,7 @@ public class OrderInfoDTO {
         private Date ordDttm;
         private int prodId;
         private String prodNm;
+        private String ordStus;
         private String ordStusNm;
         private int qty;
         private int prodAmt;
@@ -208,6 +219,11 @@ public class OrderInfoDTO {
 
         public Builder prodNm(String prodNm) {
             this.prodNm = prodNm;
+            return this;
+        }
+
+        public Builder ordStus(String ordStus) {
+            this.ordStus = ordStus;
             return this;
         }
 
@@ -272,6 +288,7 @@ public class OrderInfoDTO {
             orderInfoDTO.setOrdDttm(ordDttm);
             orderInfoDTO.setProdId(prodId);
             orderInfoDTO.setProdNm(prodNm);
+            orderInfoDTO.setOrdStus(ordStus);
             orderInfoDTO.setOrdStusNm(ordStusNm);
             orderInfoDTO.setQty(qty);
             orderInfoDTO.setProdAmt(prodAmt);

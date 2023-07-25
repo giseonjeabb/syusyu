@@ -6,9 +6,7 @@ import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +38,28 @@ public class BOS_OrderController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * 주문 확인 처리를 한다.
+     * 결제완료(10)된 주문 건의 주문상태를 주문확인(20)으로 변경한다.
+     *
+     * @param ordDtlNoList 주문확인 처리할 주문의 주문상세번호를 담은 리스트
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @return ResponseEntity, HTTP 응답 상태와 메시지를 포함
+     * @author min
+     * @since 2023/07/25
+     */
+    @PostMapping("/orders/status/confirm")
+    public ResponseEntity<String> confirmOrder(List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
+        try {
+            service.confirmOrder(ordDtlNoList, mbrId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("CONFIRM_OK", HttpStatus.OK);
     }
 }
