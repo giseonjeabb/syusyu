@@ -105,7 +105,7 @@
                             <div class="price">
                                 <c:choose>
                                     <c:when test="${productDetail.dcPer > 0}">
-                                        <div class="flex al-center"  data-price="${productDetail.dcPrc}>
+                                        <div class="flex al-center"  data-price="${productDetail.dcPrc}">
                                             <span class="per">${productDetail.dcPer}%</span>
                                             <fmt:formatNumber value="${productDetail.dcPrc}" pattern="#,###"/><span class="won">원</span>
                                         </div>
