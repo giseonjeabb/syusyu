@@ -6,8 +6,14 @@ import java.util.Date;
 
 public class OrderInfoDTO {
     private int ordNo; // 주문번호
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private int ordDtlNo; // 주문상세번호
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ordDttm; // 주문일시
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date dispatchDttm; // 발송처리일
+    private String dlvCom; // 택배사
+    private String dlvNo; // 송장번호
+
     private int prodId; // 상품아이디
     private String prodNm; // 상품명
     private String ordStus; // 주문상태
@@ -18,8 +24,8 @@ public class OrderInfoDTO {
     private String payTp; // 결제방법
     private int realPayAmt; // 결제금액
     private String repImg; // 이미지
-    private int ordDtlNo; // 주문상세번호
     private String claimStus; // 클레임 처리상태
+    private String ordrId; // 구매자 ID
     private String ordrNm; // 구매자명
     private String recipient; // 수령인
 
