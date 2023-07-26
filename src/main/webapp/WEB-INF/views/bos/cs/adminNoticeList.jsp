@@ -101,7 +101,7 @@
 
             <table class="table table-hover">
 
-                <tr class="table-dark">
+                <tr id="id-Table-dark" class="table-dark">
                     <th scope="col">번호</th>
                     <th scope="col">공지사항 종류</th>
                     <th scope="col">제목</th>
