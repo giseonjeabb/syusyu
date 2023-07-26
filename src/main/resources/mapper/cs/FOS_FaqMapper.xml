@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.teamProject.syusyu.FOS_FaqMapper">
+
+    <select id="count" resultType="int">
+        SELECT count(*)
+        FROM faq
+    </select>
+
+    <delete id="deleteAll">
+        DELETE
+        FROM faq
+    </delete>
+
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM faq
+        WHERE FAQ_NO = #{faqNo}
+          and REGR_ID = #{regrId}
+    </delete>
+
+    <insert id="insert" parameterType="FaqDTO">
+        INSERT INTO faq (FAQ_TP, TITLE, CONTENT)
+        VALUES (#{faqTp}, #{title}, #{content})
+    </insert>
+
+    <update id="update" parameterType="FaqDTO">
+        UPDATE faq
+        SET TITLE    = #{title}
+          , CONTENT  = #{content}
+          , FAQ_TP   = #{faqTp}
+          , UPD_DTTM = now()
+        WHERE FAQ_NO = #{faqNo}
+--           and REGR_ID = #{regrId}
+    </update>
+
+
+    <select id="selectAll" resultType="FaqDTO">
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REGR_ID,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM #  FAQ 종류코드  이름
+
+        FROM faq
+        ORDER BY REG_DTTM DESC, FAQ_NO DESC
+    </select>
+
+    <sql id="selectFrom">
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REGR_ID,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM #  종류 이름
+        FROM faq
+    </sql>
+
+    <select id="select" parameterType="int" resultType="FaqDTO">
+        SELECT FAQ_NO, FAQ_TP, TITLE, CONTENT, REGR_ID, REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM  # 공지 종류 이름
+        from faq
+        WHERE FAQ_NO = #{faqNo}
+    </select>
+
+
+    <select id="selectPage" parameterType="map" resultType="FaqDTO">
+        SELECT FAQ_NO,
+               FAQ_TP,
+               TITLE,
+               CONTENT,
+               REG_DTTM,
+               GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
+        FROM faq
+        ORDER BY REG_DTTM DESC, FAQ_NO DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+
+
+<!--        FOS_faqList.jsp는 제목 + 내용으로 검색하게 만들어 뒀기에-->
+<!--        TITLE + CONTENT 사용-->
+    <sql id="FosSearchCondition">
+        AND (TITLE LIKE CONCAT('%',#{keyword},'%' )
+        OR CONTENT LIKE CONCAT ( '%', #{keyword}, '%' )
+        )
+    </sql>
+
+
+
+<!--    검색결과 가져오는 page-->
+    <select id="FosSearchSelectPage" parameterType="FaqSearchCondition" resultType="FaqDTO">
+        SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM,
+        GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
+        FROM faq
+        WHERE TRUE
+        <include refid="FosSearchCondition"/>
+        ORDER BY FAQ_NO asc
+    </select>
+
+
+
+    <select id="FosSearchResultCnt" parameterType="FaqSearchCondition" resultType="int">
+        SELECT count(*)
+        FROM faq
+        WHERE TRUE
+        <include refid="FosSearchCondition"/>
+    </select>
+
+
+
+</mapper>

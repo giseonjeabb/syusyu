@@ -2,6 +2,7 @@ package com.teamProject.syusyu.service.fos.cs;
 
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
+import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 
 import java.util.List;
@@ -22,13 +23,14 @@ public interface FOS_FaqService {
 
     int modify(FaqDTO faqDto) throws Exception;
 
-    int getSearchResultCnt(FaqSearchCondition fsc) throws Exception;
+    int getFosSearchResultCnt(FaqSearchCondition fsc) throws Exception;
 
-    List<FaqDTO> getSearchResultPage(FaqSearchCondition fsc) throws Exception;
-
-
+    List<FaqDTO> getFosSearchSelectPage(FaqSearchCondition fsc) throws Exception;
 
 
+    FaqDTO getPrevTitle(Integer faqNo) throws Exception;
+
+    FaqDTO getNextTitle(Integer faqNo) throws Exception;
 
 
 

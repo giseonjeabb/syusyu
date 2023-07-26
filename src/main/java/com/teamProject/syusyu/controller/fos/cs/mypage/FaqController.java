@@ -26,7 +26,7 @@ public class FaqController {
     @GetMapping("/faqList")
     public String list(Model m, FaqSearchCondition fsc) {
         try {
-            List<FaqDTO> list = faqService.getSearchResultPage(fsc); // 검색 결과 가져오기
+            List<FaqDTO> list = faqService.getFosSearchSelectPage(fsc); // 검색 결과 가져오기
 
             // list에 제대로 담겨서 넘어왔는지 테스트
             System.out.println("Faqlist = " + list);

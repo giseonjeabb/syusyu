@@ -40,9 +40,9 @@ public interface FOS_FaqDAO {
      *
      * @since  2023-07-25
      */
-    List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception;
+    List<FaqDTO> FosSearchSelectPage(FaqSearchCondition fsc) throws Exception;
 
-    int searchResultCnt(FaqSearchCondition fsc) throws Exception;
+    int FosSearchResultCnt(FaqSearchCondition fsc) throws Exception;
 
 
 

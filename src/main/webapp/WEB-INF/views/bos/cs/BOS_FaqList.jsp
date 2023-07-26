@@ -110,7 +110,6 @@
         <th scope="col">FAQ 종류</th>
         <th scope="col">제목</th>
         <th scope="col">글 등록 일자</th>
-        <th scope="col">글 수정 일자</th>
         <th scope="col"> 수정 </th>
         <th scope="col"> 삭제 </th>
 
@@ -128,18 +127,6 @@
 
             <%---FAQ 등록날짜---%>
           <td><fmt:formatDate value="${faqDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-
-            <%---FAQ 수정날짜---%>
-          <c:choose>
-            <c:when test="${empty faqDTO.updDttm}">
-              <td>정보 없음</td>
-            </c:when>
-            <c:otherwise>
-              <td><fmt:formatDate value="${faqDTO.updDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-            </c:otherwise>
-          </c:choose>
-
-
 
           <td><button type="button" id="modifyBtn" class="modifyBtn" data-faq-no="${faqDTO.faqNo}">수정</button></td>
           <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
@@ -168,26 +155,28 @@
         <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
 
           <c:if test="${ph.showFirst}">
-            <a class="page" href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
           </c:if>
 
           <c:if test="${ph.showPrev}">
             <a class="page"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
           </c:if>
+
 
           <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
             <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(i)}'/>">${i}</a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(i)}'/>">${i}</a>
           </c:forEach>
 
+
           <c:if test="${ph.showNext}">
-            <a class="page" href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
+            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
           </c:if>
 
           <c:if test="${ph.showLast}">
             <a class="page"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
           </c:if>
 
         </c:if>

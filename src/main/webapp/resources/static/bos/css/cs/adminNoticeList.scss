@@ -302,6 +302,7 @@ td:nth-child(8) {
 }
 
 #writeNewBtn{
+  background-color: black;
   margin-bottom: 10px;
   border: none;
   padding: 6px 12px;
@@ -311,6 +312,11 @@ td:nth-child(8) {
   float: right;
 }
 
+#btnNavbarSearch{
+  background-color: black;
+  border-color: white;
+  color: white;
+}
 
 #modifyBtn{
   color: #fff;

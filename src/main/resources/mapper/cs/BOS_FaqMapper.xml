@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.teamProject.syusyu.FaqMapper">
+<mapper namespace="com.teamProject.syusyu.BOS_FaqMapper">
 
     <select id="count" resultType="int">
         SELECT count(*)
@@ -34,7 +34,7 @@
           , FAQ_TP   = #{faqTp}
           , UPD_DTTM = now()
         WHERE FAQ_NO = #{faqNo}
---           and REGR_ID = #{regrId}
+          and REGR_ID = #{regrId}
     </update>
 
 
@@ -83,21 +83,16 @@
     </select>
 
 
-    <!--    코멘트 필요없어서 일단 주석 처리함 나중에 리뷰에서 써야지-->
-    <!--    <update id="updateCommentCnt" parameterType="map">-->
-    <!--        UPDATE notice-->
-    <!--        SET   comment_cnt = comment_cnt + #{cnt}-->
-    <!--        WHERE bno = #{bno}-->
-    <!--    </update>-->
 
-    <!--    <update id="increaseViewCntFaq" parameterType="int">-->
-    <!--        UPDATE faq-->
-    <!--        SET   VIEW_CNT = VIEW_CNT + 1-->
-    <!--        WHERE FAQ_NO = #{faqNo}-->
-    <!--    </update>-->
+<!--        FAQ 조회수 증가 -->
+        <update id="increaseViewCnt" parameterType="int">
+            UPDATE faq
+            SET   VIEW_CNT = VIEW_CNT + 1
+            WHERE FAQ_NO = #{faqNo}
+        </update>
 
 
-    <sql id="searchConditionList">
+    <sql id="BosSearchCondition">
         <choose>
             <when test='option=="T"'>
                 AND TITLE LIKE CONCAT('%', #{keyword}, '%')
@@ -115,29 +110,41 @@
         </choose>
     </sql>
 
-    <sql id="searchCondition">
-        AND (TITLE LIKE CONCAT('%',#{keyword},'%' )
-        OR CONTENT LIKE CONCAT ( '%', #{keyword}, '%' )
-        )
-    </sql>
 
-
-
-    <select id="searchSelectPage" parameterType="FaqSearchCondition" resultType="FaqDTO">
+<!--    검색후 나올 페이지 select-->
+    <select id="BosSearchSelectPage" parameterType="SearchCondition" resultType="FaqDTO">
         SELECT FAQ_NO , FAQ_TP , TITLE , CONTENT ,REGR_ID ,REG_DTTM,
-                GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
+        GET_CD_NM('NF001', FAQ_TP) AS FAQ_TP_NM # 공지 종류 이름
         FROM faq
         WHERE TRUE
-        <include refid="searchConditionList"/>
+        <include refid="BosSearchCondition"/>
         ORDER BY FAQ_NO asc
-
+        LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="FaqSearchCondition" resultType="int">
+
+<!--    검색후 결과로 나올 행 갯수 카운트-->
+    <select id="BosSearchResultCnt" parameterType="SearchCondition" resultType="int">
         SELECT count(*)
         FROM faq
         WHERE TRUE
-        <include refid="searchConditionList"/>
+        <include refid="BosSearchCondition"/>
+    </select>
+
+    <!--    이전 공지사항 제목 번호 조회-->
+    <select id="selectPrev" parameterType="int" resultType="faqDTO">
+        SELECT TITLE, FAQ_NO
+        FROM notice
+        WHERE FAQ_NO &lt; #{faqNo}
+        ORDER BY FAQ_NO DESC LIMIT 1
+    </select>
+
+    <!--        다음 공지사항 제목 번호 조회-->
+    <select id="selectNext" parameterType="int" resultType="faqDTO">
+        select TITLE, FAQ_NO
+        from notice
+        where FAQ_NO &gt; #{faqNo}
+        order by FAQ_NO asc LIMIT 1
     </select>
 
 
