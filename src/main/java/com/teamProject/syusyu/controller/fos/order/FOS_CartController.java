@@ -19,23 +19,31 @@ public class FOS_CartController {
     }
 
     /**
-     * 장바구니에 상품을 추가한다.
+     * 사용자의 장바구니에 여러 상품을 추가하는 메소드입니다.
+     * 사용자가 로그인하면 세션에 저장된 아이디를 가져와 사용합니다.
+     * 상품 정보와 사용자의 ID를 받아 해당 상품을 사용자의 장바구니에 추가합니다.
+     * 상품의 재고가 있다면 장바구니에 추가하고, 재고가 없다면 메소드를 종료합니다.
      *
-     * @param cartProductDTO 추가할 상품 정보
-     * @return 결과 메시지와 HTTP 상태 코드
+     * @param cartProductDTOList 장바구니에 추가할 상품 정보 리스트
+     * @param mbrId 현재 세션에 저장된 사용자의 ID
+     * @return 상품 추가 결과를 나타내는 메시지와 HTTP 상태 코드를 함께 반환합니다.
+     * @throws Exception 장바구니에 상품을 추가하는 동안 발생할 수 있는 예외를 처리합니다.
      * @author min
      * @since  2023/07/03
+     * @modifier soso
+     * @modified 2023/07/25
      */
     @PostMapping("carts")
-    public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {
+    public ResponseEntity<String> add(@RequestBody List<CartProdDTO> cartProductDTOList, @SessionAttribute int mbrId) {
         try {
-            // 1. 재고수량이 있는지 체크한다.
-            // 1-1. 재고수량이 없다면 리턴
+            for(CartProdDTO cartProductDTO : cartProductDTOList) {
+                // 1. 재고수량이 있는지 체크한다.
+                // 1-1. 재고수량이 없다면 리턴
 
-            // 1-2. 재고수량이 있다면 장바구니에 추가한다.
-            cartProductDTO.setMbrId(mbrId);
-            service.addProductIntoCart(cartProductDTO);
-
+                // 1-2. 재고수량이 있다면 장바구니에 추가한다.
+                cartProductDTO.setMbrId(mbrId);
+            }
+            service.addProductsIntoCart(cartProductDTOList); // 수정된 메소드를 호출합니다.
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -35,18 +35,28 @@ function validateLogin() {
     return true;
 }
 
+/**
+ * 사용자 로그인을 처리하는 함수입니다.
+ * 입력된 아이디와 비밀번호를 매개변수로 하여 서버에 로그인 요청을 보냅니다.
+ * 로그인 성공 시 사용자를 이전 페이지로 이동시키며, 실패 시 오류 메시지를 출력합니다.
+ *
+ * @author min
+ * @since  2023/06/25
+ * @modifier soso
+ * @modified 2023/07/25
+ */
 function login() {
     // ajax로 로그인 컨트롤러 메서드를 ajax로 호출한다.
     // 매개변수 : 아이디, pw
-
     const param = {
         lginId: document.getElementById('login_id').value,
         lginPwd: document.getElementById('login_pwd').value
     }
 
     syusyu.common.Ajax.sendJSONRequest('POST', '/fos/login', param, res => {
-        if (res === 'success') {
-            location.href = '/';
+        if (res) {
+            // 이전 페이지로 이동한다.
+            location.href = res;
         } else {
             alert("아이디나 비밀번호를 잘못 입력하셨습니다.");
         }

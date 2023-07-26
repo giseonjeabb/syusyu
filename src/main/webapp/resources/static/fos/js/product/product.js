@@ -37,12 +37,12 @@ $(function() {
      * @author soso
      * @since 2023/07/19
      */
-    $('.ui.selection.dropdown.option-select').on('click', function(e) {
+    $('.ui.selection.dropdown.option-select').on('click', function (e) {
         // 클릭된 드롭다운의 클래스를 토글 처리
         $(this).toggleClass('active visible');
 
         // 드롭다운의 메뉴의 클래스와 스타일을 토글 처리
-        $(this).children('.menu').toggleClass('transition visible').attr('style', function(i, style){
+        $(this).children('.menu').toggleClass('transition visible').attr('style', function (i, style) {
             return style === 'display: block !important' ? '' : 'display: block !important';
         });
 
@@ -61,10 +61,10 @@ $(function() {
      * @author soso
      * @since 2023/07/19
      */
-    $('.ui.selection.dropdown.option-select .menu .item').hover(function() {
+    $('.ui.selection.dropdown.option-select .menu .item').hover(function () {
         // 마우스를 올리면 배경색을 변경
         $(this).css('background-color', '#f5f5f5');
-    }, function() {
+    }, function () {
         // 마우스를 뗐을 때 배경색을 원래대로 돌림
         $(this).css('background-color', '');
     });
@@ -85,22 +85,23 @@ $(function() {
      * @since 2023/07/22
      */
     let itemIndex = 0;
-    $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function(e) {
+    $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function (e) {
         // 선택한 옵션의 텍스트를 가져옵니다.
         let selectedSize = $(this).find('span').text();
-        // 선택한 사이즈에 (+) 문자가 포함되어 있다면, (+) 문자와 그 이후의 문자를 제거합니다.
-        let sizeOnly = selectedSize.includes("(+") ? selectedSize.split("(+")[0].trim() : selectedSize;
+        // 선택한 옵션의 data-opt-comb-no 값을 가져옵니다.
+        let selectedOptCombNo = $(this).data('optCombNo');
 
 
-        // 클릭된 item의 data-inv-qty 값을 얻습니다.
+        // 클릭된 item의 .option-select-item 데이터들을 추가(장바구니에 넘겨줄 데이터들).
         let invQty = $('.ui.selection.dropdown.option-select .menu .item').data('invQty');
-        // 클릭된 item의 data-purchase-limit 값을 얻습니다.
         let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchaseLimit');
-
-        let prodOptNo=$('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
+        let prodOptNo = $('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
+        let prodNo = $("#prod_no").val();
+        let prodCate = $("#prod_cate").val();
+        let loginId = $("#login_id").val();
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
-        if ($('.option-selected-list .option-select-item span:contains("' + sizeOnly + '")').length === 0){
+        if ($('.option-selected-list .option-select-item').filter(function() {return $(this).data('opt-comb-no') == selectedOptCombNo;}).length === 0) {
             // 상품의 기본 가격을 가져옵니다.
             let basePrice = parseFloat($('.flex.al-center').data('price'));
             // 선택한 옵션의 추가 가격을 가져옵니다.
@@ -115,39 +116,38 @@ $(function() {
             // 생성한 DOM 요소에 고유 인덱스를 설정합니다.
             newItem.attr('data-inx', itemIndex);
             newItem.attr('data-purchase-limit', purchaseLimit);
-            // newItem.attr('data-inv-qty', invQty);
-            // newItem.attr('data-opt-comb-no', prodOptNo);
+            newItem.attr('data-opt-comb-no', prodOptNo);
+            // 데이터셋으로 필요한 값들을 설정합니다.
+            newItem.data('prod-no', prodNo);
+            newItem.data('prod-cate', prodCate);
+            newItem.data('login-id', loginId);
 
             // 선택한 사이즈를 표시하는 요소를 추가합니다.
             let optionTitle = $('<p class="option-tit"></p>');
-            optionTitle.append('<span></span>').text(sizeOnly);
+            optionTitle.append('<span></span>').text(selectedSize);
             optionTitle.append('<button type="button" class="btn icon remove_18" data-type="del"><span>옵션삭제</span></button>');
             newItem.append(optionTitle);
             // 수량 조절 버튼과 가격을 표시하는 요소를 추가합니다.
             newItem.append(`
-                <div class="option-control-box">
-                    <div class="item-qty">
-                        <input class="item_qty_count" id="item-quantity-${itemIndex}" name="qty" type="number" title="상품수량" value="1" numeral="number">
-                        <button type="button" class="btn icon minus" id="minus-btn-${itemIndex}"><span>상품수량 빼기</span></button>
-                        <button type="button" class="btn icon plus" id="plus-btn-${itemIndex}"><span>상품수량 더하기</span></button>
-                    </div>
-                    <div class="option-price">
-                        <del style="display: none;"></del>
-                        <span class="display-price" id="display-price" data-name="price"></span>                      
-                        <span class="won">원</span>
-<!--                        <input type="hidden" id="prod_qty" name="qty" value="${invQty}">-->
-<!--                        <input type="hidden" id="prod_buy_limmit"  name="dlvChgDt" value="${purchaseLimit}">-->
-                        <input type="hidden" id="prod_opt_no" name="optCombNo" value="${prodOptNo}">
-                    </div>
-                </div>`);
+            <div class="option-control-box">
+                <div class="item-qty">
+                    <input class="item_qty_count" id="item-quantity-${itemIndex}" name="qty" type="number" title="상품수량" value="1" numeral="number">
+                    <button type="button" class="btn icon minus" id="minus-btn-${itemIndex}"><span>상품수량 빼기</span></button>
+                    <button type="button" class="btn icon plus" id="plus-btn-${itemIndex}"><span>상품수량 더하기</span></button>
+                </div>
+                <div class="option-price">
+                    <del style="display: none;"></del>
+                    <span class="display-price" id="display-price" data-name="price"></span>                      
+                    <span class="won">원</span>
+                    <input type="hidden" id="prod_opt_no" name="optCombNo" value="${prodOptNo}">
+                </div>
+            </div>`);
 
             // 인덱스 값을 1 증가시킵니다.
             itemIndex++;
 
             // 선택한 옵션 리스트에 새로 생성한 옵션 항목을 추가합니다.
             $('.option-selected-list').append(newItem);
-            // 선택한 옵션 리스트를 화면에 표시합니다.
-            $('.option-selected-list').css('display', 'block');
 
             // 선택한 상품의 수량을 가져옵니다.
             let productQuantity = parseInt(newItem.find('input.item_qty_count').val());
@@ -173,7 +173,6 @@ $(function() {
         e.stopPropagation();
     });
 
-
     /**
      * 5. 옵션 삭제 이벤트
      * 이 함수는 '.option-selected-list' 안의 '.remove_18' 요소에 대한 클릭 이벤트를 처리합니다.
@@ -184,7 +183,7 @@ $(function() {
      * @author soso
      * @since 2023/07/07
      */
-    $('.option-selected-list').on('click', '.remove_18', function() {
+    $('.option-selected-list').on('click', '.remove_18', function () {
         $(this).closest('.option-select-item').remove();
 
         // 삭제 후 총 가격 업데이트
@@ -208,7 +207,7 @@ $(function() {
      * @author soso
      * @since 2023/07/23
      */
-    $(document).on('click', '.btn.icon.plus', function() {
+    $(document).on('click', '.btn.icon.plus', function () {
         let itemId = $(this).closest('.option-select-item').data('inx');
         let itemQuantityInput = $(`#item-quantity-${itemId}`);
         let currentQuantity = parseInt(itemQuantityInput.val());
@@ -237,7 +236,6 @@ $(function() {
     });
 
 
-
     /**
      * 7. - 버튼 클릭 시 상품수량을 감소시키는 이벤트
      * 이 함수는 "-" 버튼을 클릭할 때 상품의 수량을 감소시키는 역할을 합니다.
@@ -252,7 +250,7 @@ $(function() {
      * @author soso
      * @since 2023/07/23
      */
-    $(document).on('click', '.btn.icon.minus', function() {
+    $(document).on('click', '.btn.icon.minus', function () {
         let itemId = $(this).closest('.option-select-item').data('inx');
         let itemQuantityInput = $(`#item-quantity-${itemId}`);
         let currentQuantity = parseInt(itemQuantityInput.val());
@@ -265,6 +263,83 @@ $(function() {
             updateTotalPrice();
         }
     });
+
+    /**
+     * '공유하기' 버튼 클릭 시 해당 팝업 레이어를 활성화하는 이벤트
+     * 이 함수는 '공유하기' 버튼을 클릭할 때 해당하는 팝업 레이어를 활성화하는 역할을 합니다.
+     *
+     * @author soso
+     * @since 2023/07/23
+     */
+    $('.btn.icon.share.btn-share').on('click', function () {
+        const popupClass = '.popup-wrap.popup-share'; // '공유하기' 버튼
+        $(popupClass).addClass('active');
+    });
+
+    /**
+     * 버튼 클릭 시 팝업 레이어를 활성화하는 이벤트
+     * 이 함수는 특정 버튼을 클릭할 때 관련 팝업 레이어를 활성화하는 역할을 합니다.
+     * 버튼의 class를 확인하여 해당하는 팝업을 표시합니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    $('.btn.icon.mark.tooltip-btn').on('click', function () {
+        let popupClass;
+
+        if ($(this).hasClass('va-m')) {
+            popupClass = '.popup-wrap.discount-price-guide'; // '가격 상세보기' 버튼
+        } else {
+            popupClass = '.popup-wrap.deliveryPopup'; // 다른 버튼
+        }
+
+        $(popupClass).addClass('active');
+    });
+
+    /**
+     * 팝업 닫기 버튼 클릭 시 팝업 레이어를 비활성화하는 이벤트
+     * 이 함수는 팝업의 닫기 버튼을 클릭할 때 팝업 레이어를 비활성화하는 역할을 합니다.
+     * 모든 팝업에 공통적으로 적용됩니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    $('button.btn.icon.remove_19').on('click', function () {
+        const popupWrap = $(this).closest('.popup-wrap');
+        popupWrap.removeClass('active');
+        popupWrap.removeClass('on');
+    });
+
+
+    /**
+     * URL을 인풋 필드에 설정하는 코드로 현재 페이지의 URL을 ShareUrl 인풋 필드에 설정합니다.
+     * 복사 버튼 클릭 이벤트 핸들러로 복사 버튼을 클릭하면 ShareUrl 인풋 필드의 값을 클립보드에 복사하도록 설정합니다.
+     * 성공적으로 복사가 완료되면 'URL이 복사되었습니다.'라는 텍스트를 표시하는 토스트 팝업이 나타납니다.
+     * 복사가 실패한 경우 콘솔에 에러 메시지를 출력합니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    // 현재 페이지의 URL을 인풋 필드에 설정합니다.
+    $('#ShareUrl').val(window.location.href);
+
+    // 복사 버튼을 클릭하면 인풋 필드의 값을 클립보드에 복사합니다.
+    $('.btn.clipboard').on('click', function() {
+        navigator.clipboard.writeText($('#ShareUrl').val()).then(function() {
+            // 토스트 팝업의 내용을 설정하고 팝업을 보이게 합니다.
+            $('.popup-toast-content').text('URL이 복사되었습니다.');
+            $('.popup-toast').addClass('on');
+
+            //일정 시간이 지나면 팝업을 숨깁니다.
+            setTimeout(function() {
+                $('.popup-toast').removeClass('on');
+            }, 1000); // 1초 후에 팝업을 숨깁니다.
+        })
+            .catch(function(error) {
+                console.error('URL 복사에 실패했습니다.: ', error);
+            });
+    });
+
 
 
 });
@@ -319,33 +394,59 @@ function updateTotalPrice() {
     $('strong[data-type="price"]').text(grandTotal.toLocaleString());
 }
 
-
-
+/**
+ * 장바구니에 상품을 추가하는 함수입니다.
+ *
+ * 사용자가 로그인한 상태가 아니라면 로그인 페이지로 이동합니다.
+ * 로그인 상태라면 사용자가 선택한 상품의 정보를 서버에 전송합니다.
+ *
+ * 각 상품의 ID, 카테고리 ID, 수량, 옵션 번호, 그리고 등록자 ID를 객체로 생성하여 이를 배열에 저장합니다.
+ * 생성된 배열을 JSON 형태로 변환하여 서버에 POST 요청을 보냅니다.
+ *
+ * 요청이 성공하면 '장바구니로 이동하시겠습니까?'라는 메시지를 사용자에게 보여주고,
+ * 사용자가 이 메시지를 확인했다면 장바구니 페이지(/fos/cart)로 이동합니다.
+ *
+ * @return {boolean} false를 반환하여 a 태그의 기본 동작(페이지 이동)을 방지합니다.
+ * @throws {exception} 상품 정보를 서버로 전송하는 과정에서 발생할 수 있는 예외를 처리합니다.
+ * @author soso
+ * @since 2023/07/25
+ */
 function productIntoCart() {
     const loginId=$("#login_id").val();
-    console.log("qty:"+$("#item-quantity-1").val());
-    console.log("prod_cate:"+$("#prod_cate").val());
+
     if(!loginId){
         window.location.href=`/fos/login`;
         return;
     }
 
-    const data = {
-        prodId: $("#prod_no").val(),
-        cateId: $("#prod_cate").val(),
-        qty: $("#item-quantity-0").val(),
-        optCombNo: $("#prod_opt_no").val(),
-        regrId: $("#login_id").val()
-    };
+    let items = []; // 아이템들을 담을 배열
+
+    // 선택된 아이템들을 반복하여 처리
+    $('.option-select-item').each(function() {
+        let $this = $(this); // 선택된 아이템을 가리키는 jQuery 객체
+        let item = {
+            prodId: $("#prod_no").val(),
+            cateId: $("#prod_cate").val(),
+            qty: $this.find('.item_qty_count').val(), // 수량
+            optCombNo: $this.data('opt-comb-no'), // 옵션 번호
+            regrId: $("#login_id").val()
+        };
+        items.push(item); // 배열에 아이템 추가
+    });
+
+
 
     $.ajax({
         type: "POST",
         url: "/fos/carts",
-        data: JSON.stringify(data), // 데이터 객체를 JSON 문자열로 변환
+        data: JSON.stringify(items), // 데이터 객체를 JSON 문자열로 변환
         contentType: "application/json", // 서버로 보내는 데이터의 타입 지정
         success: function (response) {
             console.log("Data sent successfully.");
-
+            let moveToCart = confirm("장바구니로 이동하시겠습니까?");
+            if (moveToCart) {
+                window.location.href = "/fos/cart";
+            }
         },
         error: function (err) {
             console.log("Error in sending data.");
@@ -354,3 +455,5 @@ function productIntoCart() {
 
     return false; // a 태그의 기본 동작(페이지 이동)을 방지
 }
+
+
