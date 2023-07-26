@@ -21,9 +21,13 @@ public interface BOS_FaqService {
 
     int modify(FaqDTO faqDto) throws Exception;
 
-    int getSearchResultCnt(SearchCondition sc) throws Exception;
 
-    List<FaqDTO> getSearchResultPage(SearchCondition sc) throws Exception;
+    List<FaqDTO> getBosSearchSelectPage(SearchCondition sc) throws Exception;
 
+    int getBosSearchResultCnt(SearchCondition sc) throws Exception;
+
+    FaqDTO getPrevTitle(Integer faqNo) throws Exception;
+
+    FaqDTO getNextTitle(Integer faqNo) throws Exception;
 
 }

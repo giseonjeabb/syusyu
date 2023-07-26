@@ -35,7 +35,7 @@ public interface BOS_FaqDAO {
      *
      * @since  2023-07-25
      */
-    List<FaqDTO> searchSelectPage(SearchCondition sc) throws Exception;
+    List<FaqDTO> BosSearchSelectPage(SearchCondition sc) throws Exception;
 
-    int searchResultCnt(SearchCondition sc) throws Exception;
+    int BosSearchResultCnt(SearchCondition sc) throws Exception;
 }
