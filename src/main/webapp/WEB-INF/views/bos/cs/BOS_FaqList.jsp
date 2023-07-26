@@ -155,28 +155,28 @@
         <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
 
           <c:if test="${ph.showFirst}">
-            <a class="page" href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
           </c:if>
 
           <c:if test="${ph.showPrev}">
             <a class="page"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
           </c:if>
 
 
           <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
             <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(i)}'/>">${i}</a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(i)}'/>">${i}</a>
           </c:forEach>
 
 
           <c:if test="${ph.showNext}">
-            <a class="page" href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
+            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
           </c:if>
 
           <c:if test="${ph.showLast}">
             <a class="page"
-               href="<c:url value='/bos/faqlist${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
+               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
           </c:if>
 
         </c:if>

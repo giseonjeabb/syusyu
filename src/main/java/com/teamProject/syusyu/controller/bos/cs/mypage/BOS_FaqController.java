@@ -56,7 +56,7 @@ public class BOS_FaqController {
         }
 
 
-        return ViewPath.BOS_CS+"adminFaqList";
+        return ViewPath.BOS_CS+"BOS_FaqList";
     }
 
 
