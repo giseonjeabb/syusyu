@@ -27,13 +27,15 @@ public class FOS_CartController {
      * @since  2023/07/03
      */
     @PostMapping("carts")
-    public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO) {
+    public ResponseEntity<String> add(@RequestBody CartProdDTO cartProductDTO, @SessionAttribute int mbrId) {
         try {
             // 1. 재고수량이 있는지 체크한다.
             // 1-1. 재고수량이 없다면 리턴
 
             // 1-2. 재고수량이 있다면 장바구니에 추가한다.
-            service.add(cartProductDTO);
+            cartProductDTO.setMbrId(mbrId);
+            service.addProductIntoCart(cartProductDTO);
+
 
         } catch (Exception e) {
             e.printStackTrace();

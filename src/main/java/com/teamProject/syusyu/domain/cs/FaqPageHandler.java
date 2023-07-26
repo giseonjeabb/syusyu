@@ -8,7 +8,7 @@ public class FaqPageHandler {
     // private String keyword;
     // 위 4개를 SearchCondition 클래스를 만들어서 그곳으로 이동 .
     // sc만 사용할 예정
-    private FaqSearchCondition11 fsc11;
+    private SearchCondition sc;
 
     private int totalCnt; // 총 게시물의 갯수
     private int naviSize = 10; // 페이지 내비게이션의 크기
@@ -22,25 +22,25 @@ public class FaqPageHandler {
 
 
 
-    public FaqPageHandler(int totalCnt, FaqSearchCondition11 fsc11) {
+    public FaqPageHandler(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
-        this.fsc11 = fsc11;
+        this.sc = sc;
 
-        doPaging(totalCnt, fsc11);
+        doPaging(totalCnt, sc);
     }
 
 //    public PageHandler(int totalCnt,int page){
 //        this(totalCnt,page,10);
 //    }
 
-    public void doPaging(int totalCnt, FaqSearchCondition11 fsc11) {
+    public void doPaging(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
-        this.fsc11 = fsc11;
+        this.sc = sc;
 //      this.page = page;
 //      this.pageSize = pageSize;
 
-        totalPage = (int)Math.ceil(totalCnt / (double) fsc11.getPageSize());
-        beginPage = (fsc11.getPage() - 1) / naviSize * naviSize + 1;
+        totalPage = (int)Math.ceil(totalCnt / (double) sc.getPageSize());
+        beginPage = (sc.getPage() - 1) / naviSize * naviSize + 1;
 
 
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
@@ -53,12 +53,12 @@ public class FaqPageHandler {
     }
 
 
-    public FaqSearchCondition11 getFsc11() {
-        return fsc11;
+    public SearchCondition getSc() {
+        return sc;
     }
 
-    public void setFsc11(FaqSearchCondition11 fsc11) {
-        this.fsc11 = fsc11;
+    public void setSc(SearchCondition sc) {
+        this.sc = sc;
     }
 
     public int getTotalCnt() {
@@ -144,7 +144,7 @@ public class FaqPageHandler {
     }
 
     public void print() {
-        System.out.println("page = " + fsc11.getPage());
+        System.out.println("page = " + sc.getPage());
 
         System.out.print(showFirst ? "[First] " : "");
         System.out.print(showPrev ? "[prev] " : "");
@@ -160,7 +160,7 @@ public class FaqPageHandler {
     @Override
     public String toString() {
         return "FaqPageHandler{" +
-                "fsc11=" + fsc11 +
+                "sc=" + sc +
                 ", totalCnt=" + totalCnt +
                 ", naviSize=" + naviSize +
                 ", totalPage=" + totalPage +

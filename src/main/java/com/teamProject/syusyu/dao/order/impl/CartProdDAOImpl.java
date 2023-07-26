@@ -19,6 +19,34 @@ public class CartProdDAOImpl implements CartProdDAO {
     }
 
     /**
+     * 특정고객 장바구니아이디를 가지고 있는지 조회
+     *
+     * @param mbrCd 장바구니를 조회할 사용자의 아이디
+     * @return insert row 수
+     * @throws Exception DB 삽입 도중 발생할 수 있는 예외
+     * @author soso
+     * @since  2023/07/03
+     */
+    @Override
+    public CartProdDTO selectHaveCart(int mbrId) throws Exception{
+        return session.selectOne(namespace+"selectHaveCart", mbrId);
+    }
+    /**
+     * 특정고객 장바구니 아이디생성
+     * 고객이 장바구니를 가지고 있지않으면 장바구니 아이디를 부여
+     *
+     * @param cartProductDTO (장바구니ID, 등록자)장바구니번호 생성
+     * @return insert row 수
+     * @throws Exception DB 삽입 도중 발생할 수 있는 예외
+     * @author soso
+     * @since  2023/07/03
+     */
+    @Override
+    public int insertCartNo(CartProdDTO cartProdDTO) throws Exception{
+        return session.insert(namespace+"insertCartNo", cartProdDTO);
+    }
+
+    /**
      * 장바구니에 상품을 추가한다.
      *
      * @param cartProductDTO 장바구니에 추가할 상품 정보
@@ -26,10 +54,12 @@ public class CartProdDAOImpl implements CartProdDAO {
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author min
      * @since  2023/07/03
+     * @updaAuthor soso
+     * @updDay  2023/07/25
      */
     @Override
-    public int insert(CartProdDTO cartProductDTO) throws Exception {
-        return session.insert(namespace + "insert", cartProductDTO);
+    public int insertProductIntoCart(CartProdDTO cartProductDTO) throws Exception {
+        return session.insert(namespace + "insertProductIntoCart", cartProductDTO);
     }
 
 

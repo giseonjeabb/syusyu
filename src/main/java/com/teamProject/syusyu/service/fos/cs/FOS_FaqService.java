@@ -2,11 +2,12 @@ package com.teamProject.syusyu.service.fos.cs;
 
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
+import com.teamProject.syusyu.domain.cs.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
 
-public interface FaqService {
+public interface FOS_FaqService {
     int getCount() throws Exception;
 
     int remove(Integer faqNo, String writer) throws Exception;

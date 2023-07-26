@@ -2,7 +2,7 @@ package com.teamProject.syusyu.service.fos.product.impl;
 
 import com.teamProject.syusyu.dao.product.CategoryDAO;
 import com.teamProject.syusyu.domain.product.CategoryDTO;
-import com.teamProject.syusyu.service.fos.product.CategoryService;
+import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class FOS_CategoryServiceImpl implements FOS_CategoryService {
 
     @Autowired
     CategoryDAO categoryDAO;

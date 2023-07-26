@@ -32,5 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         /* ===== BOS ===== */
         registry.addViewController(ViewPath.BOS + "orders/view").setViewName(ViewPath.BOS_ORDER + "orderView");
+        registry.addViewController(ViewPath.BOS + "dispatches/view").setViewName(ViewPath.BOS_ORDER + "dispatchManage");
+        registry.addViewController(ViewPath.BOS + "deliveries/view").setViewName(ViewPath.BOS_ORDER + "deliveryManage");
     }
 }

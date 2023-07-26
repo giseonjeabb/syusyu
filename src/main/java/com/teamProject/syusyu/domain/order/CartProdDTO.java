@@ -25,11 +25,29 @@ public class CartProdDTO {
     private LocalDateTime updDttm;
     private Integer delrId;
     private LocalDateTime delDttm;
+    private int mbrId;
 
     public CartProdDTO() {
     }
 
-    public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId, Integer updrId, Integer delrId) {
+    public CartProdDTO(int mbrId) {
+        this.mbrId = mbrId;
+    }
+
+    public CartProdDTO(int regrId, int mbrId) {
+        this.regrId = regrId;
+        this.mbrId = mbrId;
+    }
+    public CartProdDTO(int prodId, int qty, Integer optCombNo, int regrId, int mbrId) {
+        this.prodId = prodId;
+        this.qty = qty;
+        this.optCombNo = optCombNo;
+        this.regrId = regrId;
+        this.mbrId = mbrId;
+    }
+
+
+    public CartProdDTO(int cartId, int prodId, int qty, Integer optCombNo, int regrId, Integer updrId, Integer delrId, int mbrId) {
         this.cartId = cartId;
         this.prodId = prodId;
         this.qty = qty;
@@ -37,6 +55,7 @@ public class CartProdDTO {
         this.regrId = regrId;
         this.updrId = updrId;
         this.delrId = delrId;
+        this.mbrId = mbrId;
     }
 
     @Override
@@ -44,12 +63,20 @@ public class CartProdDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProdDTO that = (CartProdDTO) o;
-        return cartProdNo == that.cartProdNo && cartId == that.cartId && prodId == that.prodId && qty == that.qty && regrId == that.regrId && Objects.equals(optCombNo, that.optCombNo) && Objects.equals(updrId, that.updrId) && Objects.equals(delrId, that.delrId);
+        return cartProdNo == that.cartProdNo && cartId == that.cartId && prodId == that.prodId && qty == that.qty && salePrc == that.salePrc && totPrc == that.totPrc && totOptPrc == that.totOptPrc && totDcAmt == that.totDcAmt && totDcPrc == that.totDcPrc && invQty == that.invQty && regrId == that.regrId && mbrId == that.mbrId && Objects.equals(prodNm, that.prodNm) && Objects.equals(optCombNo, that.optCombNo) && Objects.equals(opt, that.opt) && Objects.equals(repImg, that.repImg) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updrId, that.updrId) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delrId, that.delrId) && Objects.equals(delDttm, that.delDttm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartProdNo, cartId, prodId, qty, optCombNo, regrId, updrId, delrId);
+        return Objects.hash(cartProdNo, cartId, prodId, prodNm, qty, salePrc, optCombNo, opt, totPrc, totOptPrc, totDcAmt, totDcPrc, invQty, repImg, regrId, regDttm, updrId, updDttm, delrId, delDttm, mbrId);
+    }
+
+    public int getMbrId() {
+        return mbrId;
+    }
+
+    public void setMbrId(int mbrId) {
+        this.mbrId = mbrId;
     }
 
     public int getCartProdNo() {
@@ -225,6 +252,7 @@ public class CartProdDTO {
                 ", regrId=" + regrId +
                 ", updrId=" + updrId +
                 ", delrId=" + delrId +
+                ", mbrId=" + mbrId +
                 '}';
     }
 }
