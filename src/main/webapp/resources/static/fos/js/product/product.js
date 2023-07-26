@@ -256,6 +256,18 @@ $(function() {
     });
 
     /**
+     * '공유하기' 버튼 클릭 시 해당 팝업 레이어를 활성화하는 이벤트
+     * 이 함수는 '공유하기' 버튼을 클릭할 때 해당하는 팝업 레이어를 활성화하는 역할을 합니다.
+     *
+     * @author soso
+     * @since 2023/07/23
+     */
+    $('.btn.icon.share.btn-share').on('click', function () {
+        const popupClass = '.popup-wrap.popup-share'; // '공유하기' 버튼
+        $(popupClass).addClass('active');
+    });
+
+    /**
      * 버튼 클릭 시 팝업 레이어를 활성화하는 이벤트
      * 이 함수는 특정 버튼을 클릭할 때 관련 팝업 레이어를 활성화하는 역할을 합니다.
      * 버튼의 class를 확인하여 해당하는 팝업을 표시합니다.
@@ -264,7 +276,7 @@ $(function() {
      * @since 2023/07/26
      */
     $('.btn.icon.mark.tooltip-btn').on('click', function () {
-        var popupClass;
+        let popupClass;
 
         if ($(this).hasClass('va-m')) {
             popupClass = '.popup-wrap.discount-price-guide'; // '가격 상세보기' 버튼
@@ -284,8 +296,41 @@ $(function() {
      * @since 2023/07/26
      */
     $('button.btn.icon.remove_19').on('click', function () {
-        $(this).closest('.popup-wrap').removeClass('active');
+        const popupWrap = $(this).closest('.popup-wrap');
+        popupWrap.removeClass('active');
+        popupWrap.removeClass('on');
     });
+
+
+    /**
+     * URL을 인풋 필드에 설정하는 코드로 현재 페이지의 URL을 ShareUrl 인풋 필드에 설정합니다.
+     * 복사 버튼 클릭 이벤트 핸들러로 복사 버튼을 클릭하면 ShareUrl 인풋 필드의 값을 클립보드에 복사하도록 설정합니다.
+     * 성공적으로 복사가 완료되면 'URL이 복사되었습니다.'라는 텍스트를 표시하는 토스트 팝업이 나타납니다.
+     * 복사가 실패한 경우 콘솔에 에러 메시지를 출력합니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    // 현재 페이지의 URL을 인풋 필드에 설정합니다.
+    $('#ShareUrl').val(window.location.href);
+
+    // 복사 버튼을 클릭하면 인풋 필드의 값을 클립보드에 복사합니다.
+    $('.btn.clipboard').on('click', function() {
+        navigator.clipboard.writeText($('#ShareUrl').val()).then(function() {
+            // 토스트 팝업의 내용을 설정하고 팝업을 보이게 합니다.
+            $('.popup-toast-content').text('URL이 복사되었습니다.');
+            $('.popup-toast').addClass('on');
+
+            //일정 시간이 지나면 팝업을 숨깁니다.
+            setTimeout(function() {
+                $('.popup-toast').removeClass('on');
+            }, 1000); // 1초 후에 팝업을 숨깁니다.
+        })
+            .catch(function(error) {
+                console.error('URL 복사에 실패했습니다.: ', error);
+            });
+    });
+
 
 
 });

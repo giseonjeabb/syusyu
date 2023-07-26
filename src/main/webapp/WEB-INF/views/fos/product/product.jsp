@@ -64,7 +64,7 @@
                                             <div class="popup-layer">
                                                 <div class="popup-head">
                                                     <h4>공유하기</h4>
-                                                    <a href="javascript:void(0);" class="btn icon remove_19" data-btn="false">close</a>
+                                                    <button type="button" class="btn icon remove_19"><span class="text">close</span></button>
                                                 </div>
                                                 <div class="popup-content" data-type="share-box">
 
@@ -653,6 +653,10 @@
         </div>
     </div>
 
+    <!-- 토스트 팝업 -->
+    <div class="popup-toast">
+        <div class="popup-toast-content"></div>
+    </div>
 
     <%-- 상품 정보 팝업 --%>
     <div class="popup-wrap" id="prd-pick-detail" active-popup="true">
@@ -733,7 +737,3 @@
         </div>
     </div>
 
-    <%-- 토스트 팝업 --%>
-    <div class="popup-toast">
-        <div class="popup-toast-content"></div>
-    </div>
