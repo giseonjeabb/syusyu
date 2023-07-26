@@ -17,7 +17,7 @@ public class FOS_FaqDAOImpl implements FOS_FaqDAO {
     @Autowired
     SqlSession session;
 
-    String namespace = "com.teamProject.syusyu.FaqMapper.";
+    String namespace = "com.teamProject.syusyu.FOS_FaqMapper.";
 
     @Override
     public FaqDTO select(Integer faqNo) throws Exception{
@@ -72,14 +72,14 @@ public class FOS_FaqDAOImpl implements FOS_FaqDAO {
         return session.selectList(namespace + "selectPage", map);
     }
 
-    public List<FaqDTO> searchSelectPage(FaqSearchCondition fsc) throws Exception{
-        List<FaqDTO> test = session.selectList(namespace+"searchSelectPage", fsc);
+    public List<FaqDTO> FosSearchSelectPage(FaqSearchCondition fsc) throws Exception{
+        List<FaqDTO> test = session.selectList(namespace+"FosSearchSelectPage", fsc);
         System.out.println("FOS_FaqList = " + test);
         return test;
     }
 
-    public int searchResultCnt(FaqSearchCondition fsc) throws Exception{
-        return session.selectOne(namespace+"searchResultCnt", fsc);
+    public int FosSearchResultCnt(FaqSearchCondition fsc) throws Exception{
+        return session.selectOne(namespace+"FosSearchResultCnt", fsc);
     }
 
 

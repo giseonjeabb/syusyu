@@ -58,17 +58,26 @@ public class FOS_FaqServiceImpl implements FOS_FaqService {
         return FOSFaqDao.update(faqDto);
     }
 
-
     @Override
-    public List<FaqDTO> getSearchResultPage(FaqSearchCondition fsc)throws Exception{
-        return FOSFaqDao.searchSelectPage(fsc);
+    public int getFosSearchResultCnt(FaqSearchCondition fsc)throws Exception{
+        return FOSFaqDao.FosSearchResultCnt(fsc);
     }
 
     @Override
-    public int getSearchResultCnt(FaqSearchCondition fsc)throws Exception{
-        return FOSFaqDao.searchResultCnt(fsc);
+    public List<FaqDTO> getFosSearchSelectPage(FaqSearchCondition fsc)throws Exception{
+        return FOSFaqDao.FosSearchSelectPage(fsc);
     }
 
+
+    @Override
+    public FaqDTO getPrevTitle(Integer faqNo) throws Exception {
+        return FOSFaqDao.selectPrev(faqNo);
+    }
+
+    @Override
+    public FaqDTO getNextTitle(Integer faqNo) throws Exception {
+        return FOSFaqDao.selectNext(faqNo);
+    }
 
 
 
