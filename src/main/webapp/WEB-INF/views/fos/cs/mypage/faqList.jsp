@@ -1,6 +1,6 @@
-<%@ page import="com.teamProject.syusyu.dao.cs.impl.FaqDAOImpl" %>
+<%@ page import="com.teamProject.syusyu.dao.cs.impl.FOS_FaqDAOImpl" %>
 <%@ page import="com.teamProject.syusyu.domain.cs.FaqDTO" %>
-<%@ page import="com.teamProject.syusyu.dao.cs.FaqDAO" %>
+<%@ page import="com.teamProject.syusyu.dao.cs.FOS_FaqDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>

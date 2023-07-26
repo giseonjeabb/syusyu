@@ -103,7 +103,7 @@
 
                 <tr class="table-dark">
                     <th scope="col">번호</th>
-                    <th scope="col">공지사항 분류 코드</th>
+                    <th scope="col">공지사항 종류</th>
                     <th scope="col">제목</th>
                     <th scope="col">조회수</th>
                     <th scope="col">등록 일자</th>
@@ -118,7 +118,7 @@
                     <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
                     <tr class="table-light">
                         <td scope="row">${noticeDTO.notcNo}</td>        <%---공지사항 번호---%>
-                        <td><c:out value="${noticeDTO.notcTp}"/></td>   <%---공지사항 타입---%>
+                        <td><c:out value="${noticeDTO.notcTpNm}"/></td>   <%---공지사항 타입---%>
                         <td><a href = "<c:url value="/adminNotice/read${ph.sc.queryString}&notcNo=${noticeDTO.notcNo}"/>"> ${noticeDTO.title}</a></td> <%---공지사항 제목---%>
                             <%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
                         <td>${noticeDTO.viewCnt}</td>                   <%---공지사항 조회수---%>

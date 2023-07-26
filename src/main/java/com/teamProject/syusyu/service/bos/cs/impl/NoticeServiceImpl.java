@@ -3,7 +3,7 @@ package com.teamProject.syusyu.service.bos.cs.impl;
 import com.teamProject.syusyu.dao.cs.NoticeDAO;
 import com.teamProject.syusyu.domain.cs.NoticeDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
-import com.teamProject.syusyu.service.bos.cs.NoticeService;
+import com.teamProject.syusyu.service.bos.cs.B_NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class NoticeServiceImpl implements NoticeService {
+public class NoticeServiceImpl implements B_NoticeService {
 
     // DAO 주입시 생성자로 주입 받기!!!
     NoticeDAO noticeDao;
