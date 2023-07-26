@@ -50,7 +50,7 @@
 
                 <td>
                     <div class="input w-full mb-10">
-                        <input type="text" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."
+                        <input type="title" name="subject" id="inquiry_subject" class="inp" placeholder="문의제목을 입력해 주세요."
                                oninput="save(this.value)">
                         <%--                            <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/>--%>
                     </div>
@@ -144,6 +144,8 @@
 
     let preventClick = 0; //등록중 또 등록버튼 누르는거 방지용 변수
 
+    let inqryNomber;
+
     let inqryType; // 문의 유형 번호 저장. 91: 주문문의, 92:상품문의, 93:배송문의, 94:결제문의, 95:이상품찾아요, 96:건의사항있어요
 
     let inqryTitle; // 문의 제목
@@ -176,14 +178,29 @@
 
     let photoItem;
 
+    const inqryTypeTextMap = {
+        "91": "주문문의",
+        "92": "상품문의",
+        "93": "배송문의",
+        "94": "결제문의",
+        "95": "이 상품 찾아요",
+        "96": "건의사항 있어요"
+    };
+
     $("#btnRegister").on("click", function () {
         if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
         preventClick++;  //더블클릭 방지용 변수 하나올리고 작업
+
+        var currentDate = new Date();
+        var formattedDate = currentDate.toISOString(); // ISO 8601 형식으로 변환
+
         inqryData = {
-            inqryType: inqryType,
-            inqryTitle: inqryTitle,
-            inqryContent: inqryContent
+            inqryTp: inqryType,
+            title: inqryTitle,
+            content: inqryContent,
+            regDttm: formattedDate // 현재 날짜와 시간을 ISO 8601 형식으로 저장
         }
+
         $.ajax({
             type: 'POST',
             url: '/inqry/write',
@@ -215,8 +232,24 @@
         if (optionvalue !== "") {
             this.style.color = "black";
             inqryType = this.value;
+
+            // inqryTp가 94일 때와 96일 때에 따라 다른 값을 할당
+            if (inqryType === "94") {
+                // inqryTp가 94일 때
+                // 원하는 한글 값을 변수에 할당
+                // 예: "결제문의"와 같은 한글 문구를 변수에 할당
+                let inqryTypeText = "결제문의";
+                // 이후 inqryTypeText 변수를 활용하여 원하는 곳에 한글 값을 표시
+            } else if (inqryType === "96") {
+                // inqryTp가 96일 때
+                // 원하는 한글 값을 변수에 할당
+                // 예: "건의사항 있어요"와 같은 한글 문구를 변수에 할당
+                let inqryTypeText = "건의사항 있어요";
+                // 이후 inqryTypeText 변수를 활용하여 원하는 곳에 한글 값을 표시
+            }
         }
-    })
+    });
+
 
     function char_Count(value) {
         let count = value.length;
@@ -352,10 +385,5 @@
                 console.log("실패");
             }
         });
-
     }
-
-
-
-
 </script>

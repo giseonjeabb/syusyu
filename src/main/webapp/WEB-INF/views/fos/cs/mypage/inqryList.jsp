@@ -43,7 +43,7 @@
                             <span class="color-3 w-120 ta-c"><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></span>
                         </button>
                         <div class="panel">
-                            <p><span>Q. </span>${inqryDTO.ansCn}</p>
+                            <p><span>Q. </span>${inqryDTO.content}</p>
                                 <input type="hidden" name="inquiry" value="2756">
                             <div style="margin-right: 40px">
                                 <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
