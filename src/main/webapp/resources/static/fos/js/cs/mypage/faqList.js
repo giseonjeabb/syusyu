@@ -81,7 +81,6 @@ ActiveBtn(document.querySelector('input[key="00"]'));
 
 // FAQ 타입버튼 클릭시 해당 타입에 맞는 글 보여주기
 function filterFaq(faqType) {
-    debugger;
     // FAQ 타입 선택
     const faqTp = document.querySelectorAll(".slide-title");
     // FAQ 타입들을 foreach로 한바퀴 돌면서 처리할꺼임
