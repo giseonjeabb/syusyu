@@ -26,10 +26,11 @@ public class BOS_OrderServiceImplTest {
 
     @Test
     public void getOrderList() throws Exception {
+        List<String> ordStusList = Arrays.asList("10", "20", "30", "37", "40", "50", "60", "70");
         OrderSearchRequestDTO orderSearchRequestDTO = OrderSearchRequestDTO.Builder.anOrderSearchRequestDTO()
                 .startDate("2023-01-01")
                 .endDate("2023-12-31")
-                .ordStus("20")
+                .ordStus(ordStusList)
 //                .searchType("O.ORD_NO")
 //                .searchKeyword("90")
                 .build();
@@ -41,13 +42,14 @@ public class BOS_OrderServiceImplTest {
 
     @Test
     public void confirmOrderTest() throws Exception {
+        String ordStus = "30";
         Integer[] ordDtlNoArr = new Integer[]{246, 247, 251, 255, 261};
         List<Integer> ordDtlNoList = Arrays.asList(ordDtlNoArr);
-        service.confirmOrder(ordDtlNoList, 80001);
+        service.processUpdateOrderStatus(ordDtlNoList, 80001, ordStus);
 
         for (Integer ordDtlNo : ordDtlNoArr) {
             OrdDtlDTO ordDtlDTO = ordDtlDAO.selectOrderDetail(ordDtlNo);
-            assertEquals(ordDtlDTO.getOrdStus(), "20");
+            assertEquals(ordDtlDTO.getOrdStus(), ordStus);
             assertNotNull(ordDtlDTO.getUpdDttm());
             assertNotNull(ordDtlDTO.getUpdrId());
         }

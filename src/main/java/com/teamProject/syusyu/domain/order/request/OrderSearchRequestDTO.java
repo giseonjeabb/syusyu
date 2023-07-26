@@ -1,12 +1,14 @@
 package com.teamProject.syusyu.domain.order.request;
 
+import java.util.List;
+
 public class OrderSearchRequestDTO {
     String dateType; // 조회할 날짜의 종류(예: 주문일, 결제일, 구매확정일)
     String startDate; // 조회시작일
     String endDate; // 조회종료일
     String searchType; // 조회조건
     String searchKeyword; // 검색어
-    String ordStus; // 주문상태코드
+    List<String> ordStus; // 주문상태코드
 
     public String getDateType() {
         return dateType;
@@ -48,11 +50,11 @@ public class OrderSearchRequestDTO {
         this.searchKeyword = searchKeyword;
     }
 
-    public String getOrdStus() {
+    public List<String> getOrdStus() {
         return ordStus;
     }
 
-    public void setOrdStus(String ordStus) {
+    public void setOrdStus(List<String> ordStus) {
         this.ordStus = ordStus;
     }
 
@@ -64,7 +66,7 @@ public class OrderSearchRequestDTO {
                 ", endDate='" + endDate + '\'' +
                 ", searchType='" + searchType + '\'' +
                 ", searchKeyword='" + searchKeyword + '\'' +
-                ", ordStus='" + ordStus + '\'' +
+                ", ordStus=" + ordStus +
                 '}';
     }
 
@@ -74,7 +76,7 @@ public class OrderSearchRequestDTO {
         private String endDate;
         private String searchType;
         private String searchKeyword;
-        private String ordStus;
+        private List<String> ordStus;
 
         private Builder() {
         }
@@ -108,7 +110,7 @@ public class OrderSearchRequestDTO {
             return this;
         }
 
-        public Builder ordStus(String ordStus) {
+        public Builder ordStus(List<String> ordStus) {
             this.ordStus = ordStus;
             return this;
         }
