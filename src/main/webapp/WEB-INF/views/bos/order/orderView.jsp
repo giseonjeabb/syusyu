@@ -69,7 +69,7 @@
             </tr>
             <tr>
                 <th>주문상태</th>
-                <td colspan="3" id="orderStatusCheck">
+                <td colspan="3" id="orderStatusCheckbox">
                     <label><input type="checkbox" id="chk-all" name="chk" checked>전체</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="10" checked>결제완료</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="20" checked>주문확인</label>
@@ -91,6 +91,7 @@
     <div class="grid-container">
         <div class="button_area">
             <button id="btn_order_confirm" class="btn btn-outline-dark date_range">주문확인</button>
+            <button id="btn_order_dispatch" class="btn btn-outline-dark date_range">발송처리</button>
         </div>
         <div id="orderViewGrid"></div>
     </div>

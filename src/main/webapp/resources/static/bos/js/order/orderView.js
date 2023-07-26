@@ -5,19 +5,23 @@ orderView = {
         // 기본은 오늘 날짜로 세팅(from ~ to)
         setCalendarRangeByDays(orderView.startDate, orderView.endDate, 0);
 
+        // 주문 리스트를 가져온다.
         orderView.function.getOrderList();
     },
 
     bindButtonEvent: () => {
+        debugger;
         const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
         const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
-        const $orderStatusCheck = document.querySelector('#orderStatusCheck');
+        const $orderDispatchBtn = document.querySelector('#btn_order_dispatch'); // 주문확인 버튼
+        const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
 
         $searchBtn.addEventListener('click', orderView.function.getOrderList);
         $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
         $orderConfirmBtn.addEventListener('click', orderView.eventHandler.orderConfirmBtnClick);
-        $orderStatusCheck.addEventListener('click', (e) => orderView.eventHandler.orderStatusCheckClick(e));
+        $orderDispatchBtn.addEventListener('click', orderView.eventHandler.orderDispatchBtnClick);
+        $orderStatusCheckbox.addEventListener('click', (e) => orderView.eventHandler.orderStatusCheckboxClick(e));
     },
 
     startDate: 'start_date', // 조회시작일
@@ -26,7 +30,8 @@ orderView = {
 
 namespace("orderView.eventHandler");
 orderView.eventHandler = {
-    orderStatusCheckClick(e) {
+    // 주문 상태 체크박스 클릭 이벤트 핸들러
+    orderStatusCheckboxClick(e) {
         const chkAll = document.querySelector('#chk-all');
 
         // class가 all이면 하위 체크 박스를 전부 체크/체크 해제 해준다.
@@ -43,12 +48,12 @@ orderView.eventHandler = {
 
     },
 
-    // 0. 주문확인 버튼을 누른다.
+    // 주문확인(결제완료(10) -> 주문확인(20))
     orderConfirmBtnClick() {
         // 1. 선택되어있는 셀을 가져온다.
         const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
         // 0. 선택한 셀에서 결제완료(10)이 아닌 데이터가 있는지 확인한다.
-        if (!orderView.function.validateOrderConfirm(checkedData))
+        if (!orderView.function.validateOrderStatus(checkedData, '10'))
             return;
 
         // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
@@ -61,6 +66,26 @@ orderView.eventHandler = {
         });
     },
 
+    // 발송처리(주문확인(20) -> 배송중(30)으로 변경)
+    orderDispatchBtnClick() {
+        debugger;
+        // 1. 선택되어있는 셀을 가져온다.
+        const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
+        // 0. 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
+        if (!orderView.function.validateOrderStatus(checkedData, '20'))
+            return;
+
+        // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
+        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
+
+        // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', checkedOrdDtlNoArr, res => {
+            alert("발송처리가 완료되었습니다.");
+            orderView.function.getOrderList();
+        });
+    },
+
+    // 날짜 범위 선택 버튼 클릭 이벤트 핸들러
     dateRangeContainerClick(e) {
         const that = e.target;
 
@@ -83,6 +108,7 @@ orderView.eventHandler = {
 
 namespace("orderView.function");
 orderView.function = {
+    // 체크된 체크박스를 반환하는 함수
     getCheckedBox() {
         return [...document.querySelectorAll('.chk-point')].filter(input => input.checked); // 체크된 체크박스 개수
     },
@@ -95,6 +121,7 @@ orderView.function = {
         }
     },
 
+    // 주문 리스트를 가져오는 함수
     getOrderList() {
         // 1. 주문조회 시 사용할 조회조건을 가져온다.
         const dateType = document.querySelector('#date_type').selectedOptions[0].value; // 조회할 날짜의 종류
@@ -119,6 +146,7 @@ orderView.function = {
         }, null, true);
     },
 
+    // 주문 리스틀 보여주는 함수
     showOrderList(orderList) {
         // 3. 받아온 데이터를 tableDate에 넣어준다.
 
@@ -148,9 +176,9 @@ orderView.function = {
     },
 
     // 주문확인으로 변경이 가능한 주문 건인지 검증한다.
-    validateOrderConfirm(checkedData) {
+    validateOrderStatus(checkedData, ordStus) {
         // 1. checkedData 중에서 ordDtlNo가 10이 아닌 걸 찾는다.(filter 이용)
-        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== '10'); // ordStus = 10(결제완료)
+        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== ordStus);
 
         // 1-2. 존재하지 않으면 true를 반환한다.
         if (notOrdStusPayCompleted.length === 0)
@@ -158,7 +186,7 @@ orderView.function = {
 
         // 1-1. 아닌 게 존재하다면 주문확인 처리가 불가능한 주문건을 alert 창으로 띄워준다.
         const alertOrdDtlNo = notOrdStusPayCompleted.map(data => data.ordDtlNo).join(', ');
-        alert("주문확인 처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
+        alert("처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
 
         return false;
     }
