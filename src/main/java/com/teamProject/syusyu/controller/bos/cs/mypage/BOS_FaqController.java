@@ -29,14 +29,14 @@ public class BOS_FaqController {
         try {
 
             // 검색 조건에 해당하는 공지사항 총 개수 조회
-            int totalCnt = faqService.getSearchResultCnt(sc);
+            int totalCnt = faqService.getBosSearchResultCnt(sc);
             m.addAttribute("totalCnt", totalCnt);
 
             // 페이징 처리를 위한 PageHandler 객체 생성
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
             // 검색 조건에 맞는 공지사항 목록 조회
-            List<FaqDTO> list = faqService.getSearchResultPage(sc);
+            List<FaqDTO> list = faqService.getBosSearchSelectPage(sc);
             System.out.println("bos.faqList = " + list);
 
             // 조회된 공지사항 목록과 페이징 정보를 Model에 추가하여 뷰에서 사용할 수 있도록 함
