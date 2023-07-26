@@ -78,6 +78,7 @@ public class NoticeServiceImpl implements B_NoticeService {
         return noticeDao.selectPrev(notcNo);
     }
 
+    @Override
     public NoticeDTO getNextTitle(Integer notcNo) throws Exception {
         return noticeDao.selectNext(notcNo);
     }

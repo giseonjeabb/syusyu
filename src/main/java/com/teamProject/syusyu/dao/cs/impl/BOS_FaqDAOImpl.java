@@ -17,7 +17,7 @@ public class BOS_FaqDAOImpl implements com.teamProject.syusyu.dao.cs.BOS_FaqDAO 
     @Autowired
     SqlSession session;
 
-    String namespace = "com.teamProject.syusyu.FaqMapper.";
+    String namespace = "com.teamProject.syusyu.BOS_FaqMapper.";
 
     @Override
     public FaqDTO select(Integer faqNo) throws Exception{
@@ -76,15 +76,15 @@ public class BOS_FaqDAOImpl implements com.teamProject.syusyu.dao.cs.BOS_FaqDAO 
 
 
     @Override
-    public List<FaqDTO> searchSelectPage(SearchCondition sc) throws Exception{
-        List<FaqDTO> test = session.selectList(namespace+"searchSelectPage", sc);
+    public List<FaqDTO> BosSearchSelectPage(SearchCondition sc) throws Exception{
+        List<FaqDTO> test = session.selectList(namespace+"BosSearchSelectPage", sc);
         System.out.println("BOS_FaqLIST = " + test);
         return test;
     }
 
     @Override
-    public int searchResultCnt(SearchCondition sc) throws Exception{
-        return session.selectOne(namespace+"searchResultCnt", sc);
+    public int BosSearchResultCnt(SearchCondition sc) throws Exception{
+        return session.selectOne(namespace+"BosSearchResultCnt", sc);
     }
 
 

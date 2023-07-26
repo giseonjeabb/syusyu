@@ -23,15 +23,6 @@
         where NOTC_NO = #{notcNo}
     </delete>
 
-    <!--    <delete id="delete" parameterType="map">-->
-    <!--        DELETE-->
-    <!--        FROM notice-->
-    <!--        WHERE NOTC_NO = #{notcNo}-->
-    <!--          and REGR_ID = (select MBR_ID-->
-    <!--                         from member-->
-    <!--                         where LGIN_ID = #{lginId})-->
-    <!--    </delete>-->
-
 
     <!--        공지사항 등록 -->
     <insert id="insert" parameterType="NoticeDTO">
