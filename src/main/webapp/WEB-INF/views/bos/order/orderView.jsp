@@ -73,12 +73,13 @@
                     <label><input type="checkbox" id="chk-all" name="chk" checked>전체</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="10" checked>결제완료</label>
                     <label><input type="checkbox" name="chk" class="chk-point" value="20" checked>주문확인</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="30" checked>배송중</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="37" checked>배송완료</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="40" checked>구매확정</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="50" checked>주문취소</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="60" checked>반품</label>
-                    <label><input type="checkbox" name="chk" class="chk-point" value="70" checked>교환</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="30" checked>발송완료</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="40" checked>집화완료</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="50" checked>배송중</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="60" checked>배송완료</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="70" checked>주문취소</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="80" checked>반품</label>
+                    <label><input type="checkbox" name="chk" class="chk-point" value="90" checked>교환</label>
                 </td>
             </tr>
         </table>

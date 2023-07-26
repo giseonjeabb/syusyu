@@ -10,7 +10,6 @@ orderView = {
     },
 
     bindButtonEvent: () => {
-        debugger;
         const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
         const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
@@ -68,7 +67,6 @@ orderView.eventHandler = {
 
     // 발송처리(주문확인(20) -> 배송중(30)으로 변경)
     orderDispatchBtnClick() {
-        debugger;
         // 1. 선택되어있는 셀을 가져온다.
         const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
         // 0. 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
