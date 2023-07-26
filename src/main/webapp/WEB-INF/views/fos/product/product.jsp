@@ -156,8 +156,7 @@
                                     <span class="g-cont">
                                         <span class="deli-info">
                                             <em class="fw-7">3,000</em>원
-<%--                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="bta.alert.open('.deliveryPopup');">--%>
-                                            <button type="button" class="btn ar-r icon mark tooltip-btn" onclick="openPopup()">
+                                            <button type="button" class="btn ar-r icon mark tooltip-btn">
                                                 <span class="ty2"></span>
                                             </button>
                                         </span>
@@ -613,6 +612,7 @@
         </div><!--// goods-detail-wrap -->
     </form>
 
+    <!--상품할인팝업-->
     <div class="popup-wrap discount-price-guide" active-popup="true">
         <div class="popup-layer w-430 pd-c-30">
             <div class="popup-head">
@@ -631,7 +631,7 @@
         </div>
     </div>
 
-<%--상품 배송 팝업--%>
+    <!--상품 배송 팝업-->
     <div class="popup-wrap deliveryPopup" active-popup="true">
         <div class="popup-layer w-430 pd-c-30">
             <div class="popup-head">
@@ -640,14 +640,21 @@
             </div>
             <div class="popup-content">
                 <div class="inner">
-                    <div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">무료배송 기준</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">상품 50,000원 이상 구매 시 무료배송</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">무료배송 상품 구매 시</li></ul></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit mb-16" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">배송 유형별 상품</h6><div class="tbl ty2 tbl-center" style="margin: 0px; box-sizing: border-box; border-width: 2px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(51, 51, 51); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; padding: 0px; border-image: initial; vertical-align: baseline;"><table class="__se_tbl_ext" style="margin: 0px; border-width: 0px; border-style: initial; border-color: inherit; padding: 0px; border-image: initial; vertical-align: baseline; table-layout: fixed; width: 350px; max-width: 100%; border-collapse: collapse; border-spacing: 0px;"><colgroup style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><col style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"></colgroup><tbody style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">상온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(211, 35, 58) !important;">실온</span>표기상품</li></ul></td></tr><tr style="margin: 0px; box-sizing: border-box; border-width: 0px; border-style: solid; border-color: currentcolor;"><td class="fw-6" style="width:120px; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); font-weight: 600 !important; padding: 20px 0px; line-height: 24px;">저온 배송</td><td style="width:auto; margin: 0px; box-sizing: border-box; border-width: 0px 0px 1px; border-style: solid; border-color: currentcolor currentcolor rgb(238, 238, 238); padding: 20px 0px; line-height: 24px;"><ul class="list ty5" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li class="etc-ty1" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 8px; vertical-align: baseline; position: relative; line-height: 29px; color: rgb(85, 85, 85);"><span class="color-9" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(10, 48, 158) !important;">냉장·냉동</span>표기상품</li></ul></td></tr></tbody></table></div></div><div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">지역별 추가배송비</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">도서 산간 지역 추가 배송비 5,000원</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">제주 지역 추가 배송비 5,000원</li></ul></div><div style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; background-color: rgb(255, 255, 255);"><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">배송기간</h6><ul class="list ty3" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"></span></font></div><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">택배사</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">CJ대한통운</li><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-1255(CJ대한통운)에서 가능합니다.&ZeroWidthSpace; 단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><span style="color: rgb(51, 51, 51); font-size: 15px; letter-spacing: -0.4px;"></span></div></div>
+                    <div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;">
+                        <h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">무료배송 기준</h6>
+                        <ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;">
+                            <li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">상품 50,000원 이상 구매 시 무료배송</li>
+                            <li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">무료배송 상품 구매 시</li>
+                        </ul>
+                    </div>
+                    <div class="mb-40" style="margin-top: 0px; margin-right: 0px; margin-left: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; color: rgb(29, 29, 27); font-family: Pretendard, sans-serif; font-size: 16px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); margin-bottom: 40px !important;"><h6 class="popup-sub-tit" style="margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; font-size: 18px; line-height: 21px; color: rgb(51, 51, 51);">지역별 추가배송비</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">도서 산간 지역 추가 배송비 3,000원</li><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">제주 지역 추가 배송비 3,000원</li></ul></div><div style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; background-color: rgb(255, 255, 255);"><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">배송기간</h6><ul class="list ty3" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(29, 29, 27); font-size: 16px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="margin: 3px 0px 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; font-size: 15px; line-height: 20px; color: rgb(51, 51, 51);">평균 배송일은 연휴 및 공휴일을 제외한 영업일 기준, 입금/결제 확인 후 2일~4일입니다.</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"><br></span></font></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><font color="#333333"><span style="font-size: 15px;"></span></font></div><h6 class="popup-sub-tit" style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px; color: rgb(51, 51, 51); font-size: 18px; margin: 0px 0px 15px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; line-height: 21px;">택배사</h6><ul class="list ty3" style="margin: 0px; box-sizing: border-box; border: 0px; padding: 0px; vertical-align: baseline; list-style: none;"><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">CJ대한통운</li><li style="color: rgb(51, 51, 51); font-family: Pretendard, sans-serif; font-size: 15px; letter-spacing: -0.4px; margin: 0px; box-sizing: border-box; border: 0px; padding: 0px 0px 0px 10px; vertical-align: baseline; position: relative; line-height: 20px;">배송조회 및 문의는 마이페이지 &gt; 주문배송조회 또는 1588-1255(CJ대한통운)에서 가능합니다.&ZeroWidthSpace; 단 당사의 사정에 따라 택배사는 변경될 수 있습니다.&ZeroWidthSpace;&ZeroWidthSpace;</li></ul><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"></div><div style="font-family: Pretendard, sans-serif; letter-spacing: -0.4px;"><span style="color: rgb(51, 51, 51); font-size: 15px; letter-spacing: -0.4px;"></span></div></div>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <!-- 상품 정보 팝업 -->
+    <%-- 상품 정보 팝업 --%>
     <div class="popup-wrap" id="prd-pick-detail" active-popup="true">
         <div class="popup-layer w-910">
             <div class="popup-head">
@@ -661,13 +668,13 @@
     </div>
 
 
-    <!-- 상품 옵션 팝업 -->
+    <%-- 상품 옵션 팝업 --%>
     <div class="popup-wrap" id="prd-opt-popup"></div>
 
-    <!-- 재고알림 신청 팝업 -->
+    <%-- 재고알림 신청 팝업 --%>
     <div class="popup-wrap" id="prd-alarm-popup" active-popup="true"></div>
 
-    <!-- 비밀번호 변경 안내 -->
+    <%-- 비밀번호 변경 안내 --%>
     <div class="popup-wrap" id="updatePwPopup" active-popup="true">
         <div class="popup-layer w-510">
             <div class="popup-head">
@@ -692,7 +699,7 @@
         </div>
     </div>
 
-    <!-- 약관 안내 -->
+    <%-- 약관 안내 --%>
     <div class="popup-wrap" id="termPopup" active-popup="true">
         <div class="popup-layer w-910">
             <div class="popup-head">
@@ -712,7 +719,7 @@
         </div>
     </div>
 
-    <!-- 공통 팝업 -->
+    <%-- 공통 팝업 --%>
     <div class="popup-wrap popup-alert">
         <div class="popup-layer w-360">
             <div class="popup-content"></div>
@@ -726,7 +733,7 @@
         </div>
     </div>
 
-    <!-- 토스트 팝업 -->
+    <%-- 토스트 팝업 --%>
     <div class="popup-toast">
         <div class="popup-toast-content"></div>
     </div>

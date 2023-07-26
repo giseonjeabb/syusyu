@@ -37,12 +37,12 @@ $(function() {
      * @author soso
      * @since 2023/07/19
      */
-    $('.ui.selection.dropdown.option-select').on('click', function(e) {
+    $('.ui.selection.dropdown.option-select').on('click', function (e) {
         // 클릭된 드롭다운의 클래스를 토글 처리
         $(this).toggleClass('active visible');
 
         // 드롭다운의 메뉴의 클래스와 스타일을 토글 처리
-        $(this).children('.menu').toggleClass('transition visible').attr('style', function(i, style){
+        $(this).children('.menu').toggleClass('transition visible').attr('style', function (i, style) {
             return style === 'display: block !important' ? '' : 'display: block !important';
         });
 
@@ -61,10 +61,10 @@ $(function() {
      * @author soso
      * @since 2023/07/19
      */
-    $('.ui.selection.dropdown.option-select .menu .item').hover(function() {
+    $('.ui.selection.dropdown.option-select .menu .item').hover(function () {
         // 마우스를 올리면 배경색을 변경
         $(this).css('background-color', '#f5f5f5');
-    }, function() {
+    }, function () {
         // 마우스를 뗐을 때 배경색을 원래대로 돌림
         $(this).css('background-color', '');
     });
@@ -85,7 +85,7 @@ $(function() {
      * @since 2023/07/22
      */
     let itemIndex = 0;
-    $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function(e) {
+    $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function (e) {
         // 선택한 옵션의 텍스트를 가져옵니다.
         let selectedSize = $(this).find('span').text();
 
@@ -96,7 +96,7 @@ $(function() {
         let prodOptNo = $('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
-        if ($('.option-selected-list .option-select-item span:contains("' + selectedSize + '")').length === 0){
+        if ($('.option-selected-list .option-select-item span:contains("' + selectedSize + '")').length === 0) {
             // 상품의 기본 가격을 가져옵니다.
             let basePrice = parseFloat($('.flex.al-center').data('price'));
             // 선택한 옵션의 추가 가격을 가져옵니다.
@@ -174,7 +174,7 @@ $(function() {
      * @author soso
      * @since 2023/07/07
      */
-    $('.option-selected-list').on('click', '.remove_18', function() {
+    $('.option-selected-list').on('click', '.remove_18', function () {
         $(this).closest('.option-select-item').remove();
 
         // 삭제 후 총 가격 업데이트
@@ -198,7 +198,7 @@ $(function() {
      * @author soso
      * @since 2023/07/23
      */
-    $(document).on('click', '.btn.icon.plus', function() {
+    $(document).on('click', '.btn.icon.plus', function () {
         let itemId = $(this).closest('.option-select-item').data('inx');
         let itemQuantityInput = $(`#item-quantity-${itemId}`);
         let currentQuantity = parseInt(itemQuantityInput.val());
@@ -227,7 +227,6 @@ $(function() {
     });
 
 
-
     /**
      * 7. - 버튼 클릭 시 상품수량을 감소시키는 이벤트
      * 이 함수는 "-" 버튼을 클릭할 때 상품의 수량을 감소시키는 역할을 합니다.
@@ -242,7 +241,7 @@ $(function() {
      * @author soso
      * @since 2023/07/23
      */
-    $(document).on('click', '.btn.icon.minus', function() {
+    $(document).on('click', '.btn.icon.minus', function () {
         let itemId = $(this).closest('.option-select-item').data('inx');
         let itemQuantityInput = $(`#item-quantity-${itemId}`);
         let currentQuantity = parseInt(itemQuantityInput.val());
@@ -254,6 +253,38 @@ $(function() {
             // 총 가격 업데이트
             updateTotalPrice();
         }
+    });
+
+    /**
+     * 버튼 클릭 시 팝업 레이어를 활성화하는 이벤트
+     * 이 함수는 특정 버튼을 클릭할 때 관련 팝업 레이어를 활성화하는 역할을 합니다.
+     * 버튼의 class를 확인하여 해당하는 팝업을 표시합니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    $('.btn.icon.mark.tooltip-btn').on('click', function () {
+        var popupClass;
+
+        if ($(this).hasClass('va-m')) {
+            popupClass = '.popup-wrap.discount-price-guide'; // '가격 상세보기' 버튼
+        } else {
+            popupClass = '.popup-wrap.deliveryPopup'; // 다른 버튼
+        }
+
+        $(popupClass).addClass('active');
+    });
+
+    /**
+     * 팝업 닫기 버튼 클릭 시 팝업 레이어를 비활성화하는 이벤트
+     * 이 함수는 팝업의 닫기 버튼을 클릭할 때 팝업 레이어를 비활성화하는 역할을 합니다.
+     * 모든 팝업에 공통적으로 적용됩니다.
+     *
+     * @author soso
+     * @since 2023/07/26
+     */
+    $('button.btn.icon.remove_19').on('click', function () {
+        $(this).closest('.popup-wrap').removeClass('active');
     });
 
 
@@ -356,4 +387,6 @@ function productIntoCart() {
 
     return false; // a 태그의 기본 동작(페이지 이동)을 방지
 }
+
+
 
