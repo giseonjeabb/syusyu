@@ -200,9 +200,6 @@
                             <div class="btn-area">
                                 <input type="hidden" id="prod_no"  name="prodId" value="${productDetail.prodId}"/>
                                 <input type="hidden" id="prod_cate" name="cateId" value="${productDetail.cateId}"/>
-                                <input type="hidden" id="prod_sale_price" name="salePrc" value="${productDetail.salePrc}"/>
-                                <input type="hidden" id="prod_dc_per" name="dcPer" value="${productDetail.dcPer}"/>
-                                <input type="hidden" id="prod_dc_prc" name="dcPrc" value="${prodectDetail.dcPrc}"/>
                                 <input type="hidden" id="login_id" name="mbrId" value="${loginId}"/>
 
 

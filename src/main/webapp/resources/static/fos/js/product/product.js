@@ -94,6 +94,9 @@ $(function() {
         // 클릭된 item의 data-purchase-limit 값을 얻습니다.
         let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchaseLimit');
         let prodOptNo = $('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
+        let prodNo = $("#prod_no").val();
+        let prodCate = $("#prod_cate").val();
+        let loginId = $("#login_id").val();
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
         if ($('.option-selected-list .option-select-item span:contains("' + selectedSize + '")').length === 0) {
@@ -112,6 +115,10 @@ $(function() {
             newItem.attr('data-inx', itemIndex);
             newItem.attr('data-purchase-limit', purchaseLimit);
             newItem.attr('data-opt-comb-no', prodOptNo);
+            // 데이터셋으로 필요한 값들을 설정합니다.
+            newItem.data('prod-no', prodNo);
+            newItem.data('prod-cate', prodCate);
+            newItem.data('login-id', loginId);
 
             // 선택한 사이즈를 표시하는 요소를 추가합니다.
             let optionTitle = $('<p class="option-tit"></p>');
@@ -387,13 +394,18 @@ function updateTotalPrice() {
 
 /**
  * 장바구니에 상품을 추가하는 함수입니다.
- * 로그인이 되어 있지 않다면 로그인 페이지로 이동하고, 로그인이 되어 있다면 선택한 상품의 정보를 서버에 전송합니다.
- * 상품의 ID, 카테고리 ID, 수량, 옵션 번호, 등록자 ID를 JSON 형태로 변환하여 서버에 POST 요청을 합니다.
- * 요청이 성공하면, 사용자에게 '장바구니로 이동하시겠습니까?'라는 메시지를 보여줍니다.
- * 사용자가 'OK'를 선택하면 장바구니 페이지(/fos/cart)로 이동하고, 'Cancel'을 선택하면 이동하지 않습니다.
  *
- * @return false를 반환하여 a 태그의 기본 동작(페이지 이동)을 방지합니다.
- * @throws Exception 상품 정보를 서버로 전송하는 동안 발생할 수 있는 예외를 처리합니다.
+ * 사용자가 로그인한 상태가 아니라면 로그인 페이지로 이동합니다.
+ * 로그인 상태라면 사용자가 선택한 상품의 정보를 서버에 전송합니다.
+ *
+ * 각 상품의 ID, 카테고리 ID, 수량, 옵션 번호, 그리고 등록자 ID를 객체로 생성하여 이를 배열에 저장합니다.
+ * 생성된 배열을 JSON 형태로 변환하여 서버에 POST 요청을 보냅니다.
+ *
+ * 요청이 성공하면 '장바구니로 이동하시겠습니까?'라는 메시지를 사용자에게 보여주고,
+ * 사용자가 이 메시지를 확인했다면 장바구니 페이지(/fos/cart)로 이동합니다.
+ *
+ * @return {boolean} false를 반환하여 a 태그의 기본 동작(페이지 이동)을 방지합니다.
+ * @throws {exception} 상품 정보를 서버로 전송하는 과정에서 발생할 수 있는 예외를 처리합니다.
  * @author soso
  * @since 2023/07/25
  */
@@ -405,18 +417,27 @@ function productIntoCart() {
         return;
     }
 
-    const data = {
-        prodId: $("#prod_no").val(),
-        cateId: $("#prod_cate").val(),
-        qty: $("#item-quantity-0").val(),
-        optCombNo: $("#prod_opt_no").val(),
-        regrId: $("#login_id").val()
-    };
+    let items = []; // 아이템들을 담을 배열
+
+    // 선택된 아이템들을 반복하여 처리
+    $('.option-select-item').each(function() {
+        let $this = $(this); // 선택된 아이템을 가리키는 jQuery 객체
+        let item = {
+            prodId: $("#prod_no").val(),
+            cateId: $("#prod_cate").val(),
+            qty: $this.find('.item_qty_count').val(), // 수량
+            optCombNo: $this.data('opt-comb-no'), // 옵션 번호
+            regrId: $("#login_id").val()
+        };
+        items.push(item); // 배열에 아이템 추가
+    });
+
+
 
     $.ajax({
         type: "POST",
         url: "/fos/carts",
-        data: JSON.stringify(data), // 데이터 객체를 JSON 문자열로 변환
+        data: JSON.stringify(items), // 데이터 객체를 JSON 문자열로 변환
         contentType: "application/json", // 서버로 보내는 데이터의 타입 지정
         success: function (response) {
             console.log("Data sent successfully.");
@@ -432,6 +453,5 @@ function productIntoCart() {
 
     return false; // a 태그의 기본 동작(페이지 이동)을 방지
 }
-
 
 

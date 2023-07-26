@@ -6,6 +6,7 @@ import com.teamProject.syusyu.service.fos.order.FOS_CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,13 +19,13 @@ public class FOS_CartServiceImpl implements FOS_CartService {
     }
 
     /**
-     * 사용자의 장바구니에 상품을 추가하는 메소드입니다.
-     * 전달받은 상품 정보(cartProductDTO)를 이용하여 장바구니에 해당 상품이 이미 있는지 확인한 후, 없다면 새로 장바구니에 추가합니다.
-     * 장바구니에 상품 추가에 성공하면 장바구니 상품 번호를 반환합니다.
-     * 상품 추가에 실패하면 Exception을 발생시킵니다.
+     * 사용자의 장바구니에 여러 상품을 추가하는 메소드입니다.
+     * 전달받은 상품 정보 리스트(cartProductDTOs)를 이용하여 각각의 상품이 장바구니에 이미 있는지 확인한 후, 없다면 새로 장바구니에 추가합니다.
+     * 각각의 상품이 장바구니에 성공적으로 추가되면, 해당 상품의 장바구니 번호를 리스트로 반환합니다.
+     * 어느 상품이라도 추가에 실패하면 Exception을 발생시킵니다.
      *
-     * @param cartProductDTO 장바구니에 추가할 상품 정보
-     * @return 장바구니에 추가된 상품의 번호
+     * @param cartProductDTOs 장바구니에 추가할 상품 정보 리스트
+     * @return 장바구니에 성공적으로 추가된 각 상품의 번호 리스트
      * @throws Exception 장바구니에 상품을 추가하는 동안 발생할 수 있는 예외를 처리합니다.
      * @author min
      * @since  2023/07/03
@@ -32,15 +33,21 @@ public class FOS_CartServiceImpl implements FOS_CartService {
      * @modified 2023/07/25
      */
     @Override
-    public int addProductIntoCart(CartProdDTO cartProductDTO) throws Exception {
-        CartProdDTO checkCart =cartProdDAO.selectHaveCart(cartProductDTO.getMbrId());
-        if(checkCart == null){
-            cartProdDAO.insertCartNo(cartProductDTO);
+    public List<Integer> addProductsIntoCart(List<CartProdDTO> cartProductDTOs) throws Exception {
+        List<Integer> results = new ArrayList<>();
+        for (CartProdDTO cartProductDTO : cartProductDTOs) {
+            CartProdDTO checkCart = cartProdDAO.selectHaveCart(cartProductDTO.getMbrId());
+            System.out.println("gsldkfjasldjf"+checkCart);
+            if(checkCart == null){
+                cartProdDAO.insertCartNo(cartProductDTO);
+            }
+
+            int result = cartProdDAO.insertProductIntoCart(cartProductDTO);
+            results.add(result);
         }
-
-        return cartProdDAO.insertProductIntoCart(cartProductDTO);
-
+        return results;
     }
+
 
     /**
      * 사용자 아이디에 해당하는 장바구니 정보를 가져온다.
