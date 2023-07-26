@@ -201,7 +201,9 @@ address {
   font-style: normal;
   line-height: inherit;
 }
-
+li{
+  list-style: none;
+}
 ol,
 ul {
   padding-left: 2rem;
