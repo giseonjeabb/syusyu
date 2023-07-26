@@ -88,10 +88,12 @@ $(function() {
     $('.ui.selection.dropdown.option-select .menu .item').off().on('click', function (e) {
         // 선택한 옵션의 텍스트를 가져옵니다.
         let selectedSize = $(this).find('span').text();
+        // 선택한 옵션의 data-opt-comb-no 값을 가져옵니다.
+        let selectedOptCombNo = $(this).data('optCombNo');
 
-        // 클릭된 item의 data-inv-qty 값을 얻습니다.
+
+        // 클릭된 item의 .option-select-item 데이터들을 추가(장바구니에 넘겨줄 데이터들).
         let invQty = $('.ui.selection.dropdown.option-select .menu .item').data('invQty');
-        // 클릭된 item의 data-purchase-limit 값을 얻습니다.
         let purchaseLimit = $('.ui.selection.dropdown.option-select .menu .item').data('purchaseLimit');
         let prodOptNo = $('.ui.selection.dropdown.option-select .menu .item').data('optCombNo');
         let prodNo = $("#prod_no").val();
@@ -99,7 +101,7 @@ $(function() {
         let loginId = $("#login_id").val();
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
-        if ($('.option-selected-list .option-select-item span:contains("' + selectedSize + '")').length === 0) {
+        if ($('.option-selected-list .option-select-item').filter(function() {return $(this).data('opt-comb-no') == selectedOptCombNo;}).length === 0) {
             // 상품의 기본 가격을 가져옵니다.
             let basePrice = parseFloat($('.flex.al-center').data('price'));
             // 선택한 옵션의 추가 가격을 가져옵니다.
