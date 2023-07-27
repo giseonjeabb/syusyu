@@ -11608,13 +11608,23 @@ body {
 
 .layoutSidenav_content {
   width: 100%;
+  background-color: #f9f9f9;
 }
 
-.search_form table, .search_form th, .search_form td {
-  border: 1px solid #dcdcdc;
+.button_area {
+  position: relative;
+  text-align: right;
+  padding: 10px 10px 10px 0;
+}
+
+.search_form {
+  background-color: white;
 }
 .search_form table {
   width: 100%;
+}
+.search_form th, .search_form td {
+  border: 1px solid #d9dadc;
 }
 .search_form th {
   padding-left: 10px;
@@ -11626,6 +11636,13 @@ body {
 .search_form td * {
   margin-right: 10px;
   float: left;
+}
+.search_form .button_area {
+  position: relative;
+  text-align: right;
+  border: 1px solid #d9dadc;
+  border-top: none;
+  padding: 10px 10px 10px 0;
 }
 
 /* input */
@@ -11651,12 +11668,6 @@ body {
   cursor: pointer;
   padding-right: 40px;
   background: #fff url("../../../image/icon_calendar.png") no-repeat right 20px center;
-}
-
-.button_area {
-  position: relative;
-  text-align: center;
-  margin: 10px 0;
 }
 
 /*# sourceMappingURL=dashboard.css.map */
