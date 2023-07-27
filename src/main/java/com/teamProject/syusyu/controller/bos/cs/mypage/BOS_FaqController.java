@@ -59,6 +59,30 @@ public class BOS_FaqController {
         return ViewPath.BOS_CS+"BOS_FaqList";
     }
 
+    @GetMapping("faqRead")
+    public String read(Integer faqNo, Model m ,SearchCondition sc) throws Exception{
+
+        try {
+            System.out.println("faqNo = " + faqNo);
+            FaqDTO  faqDTO = faqService.read(faqNo);
+            
+
+            FaqDTO prevFaq = faqService.getPrevTitle(faqNo);
+            FaqDTO nextFaq = faqService.getNextTitle(faqNo);
+
+            m.addAttribute("prevFaqTitle", prevFaq != null ? prevFaq.getTitle():null);
+            m.addAttribute("nextFaqTitle", nextFaq != null ? nextFaq.getTitle() : null);
+
+
+            m.addAttribute("FaqDTO",faqDTO);
+            m.addAttribute("sc",sc);
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("msg","READ_ERR");
+        }
+
+        return ViewPath.BOS_CS+"BOS_Faq";
+    }
 
 
 }
