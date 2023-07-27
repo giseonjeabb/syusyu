@@ -115,4 +115,10 @@
         </if>
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>
+
+    <select id="countByOrdStus" resultType="Map">
+        SELECT ORD_STUS, COUNT(*) AS ORD_STUS_CNT
+        FROM ORD_DTL OD
+        GROUP BY OD.ORD_STUS
+    </select>
 </mapper>

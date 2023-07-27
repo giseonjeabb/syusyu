@@ -70,7 +70,7 @@ dispatchManage.eventHandler = {
         const chkAll = document.querySelector('#chk-all');
 
         // class가 all이면 하위 체크 박스를 전부 체크/체크 해제 해준다.
-        if (e.target.id == 'chk-all')
+        if (e.target.id === 'chk-all')
             dispatchManage.function.checkAll(e.target.checked);
 
         // 만약 현재 체크되어있는 개수와 전체 체크박스의 개수가 다르면 전체 체크박스 체크 해제하기
@@ -95,7 +95,7 @@ dispatchManage.eventHandler = {
         const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
 
         // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
-        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/confirm', checkedOrdDtlNoArr, res => {
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/confirm', checkedOrdDtlNoArr, () => {
             alert("주문확인 처리가 완료되었습니다.");
             dispatchManage.eventHandler.searchNewOrderBtnClick();
         });
@@ -113,7 +113,7 @@ dispatchManage.eventHandler = {
         const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
 
         // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
-        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', checkedOrdDtlNoArr, res => {
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', checkedOrdDtlNoArr, () => {
             alert("발송처리가 완료되었습니다.");
             dispatchManage.eventHandler.searchOrderConfirmBtnClick();
         });
@@ -167,7 +167,12 @@ dispatchManage.function = {
     // param으로 전달받은 조회조건에 해당하는 주문 리스트를 가져오는 함수
     getOrderList(param) {
         syusyu.common.Ajax.sendJSONRequest('GET', '/bos/orders', param, res => {
-            dispatchManage.function.showOrderList(res);
+            // 1. 주문 상태별로 주문 건수를 보여준다.
+            dispatchManage.function.showCountByOrdStus(res.countByOrdStusList);
+            // 2. 주문의 총 개수를 보여준다.
+            // dispatchManage.function.showCountOrder();
+            // 1. 주문 리스트를 보여준다.
+            dispatchManage.function.showOrderList(res.orderInfoList);
         }, null, true);
     },
 
@@ -224,5 +229,34 @@ dispatchManage.function = {
         alert("처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
 
         return false;
+    },
+
+    /**
+     * 주문 상태별로 주문 건수를 보여준다.
+     *
+     * @param {Array} countByOrdStusList 주문 상태별 주문 건수가 담긴 객체배열
+     * @author min
+     * @since 2023/07/27
+     */
+    showCountByOrdStus(countByOrdStusList) {
+        // 1. 신규주문(주문확인 전)에 해당하는 주문 건 개수를 할당해준다.
+        dispatchManage.function.updateOrderCount('#newOrderCnt', '10', countByOrdStusList);
+        // 2. 신규주문(주문확인 후)에 해당하는 주문 건 개수를 할당해준다.
+        dispatchManage.function.updateOrderCount('#orderConfirmCnt', '20', countByOrdStusList);
+    },
+
+    /**
+     * 주어진 주문 상태에 따른 주문 건수를 HTML 요소에 업데이트한다.
+     *
+     * @param {String} id 주문 건수를 표시할 HTML 요소의 ID
+     * @param {String} status 주문 상태 코드
+     * @param {Array} countByOrdStusList 주문 상태별 주문 건수가 담긴 객체배열
+     * @author min
+     * @since 2023/07/27
+     */
+    updateOrderCount(id, status, countByOrdStusList) {
+        const matchingStatus = countByOrdStusList.find(countByOrdStus => countByOrdStus.ORD_STUS === status);
+        const orderCount = matchingStatus ? matchingStatus.ORD_STUS_CNT : 0;
+        document.querySelector(id).innerHTML = orderCount;
     }
 }

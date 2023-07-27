@@ -88,4 +88,18 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     public List<OrderInfoDTO> selectBosOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception {
         return session.selectList(namespace + "selectBosOrderList", orderSearchRequestDTO);
     }
+
+    /**
+     * 주문 상태별로 주문 건수를 카운트한다.
+     *
+     * @return 주문 상태별 주문 건수를 담은 Map의 List
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/27
+     */
+    @Override
+    public List<Map<String, Integer>> countByOrdStus() throws Exception {
+        return session.selectList(namespace + "countByOrdStus");
+    }
+
 }
