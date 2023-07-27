@@ -74,7 +74,7 @@ public class BOS_FaqController {
             m.addAttribute("nextFaqTitle", nextFaq != null ? nextFaq.getTitle() : null);
 
 
-            m.addAttribute("FaqDTO",faqDTO);
+            m.addAttribute("faqDTO",faqDTO);
             m.addAttribute("sc",sc);
         } catch (Exception e) {
             e.printStackTrace();
