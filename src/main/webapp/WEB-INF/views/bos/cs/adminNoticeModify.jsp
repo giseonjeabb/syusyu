@@ -7,7 +7,7 @@
 
 <head>
   <style>
-    @import url(${cssUrlBos}/cs/adminNoticeWrite.scss);
+    @import url(${cssUrlBos}/cs/adminNoticeModify.scss);
   </style>
 </head>
 

@@ -21,7 +21,7 @@ textarea {
   outline-color: #e6e6e6;
 }
 .frm {
-  width: 165%;
+  width: 100%;
 }
 .detail-tit{
   padding-top: 23px;
@@ -32,9 +32,10 @@ textarea {
 }
 .detail-cont{
   background-color: white;
-  border: none;
+  //border: none;
+  border: 1px solid #cbcbcb;
   padding: 20px;
-  border-bottom: 1px solid #eee;
+  //border-bottom: 1px solid #eee;
   line-height: 26px;
   padding-top: 15px;
   padding-bottom: 10px;
@@ -42,13 +43,14 @@ textarea {
 }
 .detail-tit1{
   background-color: white;
-  border: none;
+  //border: none;
+  border: 1px solid #cbcbcb;
   padding: 20px;
   font-size: 17px;
   font-weight: 550;
   margin-top: 10px;
   outline: none;
-  border-bottom: 1px solid #eee;
+  //border-bottom: 1px solid #eee;
 }
 
 

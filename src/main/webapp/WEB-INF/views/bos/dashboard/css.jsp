@@ -11,9 +11,9 @@
     /* 부트스트랩 css */
     @import url('https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css');
     /* Bootstrap CSS 추가 */
-    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+    /*@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');*/
     /* Tabulator의 Bootstrap 테마 CSS 추가 */
-    @import url(${cssUrlBos}/common/tabulator_bootstrap4.min.css);
+    <%--@import url(${cssUrlBos}/common/tabulator_bootstrap4.min.css);--%>
     /* flatpickr 캘린더 라이브러리 CSS */
     @import url('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css');
 </style>
