@@ -291,6 +291,10 @@ th:nth-child(8),
 td:nth-child(8) {
  text-align: center;
 }
+th:nth-child(9),
+td:nth-child(9) {
+  text-align: center;
+}
 
 
 .wrap-pagination .page.paging-active {
@@ -327,7 +331,7 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
 }
@@ -340,7 +344,7 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
 }

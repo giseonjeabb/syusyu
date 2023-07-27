@@ -88,15 +88,14 @@ a:hover {
 }
 
 #writeBtn{
-  background-color: black;
-  margin-bottom: 10px;
-  border: none;
-  padding: 6px 12px;
-  font-size: 16px;
-  cursor: pointer;
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 75px;
+  font-size: 15px;
   border-radius: 5px;
-  float: right;
-  margin: 0 5px;
+  margin :0 5px;
 }
 #writeBtn:hover {
   background: #5c636a;
@@ -107,7 +106,7 @@ a:hover {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 70px;
+  width: 75px;
   font-size: 15px;
   border-radius: 5px;
   margin :0 5px;
