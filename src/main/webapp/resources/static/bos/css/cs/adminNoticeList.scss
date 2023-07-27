@@ -312,6 +312,21 @@ td:nth-child(8) {
   float: right;
 }
 
+
+#writeNewBtn{
+  background-color: black;
+  margin-bottom: 10px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  float: right;
+}
+#writeNewBtn:hover {
+  background: #5c636a;
+}
+
 #btnNavbarSearch{
   background-color: black;
   border-color: white;
@@ -327,6 +342,10 @@ td:nth-child(8) {
   font-size: 15px;
   border-radius: 5px;
 }
+
+#modifyBtn:hover {
+  background: #5c636a;
+}
 #removeBtn{
   color: #fff;
   background: #212529;
@@ -335,4 +354,7 @@ td:nth-child(8) {
   width: 50px;
   font-size: 15px;
   border-radius: 5px;
+}
+#removeBtn:hover {
+  background: #5c636a;
 }

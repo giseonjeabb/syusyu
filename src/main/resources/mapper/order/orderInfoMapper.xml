@@ -67,60 +67,12 @@
     </select>
 
     <select id="selectBosOrderList" parameterType="orderSearchRequestDTO" resultType="OrderInfoDTO">
-        SELECT O.ORD_NO                                            # 주문번호
-             , OD.ORD_DTL_NO                                       # 주문상세번호
-             , O.ORD_DTTM                                          # 주문일시
-             , GET_CD_NM('O0001', OD.ORD_STUS)      AS ORD_STUS_NM # 주문상태
-             , OD.ORD_STUS                                         # 주문상태코드
-             , OC.CLAIM_STUS                                       # 클레임 처리상태
-             , OD.PROD_ID
-             , OD.PROD_NM                                          # 상품명
-             , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
-                FROM OPT_GRP OG
-                         JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
-                         JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
-                WHERE OPT_COMB_NO = OD.OPT_COMB_NO) AS OPT_NM      # 옵션
-             , OD.QTY                                              # 수량
-             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) *
-               OD.QTY                               AS PROD_AMT    # 상품금액(할인가격 + 옵션가) * 주문수량
-             , P.PAY_TP                                            # 결제방법
-             , P.REAL_PAY_AMT                                      # 결제금액
-             , M.NAME                               AS ORDR_NM     # 구매자명
-             , ODA.RECIPIENT                                       # 수령인
-        FROM ORD O
-                 JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
-                 JOIN PAY P ON OD.ORD_NO = P.ORD_NO
-                 JOIN PRODUCT PROD ON OD.PROD_ID = PROD.PROD_ID
-                 JOIN ORD_DLV_ADDR ODA ON O.ORD_NO = ODA.ORD_NO
-                 JOIN MEMBER M ON O.ORDR_ID = M.MBR_ID
-                 LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
-                 LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
-        WHERE STR_TO_DATE(O.ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
-        <if test="searchKeyword != null and searchKeyword != ''">
-            AND ${searchType} = #{searchKeyword}
-        </if>
-        <if test="ordStus != null and ordStus != ''">
-            AND OD.ORD_STUS IN
-            <foreach collection="ordStus" item="ordStus" open="(" close=")" separator=",">
-                #{ordStus}
-            </foreach>
-        </if>
-        ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
-    </select>
-
-    <!-- 주문확인/발송처리 화면에서 사용하는 주문조회 쿼리 -->
-    <select id="selectOrderListForConfirmAndDispatch">
         SELECT O.ORD_NO                                                                                  # 주문번호
              , OD.ORD_DTL_NO                                                                             # 주문상세번호
-             , DLV.DISPATCH_DTTM                                                                         # 발송처리일
-             , DLV.DLV_COM                                                                               # 택배사
-             , DLV.DLV_NO                                                                                # 송장번호
-             , M.NAME                                                                     AS ORDR_NM     # 구매자명
-             , O.ORDR_ID                                                                                 # 구매자 ID
-             , ODA.RECIPIENT                                                                             # 수령인
+             , O.ORD_DTTM                                                                                # 주문일시
              , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM # 주문상태
              , OD.ORD_STUS                                                                               # 주문상태코드
-             , O.ORD_DTTM                                                                                # 주문일시
+             , OC.CLAIM_STUS                                                                             # 클레임 처리상태
              , OD.PROD_ID                                                                                # 상품아이디
              , OD.PROD_NM                                                                                # 상품명
              , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
@@ -133,6 +85,12 @@
                OD.QTY                                                                     AS PROD_AMT    # 상품금액(할인가격 + 옵션가) * 주문수량
              , P.PAY_TP                                                                                  # 결제방법
              , P.REAL_PAY_AMT                                                                            # 결제금액
+             , M.NAME                                                                     AS ORDR_NM     # 구매자명
+             , ODA.RECIPIENT                                                                             # 수령인
+             , O.ORDR_ID                                                                                 # 구매자 ID
+             , DLV.DISPATCH_DTTM                                                                         # 발송처리일
+             , DLV.DLV_COM                                                                               # 택배사
+             , DLV.DLV_NO                                                                                # 송장번호
         FROM ORD O
                  JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
                  JOIN PAY P ON OD.ORD_NO = P.ORD_NO
@@ -142,7 +100,10 @@
                  LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
                  LEFT JOIN DELIVERY DLV ON OD.ORD_DTL_NO = DLV.ORD_DTL_NO
                  LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
-        WHERE STR_TO_DATE(O.ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        WHERE 1=1
+        <if test="startDate != null and startDate != ''">
+            AND STR_TO_DATE(O.ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+        </if>
         <if test="searchKeyword != null and searchKeyword != ''">
             AND ${searchType} = #{searchKeyword}
         </if>
@@ -155,4 +116,9 @@
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>
 
+    <select id="countByOrdStus" resultType="Map">
+        SELECT ORD_STUS, COUNT(*) AS ORD_STUS_CNT
+        FROM ORD_DTL OD
+        GROUP BY OD.ORD_STUS
+    </select>
 </mapper>

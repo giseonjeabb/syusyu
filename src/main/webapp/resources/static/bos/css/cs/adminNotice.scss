@@ -21,7 +21,7 @@ textarea {
   outline-color: #e6e6e6;
 }
 .frm {
-  width: 100%;
+  width: 165%;
 }
 .detail-tit{
   padding-top: 23px;
@@ -121,3 +121,47 @@ input {
 }
 
 
+
+
+
+#modifyBtn{
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 70px;
+  font-size: 15px;
+  border-radius: 5px;
+  margin :0 5px;
+}
+
+#modifyBtn:hover {
+  background: #5c636a;
+}
+#removeBtn{
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 70px;
+  font-size: 15px;
+  border-radius: 5px;
+  margin :0 5px;
+}
+#removeBtn:hover {
+  background: #5c636a;
+}
+
+#listBtn{
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 70px;
+  font-size: 15px;
+  border-radius: 5px;
+  margin :0 5px;
+}
+#listBtn:hover{
+  background: #5c636a;
+}

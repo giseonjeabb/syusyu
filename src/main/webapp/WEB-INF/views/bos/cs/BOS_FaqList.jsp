@@ -5,9 +5,6 @@
   Time: 오전 10:41
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
@@ -15,7 +12,7 @@
 
 <head>
   <style>
-    @import url(${cssUrlBos}/cs/adminFaqList.scss);
+    @import url(${cssUrlBos}/cs/BOS_FaqList.scss);
   </style>
 </head>
 <script>
@@ -38,7 +35,7 @@
   <%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
 
   <div class="search">
-    <form action="<c:url value="/bos/faqlist"/>" class="d-flex-1">
+    <form action="<c:url value="/bos/faqList"/>" class="d-flex-1">
 
       <%--            pannel heading--%>
       <div class="panel panel-seller">
@@ -194,7 +191,7 @@
     $('.removeBtn').on("click", function(){
       if(!confirm("삭제 하시겠습니까 ?")) return;
       let form =  $('#form');
-      let url =  "<c:url value='/adminFaq/remove${searchCondition.queryString}'/>";
+      let url =  "<c:url value='/bos/faqRemove${searchCondition.queryString}'/>";
       form.attr("action", url);
       form.attr("method", "post");
       form.submit();
@@ -202,14 +199,14 @@
 
 
     $("#writeNewBtn").on("click", function () {
-      location.href = "<c:url value='/adminFaq/write'/>";
+      location.href = "<c:url value='/bos/faqWrite'/>";
     });
 
 
 
     $(".modifyBtn").on("click", function () {
       const faqNo=$(this).data("faq-no");
-      location.href = '/adminNotice/modify?faqNo='+faqNo;
+      location.href = '/bos/faqModify?faqNo='+faqNo;
     });
     <%--location.href = '/adminNotice/modify?notcNo=${noticeDTO.notcNo}';--%>
 

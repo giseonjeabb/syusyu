@@ -316,6 +316,9 @@ td:nth-child(6) {
   border-radius: 5px;
   float: right;
 }
+#writeNewBtn:hover {
+  background: #5c636a;
+}
 
 #btnNavbarSearch{
   background-color: black;
@@ -328,16 +331,26 @@ td:nth-child(6) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
+}
+
+#modifyBtn:hover {
+  background: #5c636a;
 }
 #removeBtn{
   color: #fff;
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
 }
+#removeBtn:hover {
+  background: #5c636a;
+}
+

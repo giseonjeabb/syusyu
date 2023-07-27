@@ -26,17 +26,27 @@ public class BOS_OrderServiceImpl implements BOS_OrderService {
     }
 
     /**
-     * 주어진 조회 저건에 따라 주문 리스트를 조회한다.
+     * 주어진 조회 조건을 만족하는 주문 리스트를 조회한다.
      *
-     * @param orderSearchRequestDTO 조회 조건을 담고 있는 OrderSearchRequestDTO 객체.
-     * @return 조회 조건을 만족하는 주문 리스트를 담은 OrderInfoDTO 객체의 리스트
+     * @param orderSearchRequestDTO 조회 조건을 담고 있는 OrderSearchRequestDTO 객체
+     * @return 조회 조건에 따라 얻은 주문 리스트와 주문 상태별 건수 카운트 결과를 담은 Map 객체
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
      * @since 2023/07/23
      */
     @Override
-    public List<OrderInfoDTO> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception {
-        return orderInfoDAO.selectBosOrderList(orderSearchRequestDTO);
+    public Map<String, Object> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception {
+        // 1. 주문 상태별로 주문 건수를 카운트한다.
+        List<Map<String, Integer>> countByOrdStusList = orderInfoDAO.countByOrdStus();
+        // 2. 주어진 조회 조건에 만족하는 주문 리스트의 개수를 가져온다.
+        // 3. 주어진 조회 조건에 만족하는 주문 리스트를 조회한다.
+        List<OrderInfoDTO> orderInfoList = orderInfoDAO.selectBosOrderList(orderSearchRequestDTO);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("countByOrdStusList", countByOrdStusList);
+        result.put("orderInfoList", orderInfoList);
+
+        return result;
     }
 
     /**

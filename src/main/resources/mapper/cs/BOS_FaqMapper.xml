@@ -134,7 +134,7 @@
     <!--    이전 공지사항 제목 번호 조회-->
     <select id="selectPrev" parameterType="int" resultType="faqDTO">
         SELECT TITLE, FAQ_NO
-        FROM notice
+        FROM faq
         WHERE FAQ_NO &lt; #{faqNo}
         ORDER BY FAQ_NO DESC LIMIT 1
     </select>
@@ -142,10 +142,11 @@
     <!--        다음 공지사항 제목 번호 조회-->
     <select id="selectNext" parameterType="int" resultType="faqDTO">
         select TITLE, FAQ_NO
-        from notice
+        from faq
         where FAQ_NO &gt; #{faqNo}
         order by FAQ_NO asc LIMIT 1
     </select>
+
 
 
 </mapper>
