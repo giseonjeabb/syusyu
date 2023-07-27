@@ -25,7 +25,7 @@
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 
 <%--상품등록--%>
-<script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
+<%--<script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>--%>
 
 <%--공통함수--%>
 <script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
