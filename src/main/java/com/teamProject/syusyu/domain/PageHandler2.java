@@ -26,9 +26,11 @@ public class PageHandler2 {
         totalPage = (int) Math.ceil(totalCnt / (double)pageSize);
         beginPage = page / naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
-        showPrev = beginPage != 1;
-        showNext = endPage != totalPage;
+//        showPrev = beginPage != 1;
+//        showNext = endPage != totalPage;
 
+        showPrev = beginPage > 1; // 이전 버튼 활성화 여부
+        showNext = endPage < totalPage; // 다음 버튼 활성화 여부
     }
 
 

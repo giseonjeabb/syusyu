@@ -50,9 +50,9 @@
 
     <insert id="insert" parameterType="InqryDTO">
         INSERT INTO inqry
-            (TITLE, CONTENT, REG_DTTM)
+            (INQRY_TP, TITLE, CONTENT, REGR_ID, REG_DTTM)
         VALUES
-            (#{title}, #{content}, #{regDttm})
+            (#{inqryTp}, #{title}, #{content}, #{regrId},#{regDttm})
     </insert>
 
     <select id="count" resultType="int">

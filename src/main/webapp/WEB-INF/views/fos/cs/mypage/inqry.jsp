@@ -156,6 +156,8 @@
 
     let go_inqryList = document.getElementById("tmp_form");
 
+    let regrIden; //사용자 id
+
     let regYn; // 등록성공여부를 저장할 변수
 
     let divImg = document.getElementsByClassName("photo-item");
@@ -195,6 +197,7 @@
         var formattedDate = currentDate.toISOString(); // ISO 8601 형식으로 변환
 
         inqryData = {
+            regrId: regrIden,
             inqryTp: inqryType,
             title: inqryTitle,
             content: inqryContent,
@@ -211,13 +214,10 @@
                 regYn = JSON.parse(result);
                 go_inqryList.submit();
 
-                if (removeMsg === 1) {
+                    alert("inqryType"+inqryType);
                     alert("등록이 완료되었습니다.");
                     location.href = "http://localhost:80/inqry/inqryList";
-                } else {
-                    alert("등록실패");
                     preventClick = 0;
-                }
             },
             error: function () {
                 alert("error reg");
