@@ -170,4 +170,14 @@
     }
 
     // AJAX 요청 등으로 inqryDTO.inqryTp 값을 받아오는 부분은 삭제하였습니다.
+
+    const inquiryContentTextarea = document.getElementById("inquiry_content");
+
+    // 페이지가 로드될 때 함수를 호출하여 초기 글자 수를 설정합니다.
+    char_Count(inquiryContentTextarea.value);
+
+    // 'inquiry_content' textarea 요소의 입력 내용이 변경될 때마다 글자 수를 업데이트합니다.
+    inquiryContentTextarea.addEventListener("input", function() {
+        char_Count(this.value);
+    });
 </script>

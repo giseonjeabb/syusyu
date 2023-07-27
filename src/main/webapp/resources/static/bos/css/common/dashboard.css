@@ -11621,6 +11621,66 @@ body {
   padding: 10px 10px 10px 0;
 }
 
+.status_button_area {
+  background-color: white;
+  width: 100%;
+  text-align: left;
+  padding: 20px 10px 20px 0;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: 1px solid #d9dadc;
+  /* clearfix */
+  content: "";
+  clear: both;
+  display: table;
+}
+.status_button_area > div {
+  float: left;
+  margin-right: 20px;
+}
+.status_button_area .status_button {
+  position: relative;
+  padding-left: 65px;
+  margin-left: 15px;
+}
+.status_button_area .status_button .icon {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  width: 50px;
+  height: 50px;
+  margin-top: -21px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #767a82;
+  background-repeat: no-repeat;
+}
+.status_button_area .status_button span {
+  display: block;
+}
+.status_button_area .status_button span > strong {
+  font-size: 28px;
+}
+.status_button_area .status_button.active {
+  color: #587dc8;
+}
+.status_button_area .status_button.active .icon {
+  background-color: #587dc8;
+}
+.status_button_area #btn_search_new_order > .icon {
+  background-image: url(../../../image/check-solid.svg);
+  background-position: 5px 5px !important;
+  -webkit-background-size: 50px 50px !important;
+  background-size: 40px 40px !important;
+}
+.status_button_area #btn_search_order_confirm > .icon {
+  background-image: url(../../../image/file-lines-regular.svg);
+  background-position: 8px 7px !important;
+  -webkit-background-size: 35px 35px !important;
+  background-size: 35px 35px !important;
+}
+
 .search_form {
   background-color: white;
 }
