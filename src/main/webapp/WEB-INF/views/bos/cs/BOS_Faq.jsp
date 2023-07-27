@@ -34,7 +34,7 @@
                 <col style="width: 110px">
             </colgroup>
         <tr>
-            <input name="title" type="text" class="detail-tit1" value= " ${faqDTO.title}" />
+            <input name="title" type="text" class="detail-tit1" value= " ${faqDTO.title}"  readonly="readonly"/>
         </tr>
 
 
@@ -60,10 +60,10 @@
                     <%--            다음글이 없다면 empty nextTitle--%>
                     <li class="detail__nav-next">
                         <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
-                        <c:if test="${not empty nextTitle}">
-                            <a href="/bos/faqRead?faqNo=${faqDTO.faqNo + 1}">&nbsp; ${nextTitle}</a>
+                        <c:if test="${not empty nextFaqTitle}">
+                            <a href="/bos/faqRead?faqNo=${faqDTO.faqNo + 1}">&nbsp; ${nextFaqTitle}</a>
                         </c:if>
-                        <c:if test="${empty nextTitle}">
+                        <c:if test="${empty nextFaqTitle}">
                             <span>&nbsp;다음 글이 존재하지 않습니다. </span>
                         </c:if>
                     </li>
@@ -74,10 +74,10 @@
 
                         <li class="detail__nav-prev">
                             <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
-                            <c:if test="${not empty prevTitle}">
-                                <a href="/bos/faqRead?faqNo=${faqDTO.faqNo - 1}">&nbsp; ${prevTitle}</a>
+                            <c:if test="${not empty prevFaqTitle}">
+                                <a href="/bos/faqRead?faqNo=${faqDTO.faqNo - 1}">&nbsp; ${prevFaqTitle}</a>
                             </c:if>
-                            <c:if test = "${empty prevTitle}">
+                            <c:if test = "${empty prevFaqTitle}">
                                 <span>&nbsp;이전 글이 존재 하지 않습니다. </span>
                             </c:if>
                         </li>
