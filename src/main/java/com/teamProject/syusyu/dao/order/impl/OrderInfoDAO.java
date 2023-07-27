@@ -17,4 +17,6 @@ public interface OrderInfoDAO {
 
     PayInfoDTO selectPayInfo(Map<String, Integer> param) throws Exception;
     List<OrderInfoDTO> selectBosOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception;
+
+    List<Map<String, Integer>> countByOrdStus() throws Exception;
 }

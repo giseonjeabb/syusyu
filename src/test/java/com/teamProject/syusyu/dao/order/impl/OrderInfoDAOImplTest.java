@@ -29,4 +29,10 @@ public class OrderInfoDAOImplTest {
 
         param.forEach((k, y) -> System.out.println("key: " + k + " value: " + y));
     }
+
+    @Test
+    public void countByOrdStusTest() throws Exception {
+        List<Map<String, Integer>> list = orderInfoDAO.countByOrdStus();
+        System.out.println("list = " + list);
+    }
 }
