@@ -21,11 +21,11 @@ public class CartProdDAOImpl implements CartProdDAO {
     /**
      * 특정고객 장바구니아이디를 가지고 있는지 조회
      *
-     * @param mbrCd 장바구니를 조회할 사용자의 아이디
+     * @param mbrId 장바구니를 조회할 사용자의 아이디
      * @return insert row 수
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author soso
-     * @since  2023/07/03
+     * @since  2023/07/25
      */
     @Override
     public CartProdDTO selectHaveCart(int mbrId) throws Exception{
@@ -39,7 +39,7 @@ public class CartProdDAOImpl implements CartProdDAO {
      * @return insert row 수
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author soso
-     * @since  2023/07/03
+     * @since  2023/07/25
      */
     @Override
     public int insertCartNo(CartProdDTO cartProdDTO) throws Exception{
@@ -54,8 +54,8 @@ public class CartProdDAOImpl implements CartProdDAO {
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author min
      * @since  2023/07/03
-     * @updaAuthor soso
-     * @updDay  2023/07/25
+     * @modifier soso
+     * @modified  2023/07/25
      */
     @Override
     public int insertProductIntoCart(CartProdDTO cartProductDTO) throws Exception {

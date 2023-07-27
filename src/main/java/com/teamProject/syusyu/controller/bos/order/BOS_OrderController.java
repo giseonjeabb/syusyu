@@ -1,7 +1,6 @@
 package com.teamProject.syusyu.controller.bos.order;
 
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(ViewPath.BOS)
@@ -28,8 +28,8 @@ public class BOS_OrderController {
      * @since 2023/07/23
      */
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderInfoDTO>> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) {
-        List<OrderInfoDTO> result = null;
+    public ResponseEntity<Map<String, Object>> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) {
+        Map<String, Object> result = null;
         try {
             result = service.getOrderList(orderSearchRequestDTO);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class BOS_OrderController {
     }
 
     /**
-     * 주문 확인 처리를 한다.
+     * 주문들을 주문확인처리한다.
      * 결제완료(10)된 주문 건의 주문상태를 주문확인(20)으로 변경한다.
      *
      * @param ordDtlNoList 주문확인 처리할 주문의 주문상세번호를 담은 리스트
@@ -54,7 +54,7 @@ public class BOS_OrderController {
     @ResponseBody
     public ResponseEntity<String> confirmOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
         try {
-            service.confirmOrder(ordDtlNoList, mbrId);
+            service.processUpdateOrderStatus(ordDtlNoList, mbrId, "20");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,5 +62,29 @@ public class BOS_OrderController {
         }
 
         return new ResponseEntity<>("CONFIRM_OK", HttpStatus.OK);
+    }
+
+    /**
+     * 주문들을 발송처리한다.
+     * 주문확인(20)된 주문 건의 주문상태를 배송중(30)으로 변경한다.
+     *
+     * @param ordDtlNoList 주문확인 처리할 주문의 주문상세번호를 담은 리스트
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @return ResponseEntity, HTTP 응답 상태와 메시지를 포함
+     * @author min
+     * @since 2023/07/26
+     */
+    @PostMapping("/orders/status/dispatch")
+    @ResponseBody
+    public ResponseEntity<String> dispatchOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
+        try {
+            service.processUpdateOrderStatus(ordDtlNoList, mbrId, "30");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("DISPATCH_OK", HttpStatus.OK);
     }
 }

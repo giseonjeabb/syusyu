@@ -67,8 +67,6 @@ public class InqryController {
         try {
             if(inqryService.remove(inqryNo, mbrId.toString())!=1)
                 throw new Exception("Delete failed.");
-            System.out.println("query resert"+inqryService.remove(inqryNo, mbrId.toString()));
-            System.out.println("inqryNo = " + inqryNo);
         } catch (Exception e) {
             e.printStackTrace();
             removeYn = 0;
@@ -147,7 +145,6 @@ public class InqryController {
             try {
                 InqryDTO inqryDTO = inqryService.read(inqryNo);
                 String Content = inqryService.getContent(inqryNo);
-                System.out.println(inqryDTO); // 또는 로깅을 이용하여 값 확인
                 m.addAttribute("inqryDTO", inqryDTO);
                 m.addAttribute("Content", Content);
             } catch (Exception e) {
@@ -186,7 +183,9 @@ public class InqryController {
         // 따라서 이후에 inqryDTO 객체를 사용하여 title과 RegDttm 정보를 가져와 사용할 수 있습니다.
 
         // 예시: title과 RegDttm 정보를 로깅하여 확인해보기
+        System.out.println("inqryTp: " + inqryDTO.getInqryTp());
         System.out.println("title: " + inqryDTO.getTitle());
+        System.out.println("Content: " + inqryDTO.getContent());
         System.out.println("RegDttm: " + inqryDTO.getRegDttm());
 
         // 모델에 inqryDTO 객체를 추가하여 클라이언트로 전달
