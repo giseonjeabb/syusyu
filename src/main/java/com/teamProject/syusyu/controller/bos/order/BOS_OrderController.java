@@ -1,7 +1,6 @@
 package com.teamProject.syusyu.controller.bos.order;
 
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(ViewPath.BOS)
@@ -28,8 +28,8 @@ public class BOS_OrderController {
      * @since 2023/07/23
      */
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderInfoDTO>> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) {
-        List<OrderInfoDTO> result = null;
+    public ResponseEntity<Map<String, Object>> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) {
+        Map<String, Object> result = null;
         try {
             result = service.getOrderList(orderSearchRequestDTO);
         } catch (Exception e) {

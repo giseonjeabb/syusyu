@@ -12,14 +12,10 @@ orderView = {
     bindButtonEvent: () => {
         const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
-        const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
-        const $orderDispatchBtn = document.querySelector('#btn_order_dispatch'); // 주문확인 버튼
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
 
         $searchBtn.addEventListener('click', orderView.function.getOrderList);
         $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
-        $orderConfirmBtn.addEventListener('click', orderView.eventHandler.orderConfirmBtnClick);
-        $orderDispatchBtn.addEventListener('click', orderView.eventHandler.orderDispatchBtnClick);
         $orderStatusCheckbox.addEventListener('click', (e) => orderView.eventHandler.orderStatusCheckboxClick(e));
     },
 
@@ -34,7 +30,7 @@ orderView.eventHandler = {
         const chkAll = document.querySelector('#chk-all');
 
         // class가 all이면 하위 체크 박스를 전부 체크/체크 해제 해준다.
-        if (e.target.id == 'chk-all')
+        if (e.target.id === 'chk-all')
             orderView.function.checkAll(e.target.checked);
 
         // 만약 현재 체크되어있는 개수와 전체 체크박스의 개수가 다르면 전체 체크박스 체크 해제하기
@@ -45,42 +41,6 @@ orderView.eventHandler = {
         // 모든 체크박스가 체크되어있는지 확인한다. 그렇지 않은 경우 전체 체크박스 선택 해제한다.
         chkAll.checked = allChkCnt === chkCnt;
 
-    },
-
-    // 주문확인(결제완료(10) -> 주문확인(20))
-    orderConfirmBtnClick() {
-        // 1. 선택되어있는 셀을 가져온다.
-        const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
-        // 0. 선택한 셀에서 결제완료(10)이 아닌 데이터가 있는지 확인한다.
-        if (!orderView.function.validateOrderStatus(checkedData, '10'))
-            return;
-
-        // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
-        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
-
-        // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
-        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/confirm', checkedOrdDtlNoArr, res => {
-            alert("주문확인 처리가 완료되었습니다.");
-            orderView.function.getOrderList();
-        });
-    },
-
-    // 발송처리(주문확인(20) -> 배송중(30)으로 변경)
-    orderDispatchBtnClick() {
-        // 1. 선택되어있는 셀을 가져온다.
-        const checkedData = orderViewGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
-        // 0. 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
-        if (!orderView.function.validateOrderStatus(checkedData, '20'))
-            return;
-
-        // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
-        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
-
-        // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
-        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', checkedOrdDtlNoArr, res => {
-            alert("발송처리가 완료되었습니다.");
-            orderView.function.getOrderList();
-        });
     },
 
     // 날짜 범위 선택 버튼 클릭 이벤트 핸들러

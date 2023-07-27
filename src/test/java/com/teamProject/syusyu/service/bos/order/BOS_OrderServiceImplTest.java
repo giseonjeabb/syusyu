@@ -2,7 +2,6 @@ package com.teamProject.syusyu.service.bos.order;
 
 import com.teamProject.syusyu.dao.order.OrdDtlDAO;
 import com.teamProject.syusyu.domain.order.OrdDtlDTO;
-import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
@@ -35,8 +36,8 @@ public class BOS_OrderServiceImplTest {
 //                .searchKeyword("90")
                 .build();
 
-        List<OrderInfoDTO> orderInfoDTOList = service.getOrderList(orderSearchRequestDTO);
-        System.out.println("orderInfoDTOList = " + orderInfoDTOList);
+        Map<String, Object> result = service.getOrderList(orderSearchRequestDTO);
+        System.out.println("orderInfoDTOList = " + result);
 
     }
 
