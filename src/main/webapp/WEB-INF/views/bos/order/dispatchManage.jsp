@@ -11,16 +11,20 @@
 </head>
 <div class="container-fluid px-4">
     <h1 class="mt-4">주문확인/발송관리</h1>
-    <div class="button_area" style="text-align: left;">
-        <div>
-            <button id="btn_search_new_order" class="btn btn-light">신규주문(주문확인 전)</button>
-            <p id="newOrderCnt">0</p>
-            <span>건</span>
+    <div class="status_button_area">
+        <div id="btn_search_new_order" class="status_button">
+            <a class="icon"></a>
+            신규주문(주문확인 전)
+            <span>
+                <strong id="newOrderCnt">0</strong>건
+            </span>
         </div>
-        <div>
-            <button id="btn_search_order_confirm" class="btn btn-light">신규주문(주문확인 후)</button>
-            <p id="orderConfirmCnt">0</p>
-            <span>건</span>
+        <div id="btn_search_order_confirm" class="status_button">
+            <a class="icon"></a>
+            신규주문(주문확인 후)
+            <span>
+                <strong id="orderConfirmCnt">0</strong>건
+            </span>
         </div>
     </div>
     <div class="search_form">

@@ -17,6 +17,7 @@ dispatchManage = {
         const $orderConfirmBtn = document.querySelector('#btn_order_confirm'); // 주문확인 버튼
         const $orderDispatchBtn = document.querySelector('#btn_order_dispatch'); // 발송처리 버튼
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
+        const $statusButtonArea = document.querySelector('.status_button_area');
 
         $searchNewOrderBtn.addEventListener('click', dispatchManage.eventHandler.searchNewOrderBtnClick);
         $searchOrderConfirmBtn.addEventListener('click', dispatchManage.eventHandler.searchOrderConfirmBtnClick);
@@ -25,6 +26,7 @@ dispatchManage = {
         $orderConfirmBtn.addEventListener('click', dispatchManage.eventHandler.orderConfirmBtnClick);
         $orderDispatchBtn.addEventListener('click', dispatchManage.eventHandler.orderDispatchBtnClick);
         $orderStatusCheckbox.addEventListener('click', (e) => dispatchManage.eventHandler.orderStatusCheckboxClick(e));
+        $statusButtonArea.addEventListener('click', dispatchManage.eventHandler.statusButtonAreaClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -33,6 +35,19 @@ dispatchManage = {
 
 namespace("dispatchManage.eventHandler");
 dispatchManage.eventHandler = {
+    statusButtonAreaClick(e) {
+        const that = e.target;
+
+        // 다른 버튼들은 'active' 클래스를 제거한다.
+        const $buttons = document.querySelectorAll(".status_button"); // 결제수단 버튼
+        $buttons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        // 'active' 클래스를 추가한다.
+        that.closest('.status_button').classList.add("active");
+    },
+
     // 신규주문(주문확인 전) 버튼 클릭 이벤트 핸들러
     searchNewOrderBtnClick() {
         dispatchManage.function.getOrderListByOrdStus('10');
