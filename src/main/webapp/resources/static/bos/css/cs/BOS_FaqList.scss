@@ -281,16 +281,21 @@ td:nth-child(2){
 
 th:nth-child(3),
 td:nth-child(3) {
-  width: 330px; /* Adjust the width as needed for the 제목 column */
+  width: 350px; /* Adjust the width as needed for the 제목 column */
 }
 th:nth-child(4),
 td:nth-child(4) {
   width: 120px; /* Adjust the width as needed for the 제목 column */
 }
-th:nth-child(8),
-td:nth-child(8) {
- text-align: center;
+th:nth-child(5),
+td:nth-child(5) {
+  width: 120px; /* Adjust the width as needed for the 제목 column */
 }
+th:nth-child(6),
+td:nth-child(6) {
+  width: 120px; /* Adjust the width as needed for the 제목 column */
+}
+
 
 
 .wrap-pagination .page.paging-active {
@@ -300,18 +305,6 @@ td:nth-child(8) {
   padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
   border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
 }
-
-#writeNewBtn{
-  background-color: black;
-  margin-bottom: 10px;
-  border: none;
-  padding: 6px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  float: right;
-}
-
 
 #writeNewBtn{
   background-color: black;
@@ -338,9 +331,10 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
 }
 
 #modifyBtn:hover {
@@ -351,10 +345,12 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
 }
 #removeBtn:hover {
   background: #5c636a;
 }
+

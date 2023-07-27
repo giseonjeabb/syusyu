@@ -28,7 +28,7 @@ textarea {
   padding-bottom: 23px;
   font-weight: 700;
   line-height: 23px;
- // border-bottom: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
 }
 .detail-cont{
   background-color: white;
@@ -67,17 +67,17 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 }
 
 
-  button, input {
-    overflow: visible;
-  }
-  #btnSearch {
-    color: #fff;
-    background: #212529;
-    border: 0;
-    height: 40px;
-    width: 80px;
-    font-size: 15px;
-  }
+button, input {
+  overflow: visible;
+}
+#btnSearch {
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 40px;
+  width: 80px;
+  font-size: 15px;
+}
 
 
 a {
@@ -109,18 +109,16 @@ input {
 }
 
 
- .title-date-area {
-   display: flex;
-   align-items: center;
-   justify-content: space-between; /* 제목과 날짜 정보간 간격을 최대한 벌림 */
- }
+.title-date-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 제목과 날짜 정보간 간격을 최대한 벌림 */
+}
 .date-info {
   font-size: 0.9em; /* 원하는 글자 크기로 조절 */
   color: #666; /* 원하는 글자 색상으로 조절 */
   float: right;
 }
-
-
 
 
 
