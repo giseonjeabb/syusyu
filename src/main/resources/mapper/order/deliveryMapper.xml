@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.deliveryMapper">
+    <insert id="insertDelivery" parameterType="DeliveryDTO" useGeneratedKeys="true" keyProperty="dlvNo">
+        INSERT INTO DELIVERY ( ORD_DTL_NO
+                                    , DLV_STUS
+                                    , DLV_TP
+                                    , DISPATCH_DTTM
+                                    , PICKUP_DTTM
+                                    , SHMT_DTTM
+                                    , CMPL_DTTM
+                                    , DLV_COM
+                                    , TRCK_NO
+                                    , REG_ID)
+        VALUES ( #{ordDtlNo}
+               , #{dlvStus}
+               , #{dlvTp}
+               , #{dispatchDttm}
+               , #{pickupDttm}
+               , #{shmtDttm}
+               , #{cmplDttm}
+               , #{dlvCom}
+               , #{trckNo}
+               , #{regId})
+    </insert>
+
+    <select id="selectDelivery" parameterType="int" resultType="DeliveryDTO">
+        SELECT *
+        FROM DELIVERY
+        WHERE DLV_NO = #{dlvNo}
+    </select>
+
+    <update id="updateDelivery" parameterType="DeliveryDTO">
+        UPDATE DELIVERY
+        SET ORD_DTL_NO = #{ordDtlNo}
+          , DLV_STUS = #{dlvStus}
+          , DLV_TP = #{dlvTp}
+          , DISPATCH_DTTM = #{dispatchDttm}
+          , PICKUP_DTTM = #{pickupDttm}
+          , SHMT_DTTM = #{shmtDttm}
+          , CMPL_DTTM = #{cmplDttm}
+          , DLV_COM = #{dlvCom}
+          , TRCK_NO = #{trckNo}
+          , UPD_DTTM = now()
+          , UPD_ID = #{updId}
+        WHERE DLV_NO = #{dlvNo}
+    </update>
+
+    <delete id="deleteDelivery" parameterType="int">
+        DELETE
+        FROM DELIVERY
+        WHERE DLV_NO = #{dlvNo}
+    </delete>
+
+    <select id="countDelivery" resultType="int">
+        SELECT COUNT(*)
+        FROM DELIVERY
+    </select>
+
+    <select id="selectAllDelivery" resultType="DeliveryDTO">
+        SELECT *
+        FROM DELIVERY
+    </select>
+</mapper>
