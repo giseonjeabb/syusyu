@@ -80,7 +80,7 @@
 
 
       // java.lang.NullPointerException
-      location.href = "<c:url value="/adminNotice/list"/>?page=${sc.page}&pageSize=${sc.pageSize}";
+      <%--location.href = "<c:url value="/adminNotice/list"/>?page=${sc.page}&pageSize=${sc.pageSize}";--%>
 
     });
 
