@@ -12,18 +12,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class FOSProductServiceImplTest {
 
     @Autowired
-    FOS_ProductService FOSFOSProductService;
+    FOS_ProductService fosProductService;
 
     @Test
     public void getProductList() throws Exception{
-        System.out.println(FOSFOSProductService.getProductList(1,1));
-        System.out.println(FOSFOSProductService.getProductAllList(1));
+        System.out.println(fosProductService.getProductList(1,1));
+        System.out.println(fosProductService.getProductAllList(1));
 
 
     }
 
     @Test //상품조회
     public void getProductTest() throws Exception{
-        System.out.println("dao:"+ FOSFOSProductService.getProduct(10002));
+        System.out.println("dao:"+ fosProductService.getProduct(10002));
     }
 }

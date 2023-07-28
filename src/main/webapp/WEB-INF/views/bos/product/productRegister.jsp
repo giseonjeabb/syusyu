@@ -3,7 +3,16 @@
 
 <head>
     <script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
-    <script src="/static/bos/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+    <link href="<c:url value="${cssUrlBos}/product/productRegister.css"/>" rel="stylesheet">
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 </head>
 
 
@@ -12,42 +21,39 @@
 
 
 
-    <table class="table">
+    <table class="table m-3">
         <tr>
             <th class="col-1" scope="row">카테고리</th>
             <td class="col-11">
-                <div class="col">
-                    <div class="form-group row mt-6">
-                        <div class="col">
-                            <div class="form-group">  <%-- 선택하면 <strong></strong>추가 --%>
-                                <select multiple="" class="form-select h-100" id="cate_large">
-                                    <option>신발</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <select multiple="" class="form-select h-100" id="cate_middle">
-                                    <option>운동화</option>
-                                    <option>샌들/슬리퍼</option>
-                                    <option>부츠</option>
-                                    <option>구두</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <select multiple="" class="form-select h-100" id="cate_small">
-                                    <option>스니커즈</option>
-                                    <option>캔버스화</option>
-                                    <option>조거</option>
-                                    <option>아웃도어</option>
-                                    <option>런닝화</option>
-                                    <option>슬립온</option>
-                                    <option>뮬</option>
-                                </select>
-                            </div>
-                        </div>
+
+                <div class="form-group row mt-6 no-gutters h-auto m-2">
+                    <div class="col-3">
+                     <%-- 선택하면 <strong></strong>추가 --%>
+                        <select multiple size="8" class="form-select h-auto fs-5" id="cate_large">
+                            <c:forEach var="large" items="${categories.largeCategories}">
+                                <option value="${large.key}">${large.value}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select multiple size="8" class="form-select h-auto fs-5" id="cate_middle">
+                            <c:forEach var="middle" items="${categories.middleCategories}">
+                                <option value="${middle.key}">${middle.value}</option>
+                            </c:forEach>
+                        </select>
+
+                    </div>
+                    <div class="col-3">
+                        <select multiple size="8" class="form-select h-auto fs-5" id="cate_small">
+                            <c:forEach var="small" items="${categories.smallCategories}">
+
+                                    <c:forEach var="smallItem" items="${small.value}">
+                                        <option data-small-key="${small.key}" value="${smallItem.key}">${smallItem.value}</option>
+
+                                    </c:forEach>
+
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
             </td>
@@ -147,8 +153,8 @@
         <tr>
             <th scope="row">재고수량</th>
             <td>
-                <div class="input-group mb-3 mt-2 fs-5">
-                    <input type="text" class="form-control col-3" aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
+                <div class="input-group">
+                    <input type="text" class="form-control " aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
                     <span class="input-group-text">개</span>
                 </div>
             </td>
@@ -157,40 +163,53 @@
         <tr>
             <th scope="row">옵션입력</th>
             <td>
-                <div class="d-flex align-items-end">
-                    <div class="me-2">
-                        <label class="col-form-label mt-4">옵션명</label>
-                        <input type="text" class="form-control" name="opt_nm" placeholder="예시 : 컬러">
+                <div>
+                    <label for="" class="col-sm-2 col-form-label">옵션명</label>
+                    <label for="" class="col-sm-2 col-form-label">옵션가</label>
+
+                    <label for="color" class="col-sm-2 col-form-label">컬러</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control col-3" aria-label="qty" placeholder="컬러 입력" id="color">
                     </div>
-
-                    <div class="me-2">
-                        <label class="col-form-label mt-4">옵션값</label>
-                        <input type="text" class="form-control" name="opt_val" placeholder="예시 : 빨강, 노랑 (,로 구분)">
+                    <label for="color" class="col-sm-2 col-form-label">사이즈</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control col-3" aria-label="qty" placeholder="컬러 입력" id="사이즈">
                     </div>
-
-                    <button type="button" class="btn btn-dark me-2">
-                        <i class="fas fa-plus"></i>
-                    </button>
-
-
                 </div>
-                <div class="d-flex align-items-end mt-2">
-                    <div class="me-2">
-                        <input type="text" class="form-control" placeholder="예시 : 컬러">
-                    </div>
-                    <div class="me-2">
-                        <input type="text" class="form-control" placeholder="예시 : 빨강, 노랑 (,로 구분)">
-
-                    </div>
-                    <button type="button" class="btn btn-dark">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <button type="button" class="btn btn-dark disabled mt-2">옵션목록으로 적용 ↓</button>
 
             </td>
 
         </tr>
+<%--                <div class="d-flex align-items-end">--%>
+<%--                    <div class="me-2">--%>
+<%--                        <label class="col-form-label mt-4">옵션명</label>--%>
+<%--                        <input type="text" class="form-control" name="opt_nm" placeholder="예시 : 컬러">--%>
+<%--                    </div>--%>
+
+<%--                    <div class="me-2">--%>
+<%--                        <label class="col-form-label mt-4">옵션값</label>--%>
+<%--                        <input type="text" class="form-control" name="opt_val" placeholder="예시 : 빨강, 노랑 (,로 구분)">--%>
+<%--                    </div>--%>
+
+<%--                    <button type="button" class="btn btn-dark me-2">--%>
+<%--                        <i class="fas fa-plus"></i>--%>
+<%--                    </button>--%>
+<%--                    --%>
+<%--                </div>--%>
+<%--                <div class="d-flex align-items-end mt-2">--%>
+<%--                    <div class="me-2">--%>
+<%--                        <input type="text" class="form-control" placeholder="예시 : 컬러">--%>
+<%--                    </div>--%>
+<%--                    <div class="me-2">--%>
+<%--                        <input type="text" class="form-control" placeholder="예시 : 빨강, 노랑 (,로 구분)">--%>
+
+<%--                    </div>--%>
+<%--                    <button type="button" class="btn btn-dark">--%>
+<%--                        <i class="fas fa-times"></i>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+
+
         <tr>
             <th scope="row">옵션목록</th>
             <td>
@@ -281,12 +300,17 @@
             <th scope="row">상세설명</th>
             <td>
 
-                    <textarea id="smarteditor" name="smarteditor"></textarea>
+                <div id="summernote"></div>
 
             </td>
         </tr>
         <tr>
             <th scope="row">모델명</th>
+            <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model"></td>
+
+        </tr>
+        <tr>
+            <th scope="row">제품소재</th>
             <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model"></td>
 
         </tr>
@@ -335,6 +359,8 @@
     </table>
 
 
+
+</div>
 
 
 
