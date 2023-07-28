@@ -113,10 +113,13 @@
              , PRC.DC_PER /* 할인율 */
              , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), -1) AS DC_PRC /* 할인가 */
              , P.REP_IMG
-             , p.MFGD_MATR
-             , P.MFTCO
-             , P.MFT_NATN
+             , P.MFGD_MATR /* 제품소재 */
+             , GET_CD_NM('PR001',P.MFTCO) AS MFTCO_NM
+             , P.MFTCO     /* 제조사 */
+             , GET_CD_NM('MC001',P.MFT_NATN) AS MFT_NATN_NM
+             , P.MFT_NATN  /*제조국*/
              , P.STATUS
+             , GET_CD_NM('P0002', P.STATUS) AS STATUS_NM
              , P.VW_CNT
              , PRC.SALE_ST_DTTM
              , PRC.SALE_ED_DTTM

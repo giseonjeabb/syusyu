@@ -340,7 +340,7 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <th>제품 소</th>
+                                                    <th>제품 소재</th>
                                                     <td>${productDetail.mfgdMatr}</td>
                                                 </tr>
 
@@ -356,12 +356,12 @@
 
                                                 <tr>
                                                     <th>제조자, 수입품의 경우 수입자를 함께 표기</th>
-                                                    <td>${productDetail.mftco}</td>
+                                                    <td>${productDetail.mftcoNm}</td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>제조국</th>
-                                                    <td>${productDetail.mftNatn}</td>
+                                                    <td>${productDetail.mftNatnNm}</td>
                                                 </tr>
 
                                                 <tr>
@@ -386,7 +386,7 @@
 
                                                 <tr>
                                                     <th>A/S 책임자</th>
-                                                    <td>${productDetail.mftco}</td>
+                                                    <td>${productDetail.mftcoNm}</td>
                                                 </tr>
 
                                                 </tbody>
