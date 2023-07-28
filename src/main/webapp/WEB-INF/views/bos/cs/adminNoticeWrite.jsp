@@ -72,14 +72,15 @@
   $(document).ready(function() {
 
     $('#listBtn').on("click", function() {
-      location.href = "<c:url value='/adminNotice/list'/>?page=${sc.page}&pageSize=${sc.pageSize}";
+        location.href="<c:url value='/adminNotice/list${searchCondition.queryString}'/>";
+
+
+        // java.lang.NullPointerException
+        <%--location.href = "<c:url value="/adminNotice/list"/>?page=${sc.page}&pageSize=${sc.pageSize}";--%>
     });
 
 
 
-      <%--$("#listBtn").on("click", function(){--%>
-      <%--    location.href="<c:url value='/adminNotice/list${searchCondition.queryString}'/>";--%>
-      <%--});--%>
   });
 
 </script>
