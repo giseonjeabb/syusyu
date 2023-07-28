@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.dao.order.impl;
+package com.teamProject.syusyu.dao.order;
 
 import com.teamProject.syusyu.domain.order.OrdDlvAddrDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;

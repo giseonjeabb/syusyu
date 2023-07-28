@@ -2,7 +2,7 @@ package com.teamProject.syusyu.service.bos.order;
 
 import com.teamProject.syusyu.dao.order.OrdDtlDAO;
 import com.teamProject.syusyu.dao.order.OrdStusHistDAO;
-import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
+import com.teamProject.syusyu.dao.order.OrderInfoDAO;
 import com.teamProject.syusyu.domain.order.OrdStusHistDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
