@@ -93,17 +93,20 @@
 <script>
     $(document).ready(function (){
         $('#listBtn').on("click", function(){
+            // 둘모두 같은내용
+            <%--location.href="<c:url value='/bos/faqList${searchCondition.queryString}'/>";--%>
             location.href = "<c:url value="/bos/faqList"/>?page=${sc.page}&pageSize=${sc.pageSize}";
         });
 
-        $('#removeBtn').on("click", function(){
-            if(!confirm("삭제 하시겠습니까 ?")) return;
-            let form =  $('#form');
-            <%--form.attr("action", "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>");--%>
-            form.attr("action", "<c:url value='/adminNotice/remove'/>?page=${sc.page}&pageSize=${sc.pageSize}");
-            form.attr("method", "post");
-            form.submit();
+
+        $(".modifyBtn").on("click", function () {
+            const faqNo=$(this).data("faq-no");
+            location.href = '/bos/faqModify?faqNo='+faqNo;
         });
+
+
+
+
 
     });
 
