@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -74,7 +78,7 @@ public class BOS_FaqController {
             m.addAttribute("nextFaqTitle", nextFaq != null ? nextFaq.getTitle() : null);
 
 
-            m.addAttribute("FaqDTO",faqDTO);
+            m.addAttribute("faqDTO",faqDTO);
             m.addAttribute("sc",sc);
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,5 +88,39 @@ public class BOS_FaqController {
         return ViewPath.BOS_CS+"BOS_Faq";
     }
 
+    @GetMapping("faqModify")
+    public String showModifyForm(Integer faqNo,Model m){
+        try {
+            FaqDTO faqDTO = faqService.read(faqNo);
+            m.addAttribute("faqDTO",faqDTO);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return ViewPath.BOS_CS+"BOS_FaqModify";
+    }
+
+    @PostMapping("faqModify")
+    public String modify(Model m,FaqDTO faqDTO,RedirectAttributes rattr, @SessionAttribute int mbrId){
+
+        try {
+            faqDTO.setRegrId(mbrId);
+
+            m.addAttribute("faqDTO",faqDTO);
+            System.out.println("Modify_faqDTO = " + faqDTO);
+            faqService.modify(faqDTO);
+
+
+            rattr.addFlashAttribute("msg","MOD_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("faqDTO",faqDTO);
+
+            m.addAttribute("msg","MOD_ERR");
+            rattr.addAttribute("faqNo", faqDTO.getFaqNo());
+
+            return "redirect:/bos/faqModify";
+        }
+        return "redirect:/bos/faqList";
+    }
 
 }

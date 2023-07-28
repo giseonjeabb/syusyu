@@ -238,7 +238,6 @@ public class AdminNoticeController {
                 throw new Exception("modify failed!!!!!!!!!!!!!!!!!!!!!");
 
             rattr.addFlashAttribute("msg", "MOD_OK");
-            return "redirect:/adminNotice/list";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,7 +248,8 @@ public class AdminNoticeController {
 
             return "redirect:/adminNotice/modify";
         }
-
+        return "redirect:/adminNotice/list";
+//        return ViewPath.BOS_CS+"BOS_FaqList";
     }
 
 @GetMapping("/modify")

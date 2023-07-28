@@ -208,7 +208,7 @@
       const faqNo=$(this).data("faq-no");
       location.href = '/bos/faqModify?faqNo='+faqNo;
     });
-    <%--location.href = '/adminNotice/modify?notcNo=${noticeDTO.notcNo}';--%>
+
 
 
 

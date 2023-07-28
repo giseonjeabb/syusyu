@@ -85,34 +85,32 @@ a:hover {
   margin-top: 10px;
   outline: none;
   border-bottom: 1px solid #eee;
-      }
+}
 
 #writeBtn{
-  background-color: black;
-  margin-bottom: 10px;
-  border: none;
-  padding: 6px 12px;
-  font-size: 16px;
-  cursor: pointer;
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 75px;
+  font-size: 15px;
   border-radius: 5px;
-  float: right;
-  margin: 0 5px;
+  margin :0 5px;
 }
 #writeBtn:hover {
   background: #5c636a;
 }
 
 #listBtn{
-  background-color: black;
-  margin-bottom: 10px;
-  border: none;
-  padding: 6px 12px;
-  font-size: 16px;
-  cursor: pointer;
+  color: #fff;
+  background: #212529;
+  border: 0;
+  height: 30px;
+  width: 75px;
+  font-size: 15px;
   border-radius: 5px;
-  float: right;
-  margin: 0 5px;
+  margin :0 5px;
 }
-#listBtn:hover {
+#listBtn:hover{
   background: #5c636a;
 }
