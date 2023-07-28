@@ -26,9 +26,9 @@ import java.util.Map;
 public class FOS_ProductController {
 
     @Autowired
-    FOS_CategoryService FOSFOSCategoryService;
+    FOS_CategoryService fosCategoryService;
     @Autowired
-    FOS_ProductService FOSFOSProductService;
+    FOS_ProductService fosProductService;
 
 
     /**
@@ -42,9 +42,9 @@ public class FOS_ProductController {
      * @since 2023/07/06
      */
     @GetMapping("categories")
-    public ResponseEntity<Map<String, Object>> CategoryAllList(HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> categoryAllList(HttpServletRequest request) {
         try {
-            Map<String, Object> categories = FOSFOSCategoryService.getCategoryAllList();
+            Map<String, Object> categories = fosCategoryService.getCategoryAllList();
 
             if (categories == null) {
                 System.out.println("categories is null");
@@ -66,7 +66,7 @@ public class FOS_ProductController {
 
 
     @GetMapping("products")
-    public String ProductLargeView() {
+    public String productLargeView() {
 
         return ViewPath.FOS_PRODUCT + "productList";
     }
@@ -80,7 +80,7 @@ public class FOS_ProductController {
      * @since 2023/07/06
      */
     @GetMapping("products/{middleNo}/{smallNo}")
-    public String ProductListView(@PathVariable("middleNo") Integer middleNo,
+    public String productListView(@PathVariable("middleNo") Integer middleNo,
                                   @PathVariable("smallNo") Integer smallNo,
                                   Model model) {
         model.addAttribute("middleNo", middleNo);
@@ -111,7 +111,7 @@ public class FOS_ProductController {
                 middleNo = 1;
                 smallNo = 1;
             }
-            productInfo = FOSFOSProductService.getProductList(middleNo, smallNo);
+            productInfo = fosProductService.getProductList(middleNo, smallNo);
             System.out.println(productInfo.get("확인"+"productList"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +155,7 @@ public class FOS_ProductController {
         try {
 
             //중분류 카테고리별 전체 상품리스트와 전체 갯수, 카테고리를 map으로 보냄
-            productInfo = FOSFOSProductService.getProductAllList(middleNo);
+            productInfo = fosProductService.getProductAllList(middleNo);
             System.out.println("나와라!!:"+productInfo.get("productList"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,7 +172,7 @@ public class FOS_ProductController {
         List<ProductDTO> productStatusList = null;
 
         try {
-            productStatusList = FOSFOSProductService.getProductStatus(prodIdArr);
+            productStatusList = fosProductService.getProductStatus(prodIdArr);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productStatusList, HttpStatus.BAD_REQUEST);
@@ -201,7 +201,7 @@ public class FOS_ProductController {
 
         try {
             System.out.println("prodId = " + prodId);
-            productDetail = FOSFOSProductService.getProduct(prodId);
+            productDetail = fosProductService.getProduct(prodId);
 
             product = (ProductDTO) productDetail.get("productDetail");
             m.addAttribute("productDetail", product);
