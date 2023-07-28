@@ -113,7 +113,7 @@
                 #{ordStus}
             </foreach>
         </if>
-        ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
+        ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO DESC
     </select>
 
     <select id="countByOrdStus" resultType="Map">
