@@ -33,29 +33,6 @@ public class InqryController {
 
         private static final String CURR_IMAGE_REPO_PATH = "../../../image/inqry";
 
-//        @PostMapping("/remove")
-//        public String remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-//            InqryDTO inqry = new InqryDTO();
-//
-//            Integer mbrId = (Integer)session.getAttribute("mbrId");
-//            // 세션에서 regrId 값 가져오기
-//            try {
-//                inqryService.remove(inqryNo, mbrId.toString());
-//                System.out.println("query resert"+inqryService.remove(inqryNo, mbrId.toString()));
-//                System.out.println("inqryNo = " + inqryNo);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-////                rattr.addFlashAttribute("msg", "DEL_ERR");
-//            }
-//
-//            m.addAttribute("page", page);
-//            m.addAttribute("pageSize", pageSize);
-//
-//            return ViewPath.FOS_MYPAGE +"inqryList";
-//            //"redirect:" +
-//
-//        }
-
     @PostMapping("/remove")
     @ResponseBody
     public int remove(Integer inqryNo, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
@@ -107,8 +84,6 @@ public class InqryController {
             return ViewPath.FOS_MYPAGE +"inqry";
         }
 
-
-
         @GetMapping("/inqryList")
         public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 //            if(!loginCheck(request))
@@ -131,7 +106,16 @@ public class InqryController {
                 m.addAttribute("page", page);
                 m.addAttribute("pageSize", pageSize);
                 m.addAttribute("totalCnt", totalCnt);
-                // 모델에 inqry 테이블의 컬럼 개수 추가
+
+                // inqryTypeTextMap을 Model에 추가
+                Map<String, String> inqryTypeTextMap = new HashMap<>();
+                inqryTypeTextMap.put("91", "주문문의");
+                inqryTypeTextMap.put("92", "상품문의");
+                inqryTypeTextMap.put("93", "배송문의");
+                inqryTypeTextMap.put("94", "결제문의");
+                inqryTypeTextMap.put("95", "이 상품 찾아요");
+                inqryTypeTextMap.put("96", "건의사항 있어요");
+                m.addAttribute("inqryTypeTextMap", inqryTypeTextMap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -139,7 +123,7 @@ public class InqryController {
             return ViewPath.FOS_MYPAGE +"inqryList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
         }
 
-        @PostMapping("/modify")
+        @GetMapping("/modify")
         public String modify(Integer inqryNo, Model m, HttpSession session, RedirectAttributes rattr){
 
             try {
@@ -147,6 +131,7 @@ public class InqryController {
                 String Content = inqryService.getContent(inqryNo);
                 m.addAttribute("inqryDTO", inqryDTO);
                 m.addAttribute("Content", Content);
+                System.out.println("inqryNo = " + inqryNo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -182,17 +167,14 @@ public class InqryController {
         // inqryDTO 객체에 클라이언트에서 전송한 데이터가 이미 매핑되어 있습니다.
         // 따라서 이후에 inqryDTO 객체를 사용하여 title과 RegDttm 정보를 가져와 사용할 수 있습니다.
 
-        // 예시: title과 RegDttm 정보를 로깅하여 확인해보기
-        System.out.println("inqryTp: " + inqryDTO.getInqryTp());
-        System.out.println("title: " + inqryDTO.getTitle());
-        System.out.println("Content: " + inqryDTO.getContent());
-        System.out.println("RegDttm: " + inqryDTO.getRegDttm());
+        Integer regrId = (Integer)session.getAttribute("mbrId");
 
         // 모델에 inqryDTO 객체를 추가하여 클라이언트로 전달
         m.addAttribute("inqryDTO", inqryDTO);
 
         try {
             // InqryService를 통해 데이터 삽입
+            inqryDTO.setRegrId(regrId);
             int result = inqryService.insert(inqryDTO);
             // 필요한 경우 'result' 변수를 사용합니다. (예: 오류 처리 또는 추가 처리).
 
@@ -206,12 +188,25 @@ public class InqryController {
         }
     }
 
+        // 1:1 문의 수정을 처리하는 메서드
+        @PostMapping("/modify")
+        @ResponseBody
+        public int updateInqry(@RequestBody InqryDTO inqryDTO, HttpSession session) {
+            Integer regrId = (Integer) session.getAttribute("mbrId");
+            inqryDTO.setRegrId(regrId);
 
-//        @GetMapping("/write")
-//        public String write(Model m) {
-//            m.addAttribute("mode", "new");
-//            return "board";
-//        }
-//
+            try {
+                // inqryDTO에서 필요한 데이터를 추출하고 비즈니스 로직을 처리합니다.
+                // 이후 inqryService를 통해 DB에 업데이트 작업을 수행합니다.
+                inqryService.modify(inqryDTO);
 
+                // 성공적으로 등록되었음을 클라이언트에게 알리기 위해 1 반환
+                return 1;
+            } catch (Exception e) {
+                // 예외 처리가 필요한 경우 처리합니다.
+                e.printStackTrace();
+                // 오류가 발생했음을 나타내는 오류 코드를 반환
+                return -1;
+            }
+        }
 }

@@ -50,9 +50,9 @@
 
     <insert id="insert" parameterType="InqryDTO">
         INSERT INTO inqry
-            (TITLE, CONTENT, REG_DTTM)
+            (INQRY_TP, TITLE, CONTENT, REGR_ID, REG_DTTM)
         VALUES
-            (#{title}, #{content}, #{regDttm})
+            (#{inqryTp}, #{title}, #{content}, #{regrId},#{regDttm})
     </insert>
 
     <select id="count" resultType="int">
@@ -69,10 +69,11 @@
 
     <update id="update" parameterType="InqryDTO">
         UPDATE inqry
-        SET   title = #{title}
-          , content = #{content}
-          , up_date = now()
-        WHERE inqryNo = #{inqryNo} and writer = #{writer}
+        SET INQRY_TP = #{inqryTp},
+            TITLE = #{title},
+            CONTENT = #{content},
+            UPD_DTTM = now()
+        WHERE INQRY_NO = #{inqryNo} AND REGR_ID = #{regrId}
     </update>
 
     <delete id="delete" parameterType="map">

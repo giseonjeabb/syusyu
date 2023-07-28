@@ -16,6 +16,7 @@
 <!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
 <!--        <property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"/>-->
         <property name="username" value="syur1" />
+<!--        <property name="username" value="root" />-->
 <!--        <property name="username" value="Han" />-->
         <property name="password" value="1234" />
     </bean>
