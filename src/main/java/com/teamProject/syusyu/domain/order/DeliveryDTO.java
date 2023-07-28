@@ -18,6 +18,13 @@ public class DeliveryDTO {
     private Date updDttm;     // 수정일시
     private Integer updId;    // 수정자
 
+    public DeliveryDTO(int ordDtlNo, String dlvCom, String trckNo, int regId) {
+        this.ordDtlNo = ordDtlNo;
+        this.dlvCom = dlvCom;
+        this.trckNo = trckNo;
+        this.regId = regId;
+    }
+
     public int getDlvNo() {
         return dlvNo;
     }

@@ -1,6 +1,8 @@
 package com.teamProject.syusyu.service.bos.order;
 
+import com.teamProject.syusyu.dao.order.DeliveryDAO;
 import com.teamProject.syusyu.dao.order.OrdDtlDAO;
+import com.teamProject.syusyu.domain.order.DeliveryDTO;
 import com.teamProject.syusyu.domain.order.OrdDtlDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import org.junit.Test;
@@ -24,6 +26,9 @@ public class BOS_OrderServiceImplTest {
 
     @Autowired
     OrdDtlDAO ordDtlDAO;
+
+    @Autowired
+    DeliveryDAO deliveryDAO;
 
     @Test
     public void getOrderList() throws Exception {
@@ -54,5 +59,26 @@ public class BOS_OrderServiceImplTest {
             assertNotNull(ordDtlDTO.getUpdDttm());
             assertNotNull(ordDtlDTO.getUpdrId());
         }
+    }
+
+    @Test
+    public void dispatchOrderTest() throws Exception {
+        // 1. positive test
+        // 1-1. 필요한 데이터 세팅
+        List<Integer> ordDtlNoList = Arrays.asList(246, 247, 251, 255, 261);
+        List<String> dlvComList = Arrays.asList("1", "3", "5", "7", "9");
+        List<String> trckNoList = Arrays.asList("123456789012", "987654321098", "456789123456", "654321987654", "789123456789");
+
+        // 1-2. 발송처리 진행
+        service.dispatchOrder(ordDtlNoList, dlvComList, trckNoList, 80001, "30");
+
+        // 1-3. 데이터 검증
+        // 1-3-1. delivery 테이블에 데이터 잘 들어갔는지 검증
+        List<DeliveryDTO> list = deliveryDAO.selectAllDelivery();
+        System.out.println("list = " + list);
+
+        // 1-3-2. ord_dtl에 상태값 잘 바뀌었는지 확인
+        // 1-3-3. ord_stus_hist에 데이터 잘 들어갔는지 검증
+
     }
 }

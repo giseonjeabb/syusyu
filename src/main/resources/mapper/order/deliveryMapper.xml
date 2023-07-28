@@ -2,28 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teamProject.deliveryMapper">
+<mapper namespace="com.teamProject.syusyu.deliveryMapper">
     <insert id="insertDelivery" parameterType="DeliveryDTO" useGeneratedKeys="true" keyProperty="dlvNo">
-        INSERT INTO DELIVERY ( ORD_DTL_NO
-                                    , DLV_STUS
-                                    , DLV_TP
-                                    , DISPATCH_DTTM
-                                    , PICKUP_DTTM
-                                    , SHMT_DTTM
-                                    , CMPL_DTTM
-                                    , DLV_COM
-                                    , TRCK_NO
-                                    , REG_ID)
+        INSERT INTO DELIVERY ( ORD_DTL_NO # 주문상세번호
+                             , DLV_STUS # 배송상태
+                             , DLV_TP # 배송방법
+                             , DISPATCH_DTTM # 발송처리일시
+                             , DLV_COM # 택배사
+                             , TRCK_NO # 송장번호
+                             , REG_ID) # 등록자
         VALUES ( #{ordDtlNo}
-               , #{dlvStus}
-               , #{dlvTp}
-               , #{dispatchDttm}
-               , #{pickupDttm}
-               , #{shmtDttm}
-               , #{cmplDttm}
+               , 10 # 발송완료
+               , 10 # 배송방법(10 = 택배, 등기, 소포)
+               , now()
                , #{dlvCom}
                , #{trckNo}
-               , #{regId})
+               , #{regId});
     </insert>
 
     <select id="selectDelivery" parameterType="int" resultType="DeliveryDTO">

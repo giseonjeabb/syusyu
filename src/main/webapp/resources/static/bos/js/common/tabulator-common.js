@@ -28,7 +28,7 @@ syusyu.common.Tabulator = {
             theme: "bootstrap",
             data: _tableData,
             columns: _columns,
-            layout: "fitColumns",
+            layout: "fitDataFill",
             responsiveLayout: "hide",
             tooltips: true,
             addRowPos: "top",

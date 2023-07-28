@@ -13,4 +13,6 @@ public interface BOS_OrderService {
     int updateOrderStatus(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception;
 
     int addOrderStatusHistory(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception;
+
+    void dispatchOrder(List<Integer> ordDtlNoList, List<String> dlvComList, List<String> trckNoList, int mbrId, String ordStus) throws Exception;
 }

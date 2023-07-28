@@ -68,7 +68,7 @@ public class BOS_OrderController {
      * 주문들을 발송처리한다.
      * 주문확인(20)된 주문 건의 주문상태를 배송중(30)으로 변경한다.
      *
-     * @param ordDtlNoList 주문확인 처리할 주문의 주문상세번호를 담은 리스트
+     * @param payload JSON 형식의 페이로드, 키는 "ordDtlNoList", "dlvComList", "trckNoList" 각각에 대응되는 리스트
      * @param mbrId 세션에서 가져온 사용자 ID
      * @return ResponseEntity, HTTP 응답 상태와 메시지를 포함
      * @author min
@@ -76,9 +76,12 @@ public class BOS_OrderController {
      */
     @PostMapping("/orders/status/dispatch")
     @ResponseBody
-    public ResponseEntity<String> dispatchOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
+    public ResponseEntity<String> dispatchOrder(@RequestBody Map<String, Object> payload, @SessionAttribute int mbrId) {
         try {
-            service.processUpdateOrderStatus(ordDtlNoList, mbrId, "30");
+            List<Integer> ordDtlNoList = (List<Integer>) payload.get("ordDtlNoList");
+            List<String> dlvComList = (List<String>) payload.get("dlvComList");
+            List<String> trckNoList = (List<String>) payload.get("trckNoList");
+            service.dispatchOrder(ordDtlNoList, dlvComList, trckNoList, mbrId, "30");
 
         } catch (Exception e) {
             e.printStackTrace();
