@@ -302,24 +302,9 @@ dispatchManage.function = {
      */
     showCountByOrdStus(countByOrdStusList) {
         // 1. 신규주문(주문확인 전)에 해당하는 주문 건 개수를 할당해준다.
-        dispatchManage.function.updateOrderCount('#newOrderCnt', '10', countByOrdStusList);
+        syusyu.common.Bos.updateOrderCount('#newOrderCnt', ['10'], countByOrdStusList);
         // 2. 신규주문(주문확인 후)에 해당하는 주문 건 개수를 할당해준다.
-        dispatchManage.function.updateOrderCount('#orderConfirmCnt', '20', countByOrdStusList);
-    },
-
-    /**
-     * 주어진 주문 상태에 따른 주문 건수를 HTML 요소에 업데이트한다.
-     *
-     * @param {String} id 주문 건수를 표시할 HTML 요소의 ID
-     * @param {String} status 주문 상태 코드
-     * @param {Array} countByOrdStusList 주문 상태별 주문 건수가 담긴 객체배열
-     * @author min
-     * @since 2023/07/27
-     */
-    updateOrderCount(id, status, countByOrdStusList) {
-        const matchingStatus = countByOrdStusList.find(countByOrdStus => countByOrdStus.ORD_STUS === status);
-        const orderCount = matchingStatus ? matchingStatus.ORD_STUS_CNT : 0;
-        document.querySelector(id).innerHTML = orderCount;
+        syusyu.common.Bos.updateOrderCount('#orderConfirmCnt', ['20'], countByOrdStusList);
     },
 
     validateOrderDispatch(checkedData) {
