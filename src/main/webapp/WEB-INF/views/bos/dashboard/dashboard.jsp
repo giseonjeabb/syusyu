@@ -1,6 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--chart javascript--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="<c:url value="${jsUrlBos}/common/chart-area-demo.js"/>" defer></script>
+<script src="<c:url value="${jsUrlBos}/common/chart-bar-demo.js"/>" defer></script>
+<script src="<c:url value="${jsUrlBos}/common/chart-pie-demo.js"/>" defer></script>
+
 <%--<div id="layoutSidenav_content">--%>
 <%--    <main>--%>
 <%--        <div class="container-fluid px-4">--%>
