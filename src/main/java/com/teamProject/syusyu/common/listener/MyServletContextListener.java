@@ -19,7 +19,7 @@ public class MyServletContextListener implements ServletContextListener {
         // BOS
         sc.setAttribute("cssUrlBos","/static/bos/css");
         sc.setAttribute("jsUrlBos", "/static/bos/js");
-        sc.setAttribute("editorUrlBos","/static/bos/smarteditor2");
+        sc.setAttribute("summerNote","/static/bos/summernote");
 
         // tiles
         sc.setAttribute("title", "syusyu");

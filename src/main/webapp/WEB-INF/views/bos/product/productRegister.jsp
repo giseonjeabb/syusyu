@@ -2,17 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-    <script src="<c:url value="${jsUrlBos}/product/productRegister.js"/>"></script>
-    <link href="<c:url value="${cssUrlBos}/product/productRegister.css"/>" rel="stylesheet">
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
+    <script src="<c:url value='${jsUrlBos}/product/productRegister.js'/>"></script>
+    <script src="<c:url value='/static/bos/summernote/summernote-lite.js'/>"></script>
+    <link href="<c:url value='/static/bos/summernote/summernote-lite.css'/>" rel="stylesheet">
+    <script src="<c:url value='/static/bos/summernote/lang/summernote-ko-KR.js'/>"></script>
 </head>
 
 
@@ -23,7 +16,7 @@
 
     <table class="table m-3">
         <tr>
-            <th class="col-1" scope="row">카테고리</th>
+            <th class="col-1">카테고리</th>
             <td class="col-11">
 
                 <div class="form-group row mt-6 no-gutters h-auto m-2">
@@ -60,31 +53,33 @@
         </tr>
 
         <tr>
-            <th scope="row">상품명</th>
+            <th>상품명</th>
             <td><input type="text" class="form-control" placeholder="상품명 60자" id="product_name"></td>
         </tr>
         <tr>
-            <th scope="row">판매가</th>
+            <th>판매가</th>
             <td><input type="text" class="form-control" placeholder="판매가 60자" id="product_price"></td>
 
         </tr>
+        <%--할인--%>
         <tr>
-            <th scope="row" >할인</th>
+            <th>할인</th>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="dc_btnradio" id="dc_btnradio" autocomplete="off" checked="">
+                    <input type="radio" class="btn-check" name="dc_btnradio" id="dc_btnradio" autocomplete="off">
                     <label class="btn btn-outline-dark" for="dc_btnradio">설정함</label>
                     <input type="radio" class="btn-check" name="dc_btnradio" id="dc_btnradio_no" autocomplete="off" checked="">
                     <label class="btn btn-outline-dark" for="dc_btnradio_no">설정안함</label>
                 </div>
             </td>
         </tr>
-        <tr>
-            <th scope="row" rowspan="2">기본할인</th>
+
+        <tr class="dc_content">
+            <th rowspan="2">기본할인</th>
             <td>
-                <div class="input-group mb-3 mt-2 fs-5">
-                    <input type="text" class="form-control col-3" aria-label="Amount (to the nearest dollar)" placeholder="할인율" id="product_per">
-                    <span class="input-group-text">%</span>
+                <div class="input-group mb-3 mt-2 col-6">
+                    <input type="text" class="form-control col-4" aria-label="Amount" placeholder="할인율" id="product_per">
+                    <span class="input-group-text col-1">%</span>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input chk-dark" type="checkbox" value="" id="flexCheckChecked" checked="">
@@ -95,7 +90,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <tr class="dc_content">
             <td>
                 <div class="calendar d-flex align-items-center">
                     <div class="input col-4">
@@ -108,14 +103,14 @@
                                class="inp datepicker hasDatepicker">
                     </div>
                 </div>
-
             </td>
         </tr>
+        <%--팬매기간--%>
         <tr>
-            <th scope="row">판매기간</th>
+            <th>판매기간</th>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="sale_date" id="sale_date" autocomplete="off" checked="">
+                    <input type="radio" class="btn-check" name="sale_date" id="sale_date" autocomplete="off">
                     <label class="btn btn-outline-dark" for="sale_date">설정함</label>
                     <input type="radio" class="btn-check" name="sale_date" id="no_sale_date" autocomplete="off" checked="">
                     <label class="btn btn-outline-dark" for="no_sale_date">설정안함</label>
@@ -123,8 +118,8 @@
 
             </td>
         </tr>
-        <tr>
-            <th scope="row del">기간설정</th>
+        <tr class="sale_date">
+            <th>기간설정</th>
             <td class="d-flex align-items-end">
                 <div class="date_range_container btn-group">
                     <button data-interval="3" class="btn btn-outline-dark date_range active">3일</button>
@@ -147,21 +142,26 @@
                     </div>
                 </div>
             </td>
-
-
         </tr>
+        <%--재고수량--%>
         <tr>
-            <th scope="row">재고수량</th>
+            <th>재고수량</th>
             <td>
-                <div class="input-group">
-                    <input type="text" class="form-control " aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
-                    <span class="input-group-text">개</span>
+                <div class="input-group mb-3 row">
+                    <div class="col">
+                        <input type="text" class="form-control" aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
+
+                    </div>
+                    <div class="col">
+                        <span class="input-group-text col-auto col">개</span>
+
+                    </div>
                 </div>
             </td>
         </tr>
     <%-- 옵션--%>
         <tr>
-            <th scope="row">옵션입력</th>
+            <th>옵션입력</th>
             <td>
                 <div>
                     <label for="" class="col-sm-2 col-form-label">옵션명</label>
@@ -211,7 +211,7 @@
 
 
         <tr>
-            <th scope="row">옵션목록</th>
+            <th>옵션목록</th>
             <td>
                 <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
 
