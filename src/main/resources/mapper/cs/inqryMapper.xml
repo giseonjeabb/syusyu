@@ -69,10 +69,11 @@
 
     <update id="update" parameterType="InqryDTO">
         UPDATE inqry
-        SET   title = #{title}
-          , content = #{content}
-          , up_date = now()
-        WHERE inqryNo = #{inqryNo} and writer = #{writer}
+        SET INQRY_TP = #{inqryTp},
+            TITLE = #{title},
+            CONTENT = #{content},
+            UPD_DTTM = now()
+        WHERE INQRY_NO = #{inqryNo} AND REGR_ID = #{regrId}
     </update>
 
     <delete id="delete" parameterType="map">

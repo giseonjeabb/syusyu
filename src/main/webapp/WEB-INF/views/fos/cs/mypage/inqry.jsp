@@ -190,8 +190,8 @@
     };
 
     $("#btnRegister").on("click", function () {
-        if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
-        preventClick++;  //더블클릭 방지용 변수 하나올리고 작업
+        // if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
+        // preventClick++;  //더블클릭 방지용 변수 하나올리고 작업
 
         var currentDate = new Date();
         var formattedDate = currentDate.toISOString(); // ISO 8601 형식으로 변환
@@ -211,13 +211,17 @@
             dataType: 'text',
             data: JSON.stringify(inqryData),
             success: function (result) {
-                regYn = JSON.parse(result);
-                go_inqryList.submit();
-
-                    alert("inqryType"+inqryType);
+                if(confirm("1:1문의를 등록하시겠습니까?") == true){
+                    regYn = JSON.parse(result);
+                    go_inqryList.submit();
                     alert("등록이 완료되었습니다.");
                     location.href = "http://localhost:80/inqry/inqryList";
                     preventClick = 0;
+                }
+                else{
+                    return ;
+                }
+
             },
             error: function () {
                 alert("error reg");
@@ -386,4 +390,5 @@
             }
         });
     }
+
 </script>

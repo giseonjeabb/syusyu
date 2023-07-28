@@ -124,6 +124,8 @@
             <button type="button" class="btn ty4  c-ty1 free w-108" id="btnRegister"><span>등록</span></button>
         </div>
     </section>
+<form id="tmp_form" action="/inqry/inqryList" method="get">
+    <input type="hidden" id="inqryNo" name="inqryNo" value="${inqryDTO.inqryNo}" />
 </form>
 
 </body>
@@ -179,5 +181,43 @@
     // 'inquiry_content' textarea 요소의 입력 내용이 변경될 때마다 글자 수를 업데이트합니다.
     inquiryContentTextarea.addEventListener("input", function() {
         char_Count(this.value);
+    });
+
+    $("#btnRegister").on("click", function () {
+        // 폼 필드에서 데이터 수집
+        const inqryType = $("#inquiry_classify").val();
+        const inqryTitle = $("#inquiry_subject").val();
+        const inqryContent = $("#inquiry_content").val();
+
+        // AJAX 요청에 보낼 데이터 객체 생성
+        const inqryData = {
+            inqryTp: inqryType,
+            title: inqryTitle,
+            content: inqryContent,
+            inqryNo: "${inqryDTO.inqryNo}" // inqryNo를 데이터 객체에 추가
+        };
+
+        // 서버로 AJAX 요청 보내기
+        $.ajax({
+            type: 'POST',
+            url: '/inqry/modify', // InqryController에 추가한 새로운 메서드의 URL로 수정
+            headers: { "content-type": "application/json" },
+            dataType: 'text',
+            data: JSON.stringify(inqryData),
+            success: function (result) {
+                if(confirm("1:1문의를 수정하시겠습니까?") == true){
+                // 서버로부터 받은 응답 처리
+                // 사용자에게 업데이트된 데이터 보여주기 (필요하면)
+                alert("수정이 완료되었습니다.");
+                location.href = "http://localhost:80/inqry/inqryList";
+                }
+                else{
+                    return ;
+                }
+            },
+            error: function () {
+                alert("1:1문의 업데이트에 실패하였습니다.");
+            }
+        });
     });
 </script>
