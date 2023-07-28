@@ -90,7 +90,7 @@
              , O.ORDR_ID                                                                                 # 구매자 ID
              , DLV.DISPATCH_DTTM                                                                         # 발송처리일
              , DLV.DLV_COM                                                                               # 택배사
-             , DLV.DLV_NO                                                                                # 송장번호
+             , DLV.TRCK_NO                                                                               # 송장번호
         FROM ORD O
                  JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
                  JOIN PAY P ON OD.ORD_NO = P.ORD_NO

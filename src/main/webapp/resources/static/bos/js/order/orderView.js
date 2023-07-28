@@ -100,7 +100,7 @@ orderView.function = {
         };
 
         syusyu.common.Ajax.sendJSONRequest('GET', '/bos/orders', param, res => {
-            orderView.function.showOrderList(res);
+            orderView.function.showOrderList(res.orderInfoList);
         }, null, true);
     },
 
