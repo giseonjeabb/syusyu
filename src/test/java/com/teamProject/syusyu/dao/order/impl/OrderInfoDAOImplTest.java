@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.dao.order.impl;
 
+import com.teamProject.syusyu.dao.order.OrderInfoDAO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;

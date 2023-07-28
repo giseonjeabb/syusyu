@@ -12,8 +12,7 @@ public class OrderInfoDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dispatchDttm; // 발송처리일
     private String dlvCom; // 택배사
-    private String dlvNo; // 송장번호
-
+    private String trckNo; // 송장번호
     private int prodId; // 상품아이디
     private String prodNm; // 상품명
     private String ordStus; // 주문상태
@@ -40,12 +39,44 @@ public class OrderInfoDTO {
         this.ordNo = ordNo;
     }
 
+    public int getOrdDtlNo() {
+        return ordDtlNo;
+    }
+
+    public void setOrdDtlNo(int ordDtlNo) {
+        this.ordDtlNo = ordDtlNo;
+    }
+
     public Date getOrdDttm() {
         return ordDttm;
     }
 
     public void setOrdDttm(Date ordDttm) {
         this.ordDttm = ordDttm;
+    }
+
+    public Date getDispatchDttm() {
+        return dispatchDttm;
+    }
+
+    public void setDispatchDttm(Date dispatchDttm) {
+        this.dispatchDttm = dispatchDttm;
+    }
+
+    public String getDlvCom() {
+        return dlvCom;
+    }
+
+    public void setDlvCom(String dlvCom) {
+        this.dlvCom = dlvCom;
+    }
+
+    public String getTrckNo() {
+        return trckNo;
+    }
+
+    public void setTrckNo(String trckNo) {
+        this.trckNo = trckNo;
     }
 
     public int getProdId() {
@@ -128,20 +159,20 @@ public class OrderInfoDTO {
         this.repImg = repImg;
     }
 
-    public int getOrdDtlNo() {
-        return ordDtlNo;
-    }
-
-    public void setOrdDtlNo(int ordDtlNo) {
-        this.ordDtlNo = ordDtlNo;
-    }
-
     public String getClaimStus() {
         return claimStus;
     }
 
     public void setClaimStus(String claimStus) {
         this.claimStus = claimStus;
+    }
+
+    public String getOrdrId() {
+        return ordrId;
+    }
+
+    public void setOrdrId(String ordrId) {
+        this.ordrId = ordrId;
     }
 
     public String getOrdrNm() {
@@ -164,7 +195,11 @@ public class OrderInfoDTO {
     public String toString() {
         return "OrderInfoDTO{" +
                 "ordNo=" + ordNo +
+                ", ordDtlNo=" + ordDtlNo +
                 ", ordDttm=" + ordDttm +
+                ", dispatchDttm=" + dispatchDttm +
+                ", dlvCom='" + dlvCom + '\'' +
+                ", trckNo='" + trckNo + '\'' +
                 ", prodId=" + prodId +
                 ", prodNm='" + prodNm + '\'' +
                 ", ordStus='" + ordStus + '\'' +
@@ -175,17 +210,20 @@ public class OrderInfoDTO {
                 ", payTp='" + payTp + '\'' +
                 ", realPayAmt=" + realPayAmt +
                 ", repImg='" + repImg + '\'' +
-                ", ordDtlNo=" + ordDtlNo +
                 ", claimStus='" + claimStus + '\'' +
+                ", ordrId='" + ordrId + '\'' +
                 ", ordrNm='" + ordrNm + '\'' +
                 ", recipient='" + recipient + '\'' +
                 '}';
     }
 
-
     public static final class Builder {
         private int ordNo;
+        private int ordDtlNo;
         private Date ordDttm;
+        private Date dispatchDttm;
+        private String dlvCom;
+        private String trckNo;
         private int prodId;
         private String prodNm;
         private String ordStus;
@@ -196,8 +234,8 @@ public class OrderInfoDTO {
         private String payTp;
         private int realPayAmt;
         private String repImg;
-        private int ordDtlNo;
         private String claimStus;
+        private String ordrId;
         private String ordrNm;
         private String recipient;
 
@@ -213,8 +251,28 @@ public class OrderInfoDTO {
             return this;
         }
 
+        public Builder ordDtlNo(int ordDtlNo) {
+            this.ordDtlNo = ordDtlNo;
+            return this;
+        }
+
         public Builder ordDttm(Date ordDttm) {
             this.ordDttm = ordDttm;
+            return this;
+        }
+
+        public Builder dispatchDttm(Date dispatchDttm) {
+            this.dispatchDttm = dispatchDttm;
+            return this;
+        }
+
+        public Builder dlvCom(String dlvCom) {
+            this.dlvCom = dlvCom;
+            return this;
+        }
+
+        public Builder trckNo(String trckNo) {
+            this.trckNo = trckNo;
             return this;
         }
 
@@ -268,13 +326,13 @@ public class OrderInfoDTO {
             return this;
         }
 
-        public Builder ordDtlNo(int ordDtlNo) {
-            this.ordDtlNo = ordDtlNo;
+        public Builder claimStus(String claimStus) {
+            this.claimStus = claimStus;
             return this;
         }
 
-        public Builder claimStus(String claimStus) {
-            this.claimStus = claimStus;
+        public Builder ordrId(String ordrId) {
+            this.ordrId = ordrId;
             return this;
         }
 
@@ -291,7 +349,11 @@ public class OrderInfoDTO {
         public OrderInfoDTO build() {
             OrderInfoDTO orderInfoDTO = new OrderInfoDTO();
             orderInfoDTO.setOrdNo(ordNo);
+            orderInfoDTO.setOrdDtlNo(ordDtlNo);
             orderInfoDTO.setOrdDttm(ordDttm);
+            orderInfoDTO.setDispatchDttm(dispatchDttm);
+            orderInfoDTO.setDlvCom(dlvCom);
+            orderInfoDTO.setTrckNo(trckNo);
             orderInfoDTO.setProdId(prodId);
             orderInfoDTO.setProdNm(prodNm);
             orderInfoDTO.setOrdStus(ordStus);
@@ -302,8 +364,8 @@ public class OrderInfoDTO {
             orderInfoDTO.setPayTp(payTp);
             orderInfoDTO.setRealPayAmt(realPayAmt);
             orderInfoDTO.setRepImg(repImg);
-            orderInfoDTO.setOrdDtlNo(ordDtlNo);
             orderInfoDTO.setClaimStus(claimStus);
+            orderInfoDTO.setOrdrId(ordrId);
             orderInfoDTO.setOrdrNm(ordrNm);
             orderInfoDTO.setRecipient(recipient);
             return orderInfoDTO;

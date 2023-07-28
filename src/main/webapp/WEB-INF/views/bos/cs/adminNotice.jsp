@@ -84,7 +84,7 @@
 
             <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i>  목록</button>
 <%--            <button type="button" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i>  등록 </button>--%>
-            <button type="button" id="modifyBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-toolbox"></i>  수정</button>
+            <button type="button" id="modifyBtn" data-notc-no="${noticeDTO.notcNo}" class="btn btn-primary btn-sm" ><i class="fa-solid fa-toolbox"></i>  수정</button>
             <button type="button" id="removeBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>  삭제</button>
 
 
@@ -155,6 +155,11 @@
            form.attr("action", "<c:url value='/adminNotice/remove'/>?page=${sc.page}&pageSize=${sc.pageSize}");
            form.attr("method", "post");
            form.submit();
+        });
+
+        $("#modifyBtn").on("click", function () {
+            const notcNo=$(this).data("notc-no");
+            location.href = '/adminNotice/modify?notcNo='+notcNo;
         });
 
     });

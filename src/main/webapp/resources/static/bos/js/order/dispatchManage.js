@@ -120,15 +120,24 @@ dispatchManage.eventHandler = {
     orderDispatchBtnClick() {
         // 1. 선택되어있는 셀을 가져온다.
         const checkedData = dispatchManageGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
-        // 0. 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
-        if (!dispatchManage.function.validateOrderStatus(checkedData, '20'))
+
+        // 발송처리가 가능한 상태인지 검증한다.
+        if (!dispatchManage.function.validateOrderDispatch(checkedData))
             return;
 
         // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
-        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
+        const ordDtlNoList = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
+        const dlvComList = checkedData.map(order => order.dlvCom); // 체크된 row에서 dlvCom(택배사코드)만 가져온다.
+        const trckNoList = checkedData.map(order => order.trckNo); // 체크된 row에서 송장번호만 가져온다.
+
+        const param = {
+            ordDtlNoList
+            , dlvComList
+            , trckNoList
+        };
 
         // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
-        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', checkedOrdDtlNoArr, () => {
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/dispatch', param, () => {
             alert("발송처리가 완료되었습니다.");
             dispatchManage.eventHandler.searchOrderConfirmBtnClick();
         });
@@ -201,29 +210,67 @@ dispatchManage.function = {
         const columns = [ // 테이블의 열을 정의한다.
             {
                 title: "Select",
+                width: 20,
                 formatter: "rowSelection",
                 titleFormatter: "rowSelection",
                 hozAlign: "center",
                 headerSort: false
             }, // 체크박스 컬럼 추가
-            {title: "주문번호", field: "ordNo"},
-            {title: "주문상세번호", field: "ordDtlNo"},
-            {title: "발송처리일", field: "dispatchDttm"},
-            {title: "택배사", field: "dlvCom"},
-            {title: "송장번호", field: "dlvNo"},
-            {title: "구매자명", field: "ordrNm"},
-            {title: "구매자 ID", field: "ordrId"},
-            {title: "수령인", field: "recipient"},
-            {title: "주문상태", field: "ordStusNm"},
-            {title: "주문상태코드", field: "ordStus", visible: false},
-            {title: "주문일시", field: "ordDttm"},
-            {title: "상품아이디", field: "prodId"},
-            {title: "상품명", field: "prodNm"},
-            {title: "옵션", field: "optNm"},
-            {title: "수량", field: "qty", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
-            {title: "상품금액", field: "prodAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
-            {title: "결제방법", field: "payTp"},
-            {title: "결제금액", field: "realPayAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
+            {title: "주문번호", field: "ordNo", width: 120},
+            {title: "주문상세번호", field: "ordDtlNo", width: 160},
+            {title: "발송처리일", field: "dispatchDttm", width: 200},
+            {
+                title: "택배사",
+                field: "dlvCom",
+                width: 160,
+                editor: "select",
+                editorParams: {
+                    values: {
+                        "1": "롯데택배",
+                        "2": "하나로택배",
+                        "3": "SC로지스",
+                        "4": "로젠택배",
+                        "5": "옐로우캡",
+                        "6": "동부택배",
+                        "7": "우체국택배",
+                        "8": "CJ대한통운",
+                        "9": "한진택배",
+                        "10": "대신택배"
+                    }
+                },
+                formatter: "lookup", // 보여지는 값을 다른 값으로 매핑
+                formatterParams: {
+                    "1": "롯데택배",
+                    "2": "하나로택배",
+                    "3": "SC로지스",
+                    "4": "로젠택배",
+                    "5": "옐로우캡",
+                    "6": "동부택배",
+                    "7": "우체국택배",
+                    "8": "CJ대한통운",
+                    "9": "한진택배",
+                    "10": "대신택배"
+                }
+            },
+            {title: "송장번호", field: "trckNo", width: 200, editor: "input"},
+            {title: "구매자명", field: "ordrNm", width: 120},
+            {title: "구매자 ID", field: "ordrId", width: 120},
+            {title: "수령인", field: "recipient", width: 120},
+            {title: "주문상태", field: "ordStusNm", width: 120},
+            {title: "주문상태코드", field: "ordStus", visible: false, width: 120},
+            {title: "주문일시", field: "ordDttm", width: 200},
+            {title: "상품아이디", field: "prodId", width: 120},
+            {title: "상품명", field: "prodNm", width: 120},
+            {title: "옵션", field: "optNm", width: 200},
+            {title: "수량", field: "qty", width: 120, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
+            {title: "상품금액", field: "prodAmt", width: 160, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
+            {title: "결제방법", field: "payTp", width: 120},
+            {
+                title: "결제금액",
+                field: "realPayAmt",
+                width: 200,
+                formatter: syusyu.common.Tabulator.formatNumberForTabulator
+            },
         ];
 
 
@@ -273,5 +320,19 @@ dispatchManage.function = {
         const matchingStatus = countByOrdStusList.find(countByOrdStus => countByOrdStus.ORD_STUS === status);
         const orderCount = matchingStatus ? matchingStatus.ORD_STUS_CNT : 0;
         document.querySelector(id).innerHTML = orderCount;
+    },
+
+    validateOrderDispatch(checkedData) {
+        // 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
+        if (!dispatchManage.function.validateOrderStatus(checkedData, '20'))
+            return false;
+
+        // 택배사와 송장번호가 입력되어있는지 확인한다.
+        if (checkedData.some(order => !order.dlvCom || !order.trckNo)) {
+            alert("택배사 또는 송장번호가 입력되지 않은 주문이 있습니다.");
+            return false;
+        }
+
+        return true;
     }
 }

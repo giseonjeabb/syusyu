@@ -291,6 +291,10 @@ th:nth-child(8),
 td:nth-child(8) {
  text-align: center;
 }
+th:nth-child(9),
+td:nth-child(9) {
+  text-align: center;
+}
 
 
 .wrap-pagination .page.paging-active {
@@ -299,17 +303,6 @@ td:nth-child(8) {
   background-color: #000; /* 선택된 페이지의 배경색을 검정색으로 설정 */
   padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
   border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
-}
-
-#writeNewBtn{
-  background-color: black;
-  margin-bottom: 10px;
-  border: none;
-  padding: 6px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  float: right;
 }
 
 
@@ -338,7 +331,7 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
 }
@@ -351,7 +344,7 @@ td:nth-child(8) {
   background: #212529;
   border: 0;
   height: 30px;
-  width: 50px;
+  width: 70px;
   font-size: 15px;
   border-radius: 5px;
 }

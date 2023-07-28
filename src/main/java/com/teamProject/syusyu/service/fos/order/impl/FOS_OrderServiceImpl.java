@@ -3,7 +3,7 @@ package com.teamProject.syusyu.service.fos.order.impl;
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.dao.order.*;
-import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
+import com.teamProject.syusyu.dao.order.OrderInfoDAO;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.domain.member.MemberDTO;

@@ -1,11 +1,14 @@
-package com.teamProject.syusyu.service.bos.order;
+package com.teamProject.syusyu.service.bos.order.impl;
 
+import com.teamProject.syusyu.dao.order.DeliveryDAO;
 import com.teamProject.syusyu.dao.order.OrdDtlDAO;
 import com.teamProject.syusyu.dao.order.OrdStusHistDAO;
-import com.teamProject.syusyu.dao.order.impl.OrderInfoDAO;
+import com.teamProject.syusyu.dao.order.OrderInfoDAO;
+import com.teamProject.syusyu.domain.order.DeliveryDTO;
 import com.teamProject.syusyu.domain.order.OrdStusHistDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
+import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +21,13 @@ public class BOS_OrderServiceImpl implements BOS_OrderService {
     private final OrderInfoDAO orderInfoDAO;
     private final OrdDtlDAO ordDtlDAO;
     private final OrdStusHistDAO ordStusHistDAO;
+    private final DeliveryDAO deliveryDAO;
 
-    public BOS_OrderServiceImpl(OrderInfoDAO orderInfoDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO) {
+    public BOS_OrderServiceImpl(OrderInfoDAO orderInfoDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, DeliveryDAO deliveryDAO) {
         this.orderInfoDAO = orderInfoDAO;
         this.ordDtlDAO = ordDtlDAO;
         this.ordStusHistDAO = ordStusHistDAO;
+        this.deliveryDAO = deliveryDAO;
     }
 
     /**
@@ -120,5 +125,50 @@ public class BOS_OrderServiceImpl implements BOS_OrderService {
         }
 
         return insertedRows;
+    }
+
+    /**
+     * 주어진 주문상세번호, 택배사코드, 송장번호 리스트로 주문을 발송처리한다.
+     * 주문 배송 정보를 추가하고, 주문의 상태를 발송완료로 업데이트한다.
+     *
+     * @param ordDtlNoList 발송처리할 주문의 주문상세번호를 담은 리스트
+     * @param dlvComList 택배사코드를 담은 리스트
+     * @param trckNoList 송장번호를 담은 리스트
+     * @param mbrId 사용자 ID
+     * @param ordStus 변경될 주문상태
+     * @throws Exception 주문 발송 처리 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/28
+     */
+    @Override
+    public void dispatchOrder(List<Integer> ordDtlNoList, List<String> dlvComList, List<String> trckNoList, int mbrId, String ordStus) throws Exception {
+        // 1. 주문배송 테이블에 정보를 넣어준다.
+        addDelivery(ordDtlNoList, dlvComList, trckNoList, mbrId);
+
+        // 2. 주문 건의 주문상태를 발송완료로 업데이트하고 주문상태이력을 추가한다.
+        processUpdateOrderStatus(ordDtlNoList, mbrId, ordStus);
+    }
+
+    /**
+     * 주어진 주문상세번호, 택배사코드, 송장번호 리스트로 주문 배송 정보를 추가한다.
+     * 리스트의 길이가 일치하지 않으면 IllegalArgumentException이 발생한다.
+     *
+     * @param ordDtlNoList 주문배송 정보를 추가할 주문의 주문상세번호를 담은 리스트
+     * @param dlvCom 택배사코드를 담은 리스트
+     * @param trckNo 송장번호를 담은 리스트
+     * @param mbrId 사용자 ID
+     * @throws Exception 배송 정보 추가 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/28
+     */
+    private void addDelivery(List<Integer> ordDtlNoList, List<String> dlvCom, List<String> trckNo, int mbrId) throws Exception {
+        if (ordDtlNoList.size() != dlvCom.size() || ordDtlNoList.size() != trckNo.size()) {
+            throw new IllegalArgumentException("올바르지 않은 데이터");
+        }
+
+        // 주문 건 list를 매개변수로 받아서 주문배송 정보를 생성해준다.
+        for (int i = 0; i < ordDtlNoList.size(); i++) {
+            deliveryDAO.insertDelivery(new DeliveryDTO(ordDtlNoList.get(i), dlvCom.get(i), trckNo.get(i), mbrId));
+        }
     }
 }
