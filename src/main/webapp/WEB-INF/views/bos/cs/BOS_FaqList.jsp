@@ -125,8 +125,12 @@
             <%---FAQ 등록날짜---%>
           <td><fmt:formatDate value="${faqDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
 
-          <td><button type="button" id="modifyBtn" class="modifyBtn" data-faq-no="${faqDTO.faqNo}">수정</button></td>
-          <td><button type="button" id="removeBtn" class="removeBtn">삭제</button></td>
+
+          <td><button type="button" id="modifyBtn" class="modifyBtn" data-faq-no="${faqDTO.faqNo}">수 정</button></td>
+
+          <td><button type="button" id="removeBtn" class="removeBtn" data-faq-no="${faqDTO.faqNo}">삭 제</button></td>
+
+
         </tr>
       </c:forEach>
 
@@ -188,10 +192,12 @@
 <script>
   $(document).ready(function (){
 
+
     $('.removeBtn').on("click", function(){
       if(!confirm("삭제 하시겠습니까 ?")) return;
       let form =  $('#form');
-      let url =  "<c:url value='/bos/faqRemove${searchCondition.queryString}'/>";
+      const faqNo = $(this).data("faq-no");
+      let url =  "/bos/faqRemove?faqNo=" + faqNo;
       form.attr("action", url);
       form.attr("method", "post");
       form.submit();
@@ -206,7 +212,7 @@
 
     $(".modifyBtn").on("click", function () {
       const faqNo=$(this).data("faq-no");
-      location.href = '/bos/faqModify?faqNo='+faqNo;
+      location.href = '/bos/faqModify?faqNo=' + faqNo;
     });
 
 
