@@ -6,6 +6,7 @@ deliveryManage = {
         setCalendarRangeByDays(deliveryManage.startDate, deliveryManage.endDate, 0);
 
         // 신규주문(주문확인 전 = 결제완료(10)) 리스트를 가져온다.
+        // 배송중(30-발송완료, 40-집화완료, 50-배송중)
         deliveryManage.eventHandler.searchInDeliveryBtnClick();
     },
 
@@ -16,6 +17,7 @@ deliveryManage = {
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
         const $statusButtonArea = document.querySelector('.status_button_area');
+        const $deliveryCompleteBtn = document.querySelector('#btn_delivery_complete'); // 배송완료 버튼
 
         $searchInDeliveryBtn.addEventListener('click', deliveryManage.eventHandler.searchInDeliveryBtnClick);
         $searchDeliveryCompleteBtn.addEventListener('click', deliveryManage.eventHandler.searchDeliveryCompleteBtnClick);
@@ -23,6 +25,7 @@ deliveryManage = {
         $dateRangeContainer.addEventListener('click', deliveryManage.eventHandler.dateRangeContainerClick);
         $orderStatusCheckbox.addEventListener('click', (e) => deliveryManage.eventHandler.orderStatusCheckboxClick(e));
         $statusButtonArea.addEventListener('click', deliveryManage.eventHandler.statusButtonAreaClick);
+        $deliveryCompleteBtn.addEventListener('click', deliveryManage.eventHandler.deliveryCompleteBtnClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -31,6 +34,25 @@ deliveryManage = {
 
 namespace("deliveryManage.eventHandler");
 deliveryManage.eventHandler = {
+    // 배송완료(주문상태 60으로 변경)
+    deliveryCompleteBtnClick() {
+        // 1. 선택되어있는 셀을 가져온다.
+        const checkedData = deliveryManageGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
+
+        // 선택한 셀에서 배송중(30-발송완료, 40-집화완료, 50-배송중) 상태가 아닌 데이터가 있는지 확인한다.
+        if (!syusyu.common.Bos.validateOrderStatus(checkedData, ['30', '40', '50']))
+            return;
+
+        // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
+        const checkedOrdDtlNoArr = checkedData.map(data => data.ordDtlNo); // 체크된 row에서 ordDtlNo(주문상세번호)만 가져온다.
+
+        // 3. 뽑아낸 데이터를 서버쪽으로 보내준다.
+        syusyu.common.Ajax.sendJSONRequest('POST', '/bos/orders/status/delivery-complete', checkedOrdDtlNoArr, () => {
+            alert("배송완료 처리가 완료되었습니다.");
+            deliveryManage.eventHandler.searchInDeliveryBtnClick();
+        });
+    },
+
     statusButtonAreaClick(e) {
         const that = e.target;
 
@@ -224,22 +246,6 @@ deliveryManage.function = {
 
 
         deliveryManageGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);
-    },
-
-    // 주문확인으로 변경이 가능한 주문 건인지 검증한다.
-    validateOrderStatus(checkedData, ordStus) {
-        // 1. checkedData 중에서 ordDtlNo가 10이 아닌 걸 찾는다.(filter 이용)
-        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== ordStus);
-
-        // 1-2. 존재하지 않으면 true를 반환한다.
-        if (notOrdStusPayCompleted.length === 0)
-            return true;
-
-        // 1-1. 아닌 게 존재하다면 주문확인 처리가 불가능한 주문건을 alert 창으로 띄워준다.
-        const alertOrdDtlNo = notOrdStusPayCompleted.map(data => data.ordDtlNo).join(', ');
-        alert("처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
-
-        return false;
     },
 
     /**
