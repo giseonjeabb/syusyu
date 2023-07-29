@@ -41,7 +41,7 @@ public class FaqController {
             m.addAttribute("totalCnt", 0);
         }
 
-        return ViewPath.FOS_MYPAGE + "faqList";
+        return ViewPath.FOS_HELP + "faqList";
     }
 
 

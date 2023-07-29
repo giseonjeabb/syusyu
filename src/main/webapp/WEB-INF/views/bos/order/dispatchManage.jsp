@@ -1,18 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<head>
-    <script src="<c:url value="${jsUrlBos}/order/dispatchManage.js"/>"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            dispatchManage.initLoad();
-            dispatchManage.bindButtonEvent();
-        });
-    </script>
-</head>
+<script src="<c:url value="${jsUrlBos}/order/dispatchManage.js"/>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        dispatchManage.initLoad();
+        dispatchManage.bindButtonEvent();
+    });
+</script>
 <div class="container-fluid px-4">
     <h1 class="mt-4">주문확인/발송관리</h1>
     <div class="status_button_area">
-        <div id="btn_search_new_order" class="status_button">
+        <div id="btn_search_new_order" class="status_button active">
             <a class="icon"></a>
             신규주문(주문확인 전)
             <span>

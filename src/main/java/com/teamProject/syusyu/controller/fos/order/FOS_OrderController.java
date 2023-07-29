@@ -46,6 +46,7 @@ public class FOS_OrderController {
             m.addAttribute("couponCnt", orderInfo.get("couponCnt"));       // 할인정보 - 쿠폰
             m.addAttribute("totPoint", orderInfo.get("totPoint"));         // 할인정보 - 포인트
             m.addAttribute("totProdAmt", orderInfo.get("totProdAmt"));     // 총 주문금액 - 총 상품금액
+            m.addAttribute("totDcPrc", orderInfo.get("totDcPrc"));         // 총 주문금액 - 총 할인적용금액
             m.addAttribute("dlvFee", orderInfo.get("dlvFee"));             // 총 주문금액 - 배송비
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,18 +82,18 @@ public class FOS_OrderController {
      * 사용자가 주문/결제 시 사용할 수 있는 쿠폰 리스트를 조회한다.
      * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
      *
-     * @param mbrId 세션에서 가져온 사용자 ID
-     * @param totProdAmt 총 상품금액
+     * @param mbrId    세션에서 가져온 사용자 ID
+     * @param totDcPrc 총 할인적용금액
      * @return 사용 가능한 쿠폰 리스트
      * @author min
-     * @since  2023/07/16
+     * @since 2023/07/16
      */
     @GetMapping("orders/available-coupons")
     @ResponseBody
-    public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totProdAmt) {
+    public ResponseEntity<List<CouponDTO>> orderCouponList(@SessionAttribute int mbrId, int totDcPrc) {
         List<CouponDTO> couponList = null;
         try {
-            couponList = service.getOrderCouponList(mbrId, totProdAmt);
+            couponList = service.getOrderCouponList(mbrId, totDcPrc);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(couponList, HttpStatus.BAD_REQUEST);
@@ -105,9 +106,9 @@ public class FOS_OrderController {
      * 사용자의 주문 정보를 조회한다.
      * 세션에서 사용자 ID를 가져오고, 요청 파라미터로부터 조회 시작일과 종료일을 받아 해당 기간 동안의 주문 정보를 조회한다.
      *
-     * @param mbrId 세션에서 가져온 사용자 ID
+     * @param mbrId     세션에서 가져온 사용자 ID
      * @param startDate 시작일
-     * @param endDate 종료일
+     * @param endDate   종료일
      * @return 해당 기간 동안의 주문 정보를 담은 OrderInfoDTO 객체의 리스트를 담은 ResponseEntity 객체.
      *         조회에 성공한 경우 상태 코드는 OK(200), 실패한 경우 BAD_REQUEST(400)를 반환한다.
      * @author min

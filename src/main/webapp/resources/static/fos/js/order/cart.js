@@ -136,7 +136,7 @@ cart.function = {
     showCartTotal: (cartProdList) => {
         const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
         const cartTotDcAmt = cartProdList.reduce((acc, cur) => acc + cur.totDcAmt, 0); // 총 할인금액
-        const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
+        const dlvFee = (0 < cartTotPrc - cartTotDcAmt && cartTotPrc - cartTotDcAmt < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
         const cartPayAmt = cartTotPrc - cartTotDcAmt + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
 
         const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액

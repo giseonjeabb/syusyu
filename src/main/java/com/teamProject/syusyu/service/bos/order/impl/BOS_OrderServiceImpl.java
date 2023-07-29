@@ -71,7 +71,7 @@ public class BOS_OrderServiceImpl implements BOS_OrderService {
         int insertedRows = addOrderStatusHistory(ordDtlNoList, mbrId, ordStus); // 2. 주문 상태 이력 추가
 
         if (updatedRows != ordDtlNoList.size() || insertedRows != ordDtlNoList.size())
-            throw new Exception("주문확인 처리에 실패하였습니다. 업데이트된 주문의 수 또는 추가된 주문 이력의 수가 전체 주문의 수와 일치하지 않습니다.");
+            throw new Exception("주문 상태 변경 처리에 실패하였습니다. 업데이트된 주문의 수 또는 추가된 주문 이력의 수가 전체 주문의 수와 일치하지 않습니다.");
 
     }
 
@@ -116,7 +116,7 @@ public class BOS_OrderServiceImpl implements BOS_OrderService {
      */
     @Override
     public int addOrderStatusHistory(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception {
-        OrdStusHistDTO ordStusHistDTO = null;
+        OrdStusHistDTO ordStusHistDTO;
         int insertedRows = 0;
 
         for (Integer ordDtlNo : ordDtlNoList) {

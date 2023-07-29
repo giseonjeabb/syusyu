@@ -87,7 +87,9 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
 
         // 총 주문금액 계산을 위한 값
         int totProdAmt = cartProdList.stream().mapToInt(CartProdDTO::getTotPrc).sum(); // 총 상품금액
-        int dlvFee = totProdAmt >= 50000 ? 0 : 3000;
+        int totDcPrc = cartProdList.stream().mapToInt(CartProdDTO::getTotDcPrc).sum(); // 총 할인적용금액
+
+        int dlvFee = totDcPrc >= 50000 ? 0 : 3000;
 
         Map<String, Object> orderInfo = new HashMap<>();
         orderInfo.put("cartProdList", cartProdList);
@@ -96,6 +98,7 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
         orderInfo.put("couponCnt", couponCnt);
         orderInfo.put("totPoint", totPoint);
         orderInfo.put("totProdAmt", totProdAmt);
+        orderInfo.put("totDcPrc", totDcPrc);
         orderInfo.put("dlvFee", dlvFee);
 
         return orderInfo;
@@ -238,16 +241,16 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
      * 사용자가 주문/결제 시 사용할 수 있는 쿠폰 리스트를 조회한다.
      * 총 상품금액에 따라 사용 가능한 쿠폰들이 달라진다.(최소 주문금액 만족해야 함)
      *
-     * @param mbrId 사용자의 아이디
-     * @param totProdAmt 총 상품금액
+     * @param mbrId    사용자의 아이디
+     * @param totDcPrc 총 할인적용금액
      * @return 사용 가능한 쿠폰 리스트
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
-     * @since  2023/07/16
+     * @since 2023/07/16
      */
     @Override
-    public List<CouponDTO> getOrderCouponList(int mbrId, int totProdAmt) throws Exception {
-        return ordDAO.selectOrderCoupon(mbrId, totProdAmt);
+    public List<CouponDTO> getOrderCouponList(int mbrId, int totDcPrc) throws Exception {
+        return ordDAO.selectOrderCoupon(mbrId, totDcPrc);
     }
 
     /**

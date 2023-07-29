@@ -24,8 +24,8 @@ couponPopup.eventHandler = {
 
         // 2. 할인금액을 계산한다.
         const optionDataset = selectedOption.dataset;
-        const totProdAmt = document.getElementById('totProdAmt').value; // 총 상품금액
-        const couponDcAmt = couponPopup.function.calcCouponDcAmt(totProdAmt, optionDataset.bneftp, optionDataset.cpnbnef); // 쿠폰할인금액
+        const totDcPrc = document.getElementById('totDcPrc').value; // 총 할인적용금액
+        const couponDcAmt = couponPopup.function.calcCouponDcAmt(totDcPrc, optionDataset.bneftp, optionDataset.cpnbnef); // 쿠폰할인금액
 
         // 3. 화면에 보여준다.
         document.querySelector('#btn_apply_coupon_dc > span').innerHTML = `-${formatPrice(couponDcAmt)}원 할인 적용`;
@@ -61,7 +61,7 @@ namespace("couponPopup.function");
 couponPopup.function = {
     getOrderCouponList: function () {
         const param = {
-            totProdAmt: document.getElementById('totProdAmt').value
+            totDcPrc: document.getElementById('totDcPrc').value
         };
 
         syusyu.common.Ajax.sendJSONRequest("GET", "/fos/orders/available-coupons", param, function (res) {
@@ -85,13 +85,13 @@ couponPopup.function = {
     calcCouponDcAmt: function (price, bnefTp, cpnBnef) {
         let discount = 0;
 
-        if (bnefTp === '01') { // 원단위 할인
-            discount = cpnBnef;
-
-        } else if (bnefTp === '02') { // '%' 단위 할인
+        if (bnefTp === '01') { // '%' 단위 할인
             discount = price * (cpnBnef / 100);
+
+        } else if (bnefTp === '02') { // 원단위 할인
+            discount = cpnBnef;
         }
 
-        return discount;
+        return Math.floor(discount);
     }
 }
