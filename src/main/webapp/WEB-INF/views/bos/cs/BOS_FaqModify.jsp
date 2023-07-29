@@ -36,12 +36,12 @@
             <select class="form-select" name="faqTp" id="exampleSelect1">
                 <option value="10" ${faqDTO.faqTp == '10' ? 'selected' : ''}> 회원정보 </option>
                 <option value="20" ${faqDTO.faqTp == '20' ? 'selected' : ''}> 배송  </option>
-                <option value="30" ${faqDTO.faqTp == '30' ? 'selected' : ''}> 주문/결제 </option>
-                <option value="30" ${faqDTO.faqTp == '40' ? 'selected' : ''}> 교환/반품 </option>
-                <option value="30" ${faqDTO.faqTp == '50' ? 'selected' : ''}> 이벤트혜택 </option>
-                <option value="30" ${faqDTO.faqTp == '60' ? 'selected' : ''}> 취소/환불 </option>
-                <option value="30" ${faqDTO.faqTp == '70' ? 'selected' : ''}> 이용안내 </option>
-                <option value="30" ${faqDTO.faqTp == '80' ? 'selected' : ''}> 쿠폰/포인트 </option>
+                <option value="30" ${faqDTO.faqTp == '30' ? 'selected' : ''}> 주문 / 결제 </option>
+                <option value="40" ${faqDTO.faqTp == '40' ? 'selected' : ''}> 교환/반품 </option>
+                <option value="50" ${faqDTO.faqTp == '50' ? 'selected' : ''}> 이벤트혜택 </option>
+                <option value="60" ${faqDTO.faqTp == '60' ? 'selected' : ''}> 취소 / 환불 </option>
+                <option value="70" ${faqDTO.faqTp == '70' ? 'selected' : ''}> 이용안내 </option>
+                <option value="80" ${faqDTO.faqTp == '80' ? 'selected' : ''}> 쿠폰 / 포인트 </option>
             </select>
         </div><br>
 
@@ -56,8 +56,8 @@
         <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required>${faqDTO.content}</textarea>
 
         <!-- Button -->
-        <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</button>
-        <button type="submit" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i> 수정</button>
+        <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i> 목 록</button>
+        <button type="submit" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i> 글 수정</button>
     </form>
 </div>
 
