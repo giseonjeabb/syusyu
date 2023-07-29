@@ -47,8 +47,12 @@ public class BOS_ProductController {
             model.addAttribute("jsonCateList", jsonCateList);
 
             //브랜드, 제조사, 제조국 화면에 나오게하기.
-            List<BrandDTO> brands=(List<BrandDTO>) productService.getProductInfo().get("brands");
-            model.addAttribute("brands", brands);
+            List<BrandDTO> brandList=(List<BrandDTO>) productService.getProductInfo().get("brandList");
+            List<BrandDTO> mftNatnList=(List<BrandDTO>) productService.getProductInfo().get("mftNatnList");
+            List<BrandDTO> mftcoList=(List<BrandDTO>) productService.getProductInfo().get("mftcoList");
+            model.addAttribute("brandList", brandList);
+            model.addAttribute("mftNatnList", mftNatnList);
+            model.addAttribute("mftcoList", mftcoList);
 
 
         } catch (Exception e) {

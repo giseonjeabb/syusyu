@@ -56,16 +56,6 @@
             <td><input type="text" class="form-control" placeholder="상품명 60자" id="product_name"></td>
         </tr>
         <tr>
-            <th>브랜드</th>
-            <td>
-                <select class="form-select h-auto fs-6" id="product_brand">
-                    <c:forEach var="brand" items="${brands}">
-                        <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
             <th>판매가</th>
             <td><input type="text" class="form-control" placeholder="판매가 60자" id="product_price"></td>
 
@@ -251,35 +241,35 @@
                     <div class="datatable-container">
                         <table id="opt_table" class="datatable-table" style="height: 300px; overflow: auto;">
                             <thead>
-                                <tr>
-                                    <th class="" rowspan="2"><input type="checkbox"></th>
-                                    <th data-sortable="true" colspan="2">옵션명</th>
-                                    <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">옵션가</a></th>
-                                    <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">재고수량</a></th>
-                                    <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">판매상태</a></th>
-                                    <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">사용여부</a></th>
-                                    <th data-sortable="true" rowspan="2">삭제</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <th class="" rowspan="2"><input type="checkbox"></th>
+                                <th data-sortable="true" colspan="2">옵션명</th>
+                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">옵션가</a></th>
+                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">재고수량</a></th>
+                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">판매상태</a></th>
+                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">사용여부</a></th>
+                                <th data-sortable="true" rowspan="2">삭제</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Y</td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-dark">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Y</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -299,8 +289,8 @@
             <td>
                 <input class="form-control " type="file" id="smlimg">
                 <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
-                추가이미지는 최대 9개까지 설정할 수 있습니다.
-                jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
+                    추가이미지는 최대 9개까지 설정할 수 있습니다.
+                    jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
             </td>
         </tr>
 <%-- 스마트에디터--%>
@@ -319,22 +309,26 @@
         </tr>
         <tr>
             <th scope="row">제품소재</th>
-            <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model"></td>
+            <td><input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr"></td>
 
         </tr>
         <tr>
-            <th scope="row">브랜드</th>
-            <td>
-                <select class="form-select" id="brand">
-                    <option>1</option>
-                </select>
-            </td>
+        <th>브랜드</th>
+        <td>
+            <select class="form-select" id="product_brand">
+                <c:forEach var="brand" items="${brandList}">
+                    <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
+                </c:forEach>
+            </select>
+        </td>
         </tr>
         <tr>
             <th scope="row">제조사</th>
             <td>
                 <select class="form-select" id="mftco">
-                    <option>1</option>
+                    <c:forEach items="${mftcoList}" var="item">
+                        <option value="${item.code}">${item.cdNm}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
@@ -342,8 +336,10 @@
         <tr>
             <th scope="row">제조국</th>
             <td>
-                <select class="form-select" id="mft_natn">
-                    <option>1</option>
+                <select class="form-select" id="mftNatn">
+                    <c:forEach items="${mftNatnList}" var="item">
+                        <option value="${item.code}">${item.cdNm}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>

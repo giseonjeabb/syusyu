@@ -16,4 +16,7 @@ public interface ProductDAO {
 
     List<ImageDTO> selectImageList(int prodId);
 
+    List<ProductDTO> selectMftNatnList();
+
+    List<ProductDTO> selectMftcoList();
 }

@@ -93,4 +93,14 @@ public class ProductDAOImpl implements ProductDAO {
     public List<ImageDTO> selectImageList(int prodId) {
         return session.selectList(namespace + "selectImageList", prodId);
     }
+
+    @Override
+    public List<ProductDTO> selectMftNatnList(){
+        return session.selectList(namespace+"selectMftNatnList");
+    }
+
+    @Override
+    public List<ProductDTO> selectMftcoList(){
+        return session.selectList(namespace+"selectMftcoList");
+    }
 }
