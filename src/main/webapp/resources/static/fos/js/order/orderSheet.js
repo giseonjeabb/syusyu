@@ -47,8 +47,8 @@ namespace("orderSheet.function");
 orderSheet.function = {
     setFinalAmt: function () {
         // 1. 계산에 필요한 금액들을 가져온다.
-        // 1) 총 상품금액
-        const totProdAmt = parseInt(document.querySelector('#totProdAmt').value);
+        // 1) 총 할인적용금액
+        const totDcPrc = parseInt(document.querySelector('#totDcPrc').value);
         // 2) 총 배송비
         const dlvFee = parseInt(document.querySelector('#dlvFee').value);
         // 3) 쿠폰 할인
@@ -60,8 +60,8 @@ orderSheet.function = {
         document.querySelector('#paidCouponPriceTxt > strong').innerHTML = `-${formatPrice(couponDcAmt)}`;
         document.querySelector('#issueSmoneyTxt > strong').innerHTML = `-${formatPrice(pntUseAmt)}`;
 
-        // 2. 최종 결제금액을 계산한다. (총 상품금액 + 배송비 - 쿠폰 할인 - 포인트 사용)
-        const finalPayAmt = totProdAmt + dlvFee - couponDcAmt - pntUseAmt;
+        // 2. 최종 결제금액을 계산한다. (총 할인적용금액 + 배송비 - 쿠폰 할인 - 포인트 사용)
+        const finalPayAmt = totDcPrc + dlvFee - couponDcAmt - pntUseAmt;
 
         // 3. 화면에 금액을 보여준다.(단순 보여주기용)
         document.querySelector('#paidPriceTxt').innerHTML = `<strong>${formatPrice(finalPayAmt)}</strong>`;
