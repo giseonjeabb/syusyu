@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.brandMapper">
+    <select id="selectBandList" resultType="BrandDTO">
+        SELECT BRND_ID
+             , BRND_NM
+             , BRND_KO_NM
+             , BRND_DESC
+             , BRND_LG_PATH
+             , LIKE_CNT
+             , REG_DTTM
+             , REGR_ID
+        FROM brand
+        where DEL_YN ='N'
+        ORDER BY BRND_ID asc
+    </select>
+</mapper>

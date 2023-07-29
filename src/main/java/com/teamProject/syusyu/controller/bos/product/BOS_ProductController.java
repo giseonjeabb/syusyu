@@ -3,9 +3,10 @@ package com.teamProject.syusyu.controller.bos.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.domain.order.CartProdDTO;
+import com.teamProject.syusyu.domain.product.BrandDTO;
 import com.teamProject.syusyu.domain.product.CategoryDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.service.bos.product.BOS_ProductService;
 import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,18 +27,29 @@ public class BOS_ProductController {
 
     @Autowired
     FOS_CategoryService CategoryService;
+    @Autowired
+    BOS_ProductService productService;
 
     @GetMapping("productRegister")
     public String addProduct(Model model){
         Map<String, Object> categories =null;
+        List<CategoryDTO> allCategory=null;
+        Map<String, Object> productInfo=null; //brand, 제조사, 제조국 정보
         try {
+            //select에 들어갈 category
             categories=CategoryService.getCategoryAllList();
             model.addAttribute("categories", categories);
 
-            List<CategoryDTO> allCategory = (List<CategoryDTO>)categories.get("cateList");
+            //카테고리json문자열로 바꾸고 자스에서 select된 카테고리들 비교해서 cateId찾기.
+            allCategory = (List<CategoryDTO>)categories.get("cateList");
             ObjectMapper mapper = new ObjectMapper();
             String jsonCateList = mapper.writeValueAsString(allCategory);  // List를 JSON 문자열로 변환
             model.addAttribute("jsonCateList", jsonCateList);
+
+            //브랜드, 제조사, 제조국 화면에 나오게하기.
+            List<BrandDTO> brands=(List<BrandDTO>) productService.getProductInfo().get("brands");
+            model.addAttribute("brands", brands);
+
 
         } catch (Exception e) {
             e.printStackTrace();

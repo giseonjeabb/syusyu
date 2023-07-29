@@ -18,6 +18,7 @@
         <typeAlias alias="ProductDTO" type="com.teamProject.syusyu.domain.product.ProductDTO"/>
         <typeAlias alias="ImageDTO" type="com.teamProject.syusyu.domain.product.ImageDTO"/>
         <typeAlias alias="ProdOptDTO" type="com.teamProject.syusyu.domain.product.ProdOptDTO"/>
+        <typeAlias alias="BrandDTO" type="com.teamProject.syusyu.domain.product.BrandDTO"/>
 
         <!-- order -->
         <typeAlias alias="CartProdDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>

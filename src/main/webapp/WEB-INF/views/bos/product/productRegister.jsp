@@ -56,6 +56,16 @@
             <td><input type="text" class="form-control" placeholder="상품명 60자" id="product_name"></td>
         </tr>
         <tr>
+            <th>브랜드</th>
+            <td>
+                <select class="form-select h-auto fs-6" id="product_brand">
+                    <c:forEach var="brand" items="${brands}">
+                        <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
             <th>판매가</th>
             <td><input type="text" class="form-control" placeholder="판매가 60자" id="product_price"></td>
 
