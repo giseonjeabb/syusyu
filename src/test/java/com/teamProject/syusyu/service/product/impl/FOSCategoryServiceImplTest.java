@@ -16,6 +16,7 @@ public class FOSCategoryServiceImplTest {
 
     @Test
     public void getCategoryAllList() throws Exception {
+        System.out.println(FOSFOSCategoryService.getCategoryAllList().get("cateList"));
 //        Map<String, Object> allCategory = categoryService.getCategoryAllList();
 //        LinkedHashMap<Integer, String> largeCategories = (LinkedHashMap<Integer, String>) allCategory.get("largeCategories");
 //        System.out.println(allCategory);

@@ -49,7 +49,7 @@ public class FOS_CategoryServiceImpl implements FOS_CategoryService {
             smallMap.put(allCategory.get(i).getSmallNo(), allCategory.get(i).getSmallNm());
         }
 
-
+        map.put("cateList", allCategory);
         map.put("largeCategories", largeCategories);
         map.put("middleCategories", middleCategories);
         map.put("smallCategories", smallCategories);

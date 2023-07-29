@@ -4,7 +4,8 @@
 
 <mapper namespace="com.teamProject.syusyu.categoryMapper">
     <select id="selectCategoryAllList" resultType="CategoryDTO">
-        SELECT LARGE_NO
+        SELECT CATE_ID
+             , LARGE_NO
              , LARGE_NM
              , MIDDLE_NO
              , MIDDLE_NM

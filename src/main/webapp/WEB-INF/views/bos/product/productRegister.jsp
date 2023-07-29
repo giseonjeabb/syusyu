@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
@@ -11,8 +12,7 @@
 
 <div class="container-fluid px-4">
     <h1 class="mt-4">상품 등록</h1>
-
-
+    <input type="hidden" id="jsonCateList" value="${fn:escapeXml(jsonCateList)}"/>
 
     <table class="table m-3">
         <tr>
@@ -21,17 +21,16 @@
 
                 <div class="form-group row mt-6 no-gutters h-auto m-2">
                     <div class="col-3">
-                     <%-- 선택하면 <strong></strong>추가 --%>
                         <select multiple size="8" class="form-select h-auto fs-5" id="cate_large">
                             <c:forEach var="large" items="${categories.largeCategories}">
-                                <option value="${large.key}">${large.value}</option>
+                                <option name="largeNo" value="${large.key}">${large.value}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div class="col-3">
                         <select multiple size="8" class="form-select h-auto fs-5" id="cate_middle">
                             <c:forEach var="middle" items="${categories.middleCategories}">
-                                <option value="${middle.key}">${middle.value}</option>
+                                <option name="middleNo" value="${middle.key}">${middle.value}</option>
                             </c:forEach>
                         </select>
 
@@ -41,7 +40,7 @@
                             <c:forEach var="small" items="${categories.smallCategories}">
 
                                     <c:forEach var="smallItem" items="${small.value}">
-                                        <option data-small-key="${small.key}" value="${smallItem.key}">${smallItem.value}</option>
+                                        <option data-small-key="${small.key}" name="smallNo" value="${smallItem.key}">${smallItem.value}</option>
 
                                     </c:forEach>
 
@@ -77,20 +76,20 @@
         <tr class="dc_content">
             <th rowspan="2">기본할인</th>
             <td>
-                <div class="input-group mb-3 mt-2 col-6">
-                    <input type="text" class="form-control col-4" aria-label="Amount" placeholder="할인율" id="product_per">
-                    <span class="input-group-text col-1">%</span>
+                <div class="input-group mb-3 mt-2">
+                    <input type="text" class="form-control" aria-label="Amount" placeholder="할인율" id="product_per">
+                    <span class="input-group-text">%</span>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input chk-dark" type="checkbox" value="" id="flexCheckChecked" checked="">
-                        <label class="form-check-label" for="flexCheckChecked">
+                    <input class="form-check-input chk-dark" type="checkbox" value="" id="dc_date" checked="">
+                        <label class="form-check-label" for="dc_date">
                             특정기간만 할인
                         </label>
                     </input>
                 </div>
             </td>
         </tr>
-        <tr class="dc_content">
+        <tr class="dc_content_date">
             <td>
                 <div class="calendar d-flex align-items-center">
                     <div class="input col-4">
@@ -150,10 +149,9 @@
                 <div class="input-group mb-3 row">
                     <div class="col">
                         <input type="text" class="form-control" aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
-
-                    </div>
-                    <div class="col">
                         <span class="input-group-text col-auto col">개</span>
+                        <p>옵션 재고수량을 사용하면, 옵션의 재고수량으로 적용되어 자동으로 입력됩니다.</p>
+
 
                     </div>
                 </div>
@@ -349,9 +347,12 @@
         </tr>
         <tr>
             <td colspan="2">
+
+
+
                 <div class="d-flex align-items-center justify-content-center">
                     <button type="button" class="btn btn-outline-dark m-2">취소하기</button>
-                    <button type="button" class="btn btn-dark m-2">저장하기</button>
+                    <button type="button" class="btn btn-dark m-2" onclick="productRegisterSave()">저장하기</button>
                 </div>
 
             </td>

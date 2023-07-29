@@ -24,7 +24,8 @@ public class CategoryDTO {
     public CategoryDTO() {
     }
 
-    public CategoryDTO(String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo) {
+    public CategoryDTO(int cateId,String largeNm, int largeNo, String middleNm, int middleNo, String smallNm, int smallNo) {
+        this.cateId = cateId;
         this.largeNm = largeNm;
         this.largeNo = largeNo;
         this.middleNm = middleNm;
