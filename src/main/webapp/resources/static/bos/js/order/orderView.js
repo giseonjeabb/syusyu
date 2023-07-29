@@ -132,20 +132,4 @@ orderView.function = {
 
         orderViewGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);
     },
-
-    // 주문확인으로 변경이 가능한 주문 건인지 검증한다.
-    validateOrderStatus(checkedData, ordStus) {
-        // 1. checkedData 중에서 ordDtlNo가 10이 아닌 걸 찾는다.(filter 이용)
-        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== ordStus);
-
-        // 1-2. 존재하지 않으면 true를 반환한다.
-        if (notOrdStusPayCompleted.length === 0)
-            return true;
-
-        // 1-1. 아닌 게 존재하다면 주문확인 처리가 불가능한 주문건을 alert 창으로 띄워준다.
-        const alertOrdDtlNo = notOrdStusPayCompleted.map(data => data.ordDtlNo).join(', ');
-        alert("처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
-
-        return false;
-    }
 }
