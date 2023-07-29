@@ -123,4 +123,54 @@ public class BOS_FaqController {
         return "redirect:/bos/faqList";
     }
 
+
+    @GetMapping("faqWrite")
+    public String showWriteForm(){
+
+        return ViewPath.BOS_CS+"BOS_FaqWrite";
+    }
+
+
+@PostMapping("faqWrite")
+    public String write(FaqDTO faqDTO,Model m ,RedirectAttributes rattr , @SessionAttribute int mbrId)throws Exception{
+
+        try {
+            faqDTO.setRegrId(mbrId);
+            m.addAttribute("faqDTO",faqDTO);
+            faqService.write(faqDTO);
+
+            System.out.println("mbrId = " + mbrId);
+
+            rattr.addFlashAttribute("msg","WRT_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("faqDTO",faqDTO);
+            rattr.addFlashAttribute("msg","WRT_ERR");
+
+            return "redirect:/bos/faqWrite";
+        }
+        return "redirect:/bos/faqList";
+    }
+
+
+    @PostMapping("faqRemove")
+    public String remove(Integer faqNo,FaqDTO faqDTO,SearchCondition sc, Model m , RedirectAttributes rattr,@SessionAttribute int mbrId){
+        try {
+
+            faqDTO.setRegrId(mbrId);
+
+            m.addAttribute("sc",sc);
+            System.out.println("faqNo = " + faqNo);
+
+
+            faqService.remove(faqNo,faqDTO.getRegrId());
+            rattr.addFlashAttribute("msg","DEL_OK");
+        } catch (Exception e) {
+           e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+        }
+        return  "redirect:/bos/faqList";
+    }
+
+
 }

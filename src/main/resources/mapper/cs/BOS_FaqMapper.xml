@@ -23,8 +23,8 @@
     </delete>
 
     <insert id="insert" parameterType="FaqDTO">
-        INSERT INTO faq (FAQ_TP, TITLE, CONTENT)
-        VALUES (#{faqTp}, #{title}, #{content})
+        INSERT INTO faq (REGR_ID,FAQ_TP, TITLE, CONTENT)
+        VALUES (#{regrId},#{faqTp}, #{title}, #{content})
     </insert>
 
     <update id="update" parameterType="FaqDTO">

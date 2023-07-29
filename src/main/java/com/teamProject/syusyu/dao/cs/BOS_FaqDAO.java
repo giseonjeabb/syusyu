@@ -21,7 +21,7 @@ public interface BOS_FaqDAO {
 
     int update(FaqDTO dto) throws Exception;
 
-    int delete(Integer faqNo, String regrId) throws Exception;
+    int delete(Integer faqNo, Integer regrId) throws Exception;
 
     int deleteAll() throws Exception;
 

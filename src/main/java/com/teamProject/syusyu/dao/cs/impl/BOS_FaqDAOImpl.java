@@ -56,7 +56,7 @@ public class BOS_FaqDAOImpl implements com.teamProject.syusyu.dao.cs.BOS_FaqDAO 
 
 
     @Override
-    public int delete(Integer faqNo, String regrId) throws Exception{
+    public int delete(Integer faqNo, Integer regrId) throws Exception{
         Map map = new HashMap();
         map.put("faqNo",faqNo);
         map.put("regrId",regrId);
