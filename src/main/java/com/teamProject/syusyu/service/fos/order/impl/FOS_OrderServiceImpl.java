@@ -89,7 +89,7 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
         int totProdAmt = cartProdList.stream().mapToInt(CartProdDTO::getTotPrc).sum(); // 총 상품금액
         int totDcPrc = cartProdList.stream().mapToInt(CartProdDTO::getTotDcPrc).sum(); // 총 할인적용금액
 
-        int dlvFee = totProdAmt >= 50000 ? 0 : 3000;
+        int dlvFee = totDcPrc >= 50000 ? 0 : 3000;
 
         Map<String, Object> orderInfo = new HashMap<>();
         orderInfo.put("cartProdList", cartProdList);
