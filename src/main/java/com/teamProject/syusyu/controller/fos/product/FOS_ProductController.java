@@ -156,7 +156,6 @@ public class FOS_ProductController {
 
             //중분류 카테고리별 전체 상품리스트와 전체 갯수, 카테고리를 map으로 보냄
             productInfo = fosProductService.getProductAllList(middleNo);
-            System.out.println("나와라!!:"+productInfo.get("productList"));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
@@ -211,10 +210,6 @@ public class FOS_ProductController {
 
             shoesSizeList = (List<ProdOptDTO>) productDetail.get("shoesSizeList");
             m.addAttribute("shoesSizeList", shoesSizeList);
-            System.out.println("size : " + shoesSizeList.get(0).getShoesSize());
-            System.out.println("size : " + shoesSizeList.get(1).getShoesSize());
-            System.out.println("size : " + shoesSizeList.get(2).getShoesSize());
-
 
         } catch (Exception e) {
             e.printStackTrace();
