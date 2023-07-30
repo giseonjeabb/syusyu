@@ -95,3 +95,26 @@ const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
     setFlatpickrCalendar(startDateId, startDate);
     setFlatpickrCalendar(endDateId, endDate);
 }
+
+/**
+ * Flatpickr를 사용하여 날짜 선택 필드를 설정합니다.
+ * startDate는 선택한 날짜 혹은 현재 날짜로 설정되며,
+ * endDate는 startDate로부터 day를 더한 날짜로 설정됩니다.
+ *
+ * @param {string} startDateId - 시작 날짜 선택 필드의 ID
+ * @param {string} endDateId - 종료 날짜 선택 필드의 ID
+ * @param {number} day - startDate로부터 더할 일 수
+ * @author soso
+ * @since 2023/07/30
+ */
+const setCalendarRangeAddDays =(startDateId, endDateId, day) => {
+    if (typeof day !== 'number')
+        day = parseInt(day);
+
+    let startDate = new Date(document.getElementById(startDateId).value);
+    let endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + day);
+
+    setFlatpickrCalendar(endDateId, endDate);
+    setFlatpickrCalendar(startDateId, startDate);
+}
