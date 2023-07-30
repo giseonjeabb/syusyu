@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.ordClaimMapper">
+    <!--주문취소 insert 쿼리-->
+    <insert id="insertCancelClaim" parameterType="OrdClaimDTO" useGeneratedKeys="true" keyProperty="ordClaimNo">
+        INSERT INTO ord_claim ( ORD_DTL_NO
+                              , CLAIM_TP
+                              , CLAIM_STUS
+                              , RFND_YN
+                              , TOT_RFND_AMT
+                              , CARD_RFND_AMT
+                              , RFND_PNT
+                              , REQR_ID
+                              , REQ_RSN
+                              , REQ_DTL_RSN
+                              , APRV_DTTM
+                              , APRVR_ID
+                              , CLAIM_PIC1
+                              , CLAIM_PIC2
+                              , CLAIM_PIC3
+                              , REG_DTTM
+                              , REGR_ID)
+        <![CDATA[
+        SELECT #{ordDtlNo}                              # 주문상세번호
+             , #{claimTp}                               # 주문클레임 분류
+             , #{claimStus}                             # 주문클레임 처리상태
+             , #{rfndYn}                                # 환불완료여부(Y/N)
+             , TOT_RFND_AMT                             # 총 환불금액
+             , LEAST(TOT_RFND_AMT, REAL_PAY_AMT)        # 카드환불금액
+             , GREATEST(TOT_RFND_AMT - REAL_PAY_AMT, 0) # 반환포인트
+             , #{reqrId}                                # 요청자
+             , #{reqRsn}                                # 요청사유
+             , #{reqDtlRsn}                             # 요청상세사유
+             , #{aprvDttm}                              # 승인일시
+             , #{aprvrId}                               # 승인자
+             , #{claimPic1}                             # 사진1
+             , #{claimPic2}                             # 사진2
+             , #{claimPic3}                             # 사진3
+             , #{regDttm}                               # 등록일시
+             , #{regrId}                                # 등록자
+        FROM (SELECT GET_ORGN_PAY_AMT(TOT_PROD_AMT, P.CPN_ISS_NO) +
+                     IF(ALL_TOT_PROD_AMT > 50000 OR P.DLV_FEE > 0, 0, -3000) AS TOT_RFND_AMT,
+                     P.REAL_PAY_AMT
+              FROM (SELECT OD.ORD_NO,
+                           GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) * OD.QTY AS TOT_PROD_AMT
+                    FROM ORD_DTL OD
+                    WHERE OD.ORD_DTL_NO = #{ordDtlNo}) AS OD
+                       JOIN (SELECT ORD_NO,
+                                    SUM(GET_DC_PRC(PROD_PRC, PROD_DC_PER) * QTY) AS ALL_TOT_PROD_AMT
+                             FROM ORD_DTL
+                             WHERE ORD_STUS NOT IN (70, 80, 90)
+                             GROUP BY ORD_NO) AS OT ON OD.ORD_NO = OT.ORD_NO
+                       JOIN PAY P ON OD.ORD_NO = P.ORD_NO
+              WHERE P.PAY_STUS NOT IN (20, 30)) A;
+        ]]>
+    </insert>
+
+    <select id="selectOrdClaim" parameterType="int" resultType="OrdClaimDTO">
+        SELECT *
+        FROM ORD_CLAIM
+        WHERE ORD_CLAIM_NO = #{ordClaimNo}
+    </select>
+
+    <delete id="deleteOrdClaim" parameterType="int">
+        DELETE
+        FROM ORD_CLAIM
+        WHERE ORD_CLAIM_NO = #{ordClaimNo}
+    </delete>
+
+    <select id="countOrdClaim" resultType="int">
+        SELECT COUNT(*)
+        FROM ORD_CLAIM
+    </select>
+
+    <select id="selectAllOrdClaims" resultType="OrdClaimDTO">
+        SELECT *
+        FROM ORD_CLAIM
+    </select>
+</mapper>
