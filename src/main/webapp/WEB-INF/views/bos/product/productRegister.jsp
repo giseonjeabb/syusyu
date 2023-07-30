@@ -7,6 +7,13 @@
     <script src="<c:url value='/static/bos/summernote/summernote-lite.js'/>"></script>
     <link href="<c:url value='/static/bos/summernote/summernote-lite.css'/>" rel="stylesheet">
     <script src="<c:url value='/static/bos/summernote/lang/summernote-ko-KR.js'/>"></script>
+ 
+    <style>
+        #opt_table tbody tr:hover {
+            background-color: inherit !important;
+        }
+
+    </style>
 </head>
 
 
@@ -16,18 +23,18 @@
 
     <table class="table m-3">
         <tr>
-            <th class="col-1">카테고리</th>
-            <td class="col-11">
+            <th class="col-auto">카테고리<span style="color: red;">*</span></th>
+            <td class="col-auto">
 
                 <div class="form-group row mt-6 no-gutters h-auto m-2">
-                    <div class="col-3">
+                    <div class="col">
                         <select multiple size="8" class="form-select h-auto fs-5" id="cate_large">
                             <c:forEach var="large" items="${categories.largeCategories}">
                                 <option name="largeNo" value="${large.key}">${large.value}</option>
                             </c:forEach>
                         </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col">
                         <select multiple size="8" class="form-select h-auto fs-5" id="cate_middle">
                             <c:forEach var="middle" items="${categories.middleCategories}">
                                 <option name="middleNo" value="${middle.key}">${middle.value}</option>
@@ -35,14 +42,14 @@
                         </select>
 
                     </div>
-                    <div class="col-3">
+                    <div class="col">
                         <select multiple size="8" class="form-select h-auto fs-5" id="cate_small">
                             <c:forEach var="small" items="${categories.smallCategories}">
 
-                                    <c:forEach var="smallItem" items="${small.value}">
-                                        <option data-small-key="${small.key}" name="smallNo" value="${smallItem.key}">${smallItem.value}</option>
+                                <c:forEach var="smallItem" items="${small.value}">
+                                    <option data-small-key="${small.key}" name="smallNo" value="${smallItem.key}">${smallItem.value}</option>
 
-                                    </c:forEach>
+                                </c:forEach>
 
                             </c:forEach>
                         </select>
@@ -52,15 +59,41 @@
         </tr>
 
         <tr>
-            <th>상품명</th>
-            <td><input type="text" class="form-control" placeholder="상품명 60자" id="product_name"></td>
+            <th>상품명<span style="color: red;">*</span></th>
+            <td>
+                <div class="input-group mb-3 mt-2">
+                    <!-- 숫자만 입력 받으며, 포커스를 잃을 때 천 단위로 콤마를 추가, 키를 누를 때마다 마지막 숫자가 0인지 확인 -->
+                    <input type="text" class="form-control" placeholder="상품명 60자" id="product_name" onkeyup="updateLengthSixty(this);">
+                    <span class="input-group-text" id="text_length">0/60</span>
+                </div>
+            </td>
         </tr>
+        <!-- 판매가 입력 필드 -->
         <tr>
-            <th>판매가</th>
-            <td><input type="text" class="form-control" placeholder="판매가 60자" id="product_price"></td>
-
+            <th>판매가<span style="color: red;">*</span></th>
+            <td>
+                <div class="input-group mb-2 mt-2 w-25">
+                    <!-- 숫자만 입력 받으며, 포커스를 잃을 때 천 단위로 콤마를 추가, 키를 누를 때마다 마지막 숫자가 0인지 확인 -->
+                    <input type="text" class="form-control" aria-label="Price" placeholder="숫자만 입력" value="0" id="product_price">
+                    <span class="input-group-text">원</span>
+                    <div class="invalid-feedback">10원 단위로 입력해주세요.</div>
+                </div>
+            </td>
         </tr>
-        <%--할인--%>
+        <!-- 매입가 입력 필드 -->
+        <tr>
+            <th>매입가<span style="color: red;">*</span></th>
+            <td>
+                <div class="input-group mb-2 mt-2 w-25">
+                    <!-- 숫자만 입력 받으며, 포커스를 잃을 때 천 단위로 콤마를 추가, 키를 누를 때마다 마지막 숫자가 0인지 확인 -->
+                    <input type="text" class="form-control" aria-label="Price" placeholder="숫자만 입력" value="0" id="product_buy_price">
+                    <span class="input-group-text">원</span>
+                    <div class="invalid-feedback">10원 단위로 입력해주세요.</div>
+                </div>
+            </td>
+        </tr>
+
+    <%--할인--%>
         <tr>
             <th>할인</th>
             <td>
@@ -74,69 +107,98 @@
         </tr>
 
         <tr class="dc_content">
-            <th rowspan="2">기본할인</th>
+            <th text-dark>기본할인</th>
             <td>
-                <div class="input-group mb-3 mt-2">
-                    <input type="text" class="form-control" aria-label="Amount" placeholder="할인율" id="product_per">
+                <div class="input-group mb-2 mt-2 w-25">
+                    <input type="text" class="form-control" maxlength="2" aria-label="Amount" placeholder="할인율" value="0" id="product_per"  oninput="checkDiscount(this);" onblur="formatWithComma(this);">
                     <span class="input-group-text">%</span>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input chk-dark" type="checkbox" value="" id="dc_date" checked="">
-                        <label class="form-check-label" for="dc_date">
+                <div class="form-check m-3">
+                    <input class="form-check-input chk-dark" type="checkbox" value="" id="dc_date_chk">
+                        <label class="form-check-label" for="dc_date_chk">
                             특정기간만 할인
                         </label>
                     </input>
                 </div>
-            </td>
-        </tr>
-        <tr class="dc_content_date">
-            <td>
-                <div class="calendar d-flex align-items-center">
-                    <div class="input col-4">
-                        <input type="text" name="start_date" id="dc_start_date" readonly="readonly"
-                               class="inp datepicker hasDatepicker">
+                <div class="d-flex d-none" id="dc_date">
+                    <div class="btn-group col-6 align-items-end p-2" role="group" aria-label="Basic radio toggle button group" id="dcDate">
+                        <input type="radio" class="btn-check col-auto date_range dc_date_range" name="btnradio" data-interval="3" id="dcDate1" autocomplete="off" checked="">
+                        <label class="btn btn-outline-dark  date_range" for="dcDate1">3일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="5" id="dcDate2" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate2">5일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="7" id="dcDate3" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate3">7일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="15" id="dcDate4" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate4">15일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="30" id="dcDate5" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate5">30일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="90" id="dcDate6" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate6">90일</label>
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="120" id="dcDate7" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="dcDate7">120일</label>
                     </div>
-                    <span class="m mx-2">~</span>
-                    <div class="input col-4">
-                        <input type="text" name="end_date" id="dc_end_date" readonly="readonly"
-                               class="inp datepicker hasDatepicker">
+                    <div class="calendar p-1 col-8 d-flex align-items-center">
+                        <div class="input col-4 p-1 align-items-center justify-content-center">
+                            <input type="text" name="dcStDttm" id="dc_start_date" readonly="readonly"
+                                   class="inp datepicker hasDatepicker">
+                        </div>
+                        <span class="m p-1 align-items-center justify-content-center">~</span>
+                        <div class="input p-1 align-items-center justify-content-center">
+                            <input type="text" name="dcEdDttm" id="dc_end_date" readonly="readonly"
+                                   class="inp datepicker hasDatepicker">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex border-top p-1 mt-2" id="dc_price">
+                    <label for="dcPrice" class="col-sm-2 col-form-label">할인가</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly="" class="form-control-plaintext" id="dcPrice" value="0원">
                     </div>
                 </div>
             </td>
         </tr>
+
         <%--팬매기간--%>
         <tr>
             <th>판매기간</th>
             <td>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="sale_date" id="sale_date" autocomplete="off">
-                    <label class="btn btn-outline-dark" for="sale_date">설정함</label>
-                    <input type="radio" class="btn-check" name="sale_date" id="no_sale_date" autocomplete="off" checked="">
-                    <label class="btn btn-outline-dark" for="no_sale_date">설정안함</label>
+                    <input type="radio" class="btn-check" name="sale_date" id="sale_btnradio" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="sale_btnradio">설정함</label>
+                    <input type="radio" class="btn-check" name="sale_date" id="sale_btnradio_no" autocomplete="off" checked="">
+                    <label class="btn btn-outline-dark" for="sale_btnradio_no">설정안함</label>
                 </div>
-
             </td>
         </tr>
-        <tr class="sale_date">
+
+        <tr class="sale_date mt-2">
             <th>기간설정</th>
-            <td class="d-flex align-items-end">
-                <div class="date_range_container btn-group">
-                    <button data-interval="3" class="btn btn-outline-dark date_range active">3일</button>
-                    <button data-interval="5" class="btn btn-outline-dark date_range">5일</button>
-                    <button data-interval="7" class="btn btn-outline-dark date_range">7일</button>
-                    <button data-interval="15" class="btn btn-outline-dark date_range">15일</button>
-                    <button data-interval="30" class="btn btn-outline-dark date_range">30일</button>
-                    <button data-interval="90" class="btn btn-outline-dark date_range">90일</button>
-                    <button data-interval="120" class="btn btn-outline-dark date_range">120일</button>
+            <td class="d-flex align-items-end date_range_container btn-group fs-5">
+                <div class="btn-group col-6 align-items-end p-2" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="7" id="saleDate1" autocomplete="off" checked="">
+                    <label class="btn btn-outline-dark  date_range sale_date_range" for="saleDate1">7일</label>
+                    <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="15" id="saleDate2" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate2">15일</label>
+                    <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="30" id="saleDate3" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate3">30일</label>
+                   <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="90" id="saleDate4" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate4">90일</label>
+                   <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="120" id="saleDate5" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate5">120일</label>
+                   <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="365" id="saleDate6" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate6">1년</label>
+                   <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="1825`" id="saleDate7" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="saleDate7">5년</label>
                 </div>
-                <div class="calendar d-flex align-items-center">
-                    <div class="input col-4">
-                        <input type="text" name="start_date" id="sale_start_date" readonly="readonly"
+
+                <div class="calendar d-flex align-items-center justify-center p-2">
+                    <div class="input">
+                        <input type="text" name="saleStDttm" id="sale_start_date" readonly="readonly"
                                class="inp datepicker hasDatepicker">
                     </div>
                     <span class="m mx-2">~</span>
-                    <div class="input col-4">
-                        <input type="text" name="end_date" id="sale_end_date" readonly="readonly"
+                    <div class="input">
+                        <input type="text" name="saleEdDttm" id="sale_end_date" readonly="readonly"
                                class="inp datepicker hasDatepicker">
                     </div>
                 </div>
@@ -146,154 +208,107 @@
         <tr>
             <th>재고수량</th>
             <td>
-                <div class="input-group mb-3 row">
-                    <div class="col">
-                        <input type="text" class="form-control" aria-label="qty" placeholder="숫자만 입력" id="inv_qty">
-                        <span class="input-group-text col-auto col">개</span>
-                        <p>옵션 재고수량을 사용하면, 옵션의 재고수량으로 적용되어 자동으로 입력됩니다.</p>
-
-
+                <div class="input-group mb-3 d-flex">
+                    <div class="input-group mb-3 mt-2 w-25">
+                        <input type="text" class="form-control" aria-label="qty" placeholder="숫자만 입력" id="tot_qty" value="0" disabled>
+                        <span class="input-group-text">개</span>
                     </div>
+                    <p class="p-3 text-black-50 small">옵션 재고수량을 사용하면, 옵션의 재고수량으로 적용되어 자동으로 입력됩니다.</p>
                 </div>
             </td>
         </tr>
-    <%-- 옵션--%>
+        <%-- 옵션--%>
         <tr>
-            <th>옵션입력</th>
-            <td>
-                <div>
-                    <label for="" class="col-sm-2 col-form-label">옵션명</label>
-                    <label for="" class="col-sm-2 col-form-label">옵션가</label>
-
-                    <label for="color" class="col-sm-2 col-form-label">컬러</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3" aria-label="qty" placeholder="컬러 입력" id="color">
+            <th>옵션입력<span style="color: red;">*</span></th>
+            <td class="d-flex flex-column mb-4 align-items-start w-full">
+                <div class="d-flex col-10">
+                    <div class="d-flex p-3 col-4 align-items-center">
+                        <label for="input_color" class="me-3 col-2">컬러</label>
+                        <input type="text" id="input_color" class="form-control col" placeholder="색상 입력">
                     </div>
-                    <label for="color" class="col-sm-2 col-form-label">사이즈</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3" aria-label="qty" placeholder="컬러 입력" id="사이즈">
+                    <div class="d-flex p-3 col-6 align-items-center">
+                        <label for="input_size" class="me-3 col-2">사이즈</label>
+                        <input type="text" id="input_size" class="form-control col-6" placeholder="예시 : 220, 225 (,로 구분)">
                     </div>
                 </div>
-
+                <div>
+                    <button type="button" class="btn btn-dark" id="btnOpt">옵션목록으로 적용 ↓</button>
+                </div>
             </td>
-
         </tr>
-<%--                <div class="d-flex align-items-end">--%>
-<%--                    <div class="me-2">--%>
-<%--                        <label class="col-form-label mt-4">옵션명</label>--%>
-<%--                        <input type="text" class="form-control" name="opt_nm" placeholder="예시 : 컬러">--%>
-<%--                    </div>--%>
-
-<%--                    <div class="me-2">--%>
-<%--                        <label class="col-form-label mt-4">옵션값</label>--%>
-<%--                        <input type="text" class="form-control" name="opt_val" placeholder="예시 : 빨강, 노랑 (,로 구분)">--%>
-<%--                    </div>--%>
-
-<%--                    <button type="button" class="btn btn-dark me-2">--%>
-<%--                        <i class="fas fa-plus"></i>--%>
-<%--                    </button>--%>
-<%--                    --%>
-<%--                </div>--%>
-<%--                <div class="d-flex align-items-end mt-2">--%>
-<%--                    <div class="me-2">--%>
-<%--                        <input type="text" class="form-control" placeholder="예시 : 컬러">--%>
-<%--                    </div>--%>
-<%--                    <div class="me-2">--%>
-<%--                        <input type="text" class="form-control" placeholder="예시 : 빨강, 노랑 (,로 구분)">--%>
-
-<%--                    </div>--%>
-<%--                    <button type="button" class="btn btn-dark">--%>
-<%--                        <i class="fas fa-times"></i>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-
-
         <tr>
             <th>옵션목록</th>
             <td>
-                <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                <div class="datatable-wrapper datatable-loading flex-column no-footer sortable searchable fixed-columns">
 
-                    <div class="datatable-top row align-items-center justify-content-center">
-                        <div class="col-2">
-                            <button type="button" class="btn btn-outline-dark">선택삭제</button>
-                        </div>
-                        <div class="col-4 d-flex align-items-center justify-content-center">
-                            <span class="m-2">옵션값</span>
-                            <input type="text" class="form-control col-9" placeholder="예시 : 빨강, 노랑 (,로 구분)" id="opt">
-                        </div>
-                        <div class="col-4 d-flex align-items-center justify-content-center">
-                            <span class="m-2">재료수량</span>
-                            <input type="text" class="form-control col-9" placeholder="예시 : 빨강, 노랑 (,로 구분)" id="opt_qty">
-                        </div>
-                        <div class="col-2 d-flex align-items-center justify-content-center">
-                            <span class="m-2">사용여부</span>
-                            <select class="form-select col-4" id="opt_YN">
-                                <option>Y</option>
-                                <option>N</option>
-                            </select>
+                    <div class="datatable-top d-flex justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" id="chk_del">선택삭제</button>
+
+                        <div class="d-flex col-auto justify-content-center ml-auto">
+                            <div class="d-flex align-items-center">
+                                <label for="find_opt_qty" class="m-2 col-auto">재고수량</label>
+                                <input type="text" id="find_opt_qty" class="form-control" placeholder="숫자만 입력">
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <label for="find_opt_YN" class="m-2 col-auto">사용여부</label>
+                                <select class="form-select" id="find_opt_YN">
+                                    <option>Y</option>
+                                    <option>N</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-
-
-
-
-                    <div class="datatable-container">
-                        <table id="opt_table" class="datatable-table" style="height: 300px; overflow: auto;">
+                    <div class="datatable-container ml-auto">
+                        <table id="opt_table" class="datatable-table table-bordered" id="opt_table">
                             <thead>
                             <tr>
-                                <th class="" rowspan="2"><input type="checkbox"></th>
-                                <th data-sortable="true" colspan="2">옵션명</th>
-                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">옵션가</a></th>
-                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">재고수량</a></th>
-                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">판매상태</a></th>
-                                <th data-sortable="true" rowspan="2"><a href="#" class="datatable-sorter">사용여부</a></th>
-                                <th data-sortable="true" rowspan="2">삭제</th>
+                                <th rowspan="2" class="text-center align-middle"><input type="checkbox"></th>
+                                <th data-sortable="true" colspan="2" class="text-center align-middle">옵션명</th>
+                                <th data-sortable="true" rowspan="2" class="text-center align-middle"><a href="#" class="datatable-sorter">옵션가</a></th>
+                                <th data-sortable="true" rowspan="2" class="text-center align-middle"><a href="#" class="datatable-sorter">재고수량</a></th>
+                                <th data-sortable="true" rowspan="2" class="text-center align-middle"><a href="#" class="datatable-sorter">판매상태</a></th>
+                                <th data-sortable="true" rowspan="2" class="text-center align-middle"><a href="#" class="datatable-sorter">사용여부</a></th>
+                                <th data-sortable="true" rowspan="2" class="text-center align-middle">삭제</th>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td class="text-center align-middle">컬러</td>
+                                <td class="text-center align-middle">사이즈</td>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Y</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-dark">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <tbody class="bg-white">
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </td>
         </tr>
-<%-- 이미지--%>
+        <%-- 이미지--%>
         <tr>
-            <th >대표이미지</th>
+            <th >대표이미지<span style="color: red;">*</span></th>
             <td>
-                <input class="form-control" type="file" id="refImg">
+                <input class="form-control" type="file" id="refImg" onchange="validateFileInput(this)">
                 <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)</p>
             </td>
         </tr>
         <tr>
             <th scope="row">추가이미지</th>
-            <td>
-                <input class="form-control " type="file" id="smlimg">
-                <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
-                    추가이미지는 최대 9개까지 설정할 수 있습니다.
-                    jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
+            <td id="smlImgDiv row">
+                <div>
+
+                    <input class="smlImg form-control " type="file" onchange="validateFileInput(this)">
+                    <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
+                        추가이미지는 최대 9개까지 설정할 수 있습니다.
+                        jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
+                    <button type="button" class="btn btn-dark" id="addImgBtn"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="imgInfo" >
+
+
+                </div>
             </td>
         </tr>
-<%-- 스마트에디터--%>
+        <%-- 스마트에디터--%>
         <tr>
             <th scope="row">상세설명</th>
             <td>
@@ -304,26 +319,26 @@
         </tr>
         <tr>
             <th scope="row">모델명</th>
-            <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model"></td>
+            <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model" oninput="updateLengthSixty(this)"></td>
 
         </tr>
         <tr>
-            <th scope="row">제품소재</th>
-            <td><input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr"></td>
+            <th scope="row">제품소재<span style="color: red;">*</span></th>
+            <td><input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr" oninput="updateLengthHundred(this)"></td>
 
         </tr>
         <tr>
-        <th>브랜드</th>
-        <td>
-            <select class="form-select" id="product_brand">
-                <c:forEach var="brand" items="${brandList}">
-                    <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
-                </c:forEach>
-            </select>
-        </td>
+            <th>브랜드<span style="color: red;">*</span></th>
+            <td>
+                <select class="form-select" id="product_brand">
+                    <c:forEach var="brand" items="${brandList}">
+                        <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
+                    </c:forEach>
+                </select>
+            </td>
         </tr>
         <tr>
-            <th scope="row">제조사</th>
+            <th scope="row">제조사<span style="color: red;">*</span></th>
             <td>
                 <select class="form-select" id="mftco">
                     <c:forEach items="${mftcoList}" var="item">
@@ -334,7 +349,7 @@
         </tr>
 
         <tr>
-            <th scope="row">제조국</th>
+            <th scope="row">제조국<span style="color: red;">*</span></th>
             <td>
                 <select class="form-select" id="mftNatn">
                     <c:forEach items="${mftNatnList}" var="item">
@@ -344,10 +359,10 @@
             </td>
         </tr>
         <tr>
-            <th scope="row">출시일</th>
+            <th>출시일</th>
             <td>
-                <div class="input col-4">
-                    <input type="text" name="rles_dt" id="" readonly="readonly" class="inp datepicker hasDatepicker">
+                <div class="input col-3">
+                    <input type="text" name="rles_dt" id="rles_dt" readonly="readonly" class="inp datepicker hasDatepicker col-3">
                 </div>
             </td>
         </tr>
