@@ -134,6 +134,17 @@ public class FOS_OrderController {
         return new ResponseEntity<>(orderInfoListByOrdNo, HttpStatus.OK);
     }
 
+    /**
+     * 주문 상세 페이지를 반환한다.
+     * 사용자의 아이디와 주문번호를 이용하여 해당 주문에 대한 상세 정보를 조회한다.
+     *
+     * @param m     페이지에 전달할 데이터를 담을 Model 객체
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @param ordNo 상세 정보를 조회할 주문번호
+     * @return 주문 상세 화면 경로. 조회 중 오류가 발생하면 error 페이지를 반환한다.
+     * @author min
+     * @since 2023/07/31
+     */
     @GetMapping("orders/{ordNo}")
     public String orderDeatil(Model m, @SessionAttribute int mbrId, @PathVariable int ordNo) {
         try {
@@ -152,6 +163,38 @@ public class FOS_OrderController {
         }
 
         return ViewPath.FOS_MYPAGE + "orderDetail";
+    }
+
+    /**
+     * 주문 취소 페이지를 반환한다.
+     * 사용자의 아이디와 주문번호를 이용하여 취소할 주문에 대한 상세 정보를 조회한다.
+     *
+     * @param ordNo 취소할 주문에 대한 정보를 조회할 주문번호
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @param m     페이지에 전달할 데이터를 담을 Model 객체
+     * @return 주문 취소 화면 경로. 조회 중 오류가 발생하면 error 페이지를 반환한다.
+     * @author min
+     * @since 2023/07/31
+     */
+    @GetMapping("orders/{ordNo}/cancel-view")
+    public String cancelOrderView(@PathVariable int ordNo, @SessionAttribute int mbrId, Model m) {
+
+        try {
+            Map<String, Integer> param = new HashMap<>();
+            param.put("mbrId", mbrId);
+            param.put("ordNo", ordNo);
+
+            List<OrderInfoDTO> cancelOrderInfoList = service.getCancelOrderList(param);
+            m.addAttribute("cancelOrderInfoList", cancelOrderInfoList);
+
+            System.out.println("cancelOrderInfoList = " + cancelOrderInfoList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return ViewPath.FOS_MYPAGE + "orderCancel";
     }
 
     /**

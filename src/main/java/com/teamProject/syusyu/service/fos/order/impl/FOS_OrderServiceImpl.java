@@ -296,6 +296,21 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     }
 
     /**
+     * 주어진 조회 조건에 따라 주문 취소 가능한 목록을 조회한다.
+     * 사용자 ID와 주문번호를 파라미터로 받아 해당 주문에 대한 취소 가능 목록을 조회한다.
+     *
+     * @param param Map 객체로, 'mbrId', 'ordNo' 키를 가지며, 각각 사용자 ID와 주문번호를 값으로 가진다.
+     * @return 주문 취소 가능한 목록을 담은 OrderInfoDTO 객체의 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/31
+     */
+    @Override
+    public List<OrderInfoDTO> getCancelOrderList(Map<String, Integer> param) throws Exception {
+        return orderInfoDAO.selectOrderDetailList(param);
+    }
+
+    /**
      * 주문 취소처리를 한다.
      *
      * @param ordClaimDTO 주문을 취소할 주문 클레임 DTO
