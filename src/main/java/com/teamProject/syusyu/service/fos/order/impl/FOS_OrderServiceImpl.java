@@ -300,9 +300,35 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         return result;
     }
 
-    public void cancelOrder(List<Integer> ordDtlNoList, int mbrId) throws Exception {
-        // 1. 주문취소할 주문건의 주문상태를 '70(주문취소)'로 바꾼다.
-        processUpdateOrderStatus(ordDtlNoList, mbrId, "70");
+    @Transactional(rollbackFor = Exception.class)
+    public void cancelOrder(List<OrdClaimDTO> ordClaimDTOList, int mbrId) throws Exception {
+        Map<String, Object> insertCancelPayParam = new HashMap<>();
+        Map<String, Object> updateCancelPayParm = new HashMap<>();
+
+        for (OrdClaimDTO ordClaimDTO : ordClaimDTOList) {
+            // 1. 주문취소할 주문 건의 주문상태를 '70'(주문취소)로 바꾼다.
+            // 2. 주문상태이력 테이블에 상태변경 이력을 남긴다.
+            updateOrderStatusAndAddHistory(ordClaimDTO.getOrdDtlNo(), mbrId, "70");
+
+            // 3. 주문 클레임을 등록한다.
+            ordClaimDAO.insertCancelClaim(ordClaimDTO);
+
+            // 4. 새로운 결제 정보를 삽입한다.
+            insertCancelPayParam.clear();
+            insertCancelPayParam.put("regrId", mbrId);
+            insertCancelPayParam.put("ordNo", ordClaimDTO.getOrdNo());
+            payDAO.insertCancelPay(insertCancelPayParam);
+
+            // 5. 기존 결제 정보의 결제 상태를 일부 주문취소로 변경한다.
+            updateCancelPayParm.clear();
+            updateCancelPayParm.put("payStus", "20");
+            updateCancelPayParm.put("updrId", mbrId);
+            updateCancelPayParm.put("ordNo", ordClaimDTO.getOrdNo());
+
+            payDAO.updateCancelPay(updateCancelPayParm);
+
+        }
+
     }
 
 }
