@@ -101,12 +101,13 @@ public class FOS_OrderServiceImplTest {
         List<OrdDtlDTO> ordDtlDTOList = order.getOrdDtlList();
         // 2-1-1. CM878MA1 만 주문취소
 //        List<Integer> ordDtlNoList = ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
-        // 2-1-2. 2개 주문 주문취소
-        List<Integer> ordDtlNoList = ordDtlDTOList.stream().map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
-        ordDtlNoList.remove(ordDtlNoList.size() - 1);
+        // 2-1-2. 2개 주문 주문취소(10002 -> 10009 순서로)
+        List<Integer> ordDtlNoList = ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
+        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10009).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
+        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10010).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
+//        ordDtlNoList.remove(ordDtlNoList.size() - 1);
 
         System.out.println("ordDtlNoList = " + ordDtlNoList);
-
 
         OrdClaimDTO ordClaimDTO = OrdClaimDTO.Builder.anOrdClaimDTO()
                 .ordNo(order.getOrd().getOrdNo())
