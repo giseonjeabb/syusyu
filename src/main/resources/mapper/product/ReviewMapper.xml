@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.teamProject.syusyu.ReviewMapper">
+
+<!--    리뷰 작성-->
+<!--    상품아이디 , 별점 , 작성자 키 , 작성자 몸무게 , 발사이즈 , 리뷰 내용 , 작성자 아이디 -->
+    <insert id="insert" parameterType="ReviewDTO">
+        INSERT INTO review
+            (PROD_ID,STAR_RATING,HEIGHT,WEIGHT,SHOE_SIZE,REVW_CN,REGR_ID)
+        VALUES
+            (#{prodId},#{starRating},#{height},#{weight},#{shoeSize},#{revwCn},#{regrId})
+    </insert>
+
+
+<!--    리뷰 좋아요 표시 -->
+    <update id="increaseLikeCnt" parameterType="int">
+        update review
+        set     LIKE_CNT = LIKE_CNT + 1
+        where REVW_NO = #{revwNo}
+    </update>
+
+<!--    본인이 작성한 리뷰에 대한 수정-->
+<!--    조건으로 작성자 id , 작성한 글의 번호 , 상품에 id-->
+    <update id="update" parameterType="ReviewDTO">
+        UPDATE review
+        SET STAR_RATING = #{starRating},
+            HEIGHT = #{height},
+            WEIGHT = #{weight},
+            SHOE_SIZE = #{shoeSize},
+            REVW_CN = #{revwCn},
+            UPD_DTTM = now()
+        WHERE REVW_NO = #{revwNo}
+        AND REGR_ID = #{regrId}
+        AND PROD_ID = #{prodId}
+    </update>
+
+
+<!--    작성자가 삭제요청을 할때 -->
+<!--    로그인 ID가 admin이 아닌 경우, deleteUser 메소드를 호출한다.-->
+    <delete id="deleteUser" parameterType="map">
+        DELETE
+        FROM review
+        WHERE REVW_NO = #{revwNo}
+        AND REGR_ID = #{regrId}
+    </delete>
+
+<!--    관리자가 삭제를 할때-->
+<!--    로그인 ID가 admin인 경우, deleteAdmin 메소드를 호출한다.-->
+    <delete id="deleteAdmin" parameterType="map">
+        DELETE
+        FROM review
+        WHERE REVW_NO = #{revwNo}
+    </delete>
+
+
+
+
+
+
+
+
+
+</mapper>
