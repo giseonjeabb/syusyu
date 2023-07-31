@@ -5,6 +5,8 @@ import com.teamProject.syusyu.domain.order.PayDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public class PayDAOImpl implements PayDAO {
     private final SqlSession session;
@@ -26,6 +28,20 @@ public class PayDAOImpl implements PayDAO {
     @Override
     public int insertPay(PayDTO payDTO) throws Exception {
         return session.insert(namespace + "insertPay", payDTO);
+    }
+
+    /**
+     * 주문취소 시 새로운 결제 정보를 삽입한다.
+     *
+     * @param param 삽입할 결제 정보를 담은 Map
+     * @return DB에 성공적으로 삽입된 row의 수
+     * @throws Exception DB 삽입 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    @Override
+    public int insertCancelPay(Map<String, Object> param) throws Exception {
+        return session.insert(namespace + "insertCancelPay", param);
     }
 
     /**
