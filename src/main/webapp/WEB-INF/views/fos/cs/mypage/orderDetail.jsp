@@ -42,8 +42,10 @@
                             </div>
                         </div>
                         <div class="btn-area" data-name="state-btns">
-                            <a href="#" class="btn ty1 c-ty6 w-90" cmd="claim" claim="100"
-                               paids="1"><span>주문취소</span></a>
+                            <!-- 주문상태가 10(결제완료)일 경우에만 주문취소 가능 -->
+                            <c:if test="${orderDetail.ordStus == '10'}">
+                                <a href="#" class="btn ty1 c-ty6 w-90" cmd="claim" claim="100" paids="1"><span>주문취소</span></a>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>
