@@ -27,12 +27,12 @@
         <typeAlias alias="OrdDlvAddrDTO" type="com.teamProject.syusyu.domain.order.OrdDlvAddrDTO"/>
         <typeAlias alias="PayRsltDTO" type="com.teamProject.syusyu.domain.order.PayRsltDTO"/>
         <typeAlias alias="OrdStusHistDTO" type="com.teamProject.syusyu.domain.order.OrdStusHistDTO"/>
-
         <typeAlias alias="OrderInfoDTO" type="com.teamProject.syusyu.domain.order.OrderInfoDTO"/>
         <typeAlias alias="PayInfoDTO" type="com.teamProject.syusyu.domain.order.PayInfoDTO"/>
         <typeAlias alias="orderSearchRequestDTO" type="com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO"/>
-
         <typeAlias alias="DeliveryDTO" type="com.teamProject.syusyu.domain.order.DeliveryDTO"/>
+        <typeAlias alias="OrdClaimDTO" type="com.teamProject.syusyu.domain.order.OrdClaimDTO"/>
+
 
         <!-- cs -->
         <typeAlias alias="NoticeDTO" type="com.teamProject.syusyu.domain.cs.NoticeDTO"/>

@@ -13,6 +13,8 @@ public interface DeliveryDAO {
 
     int deleteDelivery(int dlvNo) throws Exception;
 
+    int deleteAllDelivery() throws Exception;
+
     int countDelivery() throws Exception;
 
     List<DeliveryDTO> selectAllDelivery() throws Exception;

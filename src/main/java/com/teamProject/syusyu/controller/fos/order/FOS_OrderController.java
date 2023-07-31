@@ -4,6 +4,7 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.*;
+import com.teamProject.syusyu.domain.order.request.CancelOrderRequest;
 import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,7 @@ public class FOS_OrderController {
      * @param startDate 시작일
      * @param endDate   종료일
      * @return 해당 기간 동안의 주문 정보를 담은 OrderInfoDTO 객체의 리스트를 담은 ResponseEntity 객체.
-     *         조회에 성공한 경우 상태 코드는 OK(200), 실패한 경우 BAD_REQUEST(400)를 반환한다.
+     * 조회에 성공한 경우 상태 코드는 OK(200), 실패한 경우 BAD_REQUEST(400)를 반환한다.
      * @author min
      * @since 2023/07/18
      */
@@ -152,4 +153,28 @@ public class FOS_OrderController {
 
         return ViewPath.FOS_MYPAGE + "orderDetail";
     }
+
+    /**
+     * 주문을 취소한다.
+     *
+     * @param cancelOrderRequest 주문 취소 시 필요한 정보를 담고 있는 객체
+     * @param mbrId              세션에서 가져온 사용자 ID
+     * @return 주문 취소 성공 여부를 나타내는 문자열을 담은 ResponseEntity 객체.
+     *         주문 취소에 성공하면 'CANCEL_OK', 실패하면 'CANCEL_ERR' 문자열과 함께 상태 코드를 반환한다.
+     *         성공한 경우 상태 코드는 OK(200), 실패한 경우 BAD_REQUEST(400)를 반환한다.
+     * @author min
+     * @since 2023/07/30
+     */
+    @PostMapping("orders/cancel")
+    public ResponseEntity<String> cancelOrder(@RequestBody CancelOrderRequest cancelOrderRequest, @SessionAttribute int mbrId) {
+        try {
+            service.cancelOrder(cancelOrderRequest.getOrdClaimDTO(), cancelOrderRequest.getOrdDtlNoList(), mbrId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("CANCEL_ERR", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("CANCEL_OK", HttpStatus.OK);
+    }
+
 }
