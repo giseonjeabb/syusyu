@@ -8,6 +8,7 @@ import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.domain.order.*;
+import com.teamProject.syusyu.service.base.order.OrderServiceBase;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class FOS_OrderServiceImpl implements FOS_OrderService {
+public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderService {
     private final MemberDao memberDao;
     private final DlvAddrDAO dlvAddrDAO;
     private final CartProdDAO cartProdDAO;
@@ -30,9 +31,10 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
     private final PayRsltDAO payRsltDAO;
     private final OrdDlvAddrDAO ordDlvAddrDAO;
     private final OrderInfoDAO orderInfoDAO;
+    private final OrdClaimDAO ordClaimDAO;
 
     @Autowired
-    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO) {
+    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO) {
         this.memberDao = memberDao;
         this.dlvAddrDAO = dlvAddrDAO;
         this.cartProdDAO = cartProdDAO;
@@ -43,6 +45,7 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
         this.payRsltDAO = payRsltDAO;
         this.ordDlvAddrDAO = ordDlvAddrDAO;
         this.orderInfoDAO = orderInfoDAO;
+        this.ordClaimDAO = ordClaimDAO;
     }
 
     /**
@@ -295,6 +298,11 @@ public class FOS_OrderServiceImpl implements FOS_OrderService {
         result.put("payInfo", payInfo);
 
         return result;
+    }
+
+    public void cancelOrder(List<Integer> ordDtlNoList, int mbrId) throws Exception {
+        // 1. 주문취소할 주문건의 주문상태를 '70(주문취소)'로 바꾼다.
+        processUpdateOrderStatus(ordDtlNoList, mbrId, "70");
     }
 
 }

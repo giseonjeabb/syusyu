@@ -7,12 +7,6 @@ import java.util.Map;
 
 public interface BOS_OrderService {
     Map<String, Object> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) throws Exception;
-
     void processUpdateOrderStatus(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception;
-
-    int updateOrderStatus(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception;
-
-    int addOrderStatusHistory(List<Integer> ordDtlNoList, int mbrId, String ordStus) throws Exception;
-
     void dispatchOrder(List<Integer> ordDtlNoList, List<String> dlvComList, List<String> trckNoList, int mbrId, String ordStus) throws Exception;
 }
