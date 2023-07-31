@@ -24,5 +24,5 @@ public interface FOS_OrderService {
     Map<String, Object> getOrderDetailList(Map<String, Integer> param) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)
-    void cancelOrder(List<OrdClaimDTO> ordClaimDTOList, int mbrId) throws Exception;
+    void cancelOrder(OrdClaimDTO ordClaimDTO, List<Integer> ordDtlNoList, int mbrId) throws Exception;
 }

@@ -119,7 +119,6 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public void order(Order order) throws Exception {
         // 1. 주문 정보를 DB에 삽입한다.
         createOrder(order.getOrd());
-//        int ordNo = ord.getOrdNo();
 
         // 2. 주문상세정보와 주문상태이력 정보를 DB에 삽입한다.
         addOrderDetailsAndStatusHistories(order.getOrdDtlList(), order.getOrdStusHistList(), order.getOrd().getOrdNo());
@@ -270,11 +269,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception {
         List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderList(param);
 
-        Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
-
-        orderInfoListByOrdNo.forEach((k, v) -> System.out.println("k : " + k + ", v : " + v));
-
-        return orderInfoListByOrdNo;
+        return orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
     }
 
     /**
@@ -303,7 +298,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     /**
      * 주문 취소처리를 한다.
      *
-     * @param ordClaimDTOList 주문을 취소할 주문 클레임 DTO 리스트
+     * @param ordClaimDTO 주문을 취소할 주문 클레임 DTO
      * @param mbrId 사용자의 ID
      * @throws Exception 주문 취소 과정에서 발생할 수 있는 예외
      * @author min
@@ -311,32 +306,22 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void cancelOrder(List<OrdClaimDTO> ordClaimDTOList, int mbrId) throws Exception {
-        for (OrdClaimDTO ordClaimDTO : ordClaimDTOList) {
+    public void cancelOrder(OrdClaimDTO ordClaimDTO, List<Integer> ordDtlNoList, int mbrId) throws Exception {
+        for (int ordDtlNo : ordDtlNoList) {
+            ordClaimDTO.setOrdDtlNo(ordDtlNo);
             // 1. 주문취소할 주문 건의 주문상태를 '70'(주문취소)로 바꾼다.
             // 2. 주문상태이력 테이블에 상태변경 이력을 남긴다.
-            changeOrderStatusAndRecordHistory(ordClaimDTO.getOrdDtlNo(), mbrId, "70");
+            updateOrderStatusAndAddHistory(ordDtlNo, mbrId, "70");
             // 3. 주문 클레임을 등록한다.
-            registerOrderClaim(ordClaimDTO);
+            registerOrderClaim(ordClaimDTO, mbrId);
             // 4. 새로운 결제 정보를 삽입한다.
             insertNewPay(ordClaimDTO.getOrdNo(), mbrId);
             // 5. 기존 결제 정보의 결제 상태를 일부 주문취소로 변경한다.
             changePayStatus(ordClaimDTO.getOrdNo(), mbrId, "20");
-        }
-    }
 
-    /**
-     * 주문 상태를 업데이트하고 주문 상태 이력을 추가한다.
-     *
-     * @param ordDtlNo 주문 상세 번호
-     * @param mbrId 사용자의 ID
-     * @param newStatus 새로운 주문 상태
-     * @throws Exception 주문 상태 업데이트 또는 주문 상태 이력 추가 도중 발생할 수 있는 예외
-     * @author min
-     * @since 2023/07/30
-     */
-    private void changeOrderStatusAndRecordHistory(int ordDtlNo, int mbrId, String newStatus) throws Exception {
-        updateOrderStatusAndAddHistory(ordDtlNo, mbrId, newStatus);
+            // 6. TODO 재고수량 롤백
+            // 7. TODO PG 주문취소
+        }
     }
 
     /**
@@ -347,7 +332,8 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
      * @author min
      * @since 2023/07/30
      */
-    private void registerOrderClaim(OrdClaimDTO ordClaimDTO) throws Exception {
+    private void registerOrderClaim(OrdClaimDTO ordClaimDTO, int mbrId) throws Exception {
+        ordClaimDTO.setRegrId(mbrId);
         ordClaimDAO.insertCancelClaim(ordClaimDTO);
     }
 
