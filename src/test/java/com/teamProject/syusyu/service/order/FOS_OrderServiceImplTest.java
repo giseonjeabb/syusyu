@@ -84,32 +84,48 @@ public class FOS_OrderServiceImplTest {
     }
 
     @Test
-   public void cancelOrderTest() throws Exception {
-        // 1. 주문 생성하는데 내가 테스트했던 그 주문 건을 생성해서 해야 함
-        // 1-1. 주문 시 필요한 데이터 생성
-        Order order = getOrder2();
-        // 1-2 주문을 생성한다.
+    public void cancelOrderTest() throws Exception {
+        // 1. 주문을 생성한다.
+        Order order = createOrder(getOrder2());
+        // 2. 주문취소할 주문상세번호를 가져온다.
+        List<Integer> ordDtlNoList = createCancelOrderList(order);
+        // 3. 주문 클레임 DTO 데이터를 생성한다.
+        OrdClaimDTO ordClaimDTO = createOrderClaim(order);
+
+        // 4. 주문취소를 진행한다.
+        service.cancelOrder(ordClaimDTO, ordDtlNoList, 80001);
+
+        List<OrdClaimDTO> cancelResultList = ordClaimDAO.selectAllOrdClaims();
+        assertNotNull("주문 취소 실패", cancelResultList);
+    }
+
+    // 주문을 생성한다.
+    private Order createOrder(Order order) throws Exception {
         try {
             service.order(order);
         } catch (Exception e) {
-            e.printStackTrace();
             fail("주문 생성 실패");
         }
+        return order;
+    }
 
-        // 2. 주문취소를 진행한다.
-        // 2-1. 주문취소에 필요한 데이터 생성
+    // 주문취소할 주문상세번호를 가져온다.
+    private List<Integer> createCancelOrderList(Order order) {
         List<OrdDtlDTO> ordDtlDTOList = order.getOrdDtlList();
-        // 2-1-1. CM878MA1 만 주문취소
-//        List<Integer> ordDtlNoList = ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
-        // 2-1-2. 2개 주문 주문취소(10002 -> 10009 순서로)
         List<Integer> ordDtlNoList = ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
         ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10009).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
-        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10010).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
-//        ordDtlNoList.remove(ordDtlNoList.size() - 1);
+//        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10010).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
+//        List<Integer> ordDtlNoList = ordDtlDTOList.stream()
+//                .filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002 || ordDtlDTO.getProdId() == 10009 || ordDtlDTO.getProdId() == 10010)
+//                .map(OrdDtlDTO::getOrdDtlNo)
+//                .collect(Collectors.toList());
 
-        System.out.println("ordDtlNoList = " + ordDtlNoList);
+        return ordDtlNoList;
+    }
 
-        OrdClaimDTO ordClaimDTO = OrdClaimDTO.Builder.anOrdClaimDTO()
+    // 주문 클레임 DTO 데이터를 생성한다.
+    private OrdClaimDTO createOrderClaim(Order order) {
+        return OrdClaimDTO.Builder.anOrdClaimDTO()
                 .ordNo(order.getOrd().getOrdNo())
                 .claimTp(10)
                 .claimStus("10")
@@ -124,12 +140,6 @@ public class FOS_OrderServiceImplTest {
                 .claimPic3("사진1")
                 .regrId(80001)
                 .build();
-
-        service.cancelOrder(ordClaimDTO, ordDtlNoList, 80001);
-
-        OrdClaimDTO cancelResult = ordClaimDAO.selectOrdClaim(ordClaimDTO.getOrdClaimNo());
-        System.out.println("cancelResult = " + cancelResult);
-
     }
 
     @Test
