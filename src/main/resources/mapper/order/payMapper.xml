@@ -99,6 +99,17 @@
         WHERE PAY_NO = #{payNo}
     </select>
 
+    <!--주문 취소 시 이전 PAY 데이터 일부주문취소(20)/주문취소(30)로 변경-->
+    <update id="updateCancelPay" parameterType="Map">
+        UPDATE PAY
+        SET PAY_STUS = #{payStus}
+          , UPD_DTTM = now()
+          , UPDR_ID = #{updrId}
+        WHERE PAY_NO = (SELECT MIN(PAY_NO)
+                        FROM PAY
+                        WHERE ORD_NO = #{ordNo});
+    </update>
+
     <delete id="deleteAllPay">
         DELETE
         FROM PAY

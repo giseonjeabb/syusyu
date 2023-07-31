@@ -10,6 +10,9 @@ public interface PayDAO {
     int insertCancelPay(Map<String, Object> param) throws Exception;
 
     PayDTO selectPay(int payNo) throws Exception;
+
+    int updateCancelPay(Map<String, Object> param) throws Exception;
+
     int deleteAllPay() throws Exception;
     int countPay() throws Exception;
 }

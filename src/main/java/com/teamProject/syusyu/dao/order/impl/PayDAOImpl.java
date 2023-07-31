@@ -59,6 +59,20 @@ public class PayDAOImpl implements PayDAO {
     }
 
     /**
+     * 주문 취소 시 이전 PAY 데이터 일부주문취소(20)/주문취소(30)로 변경한다.
+     *
+     * @param param 업데이트에 필요한 파라미터를 담은 Map
+     * @return DB에 성공적으로 업데이트된 row의 수
+     * @throws Exception DB 업데이트 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    @Override
+    public int updateCancelPay(Map<String, Object> param) throws Exception {
+        return session.update(namespace + "updateCancelPay", param);
+    }
+
+    /**
      * 모든 결제 정보를 DB에서 삭제한다.
      *
      * @return DB에서 성공적으로 삭제된 row의 수
