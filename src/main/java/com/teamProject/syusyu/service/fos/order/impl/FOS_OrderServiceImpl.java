@@ -125,7 +125,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         addOrderDetailsAndStatusHistories(order.getOrdDtlList(), order.getOrdStusHistList(), order.getOrd().getOrdNo());
 
         // 3. 결제정보를 DB에 삽입한다.
-        addPayment(order.getPay(), order.getOrd().getOrdNo());
+        addPay(order.getPay(), order.getOrd().getOrdNo());
 
         // 4. 결제승인결과 정보를 DB에 삽입한다.
         addPayResult(order.getPayRslt(), order.getPay().getPayNo());
@@ -182,7 +182,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
      * @author min
      * @since 2023/07/11
      */
-    private void addPayment(PayDTO pay, int ordNo) throws Exception {
+    private void addPay(PayDTO pay, int ordNo) throws Exception {
         // 필요한 데이터 세팅
         pay.setOrdNo(ordNo); // 주문번호
         // pay insert
@@ -300,35 +300,102 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         return result;
     }
 
+    /**
+     * 주문 취소처리를 한다.
+     *
+     * @param ordClaimDTOList 주문을 취소할 주문 클레임 DTO 리스트
+     * @param mbrId 사용자의 ID
+     * @throws Exception 주문 취소 과정에서 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void cancelOrder(List<OrdClaimDTO> ordClaimDTOList, int mbrId) throws Exception {
-        Map<String, Object> insertCancelPayParam = new HashMap<>();
-        Map<String, Object> updateCancelPayParm = new HashMap<>();
-
         for (OrdClaimDTO ordClaimDTO : ordClaimDTOList) {
             // 1. 주문취소할 주문 건의 주문상태를 '70'(주문취소)로 바꾼다.
             // 2. 주문상태이력 테이블에 상태변경 이력을 남긴다.
-            updateOrderStatusAndAddHistory(ordClaimDTO.getOrdDtlNo(), mbrId, "70");
-
+            changeOrderStatusAndRecordHistory(ordClaimDTO.getOrdDtlNo(), mbrId, "70");
             // 3. 주문 클레임을 등록한다.
-            ordClaimDAO.insertCancelClaim(ordClaimDTO);
-
+            registerOrderClaim(ordClaimDTO);
             // 4. 새로운 결제 정보를 삽입한다.
-            insertCancelPayParam.clear();
-            insertCancelPayParam.put("regrId", mbrId);
-            insertCancelPayParam.put("ordNo", ordClaimDTO.getOrdNo());
-            payDAO.insertCancelPay(insertCancelPayParam);
-
+            insertNewPay(ordClaimDTO.getOrdNo(), mbrId);
             // 5. 기존 결제 정보의 결제 상태를 일부 주문취소로 변경한다.
-            updateCancelPayParm.clear();
-            updateCancelPayParm.put("payStus", "20");
-            updateCancelPayParm.put("updrId", mbrId);
-            updateCancelPayParm.put("ordNo", ordClaimDTO.getOrdNo());
-
-            payDAO.updateCancelPay(updateCancelPayParm);
-
+            changePayStatus(ordClaimDTO.getOrdNo(), mbrId, "20");
         }
-
     }
 
+    /**
+     * 주문 상태를 업데이트하고 주문 상태 이력을 추가한다.
+     *
+     * @param ordDtlNo 주문 상세 번호
+     * @param mbrId 사용자의 ID
+     * @param newStatus 새로운 주문 상태
+     * @throws Exception 주문 상태 업데이트 또는 주문 상태 이력 추가 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    private void changeOrderStatusAndRecordHistory(int ordDtlNo, int mbrId, String newStatus) throws Exception {
+        updateOrderStatusAndAddHistory(ordDtlNo, mbrId, newStatus);
+    }
+
+    /**
+     * 주문 클레임을 생성한다.
+     *
+     * @param ordClaimDTO 주문 클레임 DTO
+     * @throws Exception 주문 클레임 생성 과정에서 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    private void registerOrderClaim(OrdClaimDTO ordClaimDTO) throws Exception {
+        ordClaimDAO.insertCancelClaim(ordClaimDTO);
+    }
+
+    /**
+     * 새로운 결제 정보를 생성한다.
+     *
+     * @param ordNo 주문 번호
+     * @param mbrId 사용자의 ID
+     * @throws Exception 결제 정보 생성 과정에서 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    private void insertNewPay(int ordNo, int mbrId) throws Exception {
+        Map<String, Object> insertCancelPayParam = createParamMapForPay(mbrId, ordNo);
+        payDAO.insertCancelPay(insertCancelPayParam);
+    }
+
+    /**
+     * 결제 상태를 변경한다.
+     *
+     * @param ordNo 주문번호
+     * @param mbrId 사용자의 ID
+     * @param newStatus 새로운 결제 상태
+     * @throws Exception 결제 상태 변경 과정에서 발생할 수 있는 예외
+     * @author min
+     * @since 2023/07/30
+     */
+    private void changePayStatus(int ordNo, int mbrId, String newStatus) throws Exception {
+        Map<String, Object> updateCancelPayParam = createParamMapForPay(mbrId, ordNo);
+        updateCancelPayParam.put("payStus", newStatus);
+        payDAO.updateCancelPay(updateCancelPayParam);
+    }
+
+    /**
+     * 결제에 대한 매개변수를 생성한다.
+     *
+     * @param mbrId 사용자의 ID
+     * @param ordNo 주문 번호
+     * @return 결제 정보를 담은 Map 객체
+     * @author min
+     * @since 2023/07/30
+     */
+    private Map<String, Object> createParamMapForPay(int mbrId, int ordNo) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("regrId", mbrId);
+        paramMap.put("ordNo", ordNo);
+        paramMap.put("updrId", mbrId);
+
+        return paramMap;
+    }
 }
