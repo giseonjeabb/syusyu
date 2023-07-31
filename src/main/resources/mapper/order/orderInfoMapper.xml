@@ -29,6 +29,7 @@
     <select id="selectOrderList" parameterType="Map" resultType="OrderInfoDTO">
         <include refid="orderInfo"/>
         WHERE O.ORDR_ID = #{mbrId}
+        AND P.PAY_STUS NOT IN (20, 30)
         AND STR_TO_DATE(ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         ORDER BY O.ORD_NO DESC, OD.ORD_DTL_NO
     </select>
@@ -37,6 +38,7 @@
         <include refid="orderInfo"/>
         WHERE O.ORDR_ID = #{mbrId}
         AND O.ORD_NO = #{ordNo}
+        AND P.PAY_STUS NOT IN (20, 30)
         ORDER BY OD.ORD_DTL_NO
     </select>
 
@@ -59,11 +61,11 @@
              , P.REAL_PAY_AMT                                    # 총 결제금액(실결제금액)
              , P.PAY_TP                                          # 결제방법
              , GET_CD_NM('O0010', P.PAY_TP)        AS PAY_TP_NM  # 결제방법이름
-             , PR.APRV_DTTM                                      # 승일일시(결제일시)
+             , P.REG_DTTM                          AS APRV_DTTM  # 승일일시(결제일시)
         FROM PAY P
-                 JOIN PAY_RSLT PR ON P.PAY_NO = PR.PAY_NO
         WHERE P.PAYER_ID = #{mbrId}
-          AND ORD_NO = #{ordNo};
+          AND ORD_NO = #{ordNo}
+          AND PAY_STUS NOT IN (20, 30)
     </select>
 
     <select id="selectBosOrderList" parameterType="orderSearchRequestDTO" resultType="OrderInfoDTO">

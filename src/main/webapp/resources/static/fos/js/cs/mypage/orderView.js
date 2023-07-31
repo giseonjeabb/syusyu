@@ -75,7 +75,7 @@ orderView.function = {
                 return `
                 <div class="order-item">
                     <div class="thumb">
-                        <img src="${orderInfo.repImg}" onclick="location.href='/product/${orderInfo.prodId}'">
+                        <img src="${orderInfo.repImg}" onclick="location.href='/product/${orderInfo.prodId}'" alt="">
                     </div>
                     <div class="order-info">
                         <div class="badge-cont">
@@ -92,7 +92,7 @@ orderView.function = {
                             <li>
                                 <span>
                                     <strong>
-                                        ${formatPrice(orderInfo.realPayAmt)}
+                                        ${formatPrice(orderInfo.prodAmt)}
                                     </strong>
                                     원
                                 </span>
@@ -124,71 +124,4 @@ orderView.function = {
         // 5. 생성된 주문목록 정보를 화면에 보여준다.
         $orderListBox.innerHTML = result;
     },
-
-
-    // // 주문 목록 정보를 화면에 보여준다.
-    // showOrderInfoList(orderInfoList) {
-    //     // 0. 마이페이지 - 주문조회 상위 div 요소를 가져온다.
-    //     const $orderListBox = document.querySelector('.orderlistbox');
-    //     // 1. 리스트를 초기화한다.
-    //     $orderListBox.innerHTML = ``;
-    //
-    //     let result = ``;
-    //     for (let ordNum in orderInfoList) {
-    //         const ordDttm = orderInfoList[ordNum][0].ordDttm.substring(0, 10); // 주문번호
-    //         // 주문 목록 생성 시작
-    //         result += `
-    //         <div class="order-history-list">
-    //             <div class="history-info">
-    //                 <div class="detail">
-    //                     <span class="order-num">${ordNum}</span>
-    //                     <span class="date">${ordDttm}</span>
-    //                 </div>
-    //                 <div class="a-btn-area">
-    //                     <a href="order_detail?order=39120&amp;params=ZH4U0DtZAK0J7k4i5OCPJxgYP2v78c19Qvscl6aP7kZ1b241K8u" class="btn">
-    //                         <span>상세보기</span>
-    //                     </a>
-    //                 </div>
-    //             </div>`;
-    //
-    //         // 각 주문 별로 주문상세 데이터 생성
-    //         orderInfoList[ordNum].forEach(function (orderInfo) {
-    //             result += `
-    //             <div class="order-item">
-    //                 <div class="thumb">
-    //                     <img src="${orderInfo.repImg}" alt="">
-    //                 </div>
-    //                 <div class="order-info">
-    //                     <div class="badge-cont">
-    //                         <span class="badge-item ty11 fw-7">${orderInfo.ordStusNm}</span>
-    //                     </div>
-    //                     <ul>
-    //                         <li>
-    //                             <span class="title">${orderInfo.prodNm}</span>
-    //                         </li>
-    //                         <li>`;
-    //             if (orderInfo.optNm) {
-    //             result += `
-    //                             <span class="option">${orderInfo.optNm}</span>`;
-    //             }
-    //             result += `
-    //                             <span class="qty"> ${formatPrice(orderInfo.qty)}개 </span>
-    //                         </li>
-    //                         <li>
-    //                             <span>
-    //                                 <strong>
-    //                                     ${formatPrice(orderInfo.realPayAmt)}
-    //                                 </strong>
-    //                                 원
-    //                             </span>
-    //                         </li>
-    //                     </ul>
-    //                 </div>
-    //             </div>`;
-    //         });
-    //         result += ` </div>`; // 주문 목록 생성 끝
-    //     }
-    //     // 생성된 주문목록 정보를 화면에 보여준다.
-    //     $orderListBox.innerHTML += result;
-    // },
 }

@@ -108,7 +108,8 @@
         WHERE PAY_NO = (SELECT MIN_PAY_NO
                         FROM (SELECT MIN(PAY_NO) AS MIN_PAY_NO
                               FROM PAY
-                              WHERE ORD_NO = #{ordNo}) AS TMP)
+                              WHERE ORD_NO = #{ordNo}
+                                AND PAY_STUS NOT IN (20, 30)) AS TMP)
     </update>
 
     <delete id="deleteAllPay">
