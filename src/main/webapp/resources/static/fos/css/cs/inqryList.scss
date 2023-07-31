@@ -195,3 +195,38 @@ ta-c {
   transition: max-height 0.2s ease-out;
 }
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  color: #A0A0A0;
+}
+
+.pagination-container a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 2px;
+  color: #A0A0A0;
+  text-decoration: none;
+}
+
+.pagination-container a:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+.pagination-container a.active {
+  background-color: #007bff;
+  color: #000000;
+}
+.r-side .btn {
+  /* 버튼의 기본 스타일 설정 (예: 기본 배경색, 기본 글자색 등) */
+  color: white; /* 흰색 글자색 */
+}
+/* CSS (styles.css or styles.scss) */
+.r-side .btn:hover {
+  /* 버튼 위에 마우스가 올라갔을 때의 스타일 설정 */
+  background-color: red; /* 빨간색 배경색 */
+  color: white; /* 흰색 텍스트 색상 */
+  /* 원하는 다른 스타일들 추가 가능 */
+}

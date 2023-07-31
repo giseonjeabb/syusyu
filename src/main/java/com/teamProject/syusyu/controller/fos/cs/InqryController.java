@@ -69,7 +69,7 @@ public class InqryController {
             e.printStackTrace();
         }
 
-        return ViewPath.FOS_MYPAGE +"inqry";
+        return ViewPath.FOS_HELP +"inqry";
     }
 
     @GetMapping("/read")
@@ -81,7 +81,7 @@ public class InqryController {
                 e.printStackTrace();
             }
 
-            return ViewPath.FOS_MYPAGE +"inqry";
+            return ViewPath.FOS_HELP +"inqry";
         }
 
         @GetMapping("/inqryList")
@@ -120,7 +120,7 @@ public class InqryController {
                 e.printStackTrace();
             }
 
-            return ViewPath.FOS_MYPAGE +"inqryList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
+            return ViewPath.FOS_HELP +"inqryList"; // 로그인을 한 상태이면, 게시판 화면으로 이동
         }
 
         @GetMapping("/modify")
@@ -135,7 +135,7 @@ public class InqryController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-                return ViewPath.FOS_MYPAGE +"inqrymodify";
+                return ViewPath.FOS_HELP +"inqrymodify";
         }
 
     @PostMapping("/imgUpload")

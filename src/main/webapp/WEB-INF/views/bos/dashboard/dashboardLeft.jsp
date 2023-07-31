@@ -79,7 +79,7 @@
             <div class="collapse" id="collapseCS" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="<c:url value='/adminNotice/list'/>"> 공지사항 관리</a>
-                    <a class="nav-link" href="">문의사항 관리</a>
+                    <a class="nav-link" href="<c:url value='/adminInqry/list'/>">문의사항 관리</a>
                     <a class="nav-link" href="<c:url value ='/bos/faqList'/>"> FAQ 관리</a>
                 </nav>
             </div>
