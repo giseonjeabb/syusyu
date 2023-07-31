@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ImageDTO {
-    //상품이미지들
+    private int prodId;
     private String imagePath;
+    private int regrId;
 
     ImageDTO(){}
 
@@ -14,24 +15,26 @@ public class ImageDTO {
         this.imagePath = imagePath;
     }
 
-    @Override
-    public String toString() {
-        return "ImageDTO{" +
-                "imagePath='" + imagePath + '\'' +
-                '}';
+    public ImageDTO(int prodId, String imagePath, int regrId) {
+        this.prodId = prodId;
+        this.imagePath = imagePath;
+        this.regrId = regrId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImageDTO imageDTO = (ImageDTO) o;
-        return Objects.equals(imagePath, imageDTO.imagePath);
+    public int getProdId() {
+        return prodId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(imagePath);
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
+    }
+
+    public int getRegrId() {
+        return regrId;
+    }
+
+    public void setRegrId(int regrId) {
+        this.regrId = regrId;
     }
 
     public String getImagePath() {
@@ -40,5 +43,27 @@ public class ImageDTO {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImageDTO imageDTO = (ImageDTO) o;
+        return prodId == imageDTO.prodId && regrId == imageDTO.regrId && Objects.equals(imagePath, imageDTO.imagePath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(prodId, imagePath, regrId);
+    }
+
+    @Override
+    public String toString() {
+        return "ImageDTO{" +
+                "prodId=" + prodId +
+                ", imagePath='" + imagePath + '\'' +
+                ", regrId=" + regrId +
+                '}';
     }
 }

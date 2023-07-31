@@ -13,6 +13,7 @@ public class ProductDTO {
     private int brndId;
     private Date rlesDt;//출시일
     private int salePrc;
+    private int buyPrc;
     private Integer dcPer;
     private Integer dcPrc;
     private double avgStarRating;
@@ -78,6 +79,66 @@ public class ProductDTO {
         this.cdNm = cdNm;
     }
 
+    public ProductDTO(int prodId, int regrId, int optGrpId, String optGrpNm) {
+        this.prodId = prodId;
+        this.regrId = regrId;
+        this.optGrpId = optGrpId;
+        this.optGrpNm = optGrpNm;
+    }
+
+    public ProductDTO(int optItemId, String optItemNm, int optGrpId, int regrId){
+        this.optItemId=optItemId;
+        this.optItemNm=optItemNm;
+        this.optGrpId=optGrpId;
+        this.regrId=regrId;
+
+    }
+
+    public ProductDTO(int prodId, int regrId, int optCombNo, int optPrc, int invQty) {
+        this.prodId = prodId;
+        this.regrId = regrId;
+        this.optCombNo = optCombNo;
+        this.optPrc = optPrc;
+        this.invQty = invQty;
+    }
+
+    public ProductDTO(int regrId, int optItemId, int optCombNo) {
+        this.regrId = regrId;
+        this.optItemId = optItemId;
+        this.optCombNo = optCombNo;
+    }
+
+    public ProductDTO(int prodId, int salePrc, int buyPrc, Integer dcPer, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, int regrId) {
+        this.prodId = prodId;
+        this.salePrc = salePrc;
+        this.buyPrc = buyPrc;
+        this.dcPer = dcPer;
+        this.saleStDttm = saleStDttm;
+        this.saleEdDttm = saleEdDttm;
+        this.dcStDttm = dcStDttm;
+        this.dcEdDttm = dcEdDttm;
+        this.regrId = regrId;
+    }
+
+
+
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, int regrId) {
+        this.prodId = prodId;
+        this.cateId = cateId;
+        this.prodNm = prodNm;
+        this.modelNm = modelNm;
+        this.brndId = brndId;
+        this.rlesDt = rlesDt;
+        this.dlvChgDtl = dlvChgDtl;
+        this.prodDtlDesc = prodDtlDesc;
+        this.mfgdMatr = mfgdMatr;
+        this.mftco = mftco;
+        this.mftNatn = mftNatn;
+        this.repImg = repImg;
+        this.status = status;
+        this.regrId = regrId;
+    }
+
     public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt) {
         this.prodId = prodId;
         this.cateId = cateId;
@@ -135,6 +196,14 @@ public class ProductDTO {
         this.smallNo = smallNo;
         this.smallNm = smallNm;
 
+    }
+
+    public int getBuyPrc() {
+        return buyPrc;
+    }
+
+    public void setBuyPrc(int buyPrc) {
+        this.buyPrc = buyPrc;
     }
 
     public int getCode() {
@@ -534,12 +603,12 @@ public class ProductDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDTO that = (ProductDTO) o;
-        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && optGrpId == that.optGrpId && optItemId == that.optItemId && optCombNo == that.optCombNo && optPrc == that.optPrc && invQty == that.invQty && code == that.code && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(mftcoNm, that.mftcoNm) && Objects.equals(mftNatnNm, that.mftNatnNm) && Objects.equals(repImg, that.repImg) && Objects.equals(statusNm, that.statusNm) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(optGrpNm, that.optGrpNm) && Objects.equals(optItemNm, that.optItemNm) && Objects.equals(cdNm, that.cdNm);
+        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && buyPrc == that.buyPrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && optGrpId == that.optGrpId && optItemId == that.optItemId && optCombNo == that.optCombNo && optPrc == that.optPrc && invQty == that.invQty && code == that.code && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(mftcoNm, that.mftcoNm) && Objects.equals(mftNatnNm, that.mftNatnNm) && Objects.equals(repImg, that.repImg) && Objects.equals(statusNm, that.statusNm) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(optGrpNm, that.optGrpNm) && Objects.equals(optItemNm, that.optItemNm) && Objects.equals(cdNm, that.cdNm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftcoNm, mftNatn, mftNatnNm, repImg, status, statusNm, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty, code, cdNm);
+        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, buyPrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftcoNm, mftNatn, mftNatnNm, repImg, status, statusNm, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, optGrpId, optGrpNm, optItemId, optItemNm, optCombNo, optPrc, invQty, code, cdNm);
     }
 
     @Override
@@ -552,6 +621,7 @@ public class ProductDTO {
                 ", brndId=" + brndId +
                 ", rlesDt=" + rlesDt +
                 ", salePrc=" + salePrc +
+                ", buyPrc=" + buyPrc +
                 ", dcPer=" + dcPer +
                 ", dcPrc=" + dcPrc +
                 ", avgStarRating=" + avgStarRating +
@@ -596,5 +666,6 @@ public class ProductDTO {
                 ", cdNm='" + cdNm + '\'' +
                 '}';
     }
+
 }
 
