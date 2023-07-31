@@ -59,6 +59,19 @@ public class OrdClaimDAOImpl implements OrdClaimDAO {
     }
 
     /**
+     * 모든 주문 클레임 정보를 DB에서 삭제한다.
+     *
+     * @return DB에서 성공적으로 삭제된 row의 수
+     * @throws Exception DB 삭제 도중 발생할 수 있는 예외
+     * @author min
+     * @since  2023/07/30
+     */
+    @Override
+    public int deleteAllOrdClaim() throws Exception {
+        return session.delete(namespace + "deleteAllOrdClaim");
+    }
+
+    /**
      * DB에 저장된 주문 클레임 정보의 총 개수를 조회한다.
      *
      * @return DB에 저장된 주문 클레임 정보의 총 개수

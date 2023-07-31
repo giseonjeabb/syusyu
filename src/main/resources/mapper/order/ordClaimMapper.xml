@@ -21,7 +21,6 @@
                               , CLAIM_PIC1
                               , CLAIM_PIC2
                               , CLAIM_PIC3
-                              , REG_DTTM
                               , REGR_ID)
         <![CDATA[
         SELECT ORD_NO                                   # 주문번호
@@ -40,7 +39,6 @@
              , #{claimPic1}                             # 사진1
              , #{claimPic2}                             # 사진2
              , #{claimPic3}                             # 사진3
-             , #{regDttm}                               # 등록일시
              , #{regrId}                                # 등록자
         FROM (SELECT P.ORD_NO
                    , GET_ORGN_PAY_AMT(TOT_PROD_AMT, P.CPN_ISS_NO) + IF(ALL_TOT_PROD_AMT > 50000 OR P.DLV_FEE > 0, 0, -3000) AS TOT_RFND_AMT
@@ -64,6 +62,11 @@
         FROM ORD_CLAIM
         WHERE ORD_CLAIM_NO = #{ordClaimNo}
     </select>
+
+    <delete id="deleteAllOrdClaim">
+        DELETE
+        FROM ORD_CLAIM
+    </delete>
 
     <delete id="deleteOrdClaim" parameterType="int">
         DELETE

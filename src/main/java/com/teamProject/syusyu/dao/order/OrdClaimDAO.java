@@ -11,6 +11,8 @@ public interface OrdClaimDAO {
 
     int deleteOrdClaim(int ordClaimNo) throws Exception;
 
+    int deleteAllOrdClaim() throws Exception;
+
     int countOrdClaim() throws Exception;
 
     List<OrdClaimDTO> selectAllOrdClaims() throws Exception;
