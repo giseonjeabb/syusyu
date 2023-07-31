@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class OrdClaimDTO {
     private int ordClaimNo; // 주문클레임번호
+    private int ordNo; // 주문번호
     private int ordDtlNo; // 주문상세번호
     private int claimTp; // 주문클레임 분류
     private String claimStus; // 주문클레임 처리상태
@@ -43,6 +44,14 @@ public class OrdClaimDTO {
 
     public void setOrdClaimNo(int ordClaimNo) {
         this.ordClaimNo = ordClaimNo;
+    }
+
+    public int getOrdNo() {
+        return ordNo;
+    }
+
+    public void setOrdNo(int ordNo) {
+        this.ordNo = ordNo;
     }
 
     public int getOrdDtlNo() {
@@ -305,15 +314,16 @@ public class OrdClaimDTO {
     public String toString() {
         return "OrdClaimDTO{" +
                 "ordClaimNo=" + ordClaimNo +
+                ", ordNo=" + ordNo +
                 ", ordDtlNo=" + ordDtlNo +
                 ", claimTp=" + claimTp +
-                ", claimStus=" + claimStus +
+                ", claimStus='" + claimStus + '\'' +
                 ", rfndYn=" + rfndYn +
                 ", totRfndAmt=" + totRfndAmt +
                 ", cardRfndAmt=" + cardRfndAmt +
                 ", rfndPnt=" + rfndPnt +
                 ", reqrId=" + reqrId +
-                ", reqRsn=" + reqRsn +
+                ", reqRsn='" + reqRsn + '\'' +
                 ", reqDtlRsn='" + reqDtlRsn + '\'' +
                 ", aprvDttm=" + aprvDttm +
                 ", aprvrId=" + aprvrId +
@@ -342,6 +352,7 @@ public class OrdClaimDTO {
 
     public static final class Builder {
         private int ordClaimNo;
+        private int ordNo;
         private int ordDtlNo;
         private int claimTp;
         private String claimStus;
@@ -384,6 +395,11 @@ public class OrdClaimDTO {
 
         public Builder ordClaimNo(int ordClaimNo) {
             this.ordClaimNo = ordClaimNo;
+            return this;
+        }
+
+        public Builder ordNo(int ordNo) {
+            this.ordNo = ordNo;
             return this;
         }
 
@@ -550,6 +566,7 @@ public class OrdClaimDTO {
         public OrdClaimDTO build() {
             OrdClaimDTO ordClaimDTO = new OrdClaimDTO();
             ordClaimDTO.setOrdClaimNo(ordClaimNo);
+            ordClaimDTO.setOrdNo(ordNo);
             ordClaimDTO.setOrdDtlNo(ordDtlNo);
             ordClaimDTO.setClaimTp(claimTp);
             ordClaimDTO.setClaimStus(claimStus);
