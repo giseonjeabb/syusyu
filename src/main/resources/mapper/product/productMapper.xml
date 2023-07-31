@@ -190,68 +190,8 @@
                , #{status}
                , #{mbrId})
     </insert>
-    <insert id="insertSmlImg" parameterType="ImageDTO">
-        INSERT INTO SML_IMG ( PROD_ID
-                            , IMAGE_PATH
-                            , REGR_ID)
-        VALUES (#{prodId}
-               , #{imagePath}
-               , #{regrId})
-    </insert>
-    <insert id="insertPrice" parameterType="ProductDTO">
-        INSERT INTO PRICE( PROD_ID
-                         , SALE_PRC
-                         , BUY_PRC
-                         , DC_PER
-                         , SALE_ST_DTTM
-                         , SALE_ED_DTTM
-                         , DC_ST_DTTM
-                         , DC_ED_DTTM
-                         , REGR_ID)
-        VALUES ( #{prodId}
-               , #{salePrc}
-               , #{buyPrc}
-               , #{dcPer}
-               , #{saleStDttm}
-               , #{saleEdDttm}
-               , #{dcStDttm}
-               , #{dcEdDttm}
-               , #{regrID});
-    </insert>
-    <insert id="insertOptGrp" parameterType="ProductDTO" useGeneratedKeys="true" keyProperty="optGrpId">
-        INSERT INTO OPT_GRP (OPT_GRP_NM  /* color, size 옵션명 추가*/
-                            , PROD_ID
-                            , REGR_ID)
-        VALUES (#{optGrpNm}
-               , #{prodId}
-               , #{regrId} );
-    </insert>
-    <insert id="insertOptItem" parameterType="ProductDTO" useGeneratedKeys="true" keyProperty="optItemId">
-        INSERT INTO OPT_ITEM ( OPT_ITEM_NM /* color, size 옵션명*/
-                             , OPT_GRP_ID  /* color, size 옵션값*/
-                             , REGR_ID)
-        VALUES (#{optItemNm}
-               , #{optGrpId}
-               , #{regrId} );
-    </insert>
-    <insert id="insertProdOpt" parameterType="ProductDTO" useGeneratedKeys="true" keyProperty="optCombNo">
-        INSERT INTO PROD_OPT (PROD_ID
-                             , OPT_PRC
-                             , INV_QTY
-                             , REGR_ID)
-        VALUES (#{prodId}
-               , #{optPrc}
-               , #{invQty}
-               , #{regrId} );
-    </insert>
-    <insert id="insertProdOptComb" parameterType="ProductDTO">
-        INSERT INTO PROD_OPT_COMB (OPT_COMB_NO        /*color, size 두개땜에 두번씩 똑같이들어가야함*/
-                                  , OPT_ITEM_ID       /*color는 size배열이 끝날때까지 같이 들어가야함*/
-                                  , REGR_ID)
-        VALUES (#{optCombNo}
-               , #{optItemId}
-               , #{regrId} );
-    </insert>
+
+
 
 
 

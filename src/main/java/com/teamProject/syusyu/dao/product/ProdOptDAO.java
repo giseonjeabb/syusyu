@@ -8,11 +8,12 @@ import java.util.List;
 public interface ProdOptDAO {
     List<ProdOptDTO> selectProdOptSizeList(int prodId);
 
-    int insertOptGrp(ProductDTO productDTO) throws Exception;
 
-    int insertOptItem(ProductDTO productDTO) throws Exception;
+    int insertOptGrp(ProdOptDTO prodOptDTO) throws Exception;
 
-    int insertProdOpt(ProductDTO productDTO) throws Exception;
+    int insertOptItem(ProdOptDTO prodOptDTO) throws Exception;
 
-    int insertProdOptComb(ProductDTO productDTO) throws Exception;
+    int insertProdOpt(ProdOptDTO prodOptDTO) throws Exception;
+
+    int insertProdOptComb(ProdOptDTO prodOptDTO) throws Exception;
 }

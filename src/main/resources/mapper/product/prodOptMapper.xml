@@ -18,4 +18,42 @@
           AND PO.DEL_YN = 'N'
         ORDER BY OI.OPT_ITEM_NM
     </select>
+    <insert id="insertOptGrp" parameterType="ProdOptDTO" useGeneratedKeys="true" keyProperty="optGrpId">
+        INSERT INTO OPT_GRP (OPT_GRP_NM  /* color, size 옵션명 추가*/
+                            , PROD_ID
+                            , REGR_ID)
+        VALUES (#{optGrpNm}
+               , #{prodId}
+               , #{regrId} );
+    </insert>
+    <insert id="insertOptItem" parameterType="ProdOptDTO" useGeneratedKeys="true" keyProperty="optItemId">
+        INSERT INTO OPT_ITEM ( OPT_ITEM_NM /* color, size 옵션명*/
+                             , OPT_GRP_ID  /* color, size 옵션값*/
+                             , REGR_ID)
+        VALUES (#{optItemNm}
+               , #{optGrpId}
+               , #{regrId} );
+    </insert>
+    <insert id="insertProdOpt" parameterType="ProdOptDTO" useGeneratedKeys="true" keyProperty="optCombNo">
+        INSERT INTO PROD_OPT (PROD_ID
+                             , OPT_PRC
+                             , INV_QTY
+                             , REGR_ID)
+        VALUES (#{prodId}
+               , #{optPrc}
+               , #{invQty}
+               , #{regrId} );
+    </insert>
+    <insert id="insertProdOptComb" parameterType="ProdOptDTO">
+        INSERT INTO PROD_OPT_COMB (OPT_COMB_NO        /*color, size 두개땜에 두번씩 똑같이들어가야함*/
+                                  , OPT_ITEM_ID       /*color는 size배열이 끝날때까지 같이 들어가야함*/
+                                  , REGR_ID)
+        VALUES (#{optCombNo}
+               , #{optItemId}
+               , #{regrId} );
+    </insert>
+
+
 </mapper>
+
+

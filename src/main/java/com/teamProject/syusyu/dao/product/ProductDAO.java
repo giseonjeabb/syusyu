@@ -14,15 +14,10 @@ public interface ProductDAO {
 
     ProductDTO selectProduct(int prodId) throws Exception;
 
-    List<ImageDTO> selectImageList(int prodId);
-
     List<ProductDTO> selectMftNatnList();
 
     List<ProductDTO> selectMftcoList();
 
     int insertProduct(ProductDTO productDTO) throws Exception;
 
-    int insertPrice(ProductDTO productDTO) throws Exception;
-
-    int insertSmlImg(ImageDTO imageDTO) throws Exception;
 }

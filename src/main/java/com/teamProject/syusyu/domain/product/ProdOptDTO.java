@@ -38,6 +38,35 @@ public class ProdOptDTO {
         this.shoesSize = shoesSize;
     }
 
+    public ProdOptDTO(int prodId, int optGrpId, String optGrpNm, int regrId) {
+        this.prodId = prodId;
+        this.regrId = regrId;
+        this.optGrpId = optGrpId;
+        this.optGrpNm = optGrpNm;
+    }
+
+    public ProdOptDTO(int optItemId, String optItemNm, int optGrpId, int regrId){
+        this.optItemId=optItemId;
+        this.optItemNm=optItemNm;
+        this.optGrpId=optGrpId;
+        this.regrId=regrId;
+
+    }
+
+    public ProdOptDTO(int prodId, int regrId, int optCombNo, int optPrc, int invQty) {
+        this.prodId = prodId;
+        this.regrId = regrId;
+        this.optCombNo = optCombNo;
+        this.optPrc = optPrc;
+        this.invQty = invQty;
+    }
+
+    public ProdOptDTO(int regrId, int optItemId, int optCombNo) {
+        this.regrId = regrId;
+        this.optItemId = optItemId;
+        this.optCombNo = optCombNo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
