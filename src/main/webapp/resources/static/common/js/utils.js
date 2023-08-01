@@ -39,4 +39,16 @@ syusyu.common.Utils = {
             check.checked = checked;
         }
     },
+
+    /**
+     * 텍스트의 길이를 해당 선택자에 표시해준다.
+     *
+     * @param {string} selector - 텍스트 카운트를 표시할 요소의 선택자
+     * @param {string} value - 길이를 체크할 텍스트 영역의 내용
+     * @author min
+     * @since 2023/08/01
+     */
+    textCount(selector, value) {
+        document.querySelector(selector).innerHTML = value.length;
+    }
 }

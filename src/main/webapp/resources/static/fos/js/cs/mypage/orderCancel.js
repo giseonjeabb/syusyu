@@ -6,9 +6,11 @@ orderCancel = {
     bindButtonEvent: () => {
         const $chkBtnContainer = document.querySelector('.order-history-list'); // 체크박스
         const $cancelOrderBtn = document.querySelector('#btn_cancel_order'); // 주문취소 버튼
+        const $request_detail_reason = document.querySelector('#request_detail_reason'); // 클레임 상세사유 count
 
         $chkBtnContainer.addEventListener('click', orderCancel.eventHandler.chkBtnClick);
         $cancelOrderBtn.addEventListener('click', orderCancel.eventHandler.cancelOrderBtnClick);
+        $request_detail_reason.addEventListener('input', e => syusyu.common.Utils.textCount('#count_request_detail_reason', e.target.value));
     },
 }
 
@@ -23,9 +25,9 @@ orderCancel.eventHandler = {
         const param = {
             ordClaimDTO: {
                 reqRsn
-              , reqDtlRsn
+                , reqDtlRsn
             }
-          , ordDtlNoList
+            , ordDtlNoList
         }
 
         // 2. 주문취소 api 호출
@@ -33,8 +35,6 @@ orderCancel.eventHandler = {
             // 3. 성공 시 주문조회로 이동
             location.href = '/fos/orderView';
         });
-
-
     },
 
     // 체크박스 클릭 이벤트 핸들러
