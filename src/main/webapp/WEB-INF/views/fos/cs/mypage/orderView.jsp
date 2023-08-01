@@ -1,7 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-
 <script src="<c:url value="${jsUrlFos}/cs/mypage/orderView.js"/>"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -26,13 +24,11 @@
         </div>
         <div class="calendar">
             <div class="input w-208">
-                <input type="text" name="start_date" id="start_date" readonly="readonly"
-                       class="inp datepicker hasDatepicker">
+                <input type="text" name="start_date" id="start_date" readonly="readonly" class="inp datepicker hasDatepicker">
             </div>
             <span class="m">~</span>
             <div class="input w-208">
-                <input type="text" name="end_date" id="end_date" readonly="readonly"
-                       class="inp datepicker hasDatepicker">
+                <input type="text" name="end_date" id="end_date" readonly="readonly" class="inp datepicker hasDatepicker">
             </div>
             <button type="button" id="btn_search" class="btn ty2 c-ty5 free"><span>조회</span></button>
         </div>

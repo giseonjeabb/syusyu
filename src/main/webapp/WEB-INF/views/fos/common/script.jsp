@@ -10,12 +10,15 @@
 <%--공통 전역변수 --%>
 <%@ include file="global.jsp" %>
 
+<%--s : ============================== 공통함수 ==============================--%>
 <%--공통함수--%>
 <script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/utils.js"/>"></script>
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
 <%--팝업 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlFos}/common/popup.js"/>"></script>
+<%--e : ============================== 공통함수 ==============================--%>
 <%-- flatpickr 캘린더 라이브러리 --%>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
