@@ -105,6 +105,7 @@
                  LEFT JOIN DELIVERY DLV ON OD.ORD_DTL_NO = DLV.ORD_DTL_NO
                  LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
         WHERE 1=1
+            AND P.PAY_STUS NOT IN (20, 30)
         <if test="startDate != null and startDate != ''">
             AND STR_TO_DATE(O.ORD_DTTM, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         </if>
