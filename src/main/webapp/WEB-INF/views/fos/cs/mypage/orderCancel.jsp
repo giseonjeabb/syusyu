@@ -40,6 +40,7 @@
                 </div>
                 <c:forEach var="cancelOrderInfo" items="${cancelOrderInfoList}">
                     <div class="order-item ux-ord-prod">
+                    <input type="hidden" name="ordDtlNo" value="${cancelOrderInfo.ordNo}">
                         <div class="chk-area mr-10">
                             <div class="chkbox single">
                                 <label>
@@ -84,7 +85,7 @@
                 <tr>
                     <th class="va-t pt-30">주문취소 사유</th>
                     <td>
-                        <select id="reason_base" name="reasonBase" class="selectbox ty1 w-full" style="color: rgb(51, 51, 51);">
+                        <select id="request_reason" name="request_reason" class="selectbox ty1 w-full" style="color: rgb(51, 51, 51);">
                             <option value="" selected>사유를 선택해 주세요.</option>
                             <option value="10">단순 변심</option>
                             <option value="20">주문실수</option>
@@ -92,7 +93,7 @@
                             <option value="80">기타</option>
                         </select>
                         <div class="textarea word-chker mt-10">
-                            <textarea class="h-143" name="reasonDetail" id="reason_detail" maxlength="50" placeholder="상세 사유를 입력해 주세요."></textarea>
+                            <textarea class="h-143" name="request_detail_reason" id="request_detail_reason" maxlength="50" placeholder="상세 사유를 입력해 주세요."></textarea>
                             <span class="count ty2"><em>0</em>/50</span>
                         </div>
                     </td>

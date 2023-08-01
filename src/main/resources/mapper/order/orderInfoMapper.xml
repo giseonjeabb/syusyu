@@ -5,6 +5,7 @@
 <mapper namespace="com.teamProject.syusyu.orderInfoMapper">
     <sql id="orderInfo">
         SELECT O.ORD_NO                                                                                  # 주문번호
+             , OD.ORD_DTL_NO
              , O.ORD_DTTM                                                                                # 주문일시
              , PROD.REP_IMG                                                                              # 이미지
              , OD.ORD_STUS                                                                               # 주문상태코드

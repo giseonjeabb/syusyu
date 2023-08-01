@@ -5,12 +5,38 @@ orderCancel = {
 
     bindButtonEvent: () => {
         const $chkBtnContainer = document.querySelector('.order-history-list'); // 체크박스
+        const $cancelOrderBtn = document.querySelector('#btn_cancel_order'); // 주문취소 버튼
+
         $chkBtnContainer.addEventListener('click', orderCancel.eventHandler.chkBtnClick);
+        $cancelOrderBtn.addEventListener('click', orderCancel.eventHandler.cancelOrderBtnClick);
     },
 }
 
 namespace("orderCancel.eventHandler");
 orderCancel.eventHandler = {
+    // 주문취소 버튼 클릭 이벤트 핸들러
+    cancelOrderBtnClick() {
+        const ordDtlNoList = orderCancel.function.getCheckedItem('ordDtlNo'); // 주문취소할 주문상세번호 리스트
+        const reqRsn = document.querySelector('#request_reason').selectedOptions[0].value; // 사유
+        const reqDtlRsn = document.querySelector('#request_detail_reason').value; // 상세사유
+
+        const param = {
+            ordClaimDTO: {
+                reqRsn
+              , reqDtlRsn
+            }
+          , ordDtlNoList
+        }
+
+        // 2. 주문취소 api 호출
+        syusyu.common.Ajax.sendJSONRequest('POST', '/fos/orders/cancel', param, () => {
+            // 3. 성공 시 주문조회로 이동
+            location.href = '/fos/orderView';
+        });
+
+
+    },
+
     // 체크박스 클릭 이벤트 핸들러
     chkBtnClick(e) {
         // 클릭한 요소가 체크박스가 아니면 리턴
@@ -32,4 +58,10 @@ orderCancel.eventHandler = {
 
 namespace("orderCancel.function");
 orderCancel.function = {
+    getCheckedItem: (target) => {
+        let $checkedItems = document.querySelectorAll("input[name='chk']:checked");
+        $checkedItems = Array.from($checkedItems).filter(item => !item.classList.contains('chk-all'));
+
+        return $checkedItems.map((item) => item.closest('.order-item').querySelector('input[name="' + target + '"]').value);
+    }
 }
