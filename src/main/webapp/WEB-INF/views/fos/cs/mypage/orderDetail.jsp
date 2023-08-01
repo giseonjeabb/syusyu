@@ -32,7 +32,7 @@
                         </div>
                         <div class="order-info">
                             <div class="badge-cont">
-                                <span class="badge-item ty11 fw-7">${orderDetail.ordStusNm}</span>
+                                <span class="badge-item ${orderDetail.ordStus == 70 ? 'ty11' : 'ty13'} fw-7">${orderDetail.ordStusNm}</span>
                             </div>
                             <p class="name">${orderDetail.prodNm}</p>
                             <div class="option">${orderDetail.optNm}</div>

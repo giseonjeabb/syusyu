@@ -79,7 +79,7 @@ orderView.function = {
                     </div>
                     <div class="order-info">
                         <div class="badge-cont">
-                            <span class="badge-item ty11 fw-7">${orderInfo.ordStusNm}</span>
+                            <span class="badge-item ${orderInfo.ordStus === '70' ? 'ty11' : 'ty13'} fw-7">${orderInfo.ordStusNm}</span>
                         </div>
                         <ul>
                             <li>
