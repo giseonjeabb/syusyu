@@ -15,7 +15,7 @@ orderSheet = {
         const $pntUseAmtTxt = document.querySelector('#pntUseAmt'); // 포인트 사용 금액 입력창
 
         $paymentBtn.addEventListener('click', requestPay);
-        $payChoiceContainer.addEventListener('click', handlePaymentBtnClick);
+        $payChoiceContainer.addEventListener('click', orderSheet.eventHandler.handlePaymentBtnClick);
         $addrChangeBtn.addEventListener('click', orderSheet.eventHandler.openDlvAddrPopup);
         $couponSelectBtn.addEventListener('click', orderSheet.eventHandler.openCouponPopup);
         $pntUseAmtTxt.addEventListener('blur', orderSheet.eventHandler.pntUseChange);
@@ -31,6 +31,22 @@ orderSheet.eventHandler = {
 
     openCouponPopup: () => {
         syusyu.common.Popup.openPopup('/fos/couponPopup');
+    },
+
+    // 결제수단 버튼의 클릭 이벤트를 처리하는 함수
+    handlePaymentBtnClick(e) {
+        const that = e.target;
+
+        // 현재 클릭된 버튼에 'active' 클래스를 추가한다.
+        that.classList.add("active");
+
+        // 다른 버튼들은 'active' 클래스를 제거한다.
+        const $buttons = document.querySelectorAll(".pay-choice-btn"); // 결제수단 버튼
+        $buttons.forEach(btn => {
+            if (btn !== that) {
+                btn.classList.remove("active");
+            }
+        });
     },
 
     pntUseChange: (e) => {
@@ -74,20 +90,6 @@ orderSheet.function = {
         document.querySelector('#finalPayAmt').value = finalPayAmt;
     }
 };
-
-// 결제수단 버튼의 클릭 이벤트를 처리하는 함수
-const handlePaymentBtnClick = function () {
-    // 현재 클릭된 버튼에 'active' 클래스를 추가한다.
-    this.classList.add("active");
-
-    // 다른 버튼들은 'active' 클래스를 제거한다.
-    const $buttons = document.querySelectorAll(".pay-choice-btn"); // 결제수단 버튼
-    $buttons.forEach(btn => {
-        if (btn !== this) {
-            btn.classList.remove("active");
-        }
-    });
-}
 
 function requestPay() {
     const IMP = window.IMP;
