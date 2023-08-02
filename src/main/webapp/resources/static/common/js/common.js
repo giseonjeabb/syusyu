@@ -30,6 +30,16 @@ const updateQty = (button, input) => {
     input.value = quantity;
 }
 
+function formatPhoneNumber(phoneNumberString) {
+    const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+    if (match) {
+        return match[1] + '-' + match[2] + '-' + match[3];
+    }
+    return null;
+}
+
+
 const formatPrice = (price) => {
     if (typeof price !== 'number')
         price = parseInt(price);
