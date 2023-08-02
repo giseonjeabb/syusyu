@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="loginId" value="${sessionScope.mbrId}"/>
 
 <head>
     <script src="<c:url value='${jsUrlBos}/product/productRegister.js'/>"></script>
@@ -20,7 +21,6 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">상품 등록</h1>
     <input type="hidden" id="jsonCateList" value="${fn:escapeXml(jsonCateList)}"/>
-
     <table class="table m-3">
         <tr>
             <th class="col-auto">카테고리<span style="color: red;">*</span></th>
@@ -203,6 +203,7 @@
                     </div>
                 </div>
             </td>
+            </td>
         </tr>
         <%--재고수량--%>
         <tr>
@@ -287,7 +288,7 @@
         <tr>
             <th >대표이미지<span style="color: red;">*</span></th>
             <td>
-                <input class="form-control" type="file" id="refImg" onchange="validateFileInput(this)">
+                <input class="form-control" type="file" id="repImg" onchange="validateFileInput(this)">
                 <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)</p>
             </td>
         </tr>
@@ -323,12 +324,17 @@
 
         </tr>
         <tr>
+        <th scope="row">최대구매수량</th>
+        <td><input type="text" class="form-control" placeholder="숫자만입력" id="dlvChgDtl" value="999999" oninput="updateLengthSixty(this)"></td>
+
+    </tr>
+        <tr>
             <th scope="row">제품소재<span style="color: red;">*</span></th>
             <td><input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr" oninput="updateLengthHundred(this)"></td>
 
         </tr>
         <tr>
-            <th>브랜드<span style="color: red;">*</span></th>
+            <th>브랜드<s매pan style="color: red;">*</s매pan></th>
             <td>
                 <select class="form-select" id="product_brand">
                     <c:forEach var="brand" items="${brandList}">
@@ -369,10 +375,8 @@
         <tr>
             <td colspan="2">
 
-
-
                 <div class="d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-outline-dark m-2">취소하기</button>
+                    <button type="button" class="btn btn-outline-dark m-2" id="cancelBtn">취소하기</button>
                     <button type="button" class="btn btn-dark m-2" onclick="productRegisterSave()">저장하기</button>
                 </div>
 

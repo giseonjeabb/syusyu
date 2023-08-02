@@ -1,0 +1,13 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.optGrpMapper">
+    <insert id="insertOptGrp" parameterType="ProdOptDTO" useGeneratedKeys="true" keyProperty="optGrpId">
+        INSERT INTO OPT_GRP (OPT_GRP_NM  /* color, size 옵션명 추가*/
+                            , PROD_ID
+                            , REGR_ID)
+        VALUES (#{optGrpNm}
+               , #{prodId}
+               , #{regrId} );
+    </insert>
+</mapper>

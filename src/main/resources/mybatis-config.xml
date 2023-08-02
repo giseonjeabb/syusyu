@@ -17,10 +17,13 @@
         <typeAlias alias="CategoryDTO" type="com.teamProject.syusyu.domain.product.CategoryDTO"/>
         <typeAlias alias="ProductDTO" type="com.teamProject.syusyu.domain.product.ProductDTO"/>
         <typeAlias alias="ImageDTO" type="com.teamProject.syusyu.domain.product.ImageDTO"/>
-        <typeAlias alias="ProdOptDTO" type="com.teamProject.syusyu.domain.product.ProdOptDTO"/>
         <typeAlias alias="BrandDTO" type="com.teamProject.syusyu.domain.product.BrandDTO"/>
         <typeAlias alias="ImageDTO" type="com.teamProject.syusyu.domain.product.ImageDTO"/>
         <typeAlias alias="PriceDTO" type="com.teamProject.syusyu.domain.product.PriceDTO"/>
+        <typeAlias alias="ProdOptDTO" type="com.teamProject.syusyu.domain.product.ProdOptDTO"/>
+        <typeAlias alias="ProdOptCombDTO" type="com.teamProject.syusyu.domain.product.ProdOptCombDTO"/>
+        <typeAlias alias="OptGrpDTO" type="com.teamProject.syusyu.domain.product.OptGrpDTO"/>
+        <typeAlias alias="OptItemDTO" type="com.teamProject.syusyu.domain.product.OptItemDTO"/>
 
         <!-- order -->
         <typeAlias alias="CartProdDTO" type="com.teamProject.syusyu.domain.order.CartProdDTO"/>

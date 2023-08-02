@@ -1,24 +1,17 @@
 package com.teamProject.syusyu.service.bos.product;
 
-import com.teamProject.syusyu.domain.product.ImageDTO;
-import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.*;
 
+import java.util.List;
 import java.util.Map;
 
 public interface BOS_ProductService {
     Map<String, Object> getProductInfo() throws Exception;
 
-    int addProduct(ProductDTO productDTO) throws Exception;
-
-    int addPrice(ProductDTO productDTO) throws Exception;
-
-    int addSmlImg(ImageDTO imageDTO) throws Exception;
-
-    int addOptGrp(ProductDTO productDTO) throws Exception;
-
-    int addOptItem(ProductDTO productDTO) throws Exception;
-
-    int addProdOpt(ProductDTO productDTO) throws Exception;
-
-    int addProdOptComb(ProductDTO productDTO) throws Exception;
+    void addProductData(ProductDTO product,
+                               PriceDTO price,
+                               List<ImageDTO> smlImgDTOs,
+                               List<ProdOptDTO> prodOptList,
+                               List<OptItemDTO> optItemDTOList,
+                               List<OptGrpDTO> optGrpDTOList) throws Exception;
 }

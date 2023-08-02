@@ -9,7 +9,7 @@ public class ImageDTO {
     private String imagePath;
     private int regrId;
 
-    ImageDTO(){}
+    public ImageDTO(){}
 
     public ImageDTO(String imagePath) {
         this.imagePath = imagePath;
