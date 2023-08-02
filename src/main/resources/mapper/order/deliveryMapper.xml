@@ -42,10 +42,9 @@
         WHERE DLV_NO = #{dlvNo}
     </update>
 
-    <delete id="deleteDelivery" parameterType="int">
+    <delete id="deleteAllDelivery">
         DELETE
         FROM DELIVERY
-        WHERE DLV_NO = #{dlvNo}
     </delete>
 
     <select id="countDelivery" resultType="int">

@@ -250,10 +250,12 @@
                             <!-- 상품후기 -->
                             <div class="tab-cont goods-review" id="goodsReview">
                                 <section class="def-box" data-name="review">
+
                                     <div class="def-box-head mb-15">
                                         <h4 class="tit">상품후기</h4>
                                         <a href="javascript:" class="btn ty1 c-ty5" data-type="review_regist"><span>후기 작성하기</span></a>
                                     </div>
+
                                     <div class="def-box-content">
                                         <div class="star-avg">
                                             <div class="avg-per">
@@ -262,61 +264,128 @@
                                                 <p class="txt">총 <span name="tab_review_size">${productDetail.revwCnt}</span>건</p>
                                             </div>
                                         </div>
+
                                         <div class="sorting">
-								<span class="chkbox">
-									<label>
-										<input type="checkbox" class="chk-all" name="filter-photo">
-										<span class="text">포토후기만 보기</span>
-									</label>
-								</span>
+                                            <span class="chkbox">
+                                                <label>
+                                                    <input type="checkbox" class="chk-all" name="filter-photo">
+                                                    <span class="text">포토후기만 보기</span>
+                                                </label>
+                                            </span>
                                             <div class="tab ty3">
                                                 <a href="javascript:" class="active" combo-list-item="high">추천순</a>
                                                 <a href="javascript:" combo-list-item="new">최신순</a>
                                             </div>
                                         </div><!--//sorting-->
 
-                                        <div class="reviews-list-wrap" page-no="1" total-size="1" total-page="1" total-review="1" rating-avg="5.0" rating-star="5">
 
 
-                                            <div class="rev-list view-list" data-idx="1388">
-                                                <div class="rev-detail">
-                                                    <div class="star-per-wrap">
-                                                        <div class="star-per"><em style="width:100%;">평점</em></div>
-                                                        <p class="star-sc">5</p>
+
+
+
+
+
+                                        <div class="reviews-list-wrap">
+                                            <!-- 상품 리뷰 정보를 반복문을 이용해서 생성 -->
+                                            <c:forEach var="reviewDTO" items="${reviewList}">
+                                                <div class="rev-list view-list" data-idx="${reviewDTO.regrId}">
+                                                    <div class="rev-detail">
+                                                            <div class="star-per-wrap">
+                                                                <div class="star-per"><em style="width:${reviewDTO.starRating * 20}%;">평점</em></div>
+                                                                <p class="star-sc">${reviewDTO.starRating}</p>
+                                                            </div>
+                                                                <div class="rev-info">
+                                                                    <span class="writer"><em>작성자</em>${reviewDTO.regrId}</span>
+                                                                    <span class="shoeSize"><em>사이즈</em>${reviewDTO.shoeSize}</span>
+                                                                    <span class="date"><em>날짜</em><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/></span>
+                                                                </div>
+                                                             <div class="rev-cont">${reviewDTO.revwCn}</div>
+                                                        <!-- 이미지 정보가 있을 경우에만 생성 -->
+<%--                                                            <c:if test="${not empty reviewDTO.imageList}">--%>
+<%--                                                                <c:forEach var="image" items="${reviewDTO.imageList}">--%>
+<%--                                                                    <img src="${image.imageUrl}" alt="">--%>
+<%--                                                                </c:forEach>--%>
+<%--                                                            </c:if>--%>
                                                     </div>
-                                                    <div class="rev-info">
-                                                        <span class="writer"><em>작성자</em>rlaaud***</span>
-                                                        <span class="date"><em>날짜</em>2023.06.07</span>
-
-                                                    </div><!--//rev-info -->
-                                                    <div class="rev-cont">
-                                                        같이 온 작은 밥과 먹기 딱 좋은 양이에요!<br>봉지채 조리 가능해서 먹기 넘 편해요!<br>맛도 당연히 좋습니당
-
-                                                        <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">
-
-                                                    </div>
-                                                    <button type="button" class="review-more detail-more-btn" style="">더보기</button>
+<%--                                                        <div class="rev-photo">--%>
+<%--                                                                <div class="photo-list">--%>
+<%--                                                                    <!-- 이미지 정보가 있을 경우에만 생성 -->--%>
+<%--                                                                    <c:if test="${not empty reviewDTO.imageList}">--%>
+<%--                                                                        <c:forEach var="image" items="${reviewDTO.imageList}">--%>
+<%--                                                                            <a href="#">--%>
+<%--                                                                                <img src="${reviewDTO.imageUrl}" alt="">--%>
+<%--                                                                            </a>--%>
+<%--                                                                        </c:forEach>--%>
+<%--                                                                    </c:if>--%>
+<%--                                                                </div>--%>
+<%--                                                        </div>--%>
                                                 </div>
-
-                                                <div class="rev-photo">
-                                                    <div class="photo-list">
-                                                        <a href="#">
-                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <span class="photo-amount"><em>1</em></span>
-                                                </div>
+                                            </c:forEach>
+                                        </div>
 
 
-                                            </div><!-- // rev-list -->
 
 
-                                        </div><!--//reviews-list-wrap--></div><!--//def-box-content-->
+
+
+
+<%--                                        <div class="reviews-list-wrap" page-no="1" total-size="1" total-page="1" total-review="1" rating-avg="5.0" rating-star="5">--%>
+
+
+<%--                                            <div class="rev-list view-list" data-idx="1388">--%>
+<%--                                                <div class="rev-detail">--%>
+<%--                                                    <div class="star-per-wrap">--%>
+<%--                                                        <div class="star-per"><em style="width:100%;">평점</em></div>--%>
+<%--                                                        <p class="star-sc">5</p>--%>
+<%--                                                    </div>--%>
+<%--                                                    <div class="rev-info">--%>
+<%--                                                        <span class="writer"><em>작성자</em>rlaaud***</span>--%>
+<%--                                                        <span class="date"><em>날짜</em>2023.06.07</span>--%>
+
+<%--                                                    </div><!--//rev-info -->--%>
+<%--                                                    <div class="rev-cont">--%>
+<%--                                                        같이 온 작은 밥과 먹기 딱 좋은 양이에요!<br>봉지채 조리 가능해서 먹기 넘 편해요!<br>맛도 당연히 좋습니당--%>
+
+<%--                                                        <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">--%>
+
+<%--                                                    </div>--%>
+<%--                                                    <button type="button" class="review-more detail-more-btn" style="">더보기</button>--%>
+<%--                                                </div>--%>
+
+<%--                                                <div class="rev-photo">--%>
+<%--                                                    <div class="photo-list">--%>
+<%--                                                        <a href="#">--%>
+<%--                                                            <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/review/20230607/16861057723559Wxzi.jpeg" alt="">--%>
+<%--                                                        </a>--%>
+<%--                                                    </div>--%>
+<%--                                                    <span class="photo-amount"><em>1</em></span>--%>
+<%--                                                </div>--%>
+
+
+<%--                                            </div><!-- // rev-list -->--%>
+
+
+<%--                                        </div><!--//reviews-list-wrap--></div><!--//def-box-content-->--%>
                                 </section>
 
                                 <div id="ux_review_regist" class="popup-wrap" active-popup="true"></div>
 
                             </div><!--// 상품후기 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <!-- 구매정보 -->
                             <div class="tab-cont">
 

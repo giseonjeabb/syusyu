@@ -103,7 +103,7 @@ dispatchManage.eventHandler = {
         // 1. 선택되어있는 셀을 가져온다.
         const checkedData = dispatchManageGrid.getSelectedData(); // grid에서 체크된 row를 가져온다.
         // 0. 선택한 셀에서 결제완료(10)이 아닌 데이터가 있는지 확인한다.
-        if (!dispatchManage.function.validateOrderStatus(checkedData, '10'))
+        if (!syusyu.common.Bos.validateOrderStatus(checkedData, ['10']))
             return;
 
         // 2. 그 셀에서 ordDtlNo만 뽑아낸다.
@@ -277,22 +277,6 @@ dispatchManage.function = {
         dispatchManageGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);
     },
 
-    // 주문확인으로 변경이 가능한 주문 건인지 검증한다.
-    validateOrderStatus(checkedData, ordStus) {
-        // 1. checkedData 중에서 ordDtlNo가 10이 아닌 걸 찾는다.(filter 이용)
-        const notOrdStusPayCompleted = checkedData.filter(data => data.ordStus !== ordStus);
-
-        // 1-2. 존재하지 않으면 true를 반환한다.
-        if (notOrdStusPayCompleted.length === 0)
-            return true;
-
-        // 1-1. 아닌 게 존재하다면 주문확인 처리가 불가능한 주문건을 alert 창으로 띄워준다.
-        const alertOrdDtlNo = notOrdStusPayCompleted.map(data => data.ordDtlNo).join(', ');
-        alert("처리가 불가능한 주문 건이 존재합니다.(" + alertOrdDtlNo + ")");
-
-        return false;
-    },
-
     /**
      * 주문 상태별로 주문 건수를 보여준다.
      *
@@ -302,29 +286,14 @@ dispatchManage.function = {
      */
     showCountByOrdStus(countByOrdStusList) {
         // 1. 신규주문(주문확인 전)에 해당하는 주문 건 개수를 할당해준다.
-        dispatchManage.function.updateOrderCount('#newOrderCnt', '10', countByOrdStusList);
+        syusyu.common.Bos.updateOrderCount('#newOrderCnt', ['10'], countByOrdStusList);
         // 2. 신규주문(주문확인 후)에 해당하는 주문 건 개수를 할당해준다.
-        dispatchManage.function.updateOrderCount('#orderConfirmCnt', '20', countByOrdStusList);
-    },
-
-    /**
-     * 주어진 주문 상태에 따른 주문 건수를 HTML 요소에 업데이트한다.
-     *
-     * @param {String} id 주문 건수를 표시할 HTML 요소의 ID
-     * @param {String} status 주문 상태 코드
-     * @param {Array} countByOrdStusList 주문 상태별 주문 건수가 담긴 객체배열
-     * @author min
-     * @since 2023/07/27
-     */
-    updateOrderCount(id, status, countByOrdStusList) {
-        const matchingStatus = countByOrdStusList.find(countByOrdStus => countByOrdStus.ORD_STUS === status);
-        const orderCount = matchingStatus ? matchingStatus.ORD_STUS_CNT : 0;
-        document.querySelector(id).innerHTML = orderCount;
+        syusyu.common.Bos.updateOrderCount('#orderConfirmCnt', ['20'], countByOrdStusList);
     },
 
     validateOrderDispatch(checkedData) {
         // 선택한 셀에서 주문확인(20) 상태가 아닌 데이터가 있는지 확인한다.
-        if (!dispatchManage.function.validateOrderStatus(checkedData, '20'))
+        if (!syusyu.common.Bos.validateOrderStatus(checkedData, ['20']))
             return false;
 
         // 택배사와 송장번호가 입력되어있는지 확인한다.

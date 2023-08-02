@@ -29,7 +29,8 @@ public class FOS_ProductController {
     FOS_CategoryService fosCategoryService;
     @Autowired
     FOS_ProductService fosProductService;
-
+    @Autowired
+    FOS_ReviewService fosReviewService;
 
     /**
      * 이 메소드는 모든 카테고리를 가져와서 세션에 저장하는 기능을 수행합니다.
@@ -156,6 +157,7 @@ public class FOS_ProductController {
 
             //중분류 카테고리별 전체 상품리스트와 전체 갯수, 카테고리를 map으로 보냄
             productInfo = fosProductService.getProductAllList(middleNo);
+            System.out.println("나와라!!:"+productInfo.get("productList"));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
@@ -210,6 +212,14 @@ public class FOS_ProductController {
 
             shoesSizeList = (List<ProdOptDTO>) productDetail.get("shoesSizeList");
             m.addAttribute("shoesSizeList", shoesSizeList);
+            System.out.println("size : " + shoesSizeList.get(0).getShoesSize());
+            System.out.println("size : " + shoesSizeList.get(1).getShoesSize());
+            System.out.println("size : " + shoesSizeList.get(2).getShoesSize());
+
+            reviewList = fosReviewService.getList(prodId);
+            m.addAttribute("reviewList", reviewList);
+            System.out.println("상훔 후기!! reviewList = " + reviewList);
+
 
         } catch (Exception e) {
             e.printStackTrace();

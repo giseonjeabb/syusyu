@@ -6,7 +6,61 @@
 <head>
     <style>
         @import url(${cssUrlFos}/cs/inqryList.scss);
+        .arrow-link {
+            color: #000000; /* 원하는 색상으로 변경 */
+        }
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            color: #A0A0A0;
+        }
+
+        .pagination-container a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 2px;
+            color: #A0A0A0;
+            text-decoration: none;
+        }
+
+        .pagination-container a:hover {
+            text-decoration: underline;
+            color: #333;
+        }
+
+        .pagination-container a.active {
+            background-color: #007bff;
+            color: #000000;
+        }
+        .r-side .btn {
+            /* 버튼의 기본 스타일 설정 (예: 기본 배경색, 기본 글자색 등) */
+            color: black; /* 기본 글자색: 검은색 */
+            transition: background-color 0.5s, color 0.5s; /* 0.2초의 애니메이션 효과 추가 */
+        }
+        .r-side .btn:hover {
+            /* 버튼 위에 마우스가 올라갔을 때의 스타일 설정 */
+            color: white !important;
+            background-color: red; /* 기본 배경색: 빨간색 */
+            color: red; /* 글자색 변경: 빨간색 */
+            /* 원하는 다른 스타일들 추가 가능 */
+        }
+        .r-side .btn:hover span {
+            /* 버튼 위에 마우스가 올라갔을 때의 span 요소에 적용할 스타일 설정 */
+            color: white; /* 글자색 변경: 흰색 */
+        }
+
     </style>
+    <script>
+        const inqryTypeTextMap = {
+            "91": "주문문의",
+            "92": "상품문의",
+            "93": "배송문의",
+            "94": "결제문의",
+            "95": "이 상품 찾아요",
+            "96": "건의사항 있어요"
+        };
+    </script>
 </head>
 
 <section>
@@ -35,37 +89,45 @@
                     <div class="slide-title ">
                         <button type="button" class="slide-trg">
 		                <span class="badge-cont single">
-							<span class="badge-item ty10">
-								답변대기
-							</span>
+								<c:choose>
+                                    <c:when test="${inqryDTO.inqryYn eq 'Y'}">
+                                        <span class="badge-item ty10" style="background-color: #d3233a; color: white;">답변완료</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge-item ty10">답변대기</span>
+                                    </c:otherwise>
+                                </c:choose>
 		                </span>
-<%--                            <strong class="ml-20"> <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/></strong>--%>
-                            <strong class="ml-20"> <c:out value="${inqryDTO.inqryTp} ${inqryDTO.title}"/></strong>
+                            <strong class="ml-20">${[inqryTypeTextMap[inqryDTO.inqryTp]]} ${inqryDTO.title}</strong>
                             <span class="color-3 w-120 ta-c"><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></span>
                         </button>
                         <div class="panel">
                             <p><span>Q. </span>${inqryDTO.content}</p>
-                                <input type="hidden" name="inquiry" value="2756">
+                            <br>
+                            <p><span>A. </span>${inqryDTO.ansCn}</p>
+                            <input type="hidden" name="inquiry" value="2756">
                             <div style="margin-right: 40px">
                                 <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
                                 <span style="float: right;">&nbsp;|&nbsp;</span>
-                                <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}" style="float: right">수정</button></span>
+                                <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}" inqryType="${inqryDTO.inqryTp}" style="float: right">수정</button></span>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
-        <div>
-            <c:if test="${ph.showPrev}">
-                <a href="<c:url value='/inqry/inqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
-            </c:if>
-            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
-            </c:forEach>
-            <c:if test="${ph.showNext}">
-                <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>">&gt;</a>
-            </c:if>
+        <div class="pagination-container">
+            <div>
+                <c:if test="${ph.showPrev}">
+                    <a href="<c:url value='/inqry/inqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="arrow-link">&lt;</a>
+                </c:if>
+                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                    <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+                </c:forEach>
+                <c:if test="${ph.showNext}">
+                    <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>" class="arrow-link">&gt;</a>
+                </c:if>
+            </div>
         </div>
     </form>
 </section>
@@ -76,13 +138,15 @@
     let msg = "${msg}";
 
     let slideTitles = document.getElementsByClassName("slide-title");
-    let i;
 
     for (i = 0; i < slideTitles.length; i++) {
         slideTitles[i].addEventListener("click", function() {
             this.classList.toggle("active");
+
             let panel = this.getElementsByClassName("panel")[0];
             let qText = panel.querySelector("span");
+            let statusBadge = this.querySelector(".badge-item.ty10");
+
             if (panel.style.display === "block") {
                 panel.style.display = "none";
                 this.querySelector(".ml-20").style.color = ""; // 기본 색상으로 변경
@@ -93,6 +157,7 @@
                 qText.style.color = "red"; // 빨간색으로 변경
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
+
         });
     }
 
@@ -100,6 +165,7 @@
         $('.btn-remove').on("click", function (event){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
             const inqryno = $(event.target).attr('inqryNo');
+            console.log("inqryno = " + inqryno);
             $.ajax({
                 type: 'POST',
                 url: `/inqry/remove?inqryNo=`+inqryno,
@@ -118,26 +184,44 @@
                     alert("삭제 중 오류가 발생했습니다.");
                 }
             });
-
-            $('.btn-modify').on("click", function (event){
-                if(!confirm("1:1 문의를 수정하시겠습니까?")) return;
-                $.ajax({
-                    type: 'POST',
-                    url: `/inqry/modify?inqryNo=`+inqrynumber,
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'Text',
-                });
-                alert("inqrynumber");
         })
-            //밑에 수정 전, 위에는 수정 후
 
-        <%--$(".btn-modify").on("click", function() {--%>
-        <%--    if (!confirm("1:1 문의를 수정하시겠습니까?")) return;--%>
-        <%--    let form = $("#frm");--%>
-        <%--    form.attr("action", "<c:url value='/inqry/modify'/>");--%>
-        <%--    form.attr("method", "get");--%>
-        <%--    form.submit();--%>
-        <%--});--%>
+        // $('.btn-modify').on("click", function (event){
+        //     if (!confirm("1:1 문의를 수정하시겠습니까?")) return;
+        //     const inqryNumber = $(event.target).attr('inqryNo');
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: `/inqry/modify`,
+        //         contentType: 'application/json; charset=utf-8',
+        //     });
+        // })
+
+        $(".btn-modify").on("click", function(event) {
+            if (!confirm("1:1 문의를 수정하시겠습니까?")) return;
+
+            const inqryNo = $(event.target).attr('inqryNo');
+            const modifyUrl = "<c:url value='/inqry/modify'/>";
+            const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;
+
+            // Ajax 요청을 보냅니다.
+            $.ajax({
+                type: 'GET',
+                url: urlWithParams,
+                contentType: 'application/json; charset=utf-8',
+                success: function(response) {
+                    // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.
+                    // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.
+                    // 예: console.log(response);
+                    // 페이지를 이동하려면 아래와 같이 사용합니다.
+                    window.location.href = urlWithParams;
+                },
+                error: function() {
+                    // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.
+                    alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");
+                }
+            });
+        });
+
 
         $("#writeBtn").on("click", function(){
             let form = $("#frm");

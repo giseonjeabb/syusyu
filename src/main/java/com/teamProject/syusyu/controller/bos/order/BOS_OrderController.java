@@ -90,4 +90,28 @@ public class BOS_OrderController {
 
         return new ResponseEntity<>("DISPATCH_OK", HttpStatus.OK);
     }
+
+    /**
+     * 주문들을 배송완료 처리한다.
+     * 주문상태를 배송완료(60)으로 변경한다.
+     *
+     * @param ordDtlNoList 배송완료 처리할 주문의 주문상세번호를 담은 리스트
+     * @param mbrId 세션에서 가져온 사용자 ID
+     * @return ResponseEntity, HTTP 응답 상태와 메시지를 포함
+     * @author min
+     * @since 2023/07/29
+     */
+    @PostMapping("/orders/status/delivery-complete")
+    @ResponseBody
+    public ResponseEntity<String> deliveryCompleteOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
+        try {
+            service.processUpdateOrderStatus(ordDtlNoList, mbrId, "60");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("DELIVERY_COMPLETE_OK", HttpStatus.OK);
+    }
 }

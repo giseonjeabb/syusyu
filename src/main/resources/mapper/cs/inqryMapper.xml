@@ -86,6 +86,25 @@
         ORDER BY reg_date DESC, inqryNo DESC
     </select>
 
+    <!--    검색에 쓰이고 조건별로 사용할 동적쿼리 제목 , 글번호 , 제목+내용 -->
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND TITLE LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND CONTENT LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="N"'>
+                AND NOTC_NO LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+                OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
 <!--    <sql id="selectFromBoard">-->
 <!--        SELECT inqryNo, title, content, writer, view_cnt, comment_cnt, reg_date-->
 <!--        FROM inqry-->

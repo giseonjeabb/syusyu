@@ -149,9 +149,8 @@
 
 
         $('#removeBtn').on("click", function(){
-            if(!confirm("삭제 하시겠습니까 ?")) return;
+           if(!confirm("삭제 하시겠습니까 ?")) return;
            let form =  $('#form');
-           <%--form.attr("action", "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>");--%>
            form.attr("action", "<c:url value='/adminNotice/remove'/>?page=${sc.page}&pageSize=${sc.pageSize}");
            form.attr("method", "post");
            form.submit();

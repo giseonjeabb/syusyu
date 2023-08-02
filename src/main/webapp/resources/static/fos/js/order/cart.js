@@ -16,12 +16,19 @@ cart = {
 
         $orderBtn.addEventListener('click', cart.function.order);
         $removeSelectedBtn.addEventListener('click', () => cart.function.remove(cart.function.getCheckedCartProdNoArr()));
-        $chkAll.addEventListener('click', (e) => cart.function.checkAll(e.target.checked));
+        $chkAll.addEventListener('click', cart.eventHandler.chkAllClick);
     },
 };
 
 namespace("cart.eventHandler"); // 이벤트 핸들러(특정 이벤트 발생 시 이벤트를 처리) 모음
 cart.eventHandler = {
+    chkAllClick: (e) => {
+        // 전체체크
+        cart.function.checkAll(e.target.checked);
+        // 체크된 상품의 총 가격을 보여준다.
+        cart.function.updateCartTotalByChecked();
+    },
+
     // 장바구니에서 상품을 제거
     removeBtnClick: (e) => {
         // 1. 장바구니 상품번호를 가져온다.
@@ -57,12 +64,8 @@ cart.eventHandler = {
 
     // 장바구니상품의 체크박스의 클릭 이벤트를 처리하는 함수
     chkBtnClick: () => {
-        // 1. 현재 체크된 장바구니상품번호를 가져온다.
-        const checkedCartProductNoArr = cart.function.getCheckedCartProdNoArr();
-
-        // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.(체크된 상품만 필터링한다.)
-        const result = g_cartProdList.filter(cartProd => checkedCartProductNoArr.some(chk => chk == cartProd.cartProdNo))
-        cart.function.showCartTotal(result);
+        // 체크된 상품의 총 가격을 보여준다.
+        cart.function.updateCartTotalByChecked();
 
         // 모든 상품이 선택되었는지 확인한다. 그렇지 않은 경우 전체체크 체크박스를 선택 해제한다.
         const chkCnt = cart.function.getCheckedCartProdNoArr().length; // 체크된 요소 개수
@@ -74,6 +77,20 @@ cart.eventHandler = {
 
 namespace("cart.function");
 cart.function = {
+    /**
+     * 체크된 상품의 총 가격을 보여준다.
+     *
+     * @author min
+     * @since  2023/08/02
+     */
+    updateCartTotalByChecked: () => {
+        // 1. 현재 체크된 장바구니상품번호를 가져온다.
+        const checkedCartProductNoArr = cart.function.getCheckedCartProdNoArr();
+        // 2. checkedCartProductNoArr에 존재하는 장바구니상품만 남긴다.(체크된 상품만 필터링한다.)
+        const result = g_cartProdList.filter(cartProd => checkedCartProductNoArr.some(chk => chk == cartProd.cartProdNo));
+        cart.function.showCartTotal(result);
+    },
+
     /**
      * 모든 체크박스를 선택하거나 해제한다.
      *
@@ -136,7 +153,7 @@ cart.function = {
     showCartTotal: (cartProdList) => {
         const cartTotPrc = cartProdList.reduce((acc, cur) => acc + cur.totPrc, 0);     // 총 상품금액
         const cartTotDcAmt = cartProdList.reduce((acc, cur) => acc + cur.totDcAmt, 0); // 총 할인금액
-        const dlvFee = (0 < cartTotPrc && cartTotPrc < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
+        const dlvFee = (0 < cartTotPrc - cartTotDcAmt && cartTotPrc - cartTotDcAmt < 50000) ? 3000 : 0;              // TODO 이거 공통으로 가져올 수 있는 방법 생각해야
         const cartPayAmt = cartTotPrc - cartTotDcAmt + dlvFee;                         // 결제예상금액 = (총 상품금액 - 총 할인금액 + 배송비)
 
         const $cartTotPrc = document.getElementById('cartTotPrc');      // 총 상품금액
@@ -187,7 +204,7 @@ cart.function = {
                     <input type="hidden" name="dlvrPolicyFee" value="3000.00">
                     <input type="hidden" name="itemQtyCount" value="2">
                     <div class="thumbs hover">
-                        <a href="https://www.ottogimall.co.kr/front/product/2254">
+                        <a href="/fos/products/product/${cartProd.prodId}" target="_blank">
                             <img src="${cartProd.repImg}" alt="이미지">
                         </a>
                     </div>

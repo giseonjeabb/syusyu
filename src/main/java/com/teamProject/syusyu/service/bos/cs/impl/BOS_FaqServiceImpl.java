@@ -25,8 +25,8 @@ public class BOS_FaqServiceImpl implements BOS_FaqService {
     }
 
     @Override
-    public int remove(Integer faqNo, String writer) throws Exception{
-        return BOSFaqDao.delete(faqNo,writer);
+    public int remove(Integer faqNo, Integer regrId) throws Exception{
+        return BOSFaqDao.delete(faqNo,regrId);
     }
 
     @Override

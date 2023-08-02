@@ -3,22 +3,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" %>
-<head>
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <script src="<c:url value="${jsUrlFos}/order/orderSheet.js?ddfdafd"/>"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            orderSheet.initLoad();
-            orderSheet.bindButtonEvent();
-        });
-    </script>
-</head>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="<c:url value="${jsUrlFos}/order/orderSheet.js?ddfdafd"/>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        orderSheet.initLoad();
+        orderSheet.bindButtonEvent();
+    });
+</script>
 <form name="FrmOrder" id="frm_order" method="post">
     <main>
         <div class="breadcrumb">
             <div class="breadcrumb-inner">
-                <a href="https://www.ottogimall.co.kr/front">홈</a>
-                <a href="javascript:;" onclick="location.reload();">주문결제</a>
+                <a href="<c:url value="/"/>">홈</a>
+                <a href="#" onclick="location.reload();">주문결제</a>
             </div>
         </div>
         <div class="content-title">
@@ -251,10 +249,11 @@
                             </table>
                         </div>
                     </section>
-                        <%-- 총 상품금액--%>
-<%--                        TODO 수정 필요 value에 값 박혀있음--%>
+                    <%--총 상품금액--%>
                     <input type="hidden" id="totProdAmt" value="${totProdAmt}">
-<%--                    배송비--%>
+                    <%--총 할인적용금액--%>
+                    <input type="hidden" id="totDcPrc" value="${totDcPrc}">
+                    <%--배송비--%>
                     <input type="hidden" id="dlvFee" value="${dlvFee}">
 
                     <!-- 쿠폰 -->
@@ -263,39 +262,39 @@
 
                     <input type="hidden" id="finalPayAmt">
 
-<%--                    <input type="hidden" id="totFinalNormalProdPrice" value="127480.00">--%>
-<%--                    <input type="hidden" id="totFinalColdProdPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="totFinalNormalProdPrice" value="127480.00">--%>
+                    <%--                    <input type="hidden" id="totFinalColdProdPrice" value="0">--%>
 
-<%--                    <input type="hidden" id="couponExcludes" value="Y">--%>
-<%--                    <input type="hidden" id="basketKind" name="basketKind" value="1">--%>
-<%--                    <input type="hidden" id="tempPaidPrice" value="127480.00">--%>
-<%--                    <input type="hidden" id="totFinalDlvrFee" value="0">--%>
-<%--                    <input type="hidden" id="use_coupon_count" value="0">--%>
+                    <%--                    <input type="hidden" id="couponExcludes" value="Y">--%>
+                    <%--                    <input type="hidden" id="basketKind" name="basketKind" value="1">--%>
+                    <%--                    <input type="hidden" id="tempPaidPrice" value="127480.00">--%>
+                    <%--                    <input type="hidden" id="totFinalDlvrFee" value="0">--%>
+                    <%--                    <input type="hidden" id="use_coupon_count" value="0">--%>
 
-<%--                    <input type="hidden" id="baskets" name="baskets"--%>
-<%--                           value="34xRBwn2a0nj9M5aRamdvRtuAhIyxT2OFmzfVAmy9A8=">--%>
-<%--                    <input type="hidden" id="buyer_id" name="buyerId" value="2874133643">--%>
+                    <%--                    <input type="hidden" id="baskets" name="baskets"--%>
+                    <%--                           value="34xRBwn2a0nj9M5aRamdvRtuAhIyxT2OFmzfVAmy9A8=">--%>
+                    <%--                    <input type="hidden" id="buyer_id" name="buyerId" value="2874133643">--%>
 
-<%--                    <input type="hidden" name="totOrderPrice" value="127480.00">--%>
-<%--                    <input type="hidden" id="totDlvrFee" name="totDlvrFee" value="0">--%>
-<%--                    <input type="hidden" id="totCouponProdDiscPrice" name="totCouponProdDiscPrice" value="0">--%>
-<%--                    <input type="hidden" id="totCouponOrderDiscPrice" name="totCouponOrderDiscPrice" value="0">--%>
-<%--                    <input type="hidden" id="totCouponDlvrDiscPrice" name="totCouponDlvrDiscPrice" value="0">--%>
-<%--                    <input type="hidden" id="paidPrice" name="paidPrice" value="126480">--%>
+                    <%--                    <input type="hidden" name="totOrderPrice" value="127480.00">--%>
+                    <%--                    <input type="hidden" id="totDlvrFee" name="totDlvrFee" value="0">--%>
+                    <%--                    <input type="hidden" id="totCouponProdDiscPrice" name="totCouponProdDiscPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="totCouponOrderDiscPrice" name="totCouponOrderDiscPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="totCouponDlvrDiscPrice" name="totCouponDlvrDiscPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="paidPrice" name="paidPrice" value="126480">--%>
 
-<%--                    <input type="hidden" id="paidCouponPrice" name="totCouponDiscPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="paidCouponPrice" name="totCouponDiscPrice" value="0">--%>
 
-<%--                    <input type="hidden" id="productCouponIdxs" name="productCouponIdxs" value="[]">--%>
-<%--                    <input type="hidden" id="basketCouponIdx" name="basketCouponIdx" value="{}">--%>
-<%--                    <input type="hidden" id="dlvrCouponIdx" name="dlvrCouponIdx" value="{}">--%>
+                    <%--                    <input type="hidden" id="productCouponIdxs" name="productCouponIdxs" value="[]">--%>
+                    <%--                    <input type="hidden" id="basketCouponIdx" name="basketCouponIdx" value="{}">--%>
+                    <%--                    <input type="hidden" id="dlvrCouponIdx" name="dlvrCouponIdx" value="{}">--%>
 
-<%--                    <input type="hidden" id="payway" name="payway" value="">--%>
-<%--                    <input type="hidden" id="bill_reg_type" name="billRegType" value="">--%>
-<%--                    <input type="hidden" id="bill_reg_no" name="billRegNo" value="">--%>
+                    <%--                    <input type="hidden" id="payway" name="payway" value="">--%>
+                    <%--                    <input type="hidden" id="bill_reg_type" name="billRegType" value="">--%>
+                    <%--                    <input type="hidden" id="bill_reg_no" name="billRegNo" value="">--%>
 
-<%--                    <input type="hidden" id="dlvrIsolatedAreaPrice" name="dlvrIsolatedAreaPrice" value="0">--%>
-<%--                    <input type="hidden" id="dlvrIsolatedArea" name="dlvrIsolatedArea" value="false">--%>
-<%--                    <input type="hidden" id="couponDuplicateBe" value="0">--%>
+                    <%--                    <input type="hidden" id="dlvrIsolatedAreaPrice" name="dlvrIsolatedAreaPrice" value="0">--%>
+                    <%--                    <input type="hidden" id="dlvrIsolatedArea" name="dlvrIsolatedArea" value="false">--%>
+                    <%--                    <input type="hidden" id="couponDuplicateBe" value="0">--%>
 
 
                     <!-- 결제수단 -->

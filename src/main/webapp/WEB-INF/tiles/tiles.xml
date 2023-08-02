@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <!-- ?? ???? -->
+    <!--사용자 - 메인 레이아웃-->
     <definition name="defaultLayout" template="/WEB-INF/views/fos/layout/defaultLayout.jsp">
         <put-attribute name="title" expression="${title}"/>
-        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp" />
-        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp" />
+        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp"/>
+        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp"/>
         <put-attribute name="header" expression="${commonLayoutFos}/header.jsp"/>
         <put-attribute name="footer" expression="${commonLayoutFos}/footer.jsp"/>
     </definition>
@@ -24,14 +24,14 @@
         <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
     </definition>
 
-    <!-- ????? ???? -->
+    <!--사용자 - 마이페이지 레이아웃-->
     <definition name="mypageLayout" template="/WEB-INF/views/fos/layout/mypageLayout.jsp">
         <put-attribute name="title" expression="${title}"/>
-        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp" />
-        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp" />
+        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp"/>
+        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp"/>
         <put-attribute name="header" expression="${commonLayoutFos}/header.jsp"/>
-        <put-attribute name="mypageLeft" expression="${commonLayoutFos}/mypageLeft.jsp" />
-        <put-attribute name="mypageInfo" expression="${commonLayoutFos}/mypageInfo.jsp" />
+        <put-attribute name="mypageLeft" expression="${commonLayoutFos}/mypageLeft.jsp"/>
+        <put-attribute name="mypageInfo" expression="${commonLayoutFos}/mypageInfo.jsp"/>
         <put-attribute name="footer" expression="${commonLayoutFos}/footer.jsp"/>
     </definition>
     <definition name=".mypage/*" extends="mypageLayout">
@@ -47,11 +47,33 @@
         <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
     </definition>
 
-    <!-- ?????? -->
+    <!--사용자 - 고객센터 레이아웃-->
+    <definition name="helpLayout" template="/WEB-INF/views/fos/layout/helpLayout.jsp">
+        <put-attribute name="title" expression="${title}"/>
+        <put-attribute name="css" expression="${commonLayoutFos}/css.jsp"/>
+        <put-attribute name="script" expression="${commonLayoutFos}/script.jsp"/>
+        <put-attribute name="header" expression="${commonLayoutFos}/header.jsp"/>
+        <put-attribute name="helpLeft" expression="${commonLayoutFos}/helpLeft.jsp"/>
+        <put-attribute name="footer" expression="${commonLayoutFos}/footer.jsp"/>
+    </definition>
+    <definition name=".help/*" extends="helpLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}.jsp"/>
+    </definition>
+    <definition name=".help/*/*" extends="helpLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}.jsp"/>
+    </definition>
+    <definition name=".help/*/*/*" extends="helpLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+    </definition>
+    <definition name=".help/*/*/*/*" extends="helpLayout">
+        <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
+    </definition>
+
+    <!--관리자 - 기본 레이아웃-->
     <definition name="dashboardLayout" template="/WEB-INF/views/bos/layout/dashboardLayout.jsp">
         <put-attribute name="title" expression="${title}"/>
-        <put-attribute name="css" expression="${commonLayoutBos}/css.jsp" />
-        <put-attribute name="script" expression="${commonLayoutBos}/script.jsp" />
+        <put-attribute name="css" expression="${commonLayoutBos}/css.jsp"/>
+        <put-attribute name="script" expression="${commonLayoutBos}/script.jsp"/>
         <put-attribute name="header" expression="${commonLayoutBos}/header.jsp"/>
         <put-attribute name="dashboardLeft" expression="${commonLayoutBos}/dashboardLeft.jsp"/>
         <put-attribute name="footer" expression="${commonLayoutBos}/footer.jsp"/>
@@ -68,5 +90,4 @@
     <definition name=".dashboard/*/*/*/*" extends="dashboardLayout">
         <put-attribute name="body" expression="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
     </definition>
-
 </tiles-definitions>

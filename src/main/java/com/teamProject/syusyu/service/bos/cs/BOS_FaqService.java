@@ -9,7 +9,7 @@ import java.util.Map;
 public interface BOS_FaqService {
     int getCount() throws Exception;
 
-    int remove(Integer faqNo, String writer) throws Exception;
+    int remove(Integer faqNo, Integer regrId) throws Exception;
 
     int write(FaqDTO faqDtO) throws Exception;
 

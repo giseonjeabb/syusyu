@@ -11301,6 +11301,7 @@ body {
   }
 
   .status_button {
+    min-width: 150px;
     position: relative;
     padding-left: 65px;
     margin-left: 15px;
@@ -11349,6 +11350,21 @@ body {
     -webkit-background-size: 35px 35px !important;
     background-size: 35px 35px !important;
   }
+
+  #btn_search_in_delivery > .icon {
+    background-image: url(../../../image/in-delivery.svg);
+    background-position: 10px 10px !important;
+    -webkit-background-size: 35px 35px !important;
+    background-size: 30px 30px !important;
+  }
+
+  #btn_search_delivery_complete > .icon {
+    background-image: url(../../../image/delivery-complete.svg);
+    background-position: 8px 7px !important;
+    -webkit-background-size: 35px 35px !important;
+    background-size: 35px 35px !important;
+  }
+
 }
 
 .search_form {

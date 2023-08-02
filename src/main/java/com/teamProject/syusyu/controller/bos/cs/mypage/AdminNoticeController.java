@@ -27,7 +27,7 @@ public class AdminNoticeController {
     
 
     /**
-     * 공지사항 목록을 조회하고, 페이징 처리된 결과를 화면에 표시한다.
+     * 공지사항 목록을 조회하고, 페이징 처리된 결과를 화면에 보여준다.
      * 상단 검색바 기능
      *
      * @param m 컨트롤러에서 뷰로 데이터를 전달하는 Model 객체
@@ -77,7 +77,7 @@ public class AdminNoticeController {
 
     /**
      * 선택한 공지사항의 글을 읽을수있음
-     * 제목과 내용 , 하단에는 이전 글,다음글의 제목을 알수가 있으며
+     * 제목과 내용 , 하단부분에 이전 글,다음글의 제목
      * 이전글 혹은 다음글이 존재하는지 하지 않은지 알수 있음.
      *
      * @param notcNo 조회할 공지사항의 고유 번호
@@ -85,8 +85,8 @@ public class AdminNoticeController {
      * @param sc 검색 조건을 담은 SearchCondition 객체
      * @return 공지사항 상세 정보를 표시하는 View 페이지 경로
      * @throws Exception 데이터베이스 조회 중 발생할 수 있는 예외
-     * @since 2023-07-21
-     * @author [작성자]
+     * @author han
+     * @since  2023-07-31
      */
 
     @GetMapping("/read")
@@ -117,9 +117,20 @@ public class AdminNoticeController {
         return ViewPath.BOS_CS + "adminNotice";
     }
 
-
+    /**
+     * 특정글에 notcNo로 인해 글을 삭제 할수 있다.
+     *
+     * @param  notcNo 삭제할 공지사항의 번호를 나타냄
+     * @param  sc 검색조건 , page , pageSize, option , keyword 포함되어있음
+     * @param  Model m , 컨트롤러에서 뷰로 전달
+     * @param  rattr , redirect 할때 데이터를 전달하기 위해 씀
+     * @return 해당 사용자의 장바구니에 담긴 상품들의 정보를 담은 List
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author han
+     * @since  2023-07-31
+     */
     @PostMapping("remove")
-    public String remove(Integer notcNo ,SearchCondition sc , Model m , HttpSession session , RedirectAttributes rattr ){
+    public String remove(Integer notcNo ,SearchCondition sc , Model m ,HttpSession session, RedirectAttributes rattr ){
 //                                                        ,@SessionAttribute Integer mbrId ,@SessionAttribute String lginId
         try{
             m.addAttribute("sc",sc);
@@ -158,6 +169,8 @@ public class AdminNoticeController {
      * flashAttributes 는 redirect 시에만 유효하고 다음 요청까지 유지 되기 때문에 메시지가 유지 된다고함
      * 솔직히 마지막 문장 무슨말인지 이해못했음.
      * 결론은 return 이아니라  return redirect: 붙으면 RedirectAttributes 써야함
+     * @author han
+     * @since  2023-07-31
      */
     @PostMapping("/write")
     public String write(NoticeDTO noticeDTO, Model m, HttpSession session, RedirectAttributes rattr,@SessionAttribute int mbrId) {

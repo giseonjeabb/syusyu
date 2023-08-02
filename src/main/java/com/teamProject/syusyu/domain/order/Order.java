@@ -29,9 +29,9 @@ public class Order {
         this.ord = createOrder(mbrId); // 1. 주문(ORD) 정보 세팅
         this.ordDtlList = createOrderDetails(orderRequestDTO, mbrId); // 2. 주문상세(ORD_DTL) 정보 세팅
         this.ordStusHistList = createOrderStatusHistories(orderRequestDTO, mbrId); // 3. 주문상태이력(ORD_STUS_HIST) 정보 세팅
-        this.pay = createPayment(orderRequestDTO, mbrId);
-        this.payRslt = createPayResult(orderRequestDTO, mbrId);
-        this.ordDlvAddr = createOrderDeliveryAddress(orderRequestDTO, mbrId);
+        this.pay = createPayment(orderRequestDTO, mbrId); // 4. 주문결제(PAY) 정보 세팅
+        this.payRslt = createPayResult(orderRequestDTO, mbrId); // 5. 결제승인결과(PAY_RSLT) 정보 세팅
+        this.ordDlvAddr = createOrderDeliveryAddress(orderRequestDTO, mbrId); // 6. 주문 배송지(ORD_DLV_ADDR) 정보 세팅
     }
 
     private void validateOrderRequest(OrderRequestDTO orderRequestDTO, int mbrId) {

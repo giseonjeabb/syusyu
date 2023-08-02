@@ -5,16 +5,15 @@ import com.teamProject.syusyu.domain.order.*;
 import com.teamProject.syusyu.domain.order.request.OrderProductRequestDTO;
 import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -35,14 +34,27 @@ public class FOS_OrderServiceImplTest {
     PayRsltDAO payRsltDAO;
     @Autowired
     OrdDlvAddrDAO ordDlvAddrDAO;
+    @Autowired
+    DeliveryDAO deliveryDAO;
+    @Autowired
+    OrdClaimDAO ordClaimDAO;
 
-    //@Before
+    @Before
     // 테스트 시작 전에 먼저 수행되는 메서드. 주문 관련 정보를 삭제한다.
     public void beforeEach() throws Exception {
+        // 1. DELIVERY 테이블 데이터 삭제
+        deliveryDAO.deleteAllDelivery();
+        int result = deliveryDAO.countDelivery();
+        assertEquals(0, result);
+
+        // 2. ORD_CLAIM 테이블 데이터 삭제
+        ordClaimDAO.deleteAllOrdClaim();
+        result = ordClaimDAO.countOrdClaim();
+        assertEquals(0, result);
+
         // 6. ORD_DLV_ADDR 테이블 데이터 삭제
         ordDlvAddrDAO.deleteAllOrdDlvAddr();
-        int result = ordDlvAddrDAO.countOrdDlvAddr();
-
+        result = ordDlvAddrDAO.countOrdDlvAddr();
         assertEquals(0, result);
 
         // 5. PAY_RSLT 테이블 데이터 삭제
@@ -69,6 +81,65 @@ public class FOS_OrderServiceImplTest {
         ordDAO.deleteAllOrder();
         result = ordDAO.countOrd();
         assertEquals(0, result);
+    }
+
+    @Test
+    public void cancelOrderTest() throws Exception {
+        // 1. 주문을 생성한다.
+        Order order = createOrder(getOrder2());
+        // 2. 주문취소할 주문상세번호를 가져온다.
+        List<Integer> ordDtlNoList = createCancelOrderList(order);
+        // 3. 주문 클레임 DTO 데이터를 생성한다.
+        OrdClaimDTO ordClaimDTO = createOrderClaim(order);
+
+        // 4. 주문취소를 진행한다.
+        service.cancelOrder(ordClaimDTO, ordDtlNoList, 80001);
+
+        List<OrdClaimDTO> cancelResultList = ordClaimDAO.selectAllOrdClaims();
+        assertNotNull("주문 취소 실패", cancelResultList);
+    }
+
+    // 주문을 생성한다.
+    private Order createOrder(Order order) throws Exception {
+        try {
+            service.order(order);
+        } catch (Exception e) {
+            fail("주문 생성 실패");
+        }
+        return order;
+    }
+
+    // 주문취소할 주문상세번호를 가져온다.
+    private List<Integer> createCancelOrderList(Order order) {
+        List<OrdDtlDTO> ordDtlDTOList = order.getOrdDtlList();
+        List<Integer> ordDtlNoList = ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList());
+        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10009).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
+//        ordDtlNoList.add(ordDtlDTOList.stream().filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10010).map(OrdDtlDTO::getOrdDtlNo).collect(Collectors.toList()).get(0));
+//        List<Integer> ordDtlNoList = ordDtlDTOList.stream()
+//                .filter(ordDtlDTO -> ordDtlDTO.getProdId() == 10002 || ordDtlDTO.getProdId() == 10009 || ordDtlDTO.getProdId() == 10010)
+//                .map(OrdDtlDTO::getOrdDtlNo)
+//                .collect(Collectors.toList());
+
+        return ordDtlNoList;
+    }
+
+    // 주문 클레임 DTO 데이터를 생성한다.
+    private OrdClaimDTO createOrderClaim(Order order) {
+        return OrdClaimDTO.Builder.anOrdClaimDTO()
+                .ordNo(order.getOrd().getOrdNo())
+                .claimTp(10)
+                .claimStus("10")
+                .rfndYn('Y')
+                .reqrId(80001)
+                .reqRsn("20")
+                .reqDtlRsn("테스트")
+                .aprvDttm(new Date())
+                .aprvrId(80001)
+                .claimPic1("사진1")
+                .claimPic2("사진1")
+                .claimPic3("사진1")
+                .regrId(80001)
+                .build();
     }
 
     @Test
@@ -351,11 +422,7 @@ public class FOS_OrderServiceImplTest {
         assertEquals(0, ordDtlDAO.countOrderDetail());
     }
 
-
     // 컴퓨티드 컬럼 아니고 그냥 화면에서 받아온 값들 잘 들어갔는지 검증
-
-
-
     private static Order getOrder() {
         // 1. 주문에 필요한 데이터 세팅
         // 1-1. 주문 상품 정보가 들어있는 DTO 생성
@@ -406,5 +473,46 @@ public class FOS_OrderServiceImplTest {
 
         Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = service.getOrderInfoListByOrdNo(param);
         System.out.println("orderInfoListByOrdNo = " + orderInfoListByOrdNo);
+    }
+
+    private static Order getOrder2() {
+        // 1. 주문에 필요한 데이터 세팅
+        // 1-1. 주문 상품 정보가 들어있는 DTO 생성
+        List<OrderProductRequestDTO> orderProductList = new ArrayList<>();
+        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
+                .prodId(10010)
+                .prodNm("레더 앵클부츠 블랙 Leather Ankle Boots Black")
+                .optCombNo(77)
+                .qty(1)
+                .build());
+        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
+                .prodId(10009)
+                .prodNm("하이드로목 드리프트 남성 블랙")
+                .optCombNo(70)
+                .qty(2)
+                .build());
+        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
+                .prodId(10002)
+                .prodNm("CM878MA1")
+                .optCombNo(12)
+                .qty(2)
+                .build());
+
+        // 1-2. 주문정보가 들어있는 DTO 생성
+        OrderRequestDTO orderRequest = OrderRequestDTO.Builder.anOrderRequestDTO()
+                .orderProductList(orderProductList)
+                .payTp("20")
+                .cpnIssNo(3)
+                .pntUseAmt(132200)
+                .recipient("방채민")
+                .mpNo("01055173236")
+                .zipcode("23423")
+                .dfltAddr("서울시 종로구 69")
+                .dtlAddr("서울 YMCA 518호")
+                .dlvReqComt("문 앞에 놔주세요")
+                .build();
+
+        // 1-3. 주문 도메인 모델 생성
+        return new Order(orderRequest, 80001);
     }
 }

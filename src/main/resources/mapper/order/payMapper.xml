@@ -15,22 +15,69 @@
                         , PNT_USE_AMT
                         , REAL_PAY_AMT
                         , REGR_ID)
-        SELECT #{payerId}                                    # 결제자아이디
-             , #{ordNo}                                      # 주문번호
-             , 10                                            # 결제상태(10 = 결제완료)
-             , #{payTp}                                      # 결제수단
-             , O.ORD_AMT                                     # 주문금액
-             , #{dlvFee}                                     # 배송비
-             , #{cpnIssNo}                                   # 쿠폰발행번호
-             , GET_ORGN_PAY_AMT(O.ORD_AMT, #{cpnIssNo}) + #{dlvFee}    # 원결제금액(주문금액에서 쿠폰할인 적용 + 배송비)
-             , #{pntUseAmt}                                  # 포인트사용금액
-             , GET_ORGN_PAY_AMT(O.ORD_AMT, #{cpnIssNo}) + #{dlvFee} - #{pntUseAmt} # 실결제금액(원결제금액 + 배송비 - 포인트 사용금액)
-             , #{regrId}                                     # 등록자아이디
+        SELECT #{payerId}                                                                 # 결제자아이디
+             , #{ordNo}                                                                   # 주문번호
+             , 10                                                                         # 결제상태(10 = 결제완료)
+             , #{payTp}                                                                   # 결제수단
+             , O.ORD_AMT                                                                  # 주문금액
+             , IF(O.ORD_AMT >= 50000, 0, 3000)                                            # 배송비
+             , #{cpnIssNo}                                                                # 쿠폰발행번호
+             , GET_ORGN_PAY_AMT(O.ORD_AMT, #{cpnIssNo}) + IF(O.ORD_AMT >= 50000, 0, 3000) # 원결제금액(주문금액에서 쿠폰할인 적용 + 배송비)
+             , #{pntUseAmt}                                                               # 포인트사용금액
+             , GET_ORGN_PAY_AMT(O.ORD_AMT, #{cpnIssNo}) + IF(O.ORD_AMT >= 50000, 0, 3000) - #{pntUseAmt} # 실결제금액(원결제금액 + 배송비 - 포인트 사용금액)
+             , #{regrId}                                                                  # 등록자아이디
         FROM (SELECT SUM(GET_DC_PRC(PROD_PRC, PROD_DC_PER) * QTY) AS ORD_AMT
               FROM ORD_DTL
               WHERE ORD_NO = #{ordNo}) O
     </insert>
 
+    <!--주문취소 시 새로운 pay insert 쿼리-->
+    <insert id="insertCancelPay" parameterType="Map" useGeneratedKeys="true" keyProperty="payNo">
+        INSERT INTO PAY ( PAYER_ID
+                        , ORD_NO
+                        , PAY_STUS
+                        , PAY_TP
+                        , ORD_AMT
+                        , DLV_FEE
+                        , CPN_ISS_NO
+                        , ORGN_PAY_AMT
+                        , PNT_USE_AMT
+                        , REAL_PAY_AMT
+                        , REGR_ID)
+        SELECT A.PAYER_ID                                     # 결제자아이디
+             , A.ORD_NO                                       # 주문번호
+             , A.PAY_STUS                                     # 결제상태
+             , A.PAY_TP                                       # 결제수단
+             , A.TOT_PROD_AMT                                 # 주문금액
+             , A.DLV_FEE                                      # 배송비
+             , A.CPN_ISS_NO                                   # 쿠폰발행번호
+             , A.ORGN_PAY_AMT                                 # 원결제금액
+             , A.PNT_USE_AMT                                  # 포인트사용금액
+             , A.ORGN_PAY_AMT - A.PNT_USE_AMT AS REAL_PAY_AMT # 실결제금액
+             , #{regrId}                                      # 등록자
+        FROM (SELECT P.PAYER_ID
+                   , P.ORD_NO
+                   , P.PAY_STUS
+                   , P.PAY_TP
+                   , OD.TOT_PROD_AMT # 주문금액
+                   , IF(OD.TOT_PROD_AMT > 50000, 0, 3000)                                                      AS DLV_FEE
+                   , P.CPN_ISS_NO
+                   , GET_ORGN_PAY_AMT(OD.TOT_PROD_AMT, P.CPN_ISS_NO) +
+                     IF(OD.TOT_PROD_AMT > 50000, 0, 3000)                                                      AS ORGN_PAY_AMT
+                   , P.PNT_USE_AMT - (SELECT RFND_PNT
+                                      FROM ORD_CLAIM
+                                      WHERE ORD_CLAIM_NO =
+                                            (SELECT MAX(ORD_CLAIM_NO) FROM ORD_CLAIM WHERE ORD_NO = #{ordNo})) AS PNT_USE_AMT
+              FROM (SELECT SUM(GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) * OD.QTY) AS TOT_PROD_AMT # 상품별 총 결제금액 구하기
+                         , OD.ORD_NO                                                             # 주문번호
+                    FROM ORD_DTL OD
+                    WHERE OD.ORD_NO = #{ordNo}
+                      AND OD.ORD_STUS NOT IN (70, 80, 90) # 70(주문취소), 80(반품), 90(교환)
+                   ) OD
+                       JOIN PAY P ON OD.ORD_NO = P.ORD_NO
+              WHERE P.PAY_STUS NOT IN (20, 30) # 20(결제부분취소), 30(결제취소)
+             ) A
+    </insert>
 
     <select id="selectPay" parameterType="int" resultType="PayDTO">
         SELECT PAY_NO,
@@ -51,6 +98,19 @@
         FROM PAY
         WHERE PAY_NO = #{payNo}
     </select>
+
+    <!--주문 취소 시 이전 PAY 데이터 일부주문취소(20)/주문취소(30)로 변경-->
+    <update id="updateCancelPay" parameterType="Map">
+        UPDATE PAY
+        SET PAY_STUS = #{payStus},
+            UPD_DTTM = NOW(),
+            UPDR_ID  = #{updrId}
+        WHERE PAY_NO = (SELECT MIN_PAY_NO
+                        FROM (SELECT MIN(PAY_NO) AS MIN_PAY_NO
+                              FROM PAY
+                              WHERE ORD_NO = #{ordNo}
+                                AND PAY_STUS NOT IN (20, 30)) AS TMP)
+    </update>
 
     <delete id="deleteAllPay">
         DELETE
