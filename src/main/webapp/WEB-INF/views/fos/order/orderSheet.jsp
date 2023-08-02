@@ -112,7 +112,7 @@
                                 </tr>
                                 <tr>
                                     <th>휴대전화</th>
-                                    <td>${memberInfo.mpNo}</td>
+                                    <td id="memberMpNoTxt">${memberInfo.mpNo}</td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>

@@ -20,7 +20,7 @@ dlvAddrPopup.eventHandler = {
         const selectedDlvAddr = document.querySelector('input[name="dlvAddrRadio"]:checked');
 
         const recipient = selectedDlvAddr.dataset.recipient;
-        const mpNo = selectedDlvAddr.dataset.mpno;
+        const mpNo = formatPhoneNumber(selectedDlvAddr.dataset.mpno);
         const zipcode = selectedDlvAddr.dataset.zipcode;
         const dfltAddr = selectedDlvAddr.dataset.dfltaddr;
         const dtlAddr = selectedDlvAddr.dataset.dtladdr;
@@ -68,7 +68,7 @@ dlvAddrPopup.function = {
                             </label>
                         </div>
                         <p class="addr">${dlvAddr.dfltAddr} ${dlvAddr.dtlAddr}</p>
-                        <p class="phone">${dlvAddr.mpNo}</p>
+                        <p class="phone">${formatPhoneNumber(dlvAddr.mpNo)}</p>
                     </div>
                     <div class="r-side">
                         <div class="brd-btns">

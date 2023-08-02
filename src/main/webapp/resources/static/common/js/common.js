@@ -30,13 +30,22 @@ const updateQty = (button, input) => {
     input.value = quantity;
 }
 
+function formatPhoneNumberForElement(elementId) {
+    const $phoneNumberElement = document.getElementById(elementId);
+    if ($phoneNumberElement) {
+        $phoneNumberElement.innerHTML = formatPhoneNumber($phoneNumberElement.innerHTML);
+    } else {
+        console.error(`Element not found: ${elementId}`);
+    }
+}
+
 function formatPhoneNumber(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
     const match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
     if (match) {
         return match[1] + '-' + match[2] + '-' + match[3];
     }
-    return null;
+    return phoneNumberString;
 }
 
 

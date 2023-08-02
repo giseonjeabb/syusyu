@@ -2,8 +2,7 @@ namespace("orderDetail");
 orderDetail = {
     initLoad: () => {
         // 전화번호 포매팅
-        const $mpNo = document.getElementById('mpNo');
-        $mpNo.innerHTML = formatPhoneNumber($mpNo.innerHTML);
+        formatPhoneNumberForElement('mpNo');
     },
 
     bindButtonEvent: () => {

@@ -2,6 +2,9 @@ namespace("orderSheet");
 orderSheet = {
     initLoad: () => {
         orderSheet.function.setFinalAmt();
+
+        // 전화번호 포매팅
+        formatPhoneNumberForElement('memberMpNoTxt');
     },
 
     bindButtonEvent: () => { // 버튼에 이벤트 핸들러를 연결
