@@ -252,6 +252,24 @@
             border-radius: 50%;
           }
         }
+        &.shoeSize {
+          margin-right: 6px;
+          padding-right: 8px;
+          position: relative;
+
+          &::after {
+            display: block;
+            content: '';
+            width: 2px;
+            height: 2px;
+            background: #888;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+          }
+        }
         &.date {
           color: #aaa;
         }

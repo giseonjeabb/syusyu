@@ -42,6 +42,28 @@ public class ReviewDTO {
         this.delYn = delYn;
     }
 
+    @Override
+    public String toString() {
+        return "ReviewDTO{" +
+                "revwNo=" + revwNo +
+                ", prodId=" + prodId +
+                ", starRating=" + starRating +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", shoeSize=" + shoeSize +
+                ", likeCnt=" + likeCnt +
+                ", revwCn='" + revwCn + '\'' +
+                ", regDttm=" + regDttm +
+                ", regrId=" + regrId +
+                ", updDttm=" + updDttm +
+                ", updrId=" + updrId +
+                ", delDttm=" + delDttm +
+                ", delrId=" + delrId +
+                ", delYn='" + delYn + '\'' +
+                '}';
+    }
+
+
     public Integer getRevwNo() {
         return revwNo;
     }
@@ -160,27 +182,6 @@ public class ReviewDTO {
 
     public void setDelYn(String delYn) {
         this.delYn = delYn;
-    }
-
-    @Override
-    public String toString() {
-        return "ReviewDTO{" +
-                "revwNo=" + revwNo +
-                ", prodId=" + prodId +
-                ", starRating=" + starRating +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", shoeSize=" + shoeSize +
-                ", likeCnt=" + likeCnt +
-                ", revwCn='" + revwCn + '\'' +
-                ", regDttm=" + regDttm +
-                ", regrId=" + regrId +
-                ", updDttm=" + updDttm +
-                ", updrId=" + updrId +
-                ", delDttm=" + delDttm +
-                ", delrId=" + delrId +
-                ", delYn='" + delYn + '\'' +
-                '}';
     }
 
     @Override

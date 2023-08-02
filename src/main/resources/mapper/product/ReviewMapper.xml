@@ -5,6 +5,31 @@
 
 <mapper namespace="com.teamProject.syusyu.ReviewMapper">
 
+
+    <select id="count" resultType="int">
+        select count(*)
+        from review
+    </select>
+
+
+    <select id="selectAll" parameterType="int" resultType="ReviewDTO">
+        SELECT STAR_RATING,
+               REGR_ID,
+               REG_DTTM,
+               SHOE_SIZE,
+               HEIGHT,
+               WEIGHT,
+               LIKE_CNT,
+               REVW_CN
+        FROM review
+        where PROD_ID = #{prodId}
+        order by REG_DTTM DESC
+    </select>
+
+
+
+
+
 <!--    리뷰 작성-->
 <!--    상품아이디 , 별점 , 작성자 키 , 작성자 몸무게 , 발사이즈 , 리뷰 내용 , 작성자 아이디 -->
 <!--    insert문은 반환값은 항상 int 이다 -->
@@ -21,7 +46,7 @@
     <update id="increaseLikeCnt" parameterType="int">
         update review
         set     LIKE_CNT = LIKE_CNT + 1
-        where REVW_NO = #{revwNo}
+        where REVW_NO = #{revdwNo}
     </update>
 
 <!--    본인이 작성한 리뷰에 대한 수정-->
@@ -51,7 +76,7 @@
 
 <!--    관리자가 삭제를 할때-->
 <!--    로그인 ID가 admin인 경우, deleteAdmin 메소드를 호출한다.-->
-    <delete id="deleteAdmin" parameterType="map">
+    <delete id="deleteAdmin" parameterType="int">
         DELETE
         FROM review
         WHERE REVW_NO = #{revwNo}           -- 리뷰 글 번호
