@@ -296,6 +296,7 @@
                                                             </div>
                                                                 <div class="rev-info">
                                                                     <span class="writer"><em>작성자</em>${reviewDTO.regrId}</span>
+                                                                    <span class="shoeSize"><em>사이즈</em>${reviewDTO.shoeSize}</span>
                                                                     <span class="date"><em>날짜</em><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/></span>
                                                                 </div>
                                                              <div class="rev-cont">${reviewDTO.revwCn}</div>
