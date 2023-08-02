@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -269,7 +267,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception {
         List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderList(param);
 
-        return orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
+        return orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo, LinkedHashMap::new, Collectors.toList()));
     }
 
     /**
