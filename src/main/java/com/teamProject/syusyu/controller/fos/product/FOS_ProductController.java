@@ -4,8 +4,11 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.ReviewDTO;
 import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import com.teamProject.syusyu.service.fos.product.FOS_ProductService;
+import com.teamProject.syusyu.service.fos.product.FOS_ReviewService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,8 @@ public class FOS_ProductController {
     FOS_CategoryService fosCategoryService;
     @Autowired
     FOS_ProductService fosProductService;
-
+    @Autowired
+    FOS_ReviewService fosReviewService;
 
     /**
      * 이 메소드는 모든 카테고리를 가져와서 세션에 저장하는 기능을 수행합니다.
@@ -198,6 +202,7 @@ public class FOS_ProductController {
         ProductDTO product = null;
         List<ImageDTO> imageList = null;
         List<ProdOptDTO> shoesSizeList=null;
+        List<ReviewDTO> reviewList = null;
 
         try {
             System.out.println("prodId = " + prodId);
@@ -214,6 +219,10 @@ public class FOS_ProductController {
             System.out.println("size : " + shoesSizeList.get(0).getShoesSize());
             System.out.println("size : " + shoesSizeList.get(1).getShoesSize());
             System.out.println("size : " + shoesSizeList.get(2).getShoesSize());
+
+            reviewList = fosReviewService.getList(prodId);
+            m.addAttribute("reviewList", reviewList);
+            System.out.println("상훔 후기!! reviewList = " + reviewList);
 
 
         } catch (Exception e) {

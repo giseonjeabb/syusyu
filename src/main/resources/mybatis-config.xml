@@ -32,6 +32,7 @@
         <typeAlias alias="orderSearchRequestDTO" type="com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO"/>
         <typeAlias alias="DeliveryDTO" type="com.teamProject.syusyu.domain.order.DeliveryDTO"/>
         <typeAlias alias="OrdClaimDTO" type="com.teamProject.syusyu.domain.order.OrdClaimDTO"/>
+        <typeAlias alias="ReviewDTO" type="com.teamProject.syusyu.domain.product.ReviewDTO"/>
 
 
         <!-- cs -->
