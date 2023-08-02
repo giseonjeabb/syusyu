@@ -78,6 +78,20 @@ public class CartProdDAOImpl implements CartProdDAO {
     }
 
     /**
+     * 주문할 장바구니 상품 목록을 가져온다.
+     *
+     * @param param HashMap 형태의 파라미터.
+     * @return 주문할 상품 정보를 담은 List
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since  2023/08/02
+     */
+    @Override
+    public List<CartProdDTO> selectOrderCartProd(Map<String, Object> param) throws Exception {
+        return session.selectList(namespace + "selectOrderCartProd", param);
+    }
+
+    /**
      * 장바구니에 담긴 특정 상품 정보를 수정한다.
      *
      * @param cartProductDTO 수정할 상품 정보

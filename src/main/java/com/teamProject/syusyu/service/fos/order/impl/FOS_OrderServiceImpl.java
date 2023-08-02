@@ -74,7 +74,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     @Override
     public Map<String, Object> orderSheet(int[] cartProdNoArr, int mbrId) throws Exception {
         // 주문상품정보 조회
-        List<CartProdDTO> cartProdList = cartProdDAO.selectAll(mbrId);
+        List<CartProdDTO> cartProdList = getOrderCartProdList(cartProdNoArr, mbrId);
 
         // 주문자정보 조회
         MemberDTO memberInfo = memberDao.selectUserInfo(mbrId);
@@ -104,6 +104,16 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
 
         return orderInfo;
     }
+
+    // 주문상품정보 조회
+    private List<CartProdDTO> getOrderCartProdList(int[] cartProdNoArr, int mbrId) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("cartProdNoArr", cartProdNoArr);
+        param.put("mbrId", mbrId);
+
+        return cartProdDAO.selectOrderCartProd(param);
+    }
+
 
     /**
      * 주문을 생성한다.
