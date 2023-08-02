@@ -3,6 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.imageMapper">
+    <select id="selectImageList" parameterType="int" resultType="ImageDTO">
+        SELECT IMAGE_PATH
+        FROM SML_IMG
+        WHERE DEL_YN = 'N'
+          AND PROD_ID = ${prodId}
+    </select>
     <insert id="insertSmlImg" parameterType="ImageDTO">
         INSERT INTO SML_IMG ( PROD_ID
                             , IMAGE_PATH

@@ -4,8 +4,10 @@ import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.ReviewDTO;
 import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import com.teamProject.syusyu.service.fos.product.FOS_ProductService;
+import com.teamProject.syusyu.service.fos.product.FOS_ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -199,6 +201,7 @@ public class FOS_ProductController {
         ProductDTO product = null;
         List<ImageDTO> imageList = null;
         List<ProdOptDTO> shoesSizeList=null;
+        List<ReviewDTO> reviewList=null;
 
         try {
             System.out.println("prodId = " + prodId);
