@@ -35,7 +35,7 @@ public class CartProdDAOImpl implements CartProdDAO {
      * 특정고객 장바구니 아이디생성
      * 고객이 장바구니를 가지고 있지않으면 장바구니 아이디를 부여
      *
-     * @param cartProductDTO (장바구니ID, 등록자)장바구니번호 생성
+     * @param cartProdDTO (장바구니ID, 등록자)장바구니번호 생성
      * @return insert row 수
      * @throws Exception DB 삽입 도중 발생할 수 있는 예외
      * @author soso
