@@ -25,7 +25,7 @@
             </span>
         </div>
     </div>
-    <div class="search_form">
+    <div id="search_container" class="search_form">
         <table>
             <tr>
                 <th>기간</th>

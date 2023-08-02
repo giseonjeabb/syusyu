@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="<c:url value="${jsUrlFos}/cs/mypage/orderDetail.js"/>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        orderDetail.initLoad();
+        orderDetail.bindButtonEvent();
+    });
+</script>
 <section class="mt-60"><!-- 주문 상품 내역 -->
     <form name="FrmOrder" id="frm_order" method="post" action="order.act">
         <input type="hidden" name="mnu" value="delivery">
@@ -85,7 +92,7 @@
             </tr>
             <tr>
                 <th>연락처</th>
-                <td>${ordDlvAddr.mpNo}</td>
+                <td id="mpNo">${ordDlvAddr.mpNo}</td>
             </tr>
             <tr>
                 <th>배송 요청사항</th>

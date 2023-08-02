@@ -1,18 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<head>
-    <script src="<c:url value="${jsUrlBos}/order/orderView.js"/>"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            orderView.initLoad();
-            orderView.bindButtonEvent();
-        });
-    </script>
-</head>
+<script src="<c:url value="${jsUrlBos}/order/orderView.js"/>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        orderView.initLoad();
+        orderView.bindButtonEvent();
+    });
+</script>
 <div class="container-fluid px-4">
     <h1 class="mt-4">주문통합검색</h1>
 
-    <div class="search_form">
+    <div id="search_container" class="search_form">
         <table>
             <tr>
                 <th>기간</th>
