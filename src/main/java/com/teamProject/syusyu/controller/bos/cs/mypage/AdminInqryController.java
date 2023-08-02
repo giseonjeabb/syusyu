@@ -25,12 +25,18 @@ public class AdminInqryController {
     @Autowired
     InqryService inqryService;
 
-    @GetMapping("/list")
+    @GetMapping("/adminInqryList")
     public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request){
+
+        if(page==null) page=1;
+        if(pageSize==null) pageSize=10;
 
         try {
             // 검색 조건에 해당하는 공지사항 총 개수 조회
             int totalCnt = inqryService.getCount();
+            System.out.println("totalCnt = " + totalCnt);
+            System.out.println("page = " + page);
+            System.out.println("page = " + pageSize);
             PageHandler2 pageHandler = new PageHandler2(totalCnt, page, pageSize);
 
             Map map = new HashMap();
@@ -59,6 +65,10 @@ public class AdminInqryController {
         InqryDTO inqry = new InqryDTO();
         return ViewPath.BOS_CS + "adminInqryList";
     }
+
+}
+
+
 
 //    @PostMapping("/remove")
 //    @ResponseBody
@@ -174,10 +184,6 @@ public class AdminInqryController {
 //            return -1;
 //        }
 //    }
-}
-
-
-
 
 
 

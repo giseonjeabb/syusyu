@@ -89,15 +89,22 @@
                     <div class="slide-title ">
                         <button type="button" class="slide-trg">
 		                <span class="badge-cont single">
-							<span class="badge-item ty10">
-								답변대기
-							</span>
+								<c:choose>
+                                    <c:when test="${inqryDTO.inqryYn eq 'Y'}">
+                                        <span class="badge-item ty10" style="background-color: #d3233a; color: white;">답변완료</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge-item ty10">답변대기</span>
+                                    </c:otherwise>
+                                </c:choose>
 		                </span>
                             <strong class="ml-20">${[inqryTypeTextMap[inqryDTO.inqryTp]]} ${inqryDTO.title}</strong>
                             <span class="color-3 w-120 ta-c"><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></span>
                         </button>
                         <div class="panel">
                             <p><span>Q. </span>${inqryDTO.content}</p>
+                            <br>
+                            <p><span>A. </span>${inqryDTO.ansCn}</p>
                             <input type="hidden" name="inquiry" value="2756">
                             <div style="margin-right: 40px">
                                 <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
@@ -131,13 +138,15 @@
     let msg = "${msg}";
 
     let slideTitles = document.getElementsByClassName("slide-title");
-    let i;
 
     for (i = 0; i < slideTitles.length; i++) {
         slideTitles[i].addEventListener("click", function() {
             this.classList.toggle("active");
+
             let panel = this.getElementsByClassName("panel")[0];
             let qText = panel.querySelector("span");
+            let statusBadge = this.querySelector(".badge-item.ty10");
+
             if (panel.style.display === "block") {
                 panel.style.display = "none";
                 this.querySelector(".ml-20").style.color = ""; // 기본 색상으로 변경
@@ -148,6 +157,7 @@
                 qText.style.color = "red"; // 빨간색으로 변경
                 panel.style.maxHeight = panel.scrollHeight + "px";
             }
+
         });
     }
 
