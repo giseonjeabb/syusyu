@@ -43,13 +43,13 @@ public class NoticeDAOImpl implements NoticeDAO {
     }
 
     @Override
-    public int insert(NoticeDTO dto) throws Exception{
-        return session.insert(namespace+"insert",dto);
+    public int insert(NoticeDTO noticeDTO) throws Exception{
+        return session.insert(namespace+"insert",noticeDTO);
     }
 
     @Override
-    public int update(NoticeDTO dto) throws Exception{
-        return session.update(namespace+"update",dto);
+    public int update(NoticeDTO noticeDTO) throws Exception{
+        return session.update(namespace+"update",noticeDTO);
     }
 
     @Override
