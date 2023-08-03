@@ -20,7 +20,7 @@ dlvAddrPopup.eventHandler = {
         const selectedDlvAddr = document.querySelector('input[name="dlvAddrRadio"]:checked');
 
         const recipient = selectedDlvAddr.dataset.recipient;
-        const mpNo = selectedDlvAddr.dataset.mpno;
+        const mpNo = formatPhoneNumber(selectedDlvAddr.dataset.mpno);
         const zipcode = selectedDlvAddr.dataset.zipcode;
         const dfltAddr = selectedDlvAddr.dataset.dfltaddr;
         const dtlAddr = selectedDlvAddr.dataset.dtladdr;
@@ -46,32 +46,29 @@ dlvAddrPopup.eventHandler = {
 
 namespace("dlvAddrPopup.function");
 dlvAddrPopup.function = {
-    // 배송지 목록을 얻어온다.
-    getDlvAddrList: () => {
-        syusyu.common.Ajax.sendJSONRequest('GET', '/fos/dlvAddr', '', dlvAddrList => {
-            // 1. ul을 얻어온다. (.addr-lists)
-            const $addrListUl = document.querySelector('.addr-lists')
-            // 0. 기존 걸 초기화한다.
-            $addrListUl.innerHTML = '';
+    createListItem(dlvAddr) {
+        const badgeHtml = dlvAddr.dfltDlvAddrYn === 'Y'
+            ? `<span class="badge-cont single ml-10"><span class="badge-item ty8">기본배송지</span></span>`
+            : '';
 
-            // 2. 조회해온 데이터를 넣어서 li를 생성한다.
-            dlvAddrList.forEach(dlvAddr => {
-                const $dlvAddrLi = document.createElement('li');
-
-                const result = `
+            return `
                 <li>
                     <div class="addr-radio">
                         <div class="chkbox">
                             <label>
-                                <input type="radio" name="dlvAddrRadio" data-recipient="${dlvAddr.recipient}" data-dfltAddr="${dlvAddr.dfltAddr}" data-dtlAddr="${dlvAddr.dtlAddr}" data-mpNo="${dlvAddr.mpNo}" data-zipcode="${dlvAddr.zipcode}" value="${dlvAddr.dlvAddrNo}">
+                                <input type="radio" name="dlvAddrRadio" 
+                                       data-recipient="${dlvAddr.recipient}" 
+                                       data-dfltAddr="${dlvAddr.dfltAddr}" 
+                                       data-dtlAddr="${dlvAddr.dtlAddr}" 
+                                       data-mpNo="${dlvAddr.mpNo}" 
+                                       data-zipcode="${dlvAddr.zipcode}" 
+                                       value="${dlvAddr.dlvAddrNo}">
                                 <span class="text">${dlvAddr.recipient}</span>
-                                <span class="badge-cont single ml-10">
-                                <span class="badge-item ty8">기본배송지</span>
-                            </span>
+                                ${badgeHtml}
                             </label>
                         </div>
                         <p class="addr">${dlvAddr.dfltAddr} ${dlvAddr.dtlAddr}</p>
-                        <p class="phone">${dlvAddr.mpNo}</p>
+                        <p class="phone">${formatPhoneNumber(dlvAddr.mpNo)}</p>
                     </div>
                     <div class="r-side">
                         <div class="brd-btns">
@@ -81,12 +78,23 @@ dlvAddrPopup.function = {
                         </div>
                     </div>
                 </li> `;
+    },
 
-                $dlvAddrLi.innerHTML += result;
-                $addrListUl.appendChild($dlvAddrLi);
+    // 배송지 목록을 얻어온다.
+    getDlvAddrList: () => {
+        syusyu.common.Ajax.sendJSONRequest('GET', '/fos/dlvAddr', '', dlvAddrList => {
+
+            // 1. ul을 얻어온다. (.addr-lists)
+            const addrListUl = document.querySelector('.addr-lists');
+            // 0. 기존 걸 초기화한다.
+            addrListUl.innerHTML = '';
+
+            // 2. 조회해온 데이터를 넣어서 li를 생성한다.
+            dlvAddrList.forEach(dlvAddr => {
+                const listItem = dlvAddrPopup.function.createListItem(dlvAddr);
+                // 3. 생성한 li를 .addr-lists에 넣어준다.
+                addrListUl.innerHTML += listItem;
             });
-
-            // 3. 생성한 li를 .addr-lists에 넣어준다.
         });
-    }
+    },
 }

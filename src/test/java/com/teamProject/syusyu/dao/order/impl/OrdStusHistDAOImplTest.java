@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,7 +36,7 @@ public class OrdStusHistDAOImplTest {
         // 예시: ordStusHist.setOrdDtlNo(1);
         dao.insertOrderStatusHistory(ordStusHist);
 
-        OrdStusHistDTO insertedOrdStusHist = dao.selectOrderStatusHistory(ordStusHist.getOrdStusHistNo());
+        List<OrdStusHistDTO> insertedOrdStusHist = dao.selectOrderStatusHistory(ordStusHist.getOrdStusHistNo());
         assertNotNull(insertedOrdStusHist);
         // 다른 필드들에 대한 assert 구문 추가..
 
@@ -56,12 +58,12 @@ public class OrdStusHistDAOImplTest {
         dao.insertOrderStatusHistory(ordStusHist);
 
         // 위에서 삽입한 주문 상태 이력 정보 조회
-        OrdStusHistDTO selectedOrdStusHist = dao.selectOrderStatusHistory(ordStusHist.getOrdStusHistNo());
+        List<OrdStusHistDTO> selectedOrdStusHist = dao.selectOrderStatusHistory(ordStusHist.getOrdStusHistNo());
         assertNotNull(selectedOrdStusHist);
         // 다른 필드들에 대한 assert 구문 추가..
 
         // 존재하지 않는 주문 상태 이력 정보 조회
-        OrdStusHistDTO notExistingOrdStusHist = dao.selectOrderStatusHistory(99);
+        List<OrdStusHistDTO> notExistingOrdStusHist = dao.selectOrderStatusHistory(99);
         assertNull(notExistingOrdStusHist);
     }
 

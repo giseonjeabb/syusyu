@@ -5,6 +5,8 @@ import com.teamProject.syusyu.domain.order.OrdStusHistDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrdStusHistDAOImpl implements OrdStusHistDAO {
     private final SqlSession session;
@@ -29,17 +31,17 @@ public class OrdStusHistDAOImpl implements OrdStusHistDAO {
     }
 
     /**
-     * 주문상태이력번호에 해당하는 주문 상태 이력 정보를 DB에서 조회한다.
+     * 주문상세번호에 해당하는 주문 상태 이력 정보를 조회한다.
      *
-     * @param ordStusHistNo 조회할 주문 상태 이력 정보의 주문상태이력번호
+     * @param ordDtlNo 주문상세번호
      * @return 조회된 주문 상태 이력 정보를 담은 DTO
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
      * @since 2023/07/10
      */
     @Override
-    public OrdStusHistDTO selectOrderStatusHistory(int ordStusHistNo) throws Exception {
-        return session.selectOne(namespace + "selectOrdStusHist", ordStusHistNo);
+    public List<OrdStusHistDTO>  selectOrderStatusHistory(int ordDtlNo) throws Exception {
+        return session.selectList(namespace + "selectOrdStusHist", ordDtlNo);
     }
 
     /**

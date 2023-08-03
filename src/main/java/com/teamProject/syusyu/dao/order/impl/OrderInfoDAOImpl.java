@@ -1,7 +1,6 @@
 package com.teamProject.syusyu.dao.order.impl;
 
 import com.teamProject.syusyu.dao.order.OrderInfoDAO;
-import com.teamProject.syusyu.domain.order.OrdDlvAddrDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.PayInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
@@ -31,7 +30,7 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      */
     @Override
     public List<OrderInfoDTO> selectOrderList(Map<String, Object> param) throws Exception {
-        return session.selectList(namespace + "selectOrderList" , param);
+        return session.selectList(namespace + "selectOrderList", param);
     }
 
     /**
@@ -48,19 +47,6 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
         return session.selectList(namespace + "selectOrderDetailList", param);
     }
 
-    /**
-     * 주어진 주문 번호에 해당하는 주문 배송지 정보를 조회한다.
-     *
-     * @param ordNo 조회할 주문 번호
-     * @return 주문 번호에 해당하는 주문 배송지 정보를 담은 OrdDlvAddrDTO 객체
-     * @throws Exception DB 조회 도중 발생할 수 있는 예외
-     * @author min
-     * @since 2023/07/18
-     */
-    @Override
-    public OrdDlvAddrDTO selectOrdDlvAddr(int ordNo) throws Exception {
-        return session.selectOne(namespace + "selectOrdDlvAddr", ordNo);
-    }
 
     /**
      * 주어진 주문 번호에 해당하는 결제 정보를 조회한다.
@@ -103,4 +89,17 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
         return session.selectList(namespace + "countByOrdStus");
     }
 
+    /**
+     * 주어진 주문 상세 번호에 해당하는 주문 상세 정보를 조회한다.
+     *
+     * @param ordDtlNo 주문 상세 번호.
+     * @return 주문 상세 번호에 해당하는 주문 상세 정보를 담은 OrderInfoDTO 객체
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/08/03
+     */
+    @Override
+    public OrderInfoDTO selectOrdDtl(int ordDtlNo) throws Exception {
+        return session.selectOne(namespace + "selectOrdDtl", ordDtlNo);
+    }
 }

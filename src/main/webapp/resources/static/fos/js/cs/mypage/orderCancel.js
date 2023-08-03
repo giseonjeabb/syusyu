@@ -18,17 +18,20 @@ namespace("orderCancel.eventHandler");
 orderCancel.eventHandler = {
     // 주문취소 버튼 클릭 이벤트 핸들러
     cancelOrderBtnClick() {
+        const ordNo = document.querySelector('#ordNo').value; // 주문번호
         const ordDtlNoList = orderCancel.function.getCheckedItem('ordDtlNo'); // 주문취소할 주문상세번호 리스트
         const reqRsn = document.querySelector('#request_reason').selectedOptions[0].value; // 사유
         const reqDtlRsn = document.querySelector('#request_detail_reason').value; // 상세사유
 
+
         const param = {
             ordClaimDTO: {
-                reqRsn
-                , reqDtlRsn
+                ordNo
+              , reqRsn
+              , reqDtlRsn
             }
             , ordDtlNoList
-        }
+        };
 
         // 2. 주문취소 api 호출
         syusyu.common.Ajax.sendJSONRequest('POST', '/fos/orders/cancel', param, () => {

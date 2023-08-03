@@ -4,6 +4,7 @@ deliveryManage = {
     initLoad: () => {
         // 기본은 오늘 날짜로 세팅(from ~ to)
         setCalendarRangeByDays(deliveryManage.startDate, deliveryManage.endDate, 0);
+        syusyu.common.Bos.setupEnterSearch('search_container', 'btn_search');
 
         // 신규주문(주문확인 전 = 결제완료(10)) 리스트를 가져온다.
         // 배송중(30-발송완료, 40-집화완료, 50-배송중)
