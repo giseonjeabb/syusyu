@@ -22,7 +22,7 @@
     <form id="frm_search" action= "<c:url value='/faq/faqList'/>"method="get">
 
 
-        <h3 class="title-t ty3 mb-30"><a href="<c:url value='/faq/faqList'/>">자주 묻는 질문</a></h3>
+        <h3 class="title-t ty3 mb-30"><a href="<c:url value='/faq/faqList'/>">FAQ</a></h3>
         <%--  게시글 갯수 카운팅--%>
 
         <div class="input etc-ty4 w-full">
