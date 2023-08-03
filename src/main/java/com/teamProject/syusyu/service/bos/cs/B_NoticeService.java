@@ -11,7 +11,7 @@ public interface B_NoticeService {
 
     int remove(Integer notcNo) throws Exception;
 
-    int write(NoticeDTO noticeDto) throws Exception;
+    int write(NoticeDTO noticeDTO) throws Exception;
 
     List<NoticeDTO> getList() throws Exception;
 
@@ -20,7 +20,7 @@ public interface B_NoticeService {
 
     List<NoticeDTO> getPage(Map map) throws Exception;
 
-    int modify(NoticeDTO noticeDto) throws Exception;
+    int modify(NoticeDTO noticeDTO) throws Exception;
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 

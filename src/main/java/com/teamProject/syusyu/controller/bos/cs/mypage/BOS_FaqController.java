@@ -107,6 +107,7 @@ public class BOS_FaqController {
             // "msg" 값이 READ_ERR 일경우 뷰에 있는 JS 코드에 맞게 alert 표시
             e.printStackTrace();
             m.addAttribute("msg","READ_ERR");
+            return "redirect:/bos/faqList";
         }
 
         return ViewPath.BOS_CS+"BOS_Faq";
@@ -129,6 +130,7 @@ public class BOS_FaqController {
             m.addAttribute("faqDTO",faqDTO);
         } catch (Exception e) {
            e.printStackTrace();
+            return "redirect:/bos/faqList";
         }
         return ViewPath.BOS_CS+"BOS_FaqModify";
     }
@@ -165,10 +167,11 @@ public class BOS_FaqController {
             e.printStackTrace();
 
             // 글 수정 실패 할 경우 "msg" MOD_ERR
-            m.addAttribute("faqDTO",faqDTO);
-            m.addAttribute("msg","MOD_ERR");
+            rattr.addFlashAttribute("msg","MOD_ERR");
+
             // 수정 실패시 원래의 수정하는 폼으로 다시 돌아가려고 FAQ글의 번호인 faqNo를 redirect시 파라미터로 줌
-            rattr.addAttribute("faqNo", faqDTO.getFaqNo());
+            m.addAttribute("faqDTO",faqDTO);
+            m.addAttribute("faqNo", faqDTO.getFaqNo());
 
             // 수정 실패하면 다시 FAQ수정 하는 폼으로
             return "redirect:/bos/faqModify";

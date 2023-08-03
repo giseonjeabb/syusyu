@@ -1,4 +1,7 @@
 @charset "UTF-8";
+
+@import "../../../common/css/font";
+
 /*!
 * Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)
 * Copyright 2013-2023 Start Bootstrap
@@ -12,18 +15,6 @@
  *:-moz-placeholder-shown->:placeholder-shown
  *
  */
-
-@font-face {
-  font-family: 'Pretendard';
-  font-weight: 400;
-  font-style: normal;
-  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot');
-  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix') format('embedded-opentype'),
-  url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2') format('woff2'),
-  url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff') format('woff'),
-  url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf') format("truetype");
-  font-display: swap;
-}
 
 :root {
   --bs-blue: #0d6efd;
@@ -11274,6 +11265,7 @@ body {
 .layoutSidenav_content {
   width: 100%;
   background-color: #f9f9f9;
+  max-width: 1920px;
 }
 
 .button_area {
@@ -11423,4 +11415,38 @@ body {
   }
 }
 
+.grid-container {
+  background-color: white;
+  margin-top: 20px;
+  border: 1px solid #d9dadc;
 
+  .rowCount {
+    float: left;
+
+    p {
+      padding-top: 16px;
+      padding-left: 10px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    p::before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 4px;
+      height: 14px;
+      background: #F98400;
+      margin-top: -6px;
+      margin-right: 6px;
+    }
+  }
+
+  .button_area {
+    float: right;
+  }
+
+  .gridWrap {
+    width: 100%;
+  }
+}

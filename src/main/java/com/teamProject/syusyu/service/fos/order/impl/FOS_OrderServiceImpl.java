@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,9 +30,10 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     private final OrdDlvAddrDAO ordDlvAddrDAO;
     private final OrderInfoDAO orderInfoDAO;
     private final OrdClaimDAO ordClaimDAO;
+    private final DeliveryDAO deliveryDAO;
 
     @Autowired
-    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO) {
+    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO, DeliveryDAO deliveryDAO) {
         this.memberDao = memberDao;
         this.dlvAddrDAO = dlvAddrDAO;
         this.cartProdDAO = cartProdDAO;
@@ -46,6 +45,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         this.ordDlvAddrDAO = ordDlvAddrDAO;
         this.orderInfoDAO = orderInfoDAO;
         this.ordClaimDAO = ordClaimDAO;
+        this.deliveryDAO = deliveryDAO;
     }
 
     /**
@@ -76,7 +76,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     @Override
     public Map<String, Object> orderSheet(int[] cartProdNoArr, int mbrId) throws Exception {
         // 주문상품정보 조회
-        List<CartProdDTO> cartProdList = cartProdDAO.selectAll(mbrId);
+        List<CartProdDTO> cartProdList = getOrderCartProdList(cartProdNoArr, mbrId);
 
         // 주문자정보 조회
         MemberDTO memberInfo = memberDao.selectUserInfo(mbrId);
@@ -106,6 +106,16 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
 
         return orderInfo;
     }
+
+    // 주문상품정보 조회
+    private List<CartProdDTO> getOrderCartProdList(int[] cartProdNoArr, int mbrId) throws Exception {
+        Map<String, Object> param = new HashMap<>();
+        param.put("cartProdNoArr", cartProdNoArr);
+        param.put("mbrId", mbrId);
+
+        return cartProdDAO.selectOrderCartProd(param);
+    }
+
 
     /**
      * 주문을 생성한다.
@@ -269,7 +279,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public Map<Integer, List<OrderInfoDTO>> getOrderInfoListByOrdNo(Map<String, Object> param) throws Exception {
         List<OrderInfoDTO> orderInfoDTOList = orderInfoDAO.selectOrderList(param);
 
-        return orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo));
+        return orderInfoDTOList.stream().collect(Collectors.groupingBy(OrderInfoDTO::getOrdNo, LinkedHashMap::new, Collectors.toList()));
     }
 
     /**
@@ -285,7 +295,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public Map<String, Object> getOrderDetailList(Map<String, Integer> param) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<OrderInfoDTO> orderDetailList = orderInfoDAO.selectOrderDetailList(param);
-        OrdDlvAddrDTO ordDlvAddr = orderInfoDAO.selectOrdDlvAddr((int) param.get("ordNo"));
+        OrdDlvAddrDTO ordDlvAddr = ordDlvAddrDAO.selectOrdDlvAddr((int) param.get("ordNo"));
         PayInfoDTO payInfo = orderInfoDAO.selectPayInfo(param);
 
         result.put("orderDetailList", orderDetailList);

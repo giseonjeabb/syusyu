@@ -26,7 +26,7 @@
         SELECT ORD_NO                                   # 주문번호
              , #{ordDtlNo}                              # 주문상세번호
              , #{claimTp}                               # 주문클레임 분류
-             , #{claimStus}                             # 주문클레임 처리상태
+             , '17'                                     # 주문클레임 처리상태
              , #{rfndYn}                                # 환불완료여부(Y/N)
              , TOT_RFND_AMT                             # 총 환불금액
              , LEAST(TOT_RFND_AMT, REAL_PAY_AMT)        # 카드환불금액
@@ -41,7 +41,8 @@
              , #{claimPic3}                             # 사진3
              , #{regrId}                                # 등록자
         FROM (SELECT P.ORD_NO
-                   , GET_ORGN_PAY_AMT(TOT_PROD_AMT, P.CPN_ISS_NO) + IF(ALL_TOT_PROD_AMT > 50000 OR P.DLV_FEE > 0, 0, -3000) AS TOT_RFND_AMT
+                   , GET_ORGN_PAY_AMT(TOT_PROD_AMT, P.CPN_ISS_NO) +
+                     IF(ALL_TOT_PROD_AMT > 50000 OR P.DLV_FEE > 0, 0, -3000) AS TOT_RFND_AMT
                    , P.REAL_PAY_AMT
               FROM (SELECT OD.ORD_NO,
                            GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) * OD.QTY AS TOT_PROD_AMT

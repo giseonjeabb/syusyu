@@ -26,6 +26,7 @@
              , CONCAT(DFLT_ADDR, DTL_ADDR) AS ADDR
              , MP_NO
              , DLV_REQ_COMT
+             , DFLT_DLV_ADDR_YN
         FROM DLV_ADDR
         WHERE MBR_ID = #{mbrId}
     </select>
