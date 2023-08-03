@@ -7,7 +7,7 @@
 </style>
 <div class="login_container">
     <div class="login_area">
-        <h2 class="login_title">syusyu</h2>
+        <h2 class="login_title">로그인</h2>
         <div class="input_box">
             <h3 class="input_title">아이디</h3>
             <div class="input_item">
