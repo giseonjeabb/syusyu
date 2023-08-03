@@ -18,9 +18,9 @@
     <div class="breadcrumb">
         <%--smallCategory--%>
         <div class="breadcrumb-inner">
-            <a href="/products">홈</a>
-            <a href="/products/${productDetail.middleNo}">${productDetail.middleNm}</a>
-            <a href="/products/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
+            <a href="/">홈</a>
+            <a href="/fos/products/${productDetail.middleNo}">${productDetail.middleNm}</a>
+            <a href="/fos/products/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
         </div>
     </div>
     <form id="frm_product" method="post">
