@@ -13,23 +13,32 @@ orderSheet = {
         const $addrChangeBtn = document.querySelector('#btn_addr_change'); // 배송지 변경 버튼
         const $couponSelectBtn = document.querySelector('#bnt_coupon_select'); // 배송지 변경 버튼
         const $pntUseAmtTxt = document.querySelector('#pntUseAmt'); // 포인트 사용 금액 입력창
+        const $dlvReqComt = document.querySelector('#dlvReqComt'); // 배송 요청사항 select box
 
         $paymentBtn.addEventListener('click', requestPay);
         $payChoiceContainer.addEventListener('click', orderSheet.eventHandler.handlePaymentBtnClick);
         $addrChangeBtn.addEventListener('click', orderSheet.eventHandler.openDlvAddrPopup);
         $couponSelectBtn.addEventListener('click', orderSheet.eventHandler.openCouponPopup);
         $pntUseAmtTxt.addEventListener('blur', orderSheet.eventHandler.pntUseChange);
+        $dlvReqComt.addEventListener('change', orderSheet.eventHandler.dlvReqComtChange);
 
     },
 };
 
 namespace("orderSheet.eventHandler"); // 이벤트 핸들러(특정 이벤트 발생 시 이벤트를 처리) 모음
 orderSheet.eventHandler = {
-    openDlvAddrPopup: () => {
+    dlvReqComtChange(e) {
+        const that = e.target;
+        that.style.color = 'rgb(51, 51, 51)';
+
+        document.querySelector(".input.w-450").style.display = e.target.selectedOptions[0].value === '직접입력' ? 'block' : 'none';
+    },
+
+    openDlvAddrPopup() {
         syusyu.common.Popup.openPopup('/fos/dlvAddrPopup');
     },
 
-    openCouponPopup: () => {
+    openCouponPopup() {
         syusyu.common.Popup.openPopup('/fos/couponPopup');
     },
 

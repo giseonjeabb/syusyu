@@ -167,17 +167,12 @@
                                     <th class="top">배송 요청사항</th>
                                     <td>
                                         <div class="select-inp">
-                                            <select name="rcvMemoClassifyIdx" id="rcv_def_memo_classify_idx" class="selectbox ty1 w-450">
+                                            <select name="dlvReqComt" id="dlvReqComt" class="selectbox ty1 w-450">
                                                 <option value="">배송 요청사항</option>
-
                                                 <option value="60">부재시 경비실에 맡겨주세요.</option>
-
                                                 <option value="63">부재시 전화주세요.</option>
-
                                                 <option value="61">문앞에 놓아주세요.</option>
-
                                                 <option value="62">택배보관실에 맡겨주세요.</option>
-
                                                 <option value="직접입력" data-select-inp="true">직접입력</option>
                                             </select>
                                             <div class="input w-450">
@@ -218,7 +213,7 @@
                                             <button type="button" class="btn ty2 c-ty5 w-90 free ml-10" id="bnt_coupon_select">
                                                 <span>쿠폰선택</span></button>
                                             <span class="ml-20 color-5">사용가능 쿠폰 <span class="color-1"
-                                                                                      id="useCouponCount">0장</span></span>
+                                                                                      id="useCouponCount">3장</span></span>
                                         </div>
                                         <ul class="list ty2 mt-10">
                                             <li>쿠폰은 할인이 들어가지 않은 상품에 대해서만 적용됩니다.</li>
@@ -237,7 +232,7 @@
                                             <button type="button" class="btn ty2 c-ty5 w-90 free ml-10 bt-smoney-whole">
                                                 <span>최대사용</span></button>
                                             <span class="ml-20 color-5">보유 포인트
-                                                <span class="color-1">1,000원</span>
+                                                <span class="color-1">5,200원</span>
                                             </span>
                                         </div>
                                         <ul class="list ty2 mt-10">
@@ -535,8 +530,7 @@
                             </strong>
                         </div>
                         <ul class="list ty2 mt-40">
-                            <li>무료배송 혜택 상품 및 배송 유형별 30,000원 이상 구매 시 무료배송입니다.</li>
-                            <li>배송 유형 간 교차 합계 금액은 무료배송에 적용되지 않습니다.<br> (상온 배송+저온 배송 합계 30,000원 무료배송불가)</li>
+                                <li>50,000원 이상 구매 시 무료배송입니다.</li>
                         </ul>
                     </div>
 
