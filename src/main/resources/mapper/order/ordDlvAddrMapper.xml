@@ -31,7 +31,7 @@
              , MP_NO
              , DLV_REQ_COMT
         FROM ORD_DLV_ADDR
-        WHERE ORD_NO = #{ordNo}
+        WHERE ORD_NO = (SELECT ORD_NO FROM ORD_DTL WHERE ORD_DTL_NO = #{ordDtlNo})
     </select>
 
     <delete id="deleteAllOrdDlvAddr">

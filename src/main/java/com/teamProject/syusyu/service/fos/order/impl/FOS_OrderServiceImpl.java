@@ -30,9 +30,10 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     private final OrdDlvAddrDAO ordDlvAddrDAO;
     private final OrderInfoDAO orderInfoDAO;
     private final OrdClaimDAO ordClaimDAO;
+    private final DeliveryDAO deliveryDAO;
 
     @Autowired
-    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO) {
+    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO, DeliveryDAO deliveryDAO) {
         this.memberDao = memberDao;
         this.dlvAddrDAO = dlvAddrDAO;
         this.cartProdDAO = cartProdDAO;
@@ -44,6 +45,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         this.ordDlvAddrDAO = ordDlvAddrDAO;
         this.orderInfoDAO = orderInfoDAO;
         this.ordClaimDAO = ordClaimDAO;
+        this.deliveryDAO = deliveryDAO;
     }
 
     /**

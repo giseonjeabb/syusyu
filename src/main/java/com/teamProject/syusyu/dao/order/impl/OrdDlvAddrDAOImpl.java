@@ -38,8 +38,8 @@ public class OrdDlvAddrDAOImpl implements OrdDlvAddrDAO {
      * @since 2023/07/18
      */
     @Override
-    public OrdDlvAddrDTO selectOrdDlvAddr(int ordNo) throws Exception {
-        return session.selectOne(namespace + "selectOrdDlvAddr", ordNo);
+    public OrdDlvAddrDTO selectOrdDlvAddr(int ordDtlNo) throws Exception {
+        return session.selectOne(namespace + "selectOrdDlvAddr", ordDtlNo);
     }
 
     /**

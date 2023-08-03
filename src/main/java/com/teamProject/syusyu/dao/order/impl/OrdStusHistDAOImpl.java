@@ -5,6 +5,8 @@ import com.teamProject.syusyu.domain.order.OrdStusHistDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrdStusHistDAOImpl implements OrdStusHistDAO {
     private final SqlSession session;
@@ -38,8 +40,8 @@ public class OrdStusHistDAOImpl implements OrdStusHistDAO {
      * @since 2023/07/10
      */
     @Override
-    public OrdStusHistDTO selectOrderStatusHistory(int ordDtlNo) throws Exception {
-        return session.selectOne(namespace + "selectOrdStusHist", ordDtlNo);
+    public List<OrdStusHistDTO>  selectOrderStatusHistory(int ordDtlNo) throws Exception {
+        return session.selectList(namespace + "selectOrdStusHist", ordDtlNo);
     }
 
     /**
