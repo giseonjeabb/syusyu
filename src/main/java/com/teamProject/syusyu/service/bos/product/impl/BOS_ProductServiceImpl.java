@@ -76,88 +76,86 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
      * @author soso
      * @since 2023/07/31
      */
-
     @Transactional
     public void addProductData(ProductDTO product,
                                PriceDTO price,
                                List<ImageDTO> smlImgDTOs,
+                               List<OptGrpDTO> optGrpNmList,
                                List<ProdOptDTO> prodOptList,
-                               List<OptItemDTO> optItemDTOList,
-                               List<OptGrpDTO> optGrpDTOList) throws Exception{
+                               List<OptItemDTO> optItemNmList,
+                               int mbrId
+    ) throws Exception {
+
         try {
+            int prodId = 0;
+            //상품등록
+            product.setRegrId(mbrId);
+            productDAO.insertProduct(product);
+            prodId = product.getProdId();
 
-            int prodId=productDAO.insertProduct(product);
 
-            //가격
+            //가격등록
+            price.setRegrId(mbrId);
             price.setProdId(prodId);
             priceDAO.insertPrice(price);
-            //이미지
+
+            //이미지등록
             for (ImageDTO smlImgDTO : smlImgDTOs) {
+                smlImgDTO.setRegrId(mbrId);
                 smlImgDTO.setProdId(prodId);
-                imageDAO.insertSmlImg(smlImgDTO);
+                imageDAO.insertImage(smlImgDTO);
             }
 
+            //옵션등록
             //옵션그룹(color, size 옵션명 저장하고 optGrpId를 반환)
-            List<Integer> optGrpIds = new ArrayList<>();
-            for(OptGrpDTO optGrpDTO : optGrpDTOList){
-                int newOptGrpId = optGrpDAO.insertOptGrp(optGrpDTO);
-                optGrpIds.add(newOptGrpId);
+            List<Integer> optGrpIdList = new ArrayList<>();
+            for (OptGrpDTO optGrpDTO : optGrpNmList) {
+                optGrpDTO.setRegrId(mbrId);
+                optGrpDTO.setProdId(prodId);
+                optGrpDAO.insertOptGrp(optGrpDTO);
+                optGrpIdList.add(optGrpDTO.getOptGrpId());
             }
 
-            List<Integer> optCombNos=new ArrayList<>();
-            for(ProdOptDTO prodOptDTO: prodOptList){
+            //prodOpt
+            List<Integer> optCombNoList = new ArrayList<>();
+            for (ProdOptDTO prodOptDTO : prodOptList) {
+                prodOptDTO.setRegrId(mbrId);
                 prodOptDTO.setProdId(prodId);
-                int newOptCombNo= prodOptDAO.insertProdOpt(prodOptDTO);
-                optCombNos.add(newOptCombNo);
+                prodOptDAO.insertProdOpt(prodOptDTO);
+                optCombNoList.add(prodOptDTO.getOptCombNo());
             }
 
-            List<Integer> optItemIds = new ArrayList<>();
-            for(int i=0; i<optItemDTOList.size(); i++) {
-                OptItemDTO optItemDTO = optItemDTOList.get(i);
-                if(i == 0) {
-                    optItemDTO.setOptGrpId(optGrpIds.get(0));
-                } else {
-                    optItemDTO.setOptGrpId(optGrpIds.get(1));
-                }
-                int optItemId = optItemDAO.insertOptItem(optItemDTO);
-                optItemIds.add(optItemId);
+            //optItem
+            List<Integer> optItemIdList = new ArrayList<>();
+            OptItemDTO optItemDTO=new OptItemDTO();
+            optItemDTO.setOptItemNm(optItemNmList.get(0).getOptItemNm());
+            optItemDTO.setOptGrpId(optGrpIdList.get(0));
+            optItemDTO.setRegrId(mbrId);
+            optItemDAO.insertOptItem(optItemDTO);
+            optItemIdList.add(optItemDTO.getOptItemId());
+
+            for (int i=1;i<optItemNmList.size();i++) {
+                OptItemDTO optItemDto=new OptItemDTO();
+                optItemDto.setOptItemNm(optItemNmList.get(i).getOptItemNm());
+                optItemDto.setOptGrpId(optGrpIdList.get(1));
+                optItemDto.setRegrId(mbrId);
+                optItemDAO.insertOptItem(optItemDto);
+                optItemIdList.add(optItemDto.getOptItemId());
             }
 
-
-// optCombNos 리스트의 크기를 구합니다.
-            int optCombNosSize = optCombNos.size();
-
-// optItemIds 리스트의 크기를 구합니다.
-            int optItemIdsSize = optItemIds.size();
-            List<ProdOptCombDTO> prodOptCombDTOList = new ArrayList<>();
-
-// optCombNos 리스트를 순회합니다.
-            for(int i = 0; i < optCombNosSize; i++){
-
-                // optItemIds 리스트를 순회합니다.
-                for(int j = 0; j < optItemIdsSize; j++){
-
-                    // 첫 번째 리스트인 optItemIds의 첫 번째 항목은
-                    // optCombNos의 모든 항목과 매칭되는데, 그 이후의 항목들은
-                    // 자신의 인덱스보다 작거나 같은 인덱스를 가진 optCombNos 항목과만 매칭되어야 합니다.
-                    if(j == 0 && i != 0){
-                        continue;
-                    }
-                    if(j > i + 1){
-                        break;
-                    }
-
-                    // 새로운 DTO 객체를 생성하고 필드를 설정합니다.
-                    ProdOptCombDTO prodOptCombDTO = new ProdOptCombDTO();
-                    prodOptCombDTO.setOptItemId(optCombNos.get(i));
-                    prodOptCombDTOList.add(prodOptCombDTO);
-                    prodOptCombDTO.setOptItemId(optItemIds.get(j));
-                    prodOptCombDTOList.add(prodOptCombDTO);
-
-                    // DTO 객체를 데이터베이스에 추가합니다.
-                }
+            //prodOptComb
+            for (int i = 0; i < optCombNoList.size(); i++) {
+                ProdOptCombDTO prodOptCombDTO = new ProdOptCombDTO();
+                prodOptCombDTO.setOptCombNo(optCombNoList.get(i));
+                prodOptCombDTO.setOptItemId(optItemIdList.get(0));
+                prodOptCombDTO.setRegrId(mbrId);
+                prodOptCombDAO.insertProdOptComb(prodOptCombDTO);
+                ProdOptCombDTO prodOptCombDTO1 = new ProdOptCombDTO();
+                prodOptCombDTO1.setOptCombNo(optCombNoList.get(i));
+                prodOptCombDTO1.setOptItemId(optItemIdList.get(i+1));
+                prodOptCombDTO1.setRegrId(mbrId);
+                prodOptCombDAO.insertProdOptComb(prodOptCombDTO1);
             }
-            prodOptCombDAO.insertProdOptCombList(prodOptCombDTOList);
 
 
         } catch (Exception e) {
@@ -165,5 +163,4 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
             throw new Exception("Failed to add product data");
         }
     }
-
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface ProdOptCombDAO {
-    int insertProdOptCombList(List<ProdOptCombDTO> prodOptCombDTOList) throws Exception;
+    int insertProdOptComb(ProdOptCombDTO prodOptCombDTO) throws Exception;
 
 
 }

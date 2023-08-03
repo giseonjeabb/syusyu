@@ -3,20 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.prodOptCombMapper">
-    <insert id="insertProdOptCombList" parameterType="java.util.List">
-        INSERT INTO PROD_OPT_COMB (OPT_COMB_NO /*color, size 두개땜에 두번씩 똑같이들어가야함*/
-        , OPT_ITEM_ID /*color는 size배열이 끝날때까지 같이 들어가야함*/
-        , REGR_ID)
-        VALUES
-        <foreach item="item" collection="prodOptCombDTOList" separator=",">
-            (
-                #{item.optCombNo},
-                #{item.optItemId},
-                #{item.regrId}
+    <insert id="insertProdOptComb" parameterType="ProdOptCombDTO">
+        INSERT INTO PROD_OPT_COMB (OPT_COMB_NO, OPT_ITEM_ID, REGR_ID)
+        VALUES(
+            #{optCombNo},
+            #{optItemId},
+            #{regrId}
             )
-        </foreach>
     </insert>
 
 </mapper>
+
+
 
 

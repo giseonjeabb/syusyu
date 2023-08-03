@@ -7,5 +7,5 @@ import java.util.List;
 public interface ImageDAO {
     List<ImageDTO> selectImageList(int prodId);
 
-    int insertSmlImg(ImageDTO imageDTO) throws Exception;
+    int insertImage(ImageDTO imageDTO) throws Exception;
 }

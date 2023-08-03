@@ -183,7 +183,7 @@
                , #{mftNatn}
                , #{repImg}
                , #{status}
-               , #{mbrId})
+               , #{regrId})
     </insert>
 
 

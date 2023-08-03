@@ -8,10 +8,12 @@ import java.util.Map;
 public interface BOS_ProductService {
     Map<String, Object> getProductInfo() throws Exception;
 
-    void addProductData(ProductDTO product,
+    public void addProductData(ProductDTO product,
                                PriceDTO price,
                                List<ImageDTO> smlImgDTOs,
+                               List<OptGrpDTO> optGrpNmList,
                                List<ProdOptDTO> prodOptList,
                                List<OptItemDTO> optItemDTOList,
-                               List<OptGrpDTO> optGrpDTOList) throws Exception;
+                               int mbrId
+    ) throws Exception;
 }
