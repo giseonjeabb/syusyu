@@ -7,7 +7,7 @@ import java.util.List;
 public interface DeliveryDAO {
     int insertDelivery(DeliveryDTO deliveryDTO) throws Exception;
 
-    DeliveryDTO selectDelivery(int dlvNo) throws Exception;
+    DeliveryDTO selectDelivery(int ordNo) throws Exception;
 
     int updateDelivery(DeliveryDTO deliveryDTO) throws Exception;
 

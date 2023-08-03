@@ -24,7 +24,7 @@
             <dd><a href="" class="">대량주문문의</a></dd>
             <dt class="title-t ty7">공지</dt>
             <dd><a href="<c:url value='/notice/noticeList'/>" class="">공지사항</a></dd>
-            <dd><a href="<c:url value='/faq/faqList'/>" class="">자주 묻는 질문</a></dd>
+            <dd><a href="<c:url value='/faq/faqList'/>" class="">FAQ</a></dd>
         </dl>
     </div>
 </div>

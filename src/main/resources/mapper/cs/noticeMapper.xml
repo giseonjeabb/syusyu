@@ -35,6 +35,7 @@
     <update id="update" parameterType="NoticeDTO">
         UPDATE notice
         SET TITLE    = #{title}
+          , NOTC_TP = #{notcTp}
           , CONTENT  = #{content}
           , UPD_DTTM = now()
           , START_DTTM = #{startDttm}

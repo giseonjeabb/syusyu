@@ -30,9 +30,6 @@
     <span class="notice_count">
     총 ${ph.totalCnt} 개
     </span>--%>
-    <br>
-    <br>
-
 
     <%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
     <div class="board-container">
@@ -40,22 +37,22 @@
             <form action="<c:url value="/notice/noticeList"/>" class="search-form">
 
                 <div class="fb__bbs__header__filter">
-                    <div>
-                        <select id="sType" class="search-option" name="option">
-                            <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
-                            <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
-                            <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
-                            <%--<option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
-                        </select>
-                        <%-- 단순 아이콘 --%>
-                        <i class="fa-solid fa-caret-down"></i>
+                        <div>
+                            <select id="sType" class="search-option" name="option">
+                                <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+                                <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                                <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
+                                <%--<option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>--%>
+                            </select>
+                            <%-- 단순 아이콘 --%>
+                            <i class="fa-solid fa-caret-down"></i>
 
 
-                        <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text"
-                               value="${ph.sc.keyword}"
-                               placeholder="검색어 입력">
-                        <input type="submit" id="btnSearch" class="search-button" value="검색">
-                    </div>
+                            <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text"
+                                   value="${ph.sc.keyword}"
+                                   placeholder="검색어 입력">
+                            <input type="submit" id="btnSearch" class="search-button" value="검색">
+                        </div>
                 </div>
 
             </form>

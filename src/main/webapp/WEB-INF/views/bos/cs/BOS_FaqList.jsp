@@ -28,63 +28,62 @@
 <div class = all-board>
 
   <div class="fb__bbs__header">
-    <h3 class="title-t ty3 mb-30"><a href="<c:url value="/bos/faqlist"/>"> 관리자 FAQ 관리 </a></h3>
+    <h3 class="title-t ty3 mb-30"><a href="<c:url value="/bos/faqlist"/>"> FAQ 관리 </a></h3>
   </div>
 
 
   <%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
 
   <div class="search">
-    <form action="<c:url value="/bos/faqList"/>" class="d-flex-1">
+        <form action="<c:url value="/bos/faqList"/>" class="d-flex-1">
 
-      <%--            pannel heading--%>
-      <div class="panel panel-seller">
-        <div class="panel-heading">
-          <div class="pull-left">
-            <h3 class="panel-title"> FAQ 조회 </h3>
-          </div>
+          <%--            pannel heading--%>
+              <div class="panel panel-seller">
+                      <div class="panel-heading">
+                              <div class="pull-left">
+                                <h3 class="panel-title"> FAQ 조회 </h3>
+                              </div>
+                      </div>
 
 
+                <%--                pannel - body--%>
+                <div class="panel-body">
+                             <div class="seller-search-section">
+                                  <div class = "input-search">검색어</div>
+                                            <div class = "input-content">
+
+                                                <select id="sType" class="search-option" name="option">
+                                                  <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목 + 내용</option>
+                                                  <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+                                                  <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
+                                                  <option value="N" ${ph.sc.option=='N' ? "selected" : ""}>FAQ 번호</option>
+                                                </select>
+
+                                              <i class="fa-solid fa-caret-down"></i>
+
+                                              <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
+                                                     placeholder="Search keyword">
+                                              <input type="submit" id="btnSearch" class="btn btn-secondary my-2 my-sm-0" value="Search">
+
+                                            </div>
+                                  </div>
+                             </div>
+
+               </div> <%-- panel panel-seller--%>
+        </form>
+  </div>  <%---<div class="search">--%>
+
+
+
+
+
+
+        <div class="pull-right">
+          <button type="button" id="writeNewBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value='/bos/faqWrite'/>'">
+            <i class="fa fa-pen-nib"></i> &nbsp;  FAQ 작성</button>
         </div>
 
 
-        <%--                pannel - body--%>
-        <div class="panel-body">
-          <div class="seller-search-section">
-
-            <div class = "input-search">검색어</div>
-            <div class = "input-content">
-
-                <select id="sType" class="search-option" name="option">
-                  <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목 + 내용</option>
-                  <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
-                  <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>내용만</option>
-                  <option value="N" ${ph.sc.option=='N' ? "selected" : ""}>FAQ 번호</option>
-                </select>
-              <i class="fa-solid fa-caret-down"></i>
-
-              <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
-                     placeholder="Search keyword">
-              <input type="submit" id="btnSearch" class="btn btn-secondary my-2 my-sm-0" value="Search">
-            </div>
-          </div>
-
-        </div>
-
-
-
-      </div> <%-- panel panel-seller--%>
-
-    </form>
-
-
-
-    <div class="pull-right">
-      <button type="button" id="writeNewBtn" class="btn btn-primary btn-sm" onclick="location.href='<c:url value='/bos/faqWrite'/>'">
-        <i class="fa fa-pen-nib"></i> &nbsp;  FAQ 작성</button>
-    </div>
-
-  </div>   <%---search--%>
 
 
 
@@ -117,9 +116,9 @@
         <input type="hidden" name="faqNo" value="${faqDTO.faqNo}">
 
         <tr class="table-light">
-          <td scope="row">${faqDTO.faqNo}</td>        <%---공지사항 번호---%>
-          <td><c:out value="${faqDTO.faqTpNm}"/></td>   <%---공지사항 타입---%>
-          <td><a href = "<c:url value="/bos/faqRead${ph.sc.queryString}&faqNo=${faqDTO.faqNo}"/>"> ${faqDTO.title}</a></td> <%---공지사항 제목---%>
+          <td scope="row">${faqDTO.faqNo}</td>        <%---FAQ 글의 번호---%>
+          <td><c:out value="${faqDTO.faqTpNm}"/></td>   <%---FAQ 타입---%>
+          <td><a href = "<c:url value="/bos/faqRead${ph.sc.queryString}&faqNo=${faqDTO.faqNo}"/>"> ${faqDTO.title}</a></td> <%---FAQ 제목---%>
 
 
             <%---FAQ 등록날짜---%>
@@ -147,43 +146,43 @@
     <br>
 
 
-    <div id="devPageWrap">
-      <div class="wrap-pagination">
-        <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
-          <div> 게시물이 없습니다.</div>
-        </c:if>
+        <div id="devPageWrap">
+          <div class="wrap-pagination">
+            <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">
+              <div> 게시물이 없습니다.</div>
+            </c:if>
 
-        <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
+            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
 
-          <c:if test="${ph.showFirst}">
-            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
-          </c:if>
+              <c:if test="${ph.showFirst}">
+                <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+              </c:if>
 
-          <c:if test="${ph.showPrev}">
-            <a class="page"
-               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
-          </c:if>
-
-
-          <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-            <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-               href="<c:url value='/bos/faqList${ph.sc.getQueryString(i)}'/>">${i}</a>
-          </c:forEach>
+              <c:if test="${ph.showPrev}">
+                <a class="page"
+                   href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.beginPage-1)}'/>"><i class="fa-solid fa-angle-left"></i></a>
+              </c:if>
 
 
-          <c:if test="${ph.showNext}">
-            <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
-          </c:if>
+              <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                <a class="page ${i==ph.sc.page? "paging-active" : ""}"
+                   href="<c:url value='/bos/faqList${ph.sc.getQueryString(i)}'/>">${i}</a>
+              </c:forEach>
 
-          <c:if test="${ph.showLast}">
-            <a class="page"
-               href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
-          </c:if>
 
-        </c:if>
+              <c:if test="${ph.showNext}">
+                <a class="page" href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.endPage+1)}'/>"><i class="fa-solid fa-angle-right"></i></a>
+              </c:if>
 
-      </div>
-    </div>
+              <c:if test="${ph.showLast}">
+                <a class="page"
+                   href="<c:url value='/bos/faqList${ph.sc.getQueryString(ph.totalPage)}'/>"><i class="fa-solid fa-angles-right"></i></a>
+              </c:if>
+
+            </c:if>
+
+          </div>
+        </div>
 
   </form>
 </div>

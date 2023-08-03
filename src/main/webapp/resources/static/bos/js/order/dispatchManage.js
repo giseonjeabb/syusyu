@@ -4,6 +4,7 @@ dispatchManage = {
     initLoad: () => {
         // 기본은 오늘 날짜로 세팅(from ~ to)
         setCalendarRangeByDays(dispatchManage.startDate, dispatchManage.endDate, 0);
+        syusyu.common.Bos.setupEnterSearch('search_container', 'btn_search');
 
         // 신규주문(주문확인 전 = 결제완료(10)) 리스트를 가져온다.
         dispatchManage.eventHandler.searchNewOrderBtnClick();

@@ -29,17 +29,17 @@ public class OrdDlvAddrDAOImpl implements OrdDlvAddrDAO {
     }
 
     /**
-     * 주문 배송지 정보를 DB에서 조회한다.
+     * 주어진 주문 번호에 해당하는 주문 배송지 정보를 조회한다.
      *
-     * @param ordDlvAddrNo 조회할 배송지의 주문 배송지 번호
-     * @return 조회된 주문 배송지 정보를 담은 DTO
+     * @param ordNo 조회할 주문 번호
+     * @return 주문 번호에 해당하는 주문 배송지 정보를 담은 OrdDlvAddrDTO 객체
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
-     * @since 2023/07/10
+     * @since 2023/07/18
      */
     @Override
-    public OrdDlvAddrDTO selectOrdDlvAddr(int ordDlvAddrNo) throws Exception {
-        return session.selectOne(namespace + "selectOrdDlvAddr", ordDlvAddrNo);
+    public OrdDlvAddrDTO selectOrdDlvAddr(int ordDtlNo) throws Exception {
+        return session.selectOne(namespace + "selectOrdDlvAddr", ordDtlNo);
     }
 
     /**

@@ -17,9 +17,9 @@ public interface NoticeDAO {
 
     int count() throws Exception;
 
-    int insert(NoticeDTO dto) throws Exception;
+    int insert(NoticeDTO noticeDTO) throws Exception;
 
-    int update(NoticeDTO dto) throws Exception;
+    int update(NoticeDTO noticeDTO) throws Exception;
 
     int increaseViewCnt(Integer notcNo) throws Exception;
 

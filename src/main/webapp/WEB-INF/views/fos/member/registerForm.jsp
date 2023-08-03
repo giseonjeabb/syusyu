@@ -1,12 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<head>
-    <script src="<c:url value="${jsUrlFos}/member/registerForm.js"/>"></script>
-    <style>
-        @import url(${cssUrlFos}/member/register.css);
-    </style>
-</head>
+<script src="<c:url value="${jsUrlFos}/member/registerForm.js"/>"></script>
+<style>
+    @import url(${cssUrlFos}/member/register.css);
+</style>
 <div class="container join">
     <div class="content sm">
         <div class="join_area">
@@ -71,7 +69,7 @@
                     </button>
                 </div>
             </div>
-            <a id="btn_register" disabled="disabled" href="#" class="btn btn_join full solid disabled"> 가입하기 </a>
+            <a id="btn_register" disabled="disabled" href="#" class="btn full solid"> 가입하기 </a>
         </div>
     </div><!---->
 </div>

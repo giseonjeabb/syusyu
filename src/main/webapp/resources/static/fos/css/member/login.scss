@@ -7,7 +7,7 @@
 .login_title  {
     padding-bottom: 50px;
     text-align: center;
-    font-size: 0
+    font-size: 32px;
 }
 
 .login_title :before {
@@ -20,7 +20,17 @@
 }
 
 .login_btn_box  {
-    padding-top: 20px
+    padding-top: 20px;
+
+    .btn {
+        display: inline-flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        text-align: center;
+        color: #fff;
+    }
 }
 
 .logo-social  {

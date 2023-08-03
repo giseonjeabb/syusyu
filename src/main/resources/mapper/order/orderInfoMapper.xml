@@ -44,16 +44,6 @@
         ORDER BY OD.ORD_DTL_NO
     </select>
 
-    <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
-        SELECT RECIPIENT
-             , DFLT_ADDR
-             , DTL_ADDR
-             , MP_NO
-             , DLV_REQ_COMT
-        FROM ORD_DLV_ADDR
-        WHERE ORD_NO = #{ordNo}
-    </select>
-
     <!--주문상세에서 결제정보 조회-->
     <select id="selectPayInfo" parameterType="Map" resultType="PayInfoDTO">
         SELECT P.ORD_AMT                                         # 주문금액
@@ -125,5 +115,29 @@
         SELECT ORD_STUS, COUNT(*) AS ORD_STUS_CNT
         FROM ORD_DTL OD
         GROUP BY OD.ORD_STUS
+    </select>
+
+    <!-- 관리자 주문상세 정보 조회 -->
+    <select id="selectOrdDtl" parameterType="int" resultType="OrderInfoDTO">
+        SELECT OD.PROD_NM
+             , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM   # 주문상태
+             , OD.ORD_STUS
+             , (SELECT NAME FROM MEMBER WHERE MBR_ID = O.ORDR_ID)                         AS ORDR_NM       # 구매자명
+             , O.ORDR_ID                                                                                   # 구매자 ID
+             , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
+                FROM OPT_GRP OG
+                         JOIN OPT_ITEM OI ON OG.OPT_GRP_ID = OI.OPT_GRP_ID
+                         JOIN PROD_OPT_COMB POC ON POC.OPT_ITEM_ID = OI.OPT_ITEM_ID
+                WHERE OPT_COMB_NO = OD.OPT_COMB_NO)                                       AS OPT_NM        # 옵션
+             , OD.QTY                                                                                      # 수량
+             , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) * OD.QTY AS PROD_AMT      # 상품금액(할인가격 + 옵션가) * 주문수량
+             , GET_CD_NM('O0002', OC.CLAIM_STUS)                                          AS CLAIM_STUS_NM # 클레임 상태명
+             , OC.CLAIM_STUS
+             , OD.*
+        FROM ORD O
+                 JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
+                 LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
+                 LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
+        WHERE OD.ORD_DTL_NO = #{ordDtlNo};
     </select>
 </mapper>

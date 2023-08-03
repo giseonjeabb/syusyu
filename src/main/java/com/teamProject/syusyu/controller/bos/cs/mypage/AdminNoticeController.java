@@ -90,7 +90,7 @@ public class AdminNoticeController {
      */
 
     @GetMapping("/read")
-    public String read(Integer notcNo,Model m ,SearchCondition sc){
+    public String read(Integer notcNo,Model m ,SearchCondition sc,RedirectAttributes rattr){
         try {
 
             // 공지사항 번호를 이용하여 해당 공지사항의 상세 정보 조회
@@ -111,7 +111,9 @@ public class AdminNoticeController {
             m.addAttribute("sc",sc);
         } catch (Exception e) {
           e.printStackTrace();
-          m.addAttribute("msg", "READ_ERR");
+            rattr.addFlashAttribute("msg", "READ_ERR");
+
+           return "redirect:/adminNotice/list";
         }
         // 공지사항 상세 정보를 표시하는 View 페이지 경로 반환
         return ViewPath.BOS_CS + "adminNotice";
@@ -247,22 +249,23 @@ public class AdminNoticeController {
             m.addAttribute("noticeDTO", noticeDTO);
             int rowCnt = noticeService.modify(noticeDTO);
 
-            if (rowCnt != 1)
+            if (rowCnt != 1) {
                 throw new Exception("modify failed!!!!!!!!!!!!!!!!!!!!!");
+            }
 
             rattr.addFlashAttribute("msg", "MOD_OK");
 
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute("noticeDTO", noticeDTO);
 
-            m.addAttribute("msg", "MOD_ERR");
-            rattr.addAttribute("notcNo", noticeDTO.getNotcNo());
+            m.addAttribute("noticeDTO", noticeDTO);
+            m.addAttribute("notcNo", noticeDTO.getNotcNo());
+
+            rattr.addFlashAttribute("msg","MOD_ERR");
 
             return "redirect:/adminNotice/modify";
         }
         return "redirect:/adminNotice/list";
-//        return ViewPath.BOS_CS+"BOS_FaqList";
     }
 
 @GetMapping("/modify")

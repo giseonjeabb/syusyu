@@ -15,6 +15,7 @@
     <input type="hidden" name="ordName" value="방채민">
     <input type="hidden" name="ordMobile" value="010-5517-3236">
     <input type="hidden" name="ordEmail" value="coals_0115@daum.net">
+    <input type="hidden" id="ordNo" name="ordNo" value="${cancelOrderInfoList[0].ordNo}">
 
     <section class="mt-60">
         <div class="sub-content-head etc-ty2 mb-30">
@@ -41,7 +42,7 @@
                 <c:forEach var="cancelOrderInfo" items="${cancelOrderInfoList}">
                     <c:if test="${cancelOrderInfo.ordStus == '10'}">
                         <div class="order-item ux-ord-prod">
-                        <input type="hidden" name="ordDtlNo" value="${cancelOrderInfo.ordNo}">
+                        <input type="hidden" name="ordDtlNo" value="${cancelOrderInfo.ordDtlNo}">
                             <div class="chk-area mr-10">
                                 <div class="chkbox single">
                                     <label>

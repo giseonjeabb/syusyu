@@ -3,6 +3,7 @@ package com.teamProject.syusyu.dao.order;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CartProdDAO {
 
@@ -13,6 +14,8 @@ public interface CartProdDAO {
     int insertProductIntoCart(CartProdDTO cartProductDTO) throws Exception;
 
     List<CartProdDTO> selectAll(int mbrId) throws Exception;
+
+    List<CartProdDTO> selectOrderCartProd(Map<String, Object> param) throws Exception;
 
     int update(CartProdDTO cartProductDTO) throws Exception;
 

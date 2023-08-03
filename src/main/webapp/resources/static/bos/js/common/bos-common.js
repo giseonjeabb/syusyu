@@ -39,4 +39,39 @@ syusyu.common.Bos = {
 
         return false;
     },
+
+
+    /**
+     * container 안에 존재하는 모든 text박스에 엔터키 누를 시 조회가 실행되도록 설정한다.
+     *
+     * @param {string} containerId 검색이 실행될 폼의 ID
+     * @param {string} searchButtonId 검색 버튼의 ID
+     * @author min
+     * @since 2023/08/02
+     */
+    setupEnterSearch(containerId, searchButtonId) {
+        const container = document.getElementById(containerId);
+        const inputElements = container.querySelectorAll('input[type=text], input[type=number]');
+
+        inputElements.forEach(inputElement => {
+            inputElement.addEventListener('keydown', (event) => {
+                this.onEnterSearch(event, searchButtonId);
+            });
+        });
+    },
+
+    /**
+     * 검색영역에서 input type='text'인 항목에서 enter key 입력시 검색버튼의 클릭이벤트를 호출한다.
+     *
+     * @param {Event} e 윈도우 이벤트 객체
+     * @param {string} searchButtonId 엔터 입력으로 실행될 조회 버튼의 ID를 입력
+     * @author min
+     * @since 2023/08/02
+     */
+    onEnterSearch(e, searchButtonId) {
+        const key = e.which || e.keyCode;
+        if (key === 13) { // 13은 Enter 키의 keyCode
+            document.getElementById(searchButtonId).click();
+        }
+    },
 }

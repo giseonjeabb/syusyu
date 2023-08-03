@@ -15,15 +15,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping(ViewPath.FOS)
 public class FOS_LoginController {
-    @Autowired
-    FOS_MemberService memberService;
+    private final FOS_MemberService memberService;
+
+    public FOS_LoginController(FOS_MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     /**
-     * 로그인 페이지를 보여주는 메서드입니다.
-     * 이 메서드는 이전 페이지의 URL을 세션에 저장한 후 로그인 폼을 반환합니다.
-     * 이전 페이지의 URL은 'Referer' 헤더를 통해 얻어옵니다.
+     * 로그인 페이지를 보여준다.
      *
-     * @param request 클라이언트의 요청 정보를 담고 있는 HttpServletRequest 객체
+     * @param request HttpServletRequest 객체
      * @return 로그인 폼의 경로
      * @author min
      * @since 2023/06/26
@@ -43,10 +44,9 @@ public class FOS_LoginController {
     }
 
     /**
-     * 사용자의 로그아웃 요청을 처리하는 메서드입니다.
-     * 세션을 종료시킨 후, 홈페이지로 리다이렉트합니다.
+     * 로그아웃 요청을 처리한다.
      *
-     * @param session 사용자의 세션 정보를 담고 있는 HttpSession 객체
+     * @param session HttpSession 객체
      * @return 홈페이지로의 리다이렉트 경로
      * @author min
      * @since 2023/06/26
@@ -61,14 +61,10 @@ public class FOS_LoginController {
 
     /**
      * 로그인 요청을 처리하는 메서드입니다.
-     * 전달받은 MemberDTO를 이용하여 사용자의 아이디와 비밀번호를 확인합니다.
-     * 아이디와 비밀번호가 일치하면 세션에 아이디를 저장하고, 이전 페이지 URL을 클라이언트에게 보냅니다.
-     * 아이디와 비밀번호가 일치하지 않으면 오류 메시지와 HTTP 상태 코드 401을 반환합니다.
      *
      * @param memberDTO 로그인 정보가 담긴 MemberDTO 객체
-     * @param request 클라이언트의 요청 정보를 담고 있는 HttpServletRequest 객체
+     * @param request HttpServletRequest 객체
      * @return 이전 페이지 URL과 HTTP 상태 코드
-     * @throws Exception 로그인 검증 도중 발생할 수 있는 예외를 처리합니다.
      * @author min
      * @since 2023/06/26
      * @modifier soso
@@ -90,14 +86,37 @@ public class FOS_LoginController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
-        //2. id와 pwd가 일치하면 세션에 id를 저장한다.
+        // 로그인 성공 시 세션에 ID 저장
         HttpSession session = request.getSession();
         session.setAttribute("mbrId", checkedMember.getMbrId());
 
-        //3. 이전 페이지 URL 가져오기
-        String prevPage = (String) session.getAttribute("prevPage");
+        // 사용자의 권한에 따른 리다이렉트 URL 설정
+        String redirectUrl = determineRedirectUrlBasedOnRole(checkedMember.getRole(), session);
 
-        //4. 클라이언트에게 성공 메시지와 이전 페이지 URL을 보낸다.
-        return new ResponseEntity<>(prevPage, HttpStatus.OK);
+        // 클라이언트에게 성공 메시지와 리다이렉트 URL 전달
+        return new ResponseEntity<>(redirectUrl, HttpStatus.OK);
+    }
+
+    /**
+     * 권한에 따라 리다이렉트 URL을 결정한다.
+     * 관리자의 경우 관리자 대시보드로 이동하고,
+     * 그 외의 권한은 이전에 보고있던 페이지로 리다이렉트한다.
+     *
+     * @param role 권한 코드
+     * @param session 현재의 HttpSession 객체
+     * @return 리다이렉트할 URL
+     * @author min
+     * @since 2023/08/03
+     */
+    private String determineRedirectUrlBasedOnRole(String role, HttpSession session) {
+        final String ADMIN_ROLE_CODE = "10";
+        final String ADMIN_DASHBOARD_URL = "/admin/dashboard";
+
+        if (ADMIN_ROLE_CODE.equals(role)) {
+            return ADMIN_DASHBOARD_URL;
+        } else {
+            // 이전 페이지 URL을 세션에서 가져옴
+            return (String) session.getAttribute("prevPage");
+        }
     }
 }

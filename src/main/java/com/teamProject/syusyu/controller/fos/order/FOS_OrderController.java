@@ -219,5 +219,4 @@ public class FOS_OrderController {
 
         return new ResponseEntity<>("CANCEL_OK", HttpStatus.OK);
     }
-
 }
