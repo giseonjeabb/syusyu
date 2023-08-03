@@ -71,50 +71,5 @@
     </div>
 
 
-    <br>
-
-    <%--    페이징 처리후 , 해당 타입의 글만 검색 하는 기능이 안되서 일단 주석 처리함--%>
-    <%--    <div id="devPageWrap">--%>
-    <%--        <div class="wrap-pagination">--%>
-    <%--            <c:if test="${ph.totalCnt==null || ph.totalCnt==0}">--%>
-    <%--                <div> 게시물이 없습니다.</div>--%>
-    <%--            </c:if>--%>
-
-    <%--            <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">--%>
-
-    <%--                <c:if test="${ph.showFirst}">--%>
-    <%--                    <a class="page"--%>
-    <%--                       href="<c:url value='/faq/faqList${pg.fsc11.getQueryString(ph.beginPage)}'/>">&lt;&lt;</a>--%>
-    <%--                </c:if>--%>
-
-    <%--                <c:if test="${ph.showPrev}">--%>
-    <%--                    <a class="page"--%>
-    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.beginPage-1)}'/>">&lt;</a>--%>
-    <%--                </c:if>--%>
-
-    <%--                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">--%>
-    <%--                    <a class="page ${i==ph.fsc11.page? "paging-active" : ""}"--%>
-    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(i)}'/>">${i}</a>--%>
-    <%--                </c:forEach>--%>
-
-    <%--                <c:if test="${ph.showNext}">--%>
-    <%--                    <a class="page" href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.endPage+1)}'/>">&gt;</a>--%>
-    <%--                </c:if>--%>
-
-    <%--                <c:if test="${ph.showLast}">--%>
-    <%--                    <a class="page"--%>
-    <%--                       href="<c:url value='/faq/faqList${ph.fsc11.getQueryString(ph.totalPage)}'/>">&gt;&gt;</a>--%>
-    <%--                </c:if>--%>
-
-    <%--            </c:if>--%>
-
-    <%--        </div>--%>
-    <%--    </div>--%>
-
-
-
-
-
-    <br>
 
 </div>
