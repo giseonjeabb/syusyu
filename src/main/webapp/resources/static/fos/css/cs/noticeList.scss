@@ -1,6 +1,6 @@
 .fb__bbs__header__filter {
   position: absolute;
-  top: 60px;
+  top: 0px;
   right: 30px;
 }
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
@@ -65,12 +65,17 @@ button, input {
 }
 #btnSearch{
   color: #fff;
-  background: #666;
+  background: black;
   border: 0;
   height: 40px;
   width: 70px;
   font-size: 15px;
+  border-radius: 6px;
 }
+#btnSearch:hover{
+  background: #5c636a;
+}
+
 .btn-default {
   padding: 0 30px;
   height: 40px;
@@ -86,7 +91,7 @@ button, [type="button"], [type="reset"], [type="submit"] {
   border-top: 2px solid #333;
 }
 table {
-  margin-top: 40px;
+  margin-top: 15px;
   table-layout: fixed;
   width: 100%;
   max-width: 100%;
@@ -175,3 +180,4 @@ ta-c {
   padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
   border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
 }
+
