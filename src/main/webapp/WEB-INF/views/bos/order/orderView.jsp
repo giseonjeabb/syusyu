@@ -88,6 +88,11 @@
     </div>
 
     <div class="grid-container">
-        <div id="orderViewGrid"></div>
+        <div>
+            <div class="rowCount">
+                <p>총 건수 : <span class="h3_txt" id="resultCnt">0</span> 건</p>
+            </div>
+        </div>
+        <div id="orderViewGrid" class="gridWrap"></div>
     </div>
 </div>

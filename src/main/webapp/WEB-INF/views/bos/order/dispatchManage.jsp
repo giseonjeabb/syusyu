@@ -97,10 +97,15 @@
     </div>
 
     <div class="grid-container">
-        <div class="button_area">
-            <button id="btn_order_confirm" class="btn btn-outline-dark date_range">주문확인</button>
-            <button id="btn_order_dispatch" class="btn btn-outline-dark date_range">발송처리</button>
+        <div>
+            <div class="button_area">
+                <button id="btn_order_confirm" class="btn btn-outline-dark date_range">주문확인</button>
+                <button id="btn_order_dispatch" class="btn btn-outline-dark date_range">발송처리</button>
+            </div>
+            <div class="rowCount">
+                <p>총 건수 : <span class="h3_txt" id="resultCnt">0</span> 건</p>
+            </div>
         </div>
-        <div id="dispatchManageGrid"></div>
+        <div id="dispatchManageGrid" class="gridWrap"></div>
     </div>
 </div>

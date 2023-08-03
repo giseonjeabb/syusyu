@@ -98,9 +98,14 @@
     </div>
 
     <div class="grid-container">
-        <div class="button_area">
-            <button id="btn_delivery_complete" class="btn btn-outline-dark date_range">배송완료</button>
+        <div>
+            <div class="button_area">
+                <button id="btn_delivery_complete" class="btn btn-outline-dark date_range">배송완료</button>
+            </div>
+            <div class="rowCount">
+                <p>총 건수 : <span class="h3_txt" id="resultCnt">0</span> 건</p>
+            </div>
         </div>
-        <div id="deliveryManageGrid"></div>
+        <div id="deliveryManageGrid" class="gridWrap"></div>
     </div>
 </div>
