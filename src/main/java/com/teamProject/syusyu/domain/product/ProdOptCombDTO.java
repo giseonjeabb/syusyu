@@ -15,7 +15,7 @@ public class ProdOptCombDTO {
     private String delYn;
 
     public ProdOptCombDTO(){}
-    public ProdOptCombDTO(int regrId, int optItemId, int optCombNo) {
+    public ProdOptCombDTO(int optCombNo, int optItemId, int regrId) {
         this.regrId = regrId;
         this.optItemId = optItemId;
         this.optCombNo = optCombNo;

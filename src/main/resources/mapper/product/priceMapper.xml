@@ -21,6 +21,6 @@
                , #{saleEdDttm}
                , #{dcStDttm}
                , #{dcEdDttm}
-               , #{regrID});
+               , #{regrId});
     </insert>
 </mapper>

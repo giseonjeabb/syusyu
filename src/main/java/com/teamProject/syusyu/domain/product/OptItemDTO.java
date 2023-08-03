@@ -19,12 +19,13 @@ public class OptItemDTO {
     public OptItemDTO() {
     }
 
-    public OptItemDTO(int optItemId, String optItemNm, int optGrpId, int regrId){
-        this.optItemId=optItemId;
+    public OptItemDTO(String optItemNm, int optGrpId, int regrId){
         this.optItemNm=optItemNm;
         this.optGrpId=optGrpId;
         this.regrId=regrId;
+    }
 
+    public OptItemDTO(String s, String s1, int i) {
     }
 
     public int getOptItemId() {

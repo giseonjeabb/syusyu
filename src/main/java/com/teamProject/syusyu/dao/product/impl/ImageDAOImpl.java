@@ -43,7 +43,7 @@ public class ImageDAOImpl implements com.teamProject.syusyu.dao.product.ImageDAO
      * @since 2023/07/31
      */
     @Override
-    public int insertSmlImg(ImageDTO imageDTO) throws Exception{
-        return session.insert(namespace+"insertSmlImg", imageDTO);
+    public int insertImage(ImageDTO imageDTO) throws Exception{
+        return session.insert(namespace+"insertImage", imageDTO);
     }
 }

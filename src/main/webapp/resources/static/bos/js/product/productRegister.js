@@ -926,13 +926,6 @@ function productRegisterSave(){
     });
     console.log("FormData after adding images:", formData);
 
-    // item, price, prodOpt 객체를 JSON 문자열로 변환하여 formData에 추가합니다.
-    // formData.append('product', JSON.stringify(product));
-    // formData.append('price', JSON.stringify(price));
-    // formData.append('optPrices', JSON.stringify(optPrices));
-    // formData.append('optInvQtys', JSON.stringify(optInvQtys));
-    // formData.append('optItemNms', JSON.stringify(optItemNms));
-    // formData.append('optGrpNms', JSON.stringify(optGrpNms));
 
     for (let pair of formData.entries()) {
         console.log(pair[0]+ ', '+ pair[1]);
@@ -957,6 +950,10 @@ function productRegisterSave(){
             console.log("Request completed");
         }
     }).done(function(data) {
+
         console.log(data);
+        alert("상품이 등록됐습니다.")
+        window.location.href = "/admin/dashboard";
+
     });
 }

@@ -63,8 +63,7 @@ public class ProductDTO {
         this.cdNm = cdNm;
     }
 
-    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, int regrId) {
-        this.prodId = prodId;
+    public ProductDTO(int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, int regrId) {
         this.cateId = cateId;
         this.prodNm = prodNm;
         this.modelNm = modelNm;
@@ -138,6 +137,7 @@ public class ProductDTO {
         this.smallNm = smallNm;
 
     }
+
 
     public int getCode() {
         return code;

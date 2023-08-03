@@ -17,12 +17,13 @@ public class OptGrpDTO {
     private String delYn;
 
     public OptGrpDTO(){}
-    public OptGrpDTO(int prodId, int optGrpId, String optGrpNm, int regrId) {
-        this.prodId = prodId;
-        this.regrId = regrId;
-        this.optGrpId = optGrpId;
+
+    public OptGrpDTO(String optGrpNm, int prodId, int regrId) {
         this.optGrpNm = optGrpNm;
+        this.prodId=prodId;
+        this.regrId=regrId;
     }
+
 
     public int getOptGrpId() {
         return optGrpId;
