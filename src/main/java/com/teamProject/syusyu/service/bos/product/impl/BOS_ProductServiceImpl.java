@@ -66,20 +66,26 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
     }
 
     /**
-     * 상품 등록을 수행하는 메서드입니다.
-     * 상품 정보를 DB에 등록하고, 등록된 상품의 ID를 반환합니다.
-     * 상품 등록에 성공한 경우 등록된 상품의 ID를 반환하며, 실패한 경우 예외를 던집니다.
+     * 이 메서드는 상품 정보, 가격, 이미지, 옵션 등을 등록하는 역할을 합니다.
+     * 각각의 DTO는 관련 정보를 담고 있으며, 모든 데이터는 DB에 저장됩니다.
+     * 이 모든 과정이 하나의 트랜잭션으로 관리되며, 어떤 하나의 등록 과정에서 예외가 발생하면,
+     * 모든 과정이 롤백되고, "Failed to add product data"라는 메시지와 함께 예외를 던집니다.
      *
-     * @param product 상품 정보를 담고 있는 ProductDTO 객체
-     * @return prodId 등록된 상품의 ID
-     * @throws Exception 상품 등록에 실패한 경우 발생하는 예외
+     * @param product       상품 정보가 담긴 ProductDTO 객체
+     * @param price         가격 정보가 담긴 PriceDTO 객체
+     * @param imageList     이미지 정보 목록이 담긴 ImageDTO 리스트
+     * @param optGrpNmList  옵션 그룹 목록이 담긴 OptGrpDTO 리스트
+     * @param prodOptList   상품 옵션 목록이 담긴 ProdOptDTO 리스트
+     * @param optItemNmList 옵션 아이템 목록이 담긴 OptItemDTO 리스트
+     * @param mbrId         상품을 등록하는 회원 ID
+     * @throws Exception 상품 등록 과정에서 발생하는 예외
      * @author soso
      * @since 2023/07/31
      */
     @Transactional
     public void addProductData(ProductDTO product,
                                PriceDTO price,
-                               List<ImageDTO> smlImgDTOs,
+                               List<ImageDTO> imageList,
                                List<OptGrpDTO> optGrpNmList,
                                List<ProdOptDTO> prodOptList,
                                List<OptItemDTO> optItemNmList,
@@ -100,7 +106,7 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
             priceDAO.insertPrice(price);
 
             //이미지등록
-            for (ImageDTO smlImgDTO : smlImgDTOs) {
+            for (ImageDTO smlImgDTO : imageList) {
                 smlImgDTO.setRegrId(mbrId);
                 smlImgDTO.setProdId(prodId);
                 imageDAO.insertImage(smlImgDTO);
@@ -127,15 +133,15 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
 
             //optItem
             List<Integer> optItemIdList = new ArrayList<>();
-            OptItemDTO optItemDTO=new OptItemDTO();
+            OptItemDTO optItemDTO = new OptItemDTO();
             optItemDTO.setOptItemNm(optItemNmList.get(0).getOptItemNm());
             optItemDTO.setOptGrpId(optGrpIdList.get(0));
             optItemDTO.setRegrId(mbrId);
             optItemDAO.insertOptItem(optItemDTO);
             optItemIdList.add(optItemDTO.getOptItemId());
 
-            for (int i=1;i<optItemNmList.size();i++) {
-                OptItemDTO optItemDto=new OptItemDTO();
+            for (int i = 1; i < optItemNmList.size(); i++) {
+                OptItemDTO optItemDto = new OptItemDTO();
                 optItemDto.setOptItemNm(optItemNmList.get(i).getOptItemNm());
                 optItemDto.setOptGrpId(optGrpIdList.get(1));
                 optItemDto.setRegrId(mbrId);
@@ -152,7 +158,7 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
                 prodOptCombDAO.insertProdOptComb(prodOptCombDTO);
                 ProdOptCombDTO prodOptCombDTO1 = new ProdOptCombDTO();
                 prodOptCombDTO1.setOptCombNo(optCombNoList.get(i));
-                prodOptCombDTO1.setOptItemId(optItemIdList.get(i+1));
+                prodOptCombDTO1.setOptItemId(optItemIdList.get(i + 1));
                 prodOptCombDTO1.setRegrId(mbrId);
                 prodOptCombDAO.insertProdOptComb(prodOptCombDTO1);
             }
