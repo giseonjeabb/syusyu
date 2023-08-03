@@ -293,7 +293,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     public Map<String, Object> getOrderDetailList(Map<String, Integer> param) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<OrderInfoDTO> orderDetailList = orderInfoDAO.selectOrderDetailList(param);
-        OrdDlvAddrDTO ordDlvAddr = orderInfoDAO.selectOrdDlvAddr((int) param.get("ordNo"));
+        OrdDlvAddrDTO ordDlvAddr = ordDlvAddrDAO.selectOrdDlvAddr((int) param.get("ordNo"));
         PayInfoDTO payInfo = orderInfoDAO.selectPayInfo(param);
 
         result.put("orderDetailList", orderDetailList);

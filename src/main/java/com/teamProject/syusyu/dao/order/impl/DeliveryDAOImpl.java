@@ -40,8 +40,8 @@ public class DeliveryDAOImpl implements DeliveryDAO {
      * @since  2023/07/28
      */
     @Override
-    public DeliveryDTO selectDelivery(int dlvNo) throws Exception {
-        return session.selectOne(namespace + "selectDelivery", dlvNo);
+    public DeliveryDTO selectDelivery(int ordNo) throws Exception {
+        return session.selectOne(namespace + "selectDelivery", ordNo);
     }
 
     /**

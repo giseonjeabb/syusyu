@@ -15,9 +15,14 @@
     </insert>
 
     <select id="selectOrdStusHist" parameterType="int" resultType="OrdStusHistDTO">
-        SELECT *
-        FROM ORD_STUS_HIST
-        WHERE ORD_STUS_HIST_NO = #{ordStusHistNo}
+        SELECT OH.ORD_STUS_HIST_NO
+             , ORD_DTL_NO
+             , GET_CD_NM('O0001', OH.NOW_ORD_STUS) AS NOW_ORD_STUS_NM
+             , OH.PROC_MEMO
+             , OH.REG_DTTM
+             , OH.REGR_ID
+        FROM ORD_STUS_HIST OH
+        WHERE ORD_DTL_NO = #{ordDtlNo};
     </select>
 
     <delete id="deleteAllOrdStusHist">

@@ -25,9 +25,13 @@
     </insert>
 
     <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
-        SELECT *
+        SELECT RECIPIENT
+             , DFLT_ADDR
+             , DTL_ADDR
+             , MP_NO
+             , DLV_REQ_COMT
         FROM ORD_DLV_ADDR
-        WHERE ORD_DLV_ADDR_NO = #{ordDlvAddrNo}
+        WHERE ORD_NO = #{ordNo}
     </select>
 
     <delete id="deleteAllOrdDlvAddr">

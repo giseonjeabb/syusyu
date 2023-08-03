@@ -21,9 +21,17 @@
     </insert>
 
     <select id="selectDelivery" parameterType="int" resultType="DeliveryDTO">
-        SELECT *
-        FROM DELIVERY
-        WHERE DLV_NO = #{dlvNo}
+        SELECT D.DLV_NO
+             , D.ORD_DTL_NO
+             , D.DISPATCH_DTTM                           # 발송처리일시
+             , D.PICKUP_DTTM                             # 집화처리일시
+             , D.SHMT_DTTM                               # 출하일시
+             , D.DLV_COM                                 # 택배사코드
+             , GET_CD_NM('O0011', DLV_COM) AS DLV_COM_NM # 택배사명
+             , D.TRCK_NO                                 # 송장번호
+             , D.CMPL_DTTM                               # 배송완료일시
+        FROM DELIVERY D
+        WHERE ORD_DTL_NO = #{ordNo}
     </select>
 
     <update id="updateDelivery" parameterType="DeliveryDTO">
