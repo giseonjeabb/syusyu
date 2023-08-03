@@ -21,7 +21,6 @@ public interface InqryService {
     InqryDTO read(Integer inqry_no) throws Exception;
 
     List<InqryDTO> getPage(Map map) throws Exception;
-
     int modify(InqryDTO inqryDTO) throws Exception;
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;

@@ -101,15 +101,22 @@
                             <strong class="ml-20">${[inqryTypeTextMap[inqryDTO.inqryTp]]} ${inqryDTO.title}</strong>
                             <span class="color-3 w-120 ta-c"><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></span>
                         </button>
-                        <div class="panel">
-                            <p><span>Q. </span>${inqryDTO.content}</p>
-                            <br>
-                            <p><span>A. </span>${inqryDTO.ansCn}</p>
-                            <input type="hidden" name="inquiry" value="2756">
-                            <div style="margin-right: 40px">
-                                <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
-                                <span style="float: right;">&nbsp;|&nbsp;</span>
-                                <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}" inqryType="${inqryDTO.inqryTp}" style="float: right">수정</button></span>
+                        <div class="panel" style="display: none;">
+
+                            <div class="slide-cont end">
+                                <div class="inner" style="display: block;">
+                                    <p><span>Q. </span>${inqryDTO.content}</p>
+                                    <br>
+                                    <c:if test="${inqryDTO.inqryYn eq 'Y'}">
+                                        <p><span>A. </span>${inqryDTO.ansCn}</p><br>
+                                    </c:if>
+                                    <input type="hidden" name="inquiry" value="2756">
+                                    <div style="margin-right: 40px">
+                                        <span><button type="button" class="btn btn-text-type btt1 btn-remove" inqryNo="${inqryDTO.inqryNo}" style="float: right">삭제</button></span>
+                                        <span style="float: right;">&nbsp;|&nbsp;</span>
+                                        <span><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}" inqryType="${inqryDTO.inqryTp}" style="float: right">수정</button></span><br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,7 +182,7 @@
                     removeMsg = JSON.parse(result);
                     if(removeMsg ===1){
                         alert("성공적으로 삭제되었습니다.");
-                        location.href = "http://localhost:80/inqry/inqryList";
+                        location.href = "/inqry/inqryList";
                     }else{
                         alert("삭제 중 오류가 발생했습니다.");
                     }
