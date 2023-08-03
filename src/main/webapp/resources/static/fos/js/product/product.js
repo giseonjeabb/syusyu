@@ -1,5 +1,4 @@
-
-$(function() {
+$(function () {
     /**
      *  1. fold-box 요소의 active 클래스를 토글 처리
      * 이 함수는 '.fold-box' 요소의 클릭 이벤트를 처리합니다. 클릭된 요소에 'active' 클래스를 추가하고,
@@ -101,7 +100,9 @@ $(function() {
         let loginId = $("#login_id").val();
 
         // 선택한 사이즈가 이미 선택된 옵션 리스트에 존재하는지 확인합니다.
-        if ($('.option-selected-list .option-select-item').filter(function() {return $(this).data('opt-comb-no') == selectedOptCombNo;}).length === 0) {
+        if ($('.option-selected-list .option-select-item').filter(function () {
+            return $(this).data('opt-comb-no') == selectedOptCombNo;
+        }).length === 0) {
             // 상품의 기본 가격을 가져옵니다.
             let basePrice = parseFloat($('.flex.al-center').data('price'));
             // 선택한 옵션의 추가 가격을 가져옵니다.
@@ -324,22 +325,52 @@ $(function() {
     $('#ShareUrl').val(window.location.href);
 
     // 복사 버튼을 클릭하면 인풋 필드의 값을 클립보드에 복사합니다.
-    $('.btn.clipboard').on('click', function() {
-        navigator.clipboard.writeText($('#ShareUrl').val()).then(function() {
+    $('.btn.clipboard').on('click', function () {
+        navigator.clipboard.writeText($('#ShareUrl').val()).then(function () {
             // 토스트 팝업의 내용을 설정하고 팝업을 보이게 합니다.
             $('.popup-toast-content').text('URL이 복사되었습니다.');
             $('.popup-toast').addClass('on');
 
             //일정 시간이 지나면 팝업을 숨깁니다.
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.popup-toast').removeClass('on');
             }, 1000); // 1초 후에 팝업을 숨깁니다.
         })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('URL 복사에 실패했습니다.: ', error);
             });
     });
 
+    /**
+     * 탭 메뉴에서 항목을 클릭할 때 발생하는 이벤트 핸들러입니다.
+     * 클릭된 탭에 'active' 클래스를 추가하고, 해당 탭의 섹션으로 스크롤합니다.
+     * 스크롤 시 애니메이션 효과를 적용하며, 섹션의 상단에서 약 150px 위에서 스크롤이 시작됩니다.
+     *
+     * @param {Event} e - 발생한 클릭 이벤트입니다.
+     *                  이를 통해 클릭된 요소에 접근하거나, 기본 이벤트 동작을 제어할 수 있습니다.
+     * @return {void} 반환값은 없습니다. 함수의 동작은 화면의 스크롤 위치를 변경하는 것입니다.
+     * @throws {Exception} 선택한 탭의 href 값이 유효하지 않거나, 해당 ID를 가진 섹션이 존재하지 않는 경우 예외가 발생할 수 있습니다.
+     * @author soso
+     * @since 2023/08/04
+     */
+    $(".tab-menu a").click(function (e) {
+        e.preventDefault();
+
+        // 모든 탭에서 'active' 클래스 제거
+        $('.tab-menu a').removeClass('active');
+
+        // 선택한 탭에 'active' 클래스 추가
+        $(this).addClass('active');
+
+        // 해당 섹션으로 스크롤
+        let target = "#" + $(this).attr('href'); // 클릭한 탭의 href 값 앞에 '#' 추가
+        let targetPosition = $(target).offset().top; // 섹션의 top 위치를 가져옴
+
+        // 이전에 100px만큼 더 위에서 스크롤 시작
+        $('html, body').animate({
+            scrollTop: targetPosition - 150
+        }, 600); // 600ms 동안 스크롤 애니메이션 수행
+    });
 
 
 });
@@ -386,7 +417,7 @@ function updatePrice(element) {
  */
 function updateTotalPrice() {
     let grandTotal = 0;
-    $('.option-selected-list .option-select-item').each(function() {
+    $('.option-selected-list .option-select-item').each(function () {
         let itemPrice = Number($(this).find('.display-price').text().replace(/,/g, ""));
         grandTotal += itemPrice;
     });
@@ -412,17 +443,17 @@ function updateTotalPrice() {
  * @since 2023/07/25
  */
 function productIntoCart() {
-    const loginId=$("#login_id").val();
+    const loginId = $("#login_id").val();
 
-    if(!loginId){
-        window.location.href=`/fos/login`;
+    if (!loginId) {
+        window.location.href = `/fos/login`;
         return;
     }
 
     let items = []; // 아이템들을 담을 배열
 
     // 선택된 아이템들을 반복하여 처리
-    $('.option-select-item').each(function() {
+    $('.option-select-item').each(function () {
         let $this = $(this); // 선택된 아이템을 가리키는 jQuery 객체
         let item = {
             prodId: $("#prod_no").val(),
@@ -433,7 +464,6 @@ function productIntoCart() {
         };
         items.push(item); // 배열에 아이템 추가
     });
-
 
 
     $.ajax({
