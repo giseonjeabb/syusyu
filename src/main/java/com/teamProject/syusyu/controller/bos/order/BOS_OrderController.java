@@ -5,13 +5,14 @@ import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping(ViewPath.BOS)
 public class BOS_OrderController {
     private final BOS_OrderService service;
@@ -28,7 +29,8 @@ public class BOS_OrderController {
      * @author min
      * @since 2023/07/23
      */
-    @GetMapping("/orders")
+    @ResponseBody
+    @GetMapping("orders")
     public ResponseEntity<Map<String, Object>> getOrderList(OrderSearchRequestDTO orderSearchRequestDTO) {
         Map<String, Object> result = null;
         try {
@@ -51,8 +53,8 @@ public class BOS_OrderController {
      * @author min
      * @since 2023/07/25
      */
-    @PostMapping("/orders/status/confirm")
     @ResponseBody
+    @PostMapping("orders/status/confirm")
     public ResponseEntity<String> confirmOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
         try {
             service.processUpdateOrderStatus(ordDtlNoList, mbrId, "20");
@@ -75,8 +77,8 @@ public class BOS_OrderController {
      * @author min
      * @since 2023/07/26
      */
-    @PostMapping("/orders/status/dispatch")
     @ResponseBody
+    @PostMapping("orders/status/dispatch")
     public ResponseEntity<String> dispatchOrder(@RequestBody Map<String, Object> payload, @SessionAttribute int mbrId) {
         try {
             List<Integer> ordDtlNoList = (List<Integer>) payload.get("ordDtlNoList");
@@ -102,8 +104,8 @@ public class BOS_OrderController {
      * @author min
      * @since 2023/07/29
      */
-    @PostMapping("/orders/status/delivery-complete")
     @ResponseBody
+    @PostMapping("orders/status/delivery-complete")
     public ResponseEntity<String> deliveryCompleteOrder(@RequestBody List<Integer> ordDtlNoList, @SessionAttribute int mbrId) {
         try {
             service.processUpdateOrderStatus(ordDtlNoList, mbrId, "60");

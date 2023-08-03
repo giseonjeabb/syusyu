@@ -31,8 +31,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController(ViewPath.FOS + "mypage/main").setViewName(ViewPath.FOS_MYPAGE + "mypageMain");
 
         /* ===== BOS ===== */
-        registry.addViewController(ViewPath.BOS + "orders/view").setViewName(ViewPath.BOS_ORDER + "orderView");
-        registry.addViewController(ViewPath.BOS + "dispatches/view").setViewName(ViewPath.BOS_ORDER + "dispatchManage");
-        registry.addViewController(ViewPath.BOS + "deliveries/view").setViewName(ViewPath.BOS_ORDER + "deliveryManage");
+        registry.addViewController(ViewPath.BOS + "orderView").setViewName(ViewPath.BOS_ORDER + "orderView");
+        registry.addViewController(ViewPath.BOS + "dispatchManageView").setViewName(ViewPath.BOS_ORDER + "dispatchManage");
+        registry.addViewController(ViewPath.BOS + "deliveryManageView").setViewName(ViewPath.BOS_ORDER + "deliveryManage");
     }
 }
