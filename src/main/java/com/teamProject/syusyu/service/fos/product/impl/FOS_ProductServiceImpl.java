@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.service.product.impl;
+package com.teamProject.syusyu.service.fos.product.impl;
 
 import com.teamProject.syusyu.dao.product.ProdOptDAO;
 import com.teamProject.syusyu.dao.product.ProductDAO;

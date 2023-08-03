@@ -39,6 +39,7 @@
         <typeAlias alias="FaqDTO" type="com.teamProject.syusyu.domain.cs.FaqDTO"/>
         <typeAlias alias="FaqSearchCondition" type="com.teamProject.syusyu.domain.cs.FaqSearchCondition" />
         <typeAlias alias="InqryDTO" type="com.teamProject.syusyu.domain.cs.InqryDTO"/>
+        <typeAlias alias="ReviewDTO" type="com.teamProject.syusyu.domain.product.ReviewDTO"/>
 
         <!-- etc -->
         <typeAlias alias="SearchCondition" type="com.teamProject.syusyu.domain.cs.SearchCondition"/>
