@@ -215,7 +215,7 @@
                     regYn = JSON.parse(result);
                     go_inqryList.submit();
                     alert("등록이 완료되었습니다.");
-                    location.href = "http://localhost:80/inqry/inqryList";
+                    location.href = "/inqry/inqryList";
                     preventClick = 0;
                 }
                 else{

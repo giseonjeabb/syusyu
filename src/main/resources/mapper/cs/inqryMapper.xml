@@ -44,7 +44,7 @@
                UPD_DTTM,
                UPDR_ID
         from inqry
-        order by REG_DTTM DESC, INQRY_NO DESC
+        order by INQRY_NO DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
@@ -72,9 +72,24 @@
         SET INQRY_TP = #{inqryTp},
             TITLE = #{title},
             CONTENT = #{content},
-            UPD_DTTM = now()
-        WHERE INQRY_NO = #{inqryNo} AND REGR_ID = #{regrId}
+            UPD_DTTM = NOW(),
+            INQRY_YN = <choose>
+                            <when test="ansCn != null">
+                                #{ansCn}
+                            </when>
+                            <otherwise>
+                                'N'
+                            </otherwise>
+                        </choose>
+        WHERE INQRY_NO = #{inqryNo}
     </update>
+
+    <update id="updateAnswer" parameterType="InqryDTO">
+        UPDATE inqry
+        SET ANS_CN = #{ansCn}
+        WHERE INQRY_NO = #{inqryNo}
+    </update>
+
 
     <delete id="delete" parameterType="map">
         DELETE FROM inqry WHERE INQRY_NO = #{inqryNo} and REGR_ID = #{regrId}

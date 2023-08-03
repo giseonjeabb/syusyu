@@ -16,6 +16,42 @@
     <head>
         <style>
             @import url(${cssUrlBos}/cs/adminInqryList.scss);
+            .pagination-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+                color: #A0A0A0;
+            }
+
+            .pagination-container a {
+                display: inline-block;
+                padding: 5px 10px;
+                margin: 0 2px;
+                color: #A0A0A0;
+                text-decoration: none;
+            }
+
+            .pagination-container a:hover {
+                text-decoration: underline;
+                color: #333;
+            }
+
+            .pagination-container a.active {
+                background-color: #007bff;
+                color: #000000;
+            }
+            .badge-item.ty10 {
+                background-color: red; /* 배경색: 주황색 */
+                color: #ffffff; /* 글자색: 흰색 */
+                padding: 5px 10px;
+                border-radius: 20px; /* 둥근 모양을 위한 border-radius 속성 */
+            }
+
+            /* 답변 완료 스타일 */
+            .badge-item.ty10.complete {
+                padding: 5px 10px;
+                border-radius: 20px; /* 둥근 모양을 위한 border-radius 속성 */
+            }
         </style>
     </head>
     <script>
@@ -39,13 +75,11 @@
         <%--검색 바  : 제목 + 내용 , 제목 , 내용 항목--%>
 
         <form action="<c:url value="/adminInqry/adminInqryList"/>" class="d-flex-1">
-
+        <br><br>
         <%--            pannel heading--%>
-                <div class="panel panel-seller">
-                    <div class="panel-heading">
+                <div class="panel panel-seller" hidden="hidden">
+                    <div class="panel-heading" hidden="hidden">
                     </div>
-
-
                     <%--                pannel - body--%>
 <%--                    <div class="panel-body">--%>
 <%--                        <div class="seller-search-section">--%>
@@ -64,9 +98,7 @@
 <%--                            </div>--%>
 <%--                        </div>--%>
 <%--                    </div>--%>
-
                 </div> <%-- panel panel-seller--%>
-
             </form>
 
 <%--            <div class="pull-right">--%>
@@ -84,25 +116,39 @@
             <table class="table table-hover">
 
                 <tr id="id-Table-dark" class="table-dark">
-                    <th scope="col">번호</th>
+                    <th scope="col">문의 번호</th>
                     <th scope="col">문의사항 종류</th>
-                    <th scope="col">제목</th>
+                    <th scope="col">문의 제목</th>
                     <th scope="col">문의 작성자 ID</th>
                     <th scope="col">등록 일자</th>
                     <th scope="col">답변 내용</th>
+                    <th scope="col">답변 상태</th>
                 </tr>
 
                 <c:forEach var="inqryDTO" items="${list}">
                     <input type="hidden" name="inqryNo" value="${inqryDTO.inqryNo}">
                     <tr class="table-light">
                         <td scope="row">${inqryDTO.inqryNo}</td>        <%---문의사항 번호---%>
-                        <td><c:out value="${inqryDTO.inqryTp}"/></td>   <%---문의사항 타입---%>
+                        <td>${[inqryTypeTextMap[inqryDTO.inqryTp]]}</td>   <%---문의사항 타입---%>
                         <td>${inqryDTO.title}</td>
                         <td>${inqryDTO.regrId}</td>
-                            <%--                    <a href = "<c:url value='/adminNotice/read?notcNo=${noticeDTO.notcNo}&page=${page}&pageSize=${pageSize}'/>">${noticeDTO.title}</a>--%>
-                            <%---문의사항 등록날짜---%>
                         <td><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         <td>${inqryDTO.ansCn}</td>
+                        <td>
+                            <span class="badge-cont single">
+								<c:choose>
+                                    <c:when test="${not empty inqryDTO.ansCn}">
+                                        <span class="badge-item ty10 complete" style="background-color: #05fa42; color: white;">답변완료</span>
+                                    </c:when>
+                                    <c:when test="${empty inqryDTO.ansCn}">
+                                        <span class="badge-item ty10" onclick="goToWritePage()">답변대기</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- 아무것도 하지 않음 -->
+                                    </c:otherwise>
+                                </c:choose>
+		                </span>
+                        </td>
                     </tr>
                 </c:forEach>
 
@@ -125,27 +171,8 @@
     </section>
 
     <script>
-        $(document).ready(function (){
-
-            $('.removeBtn').on("click", function(){
-                if(!confirm("삭제 하시겠습니까 ?")) return;
-                let form =  $('#form');
-                let url =  "<c:url value='/adminNotice/remove${searchCondition.queryString}'/>";
-                form.attr("action", url);
-                form.attr("method", "post");
-                form.submit();
-            });
-
-
-            $("#writeNewBtn").on("click", function () {
-                location.href = "<c:url value='/adminNotice/write'/>";
-            });
-
-            $(".modifyBtn").on("click", function () {
-                const notcNo=$(this).data("notc-no");
-                location.href = '/adminNotice/modify?notcNo='+notcNo;
-            });
-                <%--location.href = '/adminNotice/modify?notcNo=${noticeDTO.notcNo}';--%>
-        });
+        function goToWritePage() {
+            location.href = "<c:url value='/adminInqry/write'/>";
+        }
 
     </script>

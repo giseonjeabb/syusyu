@@ -85,7 +85,8 @@ public class InqryController {
         }
 
         @GetMapping("/inqryList")
-        public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+        public String list(Integer page, Integer pageSize, HttpSession session, Model m, HttpServletRequest request) {
+            Integer mbrId = (Integer)session.getAttribute("mbrId");
 //            if(!loginCheck(request))
 //                return "redirect:/fos/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
@@ -186,6 +187,7 @@ public class InqryController {
             // 오류가 발생했음을 나타내는 오류 코드를 반환
             return -1;
         }
+//        return ViewPath.FOS_HELP +"inqryList";
     }
 
         // 1:1 문의 수정을 처리하는 메서드

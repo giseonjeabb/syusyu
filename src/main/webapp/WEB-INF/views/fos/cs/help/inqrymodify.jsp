@@ -209,7 +209,7 @@
                 // 서버로부터 받은 응답 처리
                 // 사용자에게 업데이트된 데이터 보여주기 (필요하면)
                 alert("수정이 완료되었습니다.");
-                location.href = "http://localhost:80/inqry/inqryList";
+                location.href = "/inqry/inqryList";
                 }
                 else{
                     return ;
