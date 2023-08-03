@@ -5,9 +5,7 @@
 <c:set var="loginOutText" value="${sessionScope.mbrId != null ? '로그아웃' : '로그인'}"/>
 <c:set var="categories" value="${sessionScope.categories}"/>
 <html>
-<head>
-    <script src="<c:url value='${jsUrlFos}/common/header.js'/>"></script>
-</head>
+<script src="<c:url value='${jsUrlFos}/common/header.js'/>"></script>
 <body>
 <jsp:include page="layerPopup.jsp"/>
 <header>
@@ -18,7 +16,6 @@
                                     style="background: url('/static/image/logo/syusyuBlackLogo.png') no-repeat center center;">syusyu</a>
                 </h1>
                 <div class="header-top-utils">
-                    <a href="<c:url value="/admin/dashboard"/>">관리자페이지</a>
                     <a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a>
                     <a href="/notice/noticeList">고객센터</a>
                 </div>

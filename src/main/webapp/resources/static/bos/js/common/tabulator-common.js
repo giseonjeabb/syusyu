@@ -28,18 +28,21 @@ syusyu.common.Tabulator = {
             theme: "bootstrap",
             data: _tableData,
             columns: _columns,
-            layout: "fitDataFill",
-            responsiveLayout: "hide",
+            layout: "fitData",
+            // responsiveLayout: "hide",
             tooltips: true,
             addRowPos: "top",
             history: true,
             pagination: "local",
-            paginationSize: 15,
+            paginationSize: 10,
             movableColumns: true,
             resizableRows: true,
             initialSort: [{column: "name", dir: "asc"},],
             selectable: _selectable, // 이 옵션을 통해 행을 선택할 수 있게 설정
         });
+
+        // 행의 총 개수를 표시해준다.
+        document.querySelector('#resultCnt').innerHTML = table.getData().length;
 
         // TODO selectable true면 아래 checkbox 요소의 부모 div에 text-align: center 먹여주기
         // div.tabulator-header > div.tabulator-headers > div:nth-child(1) > div.tabulator-col-content > div > div > input[type=checkbox]

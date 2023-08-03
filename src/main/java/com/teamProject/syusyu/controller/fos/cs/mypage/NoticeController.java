@@ -42,7 +42,7 @@ public class NoticeController {
     public String read(Integer notcNo, SearchCondition sc, Model m) throws Exception {
         try {
             // notcNo(글의 번호)를 이용해서 특정 공지사항 읽어오기
-            NoticeDTO noticeDto = noticeService.read(notcNo);
+            NoticeDTO noticeDTO = noticeService.read(notcNo);
 
             // 이전 글과 다음 글의 제목 가져오기
             NoticeDTO prevNotice = noticeService.getPrevTitle(notcNo);
@@ -53,7 +53,7 @@ public class NoticeController {
             m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
 
             // 조회한 공지사항의 글 정보와 검색조건(SearchCondition)을 모델에 추가해서 View로
-            m.addAttribute("noticeDto", noticeDto);
+            m.addAttribute("noticeDTO", noticeDTO);
             m.addAttribute("sc", sc);
             // m.addAttribute("page", page);
             // m.addAttribute("pageSize", pageSize);

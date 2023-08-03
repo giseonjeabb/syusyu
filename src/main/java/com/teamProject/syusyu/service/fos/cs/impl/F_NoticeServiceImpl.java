@@ -43,8 +43,8 @@ public class F_NoticeServiceImpl implements F_NoticeService {
     }
 
     @Override
-    public int write(NoticeDTO noticeDto) throws Exception {
-        return noticeDao.insert(noticeDto);
+    public int write(NoticeDTO noticeDTO) throws Exception {
+        return noticeDao.insert(noticeDTO);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class F_NoticeServiceImpl implements F_NoticeService {
     }
 
     @Override
-    public int modify(NoticeDTO noticeDto) throws Exception {
-        return noticeDao.update(noticeDto);
+    public int modify(NoticeDTO noticeDTO) throws Exception {
+        return noticeDao.update(noticeDTO);
     }
 
     @Override

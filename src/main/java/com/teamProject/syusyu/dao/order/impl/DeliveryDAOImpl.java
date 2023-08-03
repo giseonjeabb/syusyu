@@ -31,17 +31,17 @@ public class DeliveryDAOImpl implements DeliveryDAO {
     }
 
     /**
-     * 배송번호에 해당하는 배송 정보를 DB에서 조회한다.
+     * 주문상세번호에 해당하는 배송 정보를 DB에서 조회한다.
      *
-     * @param dlvNo 조회할 배송의 배송번호
+     * @param ordDtlNo 주문상세번호
      * @return 조회된 배송 정보를 담은 DTO
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
      * @author min
      * @since  2023/07/28
      */
     @Override
-    public DeliveryDTO selectDelivery(int dlvNo) throws Exception {
-        return session.selectOne(namespace + "selectDelivery", dlvNo);
+    public DeliveryDTO selectDelivery(int ordDtlNo) throws Exception {
+        return session.selectOne(namespace + "selectDelivery", ordDtlNo);
     }
 
     /**

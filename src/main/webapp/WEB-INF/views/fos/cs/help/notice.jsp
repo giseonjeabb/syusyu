@@ -26,7 +26,7 @@
 
 
 <%-- ===============================경계선-=========================--%>
-        <input type="hidden" name="notcNo" value="${noticeDto.notcNo}">
+        <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
         <colgroup>
             <col style="width: 105px">
             <col style="width: auto">
@@ -34,9 +34,9 @@
         </colgroup>
 
         <tr>
-            <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
+            <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDTO.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
         </tr>
-            <textarea name="content" rows="20" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDto.content}"/></textarea><br>
+            <textarea name="content" rows="15" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDTO.content}"/></textarea><br>
 
 
         <%-- 하단 이전글 다음글 선택--%>
@@ -45,9 +45,9 @@
                 <%--        다음글  : 다음글 제목--%>
                 <%--            다음글이 없다면 empty nextTitle--%>
                 <li class="detail__nav-next">
-                    <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
+                    <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp&nbsp&nbsp
                     <c:if test="${not empty nextTitle}">
-                        <a href="/notice/read?notcNo=${noticeDto.notcNo + 1}">${nextTitle}</a>
+                        <a href="/notice/read?notcNo=${noticeDTO.notcNo + 1}">${nextTitle}</a>
                     </c:if>
                     <c:if test="${empty nextTitle}">
                         <span>다음 글이 존재하지 않습니다</span>
@@ -58,9 +58,9 @@
                 <%--        이전글 :  이전글 제목--%>
                 <%--        이전글이 없다면 emptyprevTitle--%>
                 <li class="detail__nav-prev">
-                    <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
+                    <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>&nbsp&nbsp&nbsp
                     <c:if test="${not empty prevTitle}">
-                        <a href="/notice/read?notcNo=${noticeDto.notcNo - 1}">${prevTitle}</a>
+                        <a href="/notice/read?notcNo=${noticeDTO.notcNo - 1}">${prevTitle}</a>
                     </c:if>
                     <c:if test = "${empty prevTitle}">
                         <span>이전 글이 존재 하지 않습니다.</span>

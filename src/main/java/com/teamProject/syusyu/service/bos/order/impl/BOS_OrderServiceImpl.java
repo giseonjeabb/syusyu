@@ -1,8 +1,12 @@
 package com.teamProject.syusyu.service.bos.order.impl;
 
 import com.teamProject.syusyu.dao.order.DeliveryDAO;
+import com.teamProject.syusyu.dao.order.OrdDlvAddrDAO;
+import com.teamProject.syusyu.dao.order.OrdStusHistDAO;
 import com.teamProject.syusyu.dao.order.OrderInfoDAO;
 import com.teamProject.syusyu.domain.order.DeliveryDTO;
+import com.teamProject.syusyu.domain.order.OrdDlvAddrDTO;
+import com.teamProject.syusyu.domain.order.OrdStusHistDTO;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.base.order.OrderServiceBase;
@@ -17,10 +21,14 @@ import java.util.Map;
 public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderService {
     private final OrderInfoDAO orderInfoDAO;
     private final DeliveryDAO deliveryDAO;
+    private final OrdDlvAddrDAO ordDlvAddrDAO;
+    private final OrdStusHistDAO ordStusHistDAO;
 
-    public BOS_OrderServiceImpl(OrderInfoDAO orderInfoDAO, DeliveryDAO deliveryDAO) {
+    public BOS_OrderServiceImpl(OrderInfoDAO orderInfoDAO, DeliveryDAO deliveryDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrdStusHistDAO ordStusHistDAO) {
         this.orderInfoDAO = orderInfoDAO;
         this.deliveryDAO = deliveryDAO;
+        this.ordDlvAddrDAO = ordDlvAddrDAO;
+        this.ordStusHistDAO = ordStusHistDAO;
     }
 
     /**
@@ -52,10 +60,10 @@ public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderS
      * 주문 배송 정보를 추가하고, 주문의 상태를 발송완료로 업데이트한다.
      *
      * @param ordDtlNoList 발송처리할 주문의 주문상세번호를 담은 리스트
-     * @param dlvComList 택배사코드를 담은 리스트
-     * @param trckNoList 송장번호를 담은 리스트
-     * @param mbrId 사용자 ID
-     * @param ordStus 변경될 주문상태
+     * @param dlvComList   택배사코드를 담은 리스트
+     * @param trckNoList   송장번호를 담은 리스트
+     * @param mbrId        사용자 ID
+     * @param ordStus      변경될 주문상태
      * @throws Exception 주문 발송 처리 도중 발생할 수 있는 예외
      * @author min
      * @since 2023/07/28
@@ -74,9 +82,9 @@ public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderS
      * 리스트의 길이가 일치하지 않으면 IllegalArgumentException이 발생한다.
      *
      * @param ordDtlNoList 주문배송 정보를 추가할 주문의 주문상세번호를 담은 리스트
-     * @param dlvCom 택배사코드를 담은 리스트
-     * @param trckNo 송장번호를 담은 리스트
-     * @param mbrId 사용자 ID
+     * @param dlvCom       택배사코드를 담은 리스트
+     * @param trckNo       송장번호를 담은 리스트
+     * @param mbrId        사용자 ID
      * @throws Exception 배송 정보 추가 도중 발생할 수 있는 예외
      * @author min
      * @since 2023/07/28
@@ -90,5 +98,38 @@ public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderS
         for (int i = 0; i < ordDtlNoList.size(); i++) {
             deliveryDAO.insertDelivery(new DeliveryDTO(ordDtlNoList.get(i), dlvCom.get(i), trckNo.get(i), mbrId));
         }
+    }
+
+    /**
+     * 주문 상세 정보를 조회한다.(주문상세정보, 배송 정보, 배송지 정보, 주문 처리 이력)
+     *
+     * @param ordDtlNo 주문상세번호
+     * @return 조회된 주문상세정보, 배송 정보, 배송지 정보, 주문 처리 이력을 담은 Map 객체
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/08/03
+     */
+    @Override
+    public Map<String, Object> getOrdDtlInfo(int ordDtlNo) throws Exception {
+        // 1. 주문상세정보 조회
+        OrderInfoDTO ordDtl = orderInfoDAO.selectOrdDtl(ordDtlNo);
+
+        // 2. 배송정보 조회
+        DeliveryDTO delivery = deliveryDAO.selectDelivery(ordDtlNo);
+
+        // 3. 배송지정보 조회
+        OrdDlvAddrDTO ordDlvAddr = ordDlvAddrDAO.selectOrdDlvAddr(ordDtlNo);
+
+        // 4. 주문처리이력 조회
+        List<OrdStusHistDTO> ordStusHistList = ordStusHistDAO.selectOrderStatusHistory(ordDtlNo);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("ordDtl", ordDtl);
+        result.put("delivery", delivery);
+        result.put("ordDlvAddr", ordDlvAddr);
+        result.put("ordStusHistList", ordStusHistList);
+
+        return result;
+
     }
 }

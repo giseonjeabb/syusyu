@@ -73,7 +73,7 @@ couponPopup.function = {
 
             // 2. res 반복문 돌려서
             res.forEach(coupon => {
-                const bnefTp = coupon.bnefTp == '01' ? '원' : '%';
+                const bnefTp = coupon.bnefTp === '01' ? '%' : '원';
 
                 result += `<option data-cpnIssNo="${coupon.cpnIssNo}" data-bnefTp="${coupon.bnefTp}" data-cpnBnef="${coupon.cpnBnef}" data-maxDcAmt="${coupon.maxDcAmt}" value="">${coupon.cpnNm}(${coupon.cpnBnef}${bnefTp} 할인)</option>`;
             });

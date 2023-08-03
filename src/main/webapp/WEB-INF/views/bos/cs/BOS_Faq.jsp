@@ -14,6 +14,7 @@
     <style>
         @import url(${cssUrlBos}/cs/BOS_Faq.scss);
     </style>
+</head>
     <script>
     let msg = "${msg}";
     if(msg == "READ_ERR") alert (" 게시물을 읽어오는데 실패 했습니다. ");
@@ -24,7 +25,7 @@
 
 
     <div class="container">
-        <h2 class="title-t ty3 mb-30"> FAQ 자주묻는 질문 </h2>
+        <h2 class="title-t ty3 mb-30"> FAQ 자주묻는 질문 </h2><br>
 
         <form id="form" class="frm" action="" method="post">
 
@@ -35,62 +36,69 @@
                 <col style="width: auto">
                 <col style="width: 110px">
             </colgroup>
-        <tr>
-            <input name="title" type="text" class="detail-tit1" value= " ${faqDTO.title}"  readonly="readonly"/>
-        </tr>
+            <table id="titleForm">
+                    <tr>
+                        <td id="titleFormFirst"> ${faqDTO.title}</td>
+                    </tr>
 
+                    <tr>
+                        <td id="titleFormSecond"><fmt:formatDate value="${faqDTO.regDttm}" pattern="yyyy-MM-dd" /></td>
+                    </tr>
+            </table>
 
-            <span class="date-info">
-                등록날짜: <span><fmt:formatDate value="${faqDTO.regDttm}" pattern="yyyy-MM-dd" /></span>
-            </span>
+            <table id="contentForm">
+                <tr>
+                    <td>
+                        <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${faqDTO.content}</textarea>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <ul class="prev_next_title">
+                            <li class="detail__nav-next">
+                                <span class="nextPage">다음 글&nbsp;&nbsp;&nbsp;&nbsp
+                                    <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <c:if test="${not empty nextFaqTitle}">
+                                    <a href="/bos/faqRead?faqNo=${faqDTO.faqNo + 1}">&nbsp; ${nextFaqTitle}</a>
+                                </c:if>
+                                <c:if test="${empty nextFaqTitle}">
+                                    <span>&nbsp;&nbsp;다음 글이 존재하지 않습니다. </span>
+                                </c:if>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
-
-            <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${faqDTO.content}</textarea>
-
-            <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i>  목록</button>
-            <button type="button" id="modifyBtn" data-faq-no="${faqDTO.faqNo}" class="btn btn-primary btn-sm"><i class="fa-solid fa-toolbox"></i>  수정</button>
-            <button type="button" id="removeBtn" data-faq-no="${faqDTO.faqNo}" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>  삭제</button>
-
-
-
-            <%-- 하단 이전글 다음글 선택--%>
-            <nav class ="detail_nav">
-                <br>
-                <ul class="prev_next_title">
-                    <%--        다음글  : 다음글 제목--%>
-                    <%--            다음글이 없다면 empty nextTitle--%>
-                    <li class="detail__nav-next">
-                        <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>
-                        <c:if test="${not empty nextFaqTitle}">
-                            <a href="/bos/faqRead?faqNo=${faqDTO.faqNo + 1}">&nbsp; ${nextFaqTitle}</a>
-                        </c:if>
-                        <c:if test="${empty nextFaqTitle}">
-                            <span>&nbsp;다음 글이 존재하지 않습니다. </span>
-                        </c:if>
-                    </li>
-
-
-                        <br>
-
-
+            <tr>
+                <td>
+                    <ul>
                         <li class="detail__nav-prev">
-                            <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>
+                            <span class="prevPage">이전 글&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="fa-solid fa-caret-down"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <c:if test="${not empty prevFaqTitle}">
                                 <a href="/bos/faqRead?faqNo=${faqDTO.faqNo - 1}">&nbsp; ${prevFaqTitle}</a>
                             </c:if>
                             <c:if test = "${empty prevFaqTitle}">
-                                <span>&nbsp;이전 글이 존재 하지 않습니다. </span>
+                                <span>&nbsp;&nbsp;이전 글이 존재 하지 않습니다. </span>
                             </c:if>
                         </li>
+                    </ul>
+                </td>
+            </tr>
 
-                </ul>
-            </nav>
+            <tr>
+                <td id="threeBtn">
+                    <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i>  목록</button>
+                    <button type="button" id="modifyBtn" data-faq-no="${faqDTO.faqNo}" class="btn btn-primary btn-sm"><i class="fa-solid fa-toolbox"></i>  수정</button>
+                    <button type="button" id="removeBtn" data-faq-no="${faqDTO.faqNo}" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>  삭제</button>
+                </td>
+            </tr>
+            </table>
 
         </form>
     </div>
 
-</head>
 
 <script>
     $(document).ready(function (){
