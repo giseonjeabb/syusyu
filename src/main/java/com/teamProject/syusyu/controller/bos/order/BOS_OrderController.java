@@ -5,6 +5,7 @@ import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -113,5 +114,32 @@ public class BOS_OrderController {
         }
 
         return new ResponseEntity<>("DELIVERY_COMPLETE_OK", HttpStatus.OK);
+    }
+
+    /**
+     * 주문 상세 정보를 조회해 화면에 보내준다.
+     *
+     * @param ordDtlNo 조회할 주문상세의 주문상세번호
+     * @param m Model 객체
+     * @return 조회에 성공하면 주문 상세 정보를 담은 뷰의 이름을, 실패하면 "error"를 반환
+     * @author min
+     * @since 2023/08/03
+     */
+    @GetMapping("/orders/{ordDtlNo}")
+    public String orderDetail(@PathVariable int ordDtlNo, Model m) {
+
+        try {
+            Map<String, Object> result = service.getOrdDtlInfo(ordDtlNo);
+            m.addAttribute("ordDtl", result.get("ordDtl"));
+            m.addAttribute("delivery", result.get("delivery"));
+            m.addAttribute("ordDlvAddr", result.get("ordDlvAddr"));
+            m.addAttribute("ordStusHistList", result.get("ordStusHistList"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return ViewPath.BOS_ORDER + "orderDetail";
     }
 }

@@ -4,6 +4,7 @@ orderView = {
     initLoad: () => {
         // 기본은 오늘 날짜로 세팅(from ~ to)
         setCalendarRangeByDays(orderView.startDate, orderView.endDate, 0);
+        syusyu.common.Bos.setupEnterSearch('search_container', 'btn_search');
 
         // 주문 리스트를 가져온다.
         orderView.function.getOrderList();
