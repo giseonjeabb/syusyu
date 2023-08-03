@@ -53,13 +53,16 @@
 
     <!-- Start Date -->
     공지사항 시작 날짜
-    <input type="date" id = noticeCalendar name="startDttm" value = "${noticeDTO.startDttm}" required>
+    <input type="date" id="noticeCalendar1" name="startDttm" value='<fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" />' required>
+
+  <%--    <input type="date" id = noticeCalendar1 name="startDttm" value = "${noticeDTO.startDttm}" required>--%>
 
     <!-- End Date -->
     공지사항 종료 날짜
-    <input type="date" id = noticeCalendar  name="endDttm" value = "${noticeDTO.endDttm}" required>
+    <input type="date" id="noticeCalendar2" name="endDttm" value='<fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" />' required>
+<%--    <input type="date" id = noticeCalendar2  name="endDttm" value = "${noticeDTO.endDttm}" required>--%>
 
-
+<%--    value = "${noticeDTO.startDttm}"--%>
 
 
     <!-- Buttons -->

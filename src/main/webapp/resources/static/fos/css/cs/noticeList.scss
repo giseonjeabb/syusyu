@@ -36,6 +36,7 @@ select {
   vertical-align: baseline;
   margin: 0 15px;
   border: 1px solid #ccc;
+  border-radius: 0.375rem;
 }
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
@@ -62,6 +63,7 @@ button, input {
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
   vertical-align: middle;
+  border-radius: 0.375rem;
 }
 #btnSearch{
   color: #fff;
@@ -125,6 +127,7 @@ td {
   padding: 15px;
   line-height: 35px;
   border-bottom: 1px solid #eee;
+  font-size: 16px;
 }
 
 .tbl.ty1 > table > tbody > tr > td a {
@@ -137,7 +140,7 @@ td {
 }
 
 .fw-7 {
-  font-weight: 300 !important;
+  font-weight: 450 !important;
 }
 a {
   color: inherit;
