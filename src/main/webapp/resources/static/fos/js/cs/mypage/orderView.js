@@ -56,72 +56,104 @@ orderView.eventHandler = {
 
 namespace("orderView.function");
 orderView.function = {
+    /**
+     * 주문 정보를 내림차순으로 정렬한 데이터를 반환한다.
+     *
+     * @param {Object} orderInfoList 주문 정보를 담은 객체. key는 주문 번호, value는 해당 주문의 상세 정보를 담은 배열.
+     * @returns {Array} 주문 번호를 기준으로 내림차순으로 정렬한 주문 정보 배열
+     * @author min
+     * @since 2023/08/02
+     */
+    convertOrderInfo(orderInfoList) {
+        return Object.keys(orderInfoList).map(key => {
+            return {
+                ordNo: key,
+                details: orderInfoList[key]
+            };
+        }).sort((a, b) => b.ordNo - a.ordNo);
+    },
+
+    /**
+     * 주문 상세 HTML을 생성한다.
+     *
+     * @param {Object} orderInfo 주문 정보를 담은 객체
+     * @returns {string} 생성된 HTML 문자열
+     * @author min
+     * @since 2023/08/02
+     */
+    createOrderDetail(orderInfo) {
+        return `
+        <div class="order-item">
+            <div class="thumb">
+                <a href="/fos/products/product/${orderInfo.prodId}" target="_blank">
+                    <img src="${orderInfo.repImg}" alt="">
+                </a>
+            </div>
+            <div class="order-info">
+                <div class="badge-cont">
+                    <span class="badge-item ${orderInfo.ordStus === '70' ? 'ty11' : 'ty13'} fw-7">${orderInfo.ordStusNm}</span>
+                </div>
+                <ul>
+                    <li>
+                        <span class="title">${orderInfo.prodNm}</span>
+                    </li>
+                    <li>
+                        ${orderInfo.optNm ? `<span class="option">${orderInfo.optNm}</span>` : ''}
+                        <span class="qty"> ${formatPrice(orderInfo.qty)}개 </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>
+                                ${formatPrice(orderInfo.prodAmt)}
+                            </strong>
+                            원
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>`;
+    },
+
+    /**
+     * 주문 리스트의 HTML을 생성한다.
+     *
+     * @param {Object} orderInfo2 주문 정보가 담겨져있는 객체
+     * @returns {string} 생성된 HTML 문자열
+     * @author min
+     * @since 2023/08/02
+     */
+    createOrderList(orderInfo2) {
+        const ordNo = orderInfo2.ordNo; // 주문번호
+        const ordDttm = orderInfo2.details[0].ordDttm.substring(0, 10); // 주문일시
+        return `
+        <div class="order-history-list">
+            <div class="history-info">
+                <div class="detail">
+                    <span class="order-num">${ordNo}</span>
+                    <span class="date">${ordDttm}</span>
+                </div>
+                <div class="a-btn-area">
+                    <a href="/fos/orders/${ordNo}" class="btn">
+                        <span>상세보기</span>
+                    </a>
+                </div>
+            </div>
+            ${orderInfo2.details.map(orderView.function.createOrderDetail).join('')}
+        </div>`;
+    },
+
+    /**
+     * 주문 목록을 생성해서 화면에 보여준다.
+     *
+     * @param {Object} orderInfoList 주문 정보를 담은 객체. key는 주문 번호, value는 해당 주문의 상세 정보를 담은 배열.
+     * @author min
+     * @since 2023/08/02
+     */
     showOrderInfoList(orderInfoList) {
-        // 0. 마이페이지 - 주문조회 상위 div 요소를 선택한다.
         const $orderListBox = document.querySelector('.orderlistbox');
-        // 1. 주문목록 리스트를 초기화한다.
         $orderListBox.innerHTML = '';
 
-        // 2. orderInfoList의 각 주문번호(ordNum)에 대해 HTML 문자열을 생성한다.
-        const result = Object.keys(orderInfoList).map(ordNum => {
-            // 주문 일자(ordDttm) 추출
-            const ordDttm = orderInfoList[ordNum][0].ordDttm.substring(0, 10);
-
-            // 3. 해당 주문번호의 모든 주문상세에 대해 HTML 문자열을 생성한다.
-            const orderDetails = orderInfoList[ordNum].map(orderInfo => {
-                // 옵션이 있을 경우 해당 HTML 문자열을 생성
-                const option = orderInfo.optNm ? `<span class="option">${orderInfo.optNm}</span>` : '';
-                // 주문상세 HTML 문자열 반환
-                return `
-                <div class="order-item">
-                    <div class="thumb">
-                        <img src="${orderInfo.repImg}" onclick="location.href='/product/${orderInfo.prodId}'" alt="">
-                    </div>
-                    <div class="order-info">
-                        <div class="badge-cont">
-                            <span class="badge-item ${orderInfo.ordStus === '70' ? 'ty11' : 'ty13'} fw-7">${orderInfo.ordStusNm}</span>
-                        </div>
-                        <ul>
-                            <li>
-                                <span class="title">${orderInfo.prodNm}</span>
-                            </li>
-                            <li>
-                                ${option}
-                                <span class="qty"> ${formatPrice(orderInfo.qty)}개 </span>
-                            </li>
-                            <li>
-                                <span>
-                                    <strong>
-                                        ${formatPrice(orderInfo.prodAmt)}
-                                    </strong>
-                                    원
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>`;
-            }).join(''); // 생성된 모든 주문상세 HTML 문자열을 하나로 결합
-
-            // 4. 각 주문번호에 대한 HTML 문자열을 반환
-
-            return `
-            <div class="order-history-list">
-                <div class="history-info">
-                    <div class="detail">
-                        <span class="order-num">${ordNum}</span>
-                        <span class="date">${ordDttm}</span>
-                    </div>
-                    <div class="a-btn-area">
-                        <a href="/fos/orders/${ordNum}" class="btn">
-                            <span>상세보기</span>
-                        </a>
-                    </div>
-                </div>
-                ${orderDetails} <!-- 생성된 주문상세 HTML 문자열 삽입-->
-            </div>`;
-        }).join(''); // 생성된 모든 주문번호 HTML 문자열을 하나로 결합
-
-        // 5. 생성된 주문목록 정보를 화면에 보여준다.
-        $orderListBox.innerHTML = result;
+        const arrayData = orderView.function.convertOrderInfo(orderInfoList);
+        $orderListBox.innerHTML = arrayData.map(orderView.function.createOrderList).join('');
     },
 }

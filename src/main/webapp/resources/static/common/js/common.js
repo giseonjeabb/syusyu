@@ -11,8 +11,14 @@ const namespace = (...a) => {
     return o;
 };
 
-
-
+/**
+ * 주어진 비밀번호가 최소 8자리에 숫자, 대문자, 소문자, 특수문자가 각각 1개 이상 포함되어 있는지 검증한다.
+ *
+ * @param {string} password 검증할 비밀번호 문자열
+ * @returns {Boolean} 비밀번호가 유효한 경우 true, 그렇지 않은 경우 false를 반환
+ * @author min
+ * @since 2023/06/27
+ */
 const validatePassword = (password) => {
     // 비밀번호가 최소 8자리에 숫자, 대문자, 소문자, 특수문자가 각각 1개 이상 포함되어 있는지 검사하는 정규표현식
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,16}$/;
@@ -20,6 +26,14 @@ const validatePassword = (password) => {
     return regex.test(password);
 }
 
+/**
+ * 수량을 증가/감소시킨다.
+ *
+ * @param {HTMLButtonElement} button 수량 증가 혹은 감소 버튼 요소
+ * @param {HTMLInputElement} input 수량을 표시하는 입력 필드 요소
+ * @author min
+ * @since 2023/07/03
+ */
 const updateQty = (button, input) => {
     let quantity = Number(input.value);
     if (button.classList.contains('minus') && quantity > 1) {
@@ -30,6 +44,47 @@ const updateQty = (button, input) => {
     input.value = quantity;
 }
 
+/**
+ * 주어진 요소의 전화번호를 포맷팅한다.
+ *
+ * @param {string} elementId 전화번호 포맷팅 대상 요소의 ID
+ * @author min
+ * @since 2023/08/02
+ */
+function formatPhoneNumberForElement(elementId) {
+    const $phoneNumberElement = document.getElementById(elementId);
+    if ($phoneNumberElement) {
+        $phoneNumberElement.innerHTML = formatPhoneNumber($phoneNumberElement.innerHTML);
+    } else {
+        console.error(`Element not found: ${elementId}`);
+    }
+}
+
+/**
+ * 전화번호를 포맷팅한다.
+ *
+ * @param {string} phoneNumberString 포맷팅할 전화번호 문자열
+ * @returns {string} 포맷팅된 전화번호 문자열
+ * @author min
+ * @since 2023/08/02
+ */
+function formatPhoneNumber(phoneNumberString) {
+    const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{4})(\d{4})$/);
+    if (match) {
+        return match[1] + '-' + match[2] + '-' + match[3];
+    }
+    return phoneNumberString;
+}
+
+/**
+ * 금액 천 단위 포맷팅
+ *
+ * @param {number|string} price 포맷팅할 가격
+ * @returns {string} 포맷팅된 가격 문자열
+ * @author min
+ * @since 2023/07/03
+ */
 const formatPrice = (price) => {
     if (typeof price !== 'number')
         price = parseInt(price);
@@ -44,7 +99,7 @@ const formatPrice = (price) => {
  * @param calendarId 날짜 선택 필드의 ID
  * @param date 기본으로 설정할 날짜
  * @author min
- * @since 2023/07/199
+ * @since 2023/07/19
  */
 const setFlatpickrCalendar = (calendarId, date) => {
     flatpickr('#' + calendarId, {
