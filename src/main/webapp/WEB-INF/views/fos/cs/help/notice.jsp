@@ -8,20 +8,20 @@
         @import url(${cssUrlFos}/cs/notice.scss);
     </style>
     <%-- JS 파일 주입--%>
-        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-        <script src="<c:url value='${jsUrlFos}/cs/mypage/notice.js'/>" ></script>
-        <%-- 이상하게 적용안되는중 하단에 적으면되는데 JS 파일로 따로 빼서 받으면 404뜸--%>
 </head>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="<c:url value='${jsUrlFos}/cs/mypage/notice.js'/>" ></script>
+<%-- 이상하게 적용안되는중 하단에 적으면되는데 JS 파일로 따로 빼서 받으면 404뜸--%>
 
 
-        <script>
-            let msg = "${msg}";
-            if(msg == "WRT_ERR") alert("글 등록 실패 했습니다.");
-            if(msg == "MOD_ERR") alert("글 수정 실패 했습니다.");
-        </script>
+<script>
+    let msg = "${msg}";
+    if(msg == "WRT_ERR") alert("글 등록 실패 했습니다.");
+    if(msg == "MOD_ERR") alert("글 수정 실패 했습니다.");
+</script>
 
 <div class="container">
-    <h2 class="title-t ty3 mb-30"> 공지사항 ${mode=="new" ? " 작성 " : " "}</h2>
+    <h2 class="title-t ty3 mb-30"> 공지사항 </h2>
     <form id="tbl ty1" class="frm" action="" method="post">
 
 
@@ -34,10 +34,10 @@
         </colgroup>
 
         <tr>
-            <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDTO.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><br>
+            <input name="title" type="text" class="detail-tit1" value="<c:out value= '${noticeDTO.title}'/>"><br>
         </tr>
-            <textarea name="content" rows="15" class="detail-cont" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value=" ${noticeDTO.content}"/></textarea><br>
-
+<%--            <textarea name="content" rows="15" class="detail-cont"><c:out value=" ${noticeDTO.content}"/></textarea><br>--%>
+    <div id="editContent"></div>
 
         <%-- 하단 이전글 다음글 선택--%>
         <nav class ="detail_nav">
@@ -111,9 +111,21 @@
         }
 
 
+        <%--$("#listBtn").on("click", function(){--%>
+        <%--    location.href="<c:url value='/notice/noticeList${searchCondition.queryString}'/>";--%>
+        <%--});--%>
+
         $("#listBtn").on("click", function(){
-            location.href="<c:url value='/notice/noticeList${searchCondition.queryString}'/>";
+            let searchCondition = '${searchCondition.queryString}';
+            location.href="/notice/noticeList" + searchCondition;
         });
+
+
+
+
+
+        const test = '${noticeDTO.content}';
+        document.getElementById('editContent').innerHTML = test;
     });
 </script>
 
