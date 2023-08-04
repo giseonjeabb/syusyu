@@ -113,9 +113,9 @@ orderView.function = {
         const gridId = '#orderViewGrid';
 
         const columns = [ // 테이블의 열을 정의한다.
-            { title: "Select", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false }, // 체크박스 컬럼 추가
+            {title: "Select", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false}, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo"},
-            {title: "주문상세번호", field: "ordDtlNo"},
+            {title: "주문상세번호", field: "ordDtlNo", cellClick: syusyu.common.Tabulator.openOrderDetailPopup, formatter: syusyu.common.Tabulator.blueCellFormatter},
             {title: "주문일시", field: "ordDttm"},
             {title: "주문상태", field: "ordStusNm"},
             {title: "클레임 처리상태", field: "claimStus"},
@@ -128,7 +128,7 @@ orderView.function = {
             {title: "결제금액", field: "realPayAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "구매자명", field: "ordrNm"},
             {title: "수령인", field: "recipient"},
-            {title: "주문상태코드", field: "ordStus", visible:false},
+            {title: "주문상태코드", field: "ordStus", visible: false},
         ];
 
         orderViewGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);

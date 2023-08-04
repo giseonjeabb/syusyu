@@ -19,13 +19,6 @@ public class DeliveryDTO {
     private Date updDttm;     // 수정일시
     private Integer updId;    // 수정자
 
-    public DeliveryDTO(int ordDtlNo, String dlvCom, String trckNo, int regId) {
-        this.ordDtlNo = ordDtlNo;
-        this.dlvCom = dlvCom;
-        this.trckNo = trckNo;
-        this.regId = regId;
-    }
-
     public int getDlvNo() {
         return dlvNo;
     }
@@ -165,5 +158,125 @@ public class DeliveryDTO {
                 ", updDttm=" + updDttm +
                 ", updId=" + updId +
                 '}';
+    }
+
+    public static final class Builder {
+        private int dlvNo;
+        private int ordDtlNo;
+        private String dlvStus;
+        private String dlvTp;
+        private Date dispatchDttm;
+        private Integer pickupDttm;
+        private Date shmtDttm;
+        private Date cmplDttm;
+        private String dlvCom;
+        private String dlvComNm;
+        private String trckNo;
+        private Date regDttm;
+        private int regId;
+        private Date updDttm;
+        private Integer updId;
+
+        private Builder() {
+        }
+
+        public static Builder aDeliveryDTO() {
+            return new Builder();
+        }
+
+        public Builder dlvNo(int dlvNo) {
+            this.dlvNo = dlvNo;
+            return this;
+        }
+
+        public Builder ordDtlNo(int ordDtlNo) {
+            this.ordDtlNo = ordDtlNo;
+            return this;
+        }
+
+        public Builder dlvStus(String dlvStus) {
+            this.dlvStus = dlvStus;
+            return this;
+        }
+
+        public Builder dlvTp(String dlvTp) {
+            this.dlvTp = dlvTp;
+            return this;
+        }
+
+        public Builder dispatchDttm(Date dispatchDttm) {
+            this.dispatchDttm = dispatchDttm;
+            return this;
+        }
+
+        public Builder pickupDttm(Integer pickupDttm) {
+            this.pickupDttm = pickupDttm;
+            return this;
+        }
+
+        public Builder shmtDttm(Date shmtDttm) {
+            this.shmtDttm = shmtDttm;
+            return this;
+        }
+
+        public Builder cmplDttm(Date cmplDttm) {
+            this.cmplDttm = cmplDttm;
+            return this;
+        }
+
+        public Builder dlvCom(String dlvCom) {
+            this.dlvCom = dlvCom;
+            return this;
+        }
+
+        public Builder dlvComNm(String dlvComNm) {
+            this.dlvComNm = dlvComNm;
+            return this;
+        }
+
+        public Builder trckNo(String trckNo) {
+            this.trckNo = trckNo;
+            return this;
+        }
+
+        public Builder regDttm(Date regDttm) {
+            this.regDttm = regDttm;
+            return this;
+        }
+
+        public Builder regId(int regId) {
+            this.regId = regId;
+            return this;
+        }
+
+        public Builder updDttm(Date updDttm) {
+            this.updDttm = updDttm;
+            return this;
+        }
+
+        public Builder updId(Integer updId) {
+            this.updId = updId;
+            return this;
+        }
+
+        public DeliveryDTO build() {
+            DeliveryDTO deliveryDTO = new DeliveryDTO();
+            deliveryDTO.setDlvNo(dlvNo);
+            deliveryDTO.setOrdDtlNo(ordDtlNo);
+            deliveryDTO.setDlvStus(dlvStus);
+            deliveryDTO.setDlvTp(dlvTp);
+            deliveryDTO.setDispatchDttm(dispatchDttm);
+            deliveryDTO.setPickupDttm(pickupDttm);
+            deliveryDTO.setShmtDttm(shmtDttm);
+            deliveryDTO.setCmplDttm(cmplDttm);
+            deliveryDTO.setDlvCom(dlvCom);
+            deliveryDTO.setDlvComNm(dlvComNm);
+            deliveryDTO.setTrckNo(trckNo);
+            deliveryDTO.setRegDttm(regDttm);
+            deliveryDTO.setRegId(regId);
+            deliveryDTO.setUpdDttm(updDttm);
+            deliveryDTO.setUpdId(updId);
+            return deliveryDTO;
+        }
     }
 }
