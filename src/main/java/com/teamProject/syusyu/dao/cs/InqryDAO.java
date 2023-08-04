@@ -20,6 +20,8 @@ public interface InqryDAO {
 
     int update(InqryDTO dto) throws Exception; // 수정
 
+    int updateAnswer(InqryDTO dto); // 수정
+
     int increaseViewCnt(Integer inqryNo) throws Exception;
 
     int delete(Integer inqryNo, String regrId) throws Exception; // 삭제

@@ -193,16 +193,6 @@
             });
         })
 
-        // $('.btn-modify').on("click", function (event){
-        //     if (!confirm("1:1 문의를 수정하시겠습니까?")) return;
-        //     const inqryNumber = $(event.target).attr('inqryNo');
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: `/inqry/modify`,
-        //         contentType: 'application/json; charset=utf-8',
-        //     });
-        // })
-
         $(".btn-modify").on("click", function(event) {
             if (!confirm("1:1 문의를 수정하시겠습니까?")) return;
 

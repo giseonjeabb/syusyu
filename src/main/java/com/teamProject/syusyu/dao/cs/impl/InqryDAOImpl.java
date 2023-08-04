@@ -15,6 +15,7 @@ import java.util.Map;
 public class InqryDAOImpl implements InqryDAO {
     @Autowired
     SqlSession session;
+
     String namespace = "com.teamProject.syusyu.InqryMapper.";
 
     @Override
@@ -45,6 +46,11 @@ public class InqryDAOImpl implements InqryDAO {
     @Override
     public int update(InqryDTO dto) throws Exception {
         return session.update(namespace+"update", dto);
+    }
+
+    @Override
+    public int updateAnswer(InqryDTO dto) {
+        return session.update(namespace+"updateAnswer", dto);
     }
 
     @Override

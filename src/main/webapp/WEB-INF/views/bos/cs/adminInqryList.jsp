@@ -41,7 +41,7 @@
                 color: #000000;
             }
             .badge-item.ty10 {
-                background-color: red; /* 배경색: 주황색 */
+                background-color: #587dc8; /* 배경색: 주황색 */
                 color: #ffffff; /* 글자색: 흰색 */
                 padding: 5px 10px;
                 border-radius: 20px; /* 둥근 모양을 위한 border-radius 속성 */
@@ -138,10 +138,10 @@
                             <span class="badge-cont single">
 								<c:choose>
                                     <c:when test="${not empty inqryDTO.ansCn}">
-                                        <span class="badge-item ty10 complete" style="background-color: #05fa42; color: white;">답변완료</span>
+                                        <span class="badge-item ty10 complete" style="background-color: #c8c8c8; color: white;">답변완료</span>
                                     </c:when>
                                     <c:when test="${empty inqryDTO.ansCn}">
-                                        <span class="badge-item ty10" onclick="goToWritePage()">답변대기</span>
+                                        <span class="badge-item ty10" onclick="goToWritePage()" inqryNo="${inqryDTO.inqryNo}">답변대기</span>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- 아무것도 하지 않음 -->

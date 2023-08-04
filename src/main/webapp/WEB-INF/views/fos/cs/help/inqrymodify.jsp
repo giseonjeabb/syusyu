@@ -120,7 +120,7 @@
         </div>
 
         <div class="btn-area">
-            <a href="http://localhost:80/inqry/inqryList" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
+            <a href="/inqry/inqryList" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
             <button type="button" class="btn ty4  c-ty1 free w-108" id="btnRegister"><span>등록</span></button>
         </div>
     </section>

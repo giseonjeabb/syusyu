@@ -63,6 +63,11 @@ public class InqryServiceImpl implements InqryService {
     }
 
     @Override
+    public int modifyAnswerOnly(InqryDTO inqryDTO) {
+        return inqryDAO.updateAnswer(inqryDTO);
+    }
+
+    @Override
     public int getSearchResultCnt(SearchCondition sc) throws Exception {
         return 0;
     }
