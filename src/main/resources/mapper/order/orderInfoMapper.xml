@@ -66,7 +66,8 @@
              , O.ORD_DTTM                                                                                # 주문일시
              , GET_CD_NM('O0001', OD.ORD_STUS)                                            AS ORD_STUS_NM # 주문상태
              , OD.ORD_STUS                                                                               # 주문상태코드
-             , OC.CLAIM_STUS                                                                             # 클레임 처리상태
+             , OC.CLAIM_STUS                                                                             # 클레임 처리상태코드
+             , GET_CD_NM('O0002', OC.CLAIM_STUS) AS CLAIM_STUS_NM                                        # 클레임 처리상태명                                                                             # 클레임 처리상태
              , OD.PROD_ID                                                                                # 상품아이디
              , OD.PROD_NM                                                                                # 상품명
              , (SELECT IFNULL(GROUP_CONCAT(CONCAT(OG.OPT_GRP_NM, ' : ', OI.OPT_ITEM_NM) SEPARATOR ', '), '')
@@ -77,7 +78,8 @@
              , OD.QTY                                                                                    # 수량
              , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) *
                OD.QTY                                                                     AS PROD_AMT    # 상품금액(할인가격 + 옵션가) * 주문수량
-             , P.PAY_TP                                                                                  # 결제방법
+             , P.PAY_TP                                                                                  # 결제방법코드
+             , GET_CD_NM('O0010', P.PAY_TP) AS PAY_TP_NM                                                 # 결제방법명
              , P.REAL_PAY_AMT                                                                            # 결제금액
              , M.NAME                                                                     AS ORDR_NM     # 구매자명
              , ODA.RECIPIENT                                                                             # 수령인
