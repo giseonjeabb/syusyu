@@ -1,15 +1,16 @@
 package com.teamProject.syusyu.domain.order;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class OrdStusHistDTO {
     private int ordStusHistNo;
     private int ordDtlNo;
     private String nowOrdStus;
+    private String nowOrdStusNm;
     private String procMemo;
-    private LocalDateTime regDttm;
+    private Date regDttm;
     private int regrId;
-    private LocalDateTime updDttm;
+    private Date updDttm;
     private Integer updrId;
 
     public OrdStusHistDTO() {}
@@ -45,6 +46,14 @@ public class OrdStusHistDTO {
         this.nowOrdStus = nowOrdStus;
     }
 
+    public String getNowOrdStusNm() {
+        return nowOrdStusNm;
+    }
+
+    public void setNowOrdStusNm(String nowOrdStusNm) {
+        this.nowOrdStusNm = nowOrdStusNm;
+    }
+
     public String getProcMemo() {
         return procMemo;
     }
@@ -53,11 +62,11 @@ public class OrdStusHistDTO {
         this.procMemo = procMemo;
     }
 
-    public LocalDateTime getRegDttm() {
+    public Date getRegDttm() {
         return regDttm;
     }
 
-    public void setRegDttm(LocalDateTime regDttm) {
+    public void setRegDttm(Date regDttm) {
         this.regDttm = regDttm;
     }
 
@@ -69,11 +78,11 @@ public class OrdStusHistDTO {
         this.regrId = regrId;
     }
 
-    public LocalDateTime getUpdDttm() {
+    public Date getUpdDttm() {
         return updDttm;
     }
 
-    public void setUpdDttm(LocalDateTime updDttm) {
+    public void setUpdDttm(Date updDttm) {
         this.updDttm = updDttm;
     }
 
@@ -91,6 +100,7 @@ public class OrdStusHistDTO {
                 "ordStusHistNo=" + ordStusHistNo +
                 ", ordDtlNo=" + ordDtlNo +
                 ", nowOrdStus='" + nowOrdStus + '\'' +
+                ", nowOrdStusNm='" + nowOrdStusNm + '\'' +
                 ", procMemo='" + procMemo + '\'' +
                 ", regDttm=" + regDttm +
                 ", regrId=" + regrId +
@@ -103,8 +113,11 @@ public class OrdStusHistDTO {
         private int ordStusHistNo;
         private int ordDtlNo;
         private String nowOrdStus;
+        private String nowOrdStusNm;
         private String procMemo;
+        private Date regDttm;
         private int regrId;
+        private Date updDttm;
         private Integer updrId;
 
         private Builder() {
@@ -129,13 +142,28 @@ public class OrdStusHistDTO {
             return this;
         }
 
+        public Builder nowOrdStusNm(String nowOrdStusNm) {
+            this.nowOrdStusNm = nowOrdStusNm;
+            return this;
+        }
+
         public Builder procMemo(String procMemo) {
             this.procMemo = procMemo;
             return this;
         }
 
+        public Builder regDttm(Date regDttm) {
+            this.regDttm = regDttm;
+            return this;
+        }
+
         public Builder regrId(int regrId) {
             this.regrId = regrId;
+            return this;
+        }
+
+        public Builder updDttm(Date updDttm) {
+            this.updDttm = updDttm;
             return this;
         }
 
@@ -149,8 +177,11 @@ public class OrdStusHistDTO {
             ordStusHistDTO.setOrdStusHistNo(ordStusHistNo);
             ordStusHistDTO.setOrdDtlNo(ordDtlNo);
             ordStusHistDTO.setNowOrdStus(nowOrdStus);
+            ordStusHistDTO.setNowOrdStusNm(nowOrdStusNm);
             ordStusHistDTO.setProcMemo(procMemo);
+            ordStusHistDTO.setRegDttm(regDttm);
             ordStusHistDTO.setRegrId(regrId);
+            ordStusHistDTO.setUpdDttm(updDttm);
             ordStusHistDTO.setUpdrId(updrId);
             return ordStusHistDTO;
         }

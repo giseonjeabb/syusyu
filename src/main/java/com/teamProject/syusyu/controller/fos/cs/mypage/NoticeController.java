@@ -52,6 +52,13 @@ public class NoticeController {
             m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
             m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
 
+            // 이전 글과 다음 글의 번호를 모델에 추가
+            m.addAttribute("prevNo", prevNotice != null ? prevNotice.getNotcNo() : null);
+            m.addAttribute("nextNo", nextNotice != null ? nextNotice.getNotcNo() : null);
+
+
+
+
             // 조회한 공지사항의 글 정보와 검색조건(SearchCondition)을 모델에 추가해서 View로
             m.addAttribute("noticeDTO", noticeDTO);
             m.addAttribute("sc", sc);

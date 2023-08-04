@@ -96,7 +96,12 @@ public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderS
 
         // 주문 건 list를 매개변수로 받아서 주문배송 정보를 생성해준다.
         for (int i = 0; i < ordDtlNoList.size(); i++) {
-            deliveryDAO.insertDelivery(new DeliveryDTO(ordDtlNoList.get(i), dlvCom.get(i), trckNo.get(i), mbrId));
+            deliveryDAO.insertDelivery(DeliveryDTO.Builder.aDeliveryDTO()
+                    .ordDtlNo(ordDtlNoList.get(i))
+                    .dlvCom(dlvCom.get(i))
+                    .trckNo(trckNo.get(i))
+                    .regId(mbrId)
+                    .build());
         }
     }
 

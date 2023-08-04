@@ -60,7 +60,7 @@
                                 <span class="nextPage">다음 글&nbsp;&nbsp;&nbsp;&nbsp
                                     <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <c:if test="${not empty nextFaqTitle}">
-                                    <a href="/bos/faqRead?faqNo=${faqDTO.faqNo + 1}">&nbsp; ${nextFaqTitle}</a>
+                                    <a href="/bos/faqRead?faqNo=${nextFaqNo}">&nbsp; ${nextFaqTitle}</a>
                                 </c:if>
                                 <c:if test="${empty nextFaqTitle}">
                                     <span>&nbsp;&nbsp;다음 글이 존재하지 않습니다. </span>
@@ -77,7 +77,7 @@
                             <span class="prevPage">이전 글&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="fa-solid fa-caret-down"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <c:if test="${not empty prevFaqTitle}">
-                                <a href="/bos/faqRead?faqNo=${faqDTO.faqNo - 1}">&nbsp; ${prevFaqTitle}</a>
+                                <a href="/bos/faqRead?faqNo=${prevFaqNo}">&nbsp; ${prevFaqTitle}</a>
                             </c:if>
                             <c:if test = "${empty prevFaqTitle}">
                                 <span>&nbsp;&nbsp;이전 글이 존재 하지 않습니다. </span>

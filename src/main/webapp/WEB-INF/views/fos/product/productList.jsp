@@ -10,19 +10,37 @@
 
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
-        <a href="<c:url value='/fos/products?middleNo=1&smallNo=1'/>">신발</a>
+        <a href="<c:url value='/'/>">홈</a>
 
         <%--   추후 카테고리 삽입하면 경로바꿀 예정임   --%>
-        <a href="<c:url value='/fos/products/${middleNo}'/>">운동화</a>
+        <a href="<c:url value='/fos/products/${middleNo}'/>">${categories.middleCategories.get(middleNo)}</a>
 
-        <%--<a href="javascript:">스니커즈</a>--%>
-        <a href="#">스니커즈</a>
+        <c:choose>
+            <c:when test="${empty smallNo}">
+                <a href="<c:url value='/fos/products/${middleNo}'/>">전체</a>
+            </c:when>
+            <c:otherwise>
+                <a href="#">${categories.smallCategories.get(middleNo).get(smallNo)}</a>
+            </c:otherwise>
+        </c:choose>
+
 
     </div>
 </div>
 <div class="content-title">
     <div class="inner-content">
-        <h2 class="title-t ty2">스니커즈</h2>
+        <h2 class="title-t ty2">
+            <c:choose>
+                <c:when test="${empty smallNo}">
+                    전체
+                </c:when>
+                <c:otherwise>
+                    ${categories.smallCategories.get(middleNo).get(smallNo)}
+                </c:otherwise>
+            </c:choose>
+
+
+        </h2>
     </div>
 </div>
 

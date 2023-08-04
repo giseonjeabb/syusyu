@@ -218,7 +218,7 @@ dispatchManage.function = {
                 headerSort: false
             }, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo", width: 120},
-            {title: "주문상세번호", field: "ordDtlNo", width: 160},
+            {title: "주문상세번호", field: "ordDtlNo", width: 160, cellClick: syusyu.common.Tabulator.openOrderDetailPopup, formatter: syusyu.common.Tabulator.blueCellFormatter},
             {title: "발송처리일", field: "dispatchDttm", width: 200},
             {
                 title: "택배사",

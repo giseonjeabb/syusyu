@@ -48,5 +48,32 @@ syusyu.common.Tabulator = {
         // div.tabulator-header > div.tabulator-headers > div:nth-child(1) > div.tabulator-col-content > div > div > input[type=checkbox]
 
         return table;
-    }
+    },
+
+    /**
+     * 주문상세 셀 클릭 시 주문상세팝업을 연다.
+     *
+     * @param {Event} e - 윈도우 이벤트 객체
+     * @param {CellComponent} cell - Tabulator의 CellComponent
+     * @author min
+     * @since 2023/08/04
+     */
+    openOrderDetailPopup(e, cell) {
+        const ordDtlNo = cell.getValue();
+        window.open(`/bos/orders/${ordDtlNo}`, '_blank', 'height=600,width=840');
+    },
+
+    /**
+     * 셀의 글씨를 파란색으로 설정한다.
+     *
+     * @param {CellComponent} cell - Tabulator의 CellComponent
+     * @param {Object} formatterParams - Formatter 파라미터
+     * @returns {any} 셀에 표시될 값
+     * @author min
+     * @since 2023/08/04
+     */
+    blueCellFormatter(cell, formatterParams) {
+        cell.getElement().style.color = '#748eea';
+        return cell.getValue();
+    },
 }
