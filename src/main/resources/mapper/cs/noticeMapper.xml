@@ -174,7 +174,8 @@
         SELECT TITLE, NOTC_NO
         FROM notice
         WHERE NOTC_NO &lt; #{notcNo}
-        ORDER BY NOTC_NO DESC LIMIT 1
+        ORDER BY NOTC_NO DESC
+        LIMIT 1
     </select>
 
     <!--        다음 공지사항 제목 번호 조회-->
@@ -182,14 +183,10 @@
         select TITLE, NOTC_NO
         from notice
         where NOTC_NO &gt; #{notcNo}
-        order by NOTC_NO asc LIMIT 1
+        order by NOTC_NO asc
+        LIMIT 1
     </select>
 
 
-    <!--    select title-->
-    <!--    from notice-->
-    <!--    where notc_no = (select notc_no-->
-    <!--                        from notice-->
-    <!--                    where notc_no = #{notc_no} -1)-->
 
 </mapper>
