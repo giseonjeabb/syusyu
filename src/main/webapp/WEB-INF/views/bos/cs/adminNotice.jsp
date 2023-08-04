@@ -107,7 +107,7 @@
                     <span class="nextPage">다음 글&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <c:if test="${not empty nextTitle}">
-                        <a href="/adminNotice/read?notcNo=${noticeDTO.notcNo + 1}">&nbsp; ${nextTitle}</a>
+                        <a href="/adminNotice/read?notcNo=${nextNo}">&nbsp; ${nextTitle}</a>
                     </c:if>
                     <c:if test="${empty nextTitle}">
                         <span>&nbsp;&nbsp;다음 글이 존재하지 않습니다. </span>
@@ -125,7 +125,7 @@
                     <span class="prevPage">이전 글&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-caret-down"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <c:if test="${not empty prevTitle}">
-                        <a href="/adminNotice/read?notcNo=${noticeDTO.notcNo - 1}">&nbsp; ${prevTitle}</a>
+                        <a href="/adminNotice/read?notcNo=${prevNo}">&nbsp; ${prevTitle}</a>
                     </c:if>
                     <c:if test = "${empty prevTitle}">
                         <span>&nbsp;&nbsp;이전 글이 존재 하지 않습니다. </span>

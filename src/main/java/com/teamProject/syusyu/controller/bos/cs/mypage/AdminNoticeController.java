@@ -105,6 +105,11 @@ public class AdminNoticeController {
             m.addAttribute("prevTitle", prevNotice != null ? prevNotice.getTitle() : null);
             m.addAttribute("nextTitle", nextNotice != null ? nextNotice.getTitle() : null);
 
+            // 이전 글과 다음 글의 번호를 모델에 추가
+            m.addAttribute("prevNo", prevNotice != null ? prevNotice.getNotcNo() : null);
+            m.addAttribute("nextNo", nextNotice != null ? nextNotice.getNotcNo() : null);
+
+
             // 조회한 공지사항의 상세 정보와 검색 조건을 모델에 추가하여 뷰에서 사용할 수 있도록 함
             m.addAttribute("noticeDTO",noticeDTO);
          // m.addAttribute(noticeDTO); 이름 생략하고 이렇게 쓸수 있다. NoticeDTO에서 타입의 첫글자를 소문자로 noticeDTO로 사용

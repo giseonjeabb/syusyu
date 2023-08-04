@@ -91,13 +91,21 @@ public class BOS_FaqController {
             // faqNo 제대로 되어있는지 확인하려고
             System.out.println("faqNo = " + faqNo);
 
-            // 뷰에서 하단에 쓰일 이전글과 , 다음글의 제목을 조회할꺼임
+
+            // 주어진 faqNo로 인해 faqNo를 기준으로
+            // 이전글과 다음글의 제목과 글 번호가 담겨있음
             FaqDTO prevFaq = faqService.getPrevTitle(faqNo);
             FaqDTO nextFaq = faqService.getNextTitle(faqNo);
 
             // 이전글 , 다음글의 제목을 Model 에 담아서 뷰에서 쓸수있게 하려고
             m.addAttribute("prevFaqTitle", prevFaq != null ? prevFaq.getTitle():null);
             m.addAttribute("nextFaqTitle", nextFaq != null ? nextFaq.getTitle() : null);
+
+            // Mapper에 SELECT TITLE, FAQ_NO , FAQ_NO AS PREV_NO
+            // getPrevNo() 라고 써도되고 getFaqNO() 라고 써도됨
+            // 이전글 , 다음글의 제목을 Model 에 담아서 뷰에서 쓸수있게 하려고
+            m.addAttribute("prevFaqNo", prevFaq != null ? prevFaq.getPrevNo():null);
+            m.addAttribute("nextFaqNo", nextFaq != null ? nextFaq.getFaqNo() : null);
 
             // FAQ글의 상세내용 , 검색 조건을 Model 에 담아서 뷰로 ~
             m.addAttribute("faqDTO",faqDTO);

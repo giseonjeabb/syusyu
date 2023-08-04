@@ -45,9 +45,10 @@
                 <%--        다음글  : 다음글 제목--%>
                 <%--            다음글이 없다면 empty nextTitle--%>
                 <li class="detail__nav-next">
-                    <span class="nextPage">다음 글  &nbsp <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp&nbsp&nbsp
+                    <span class="nextPage">다음 글  &nbsp
+                        <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp&nbsp&nbsp
                     <c:if test="${not empty nextTitle}">
-                        <a href="/notice/read?notcNo=${noticeDTO.notcNo + 1}">${nextTitle}</a>
+                        <a href="/notice/read?notcNo=${nextNo}">${nextTitle}</a>
                     </c:if>
                     <c:if test="${empty nextTitle}">
                         <span>다음 글이 존재하지 않습니다</span>
@@ -58,9 +59,10 @@
                 <%--        이전글 :  이전글 제목--%>
                 <%--        이전글이 없다면 emptyprevTitle--%>
                 <li class="detail__nav-prev">
-                    <span class="prevPage">이전 글  &nbsp; <i class="fa-solid fa-caret-down"></i></span>&nbsp&nbsp&nbsp
+                    <span class="prevPage">이전 글  &nbsp;
+                        <i class="fa-solid fa-caret-down"></i></span>&nbsp&nbsp&nbsp
                     <c:if test="${not empty prevTitle}">
-                        <a href="/notice/read?notcNo=${noticeDTO.notcNo - 1}">${prevTitle}</a>
+                        <a href="/notice/read?notcNo=${prevNo}">${prevTitle}</a>
                     </c:if>
                     <c:if test = "${empty prevTitle}">
                         <span>이전 글이 존재 하지 않습니다.</span>
