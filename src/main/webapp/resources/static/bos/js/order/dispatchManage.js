@@ -265,7 +265,7 @@ dispatchManage.function = {
             {title: "옵션", field: "optNm", width: 200},
             {title: "수량", field: "qty", width: 120, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "상품금액", field: "prodAmt", width: 160, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
-            {title: "결제방법", field: "payTp", width: 120},
+            {title: "결제방법", field: "payTpNm", width: 120},
             {
                 title: "결제금액",
                 field: "realPayAmt",
