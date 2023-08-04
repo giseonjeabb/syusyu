@@ -18,15 +18,14 @@
     <div class="breadcrumb">
         <%--smallCategory--%>
         <div class="breadcrumb-inner">
-            <a href="/products">홈</a>
-            <a href="/products/${productDetail.middleNo}">${productDetail.middleNm}</a>
-            <a href="/products/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
+            <a href="/">홈</a>
+            <a href="/fos/products/${productDetail.middleNo}">${productDetail.middleNm}</a>
+            <a href="/fos/products/${productDetail.middleNo}/${productDetail.smallNo}}">${productDetail.smallNm}</a>
         </div>
     </div>
     <form id="frm_product" method="post">
 
         <div class="goods-detail-wrap">
-<%--            <input type="hidden" id="pdPrice" data-baseprice="3380.00" data-finalprice="3380.00" data-discrate="0">--%>
 
             <!-- 상품상세 상단-->
             <div class="inner-content">
@@ -140,12 +139,18 @@
                                     <span class="g-cont">
                                         <c:choose>
                                             <c:when test="${mbrId == null}">
-                                                <span>로그인 후 적립혜택 제공인</span>
+                                                <span>로그인 후 적립혜택 제공</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span>
                                                     <em class="fw-7">1%</em>
-                                                    (<fmt:formatNumber type="number" maxFractionDigits="0" value="${productDetail.salePrc*0.01}" /> 마일리지)
+                                                    <c:choose>
+                                                        <c:when test="${productDetail.dcPer > 0}">
+                                                            (<fmt:formatNumber type="number" maxFractionDigits="0" value="${productDetail.dcPrc*0.01}" /> 마일리지)
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            (<fmt:formatNumber type="number" maxFractionDigits="0" value="${productDetail.salePrc*0.01}" /> 마일리지)
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </span>
                                             </c:otherwise>
                                         </c:choose>
@@ -192,7 +197,7 @@
                             </ul><!--//goods-guide-->
                             <div class="total-price-area">
                                 <div class="total-price">
-                                    총금액${productDetail.cateId}
+                                    총금액
                                     <strong data-type="price">0</strong>
                                     <span class="color-1 ">원</span>
                                 </div>
@@ -221,21 +226,21 @@
                     <div class="inner-content">
                         <ul class="tab-group-list ty2">
                             <li class="tab-menu">
-                                <a href="#" class="active">상세정보</a>
+                                <a href="prodDetail" class="active">상세정보</a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#">상품후기 <span><em name="tab_review_size">${productDetail.revwCnt}</em></span></a>
+                                <a href="rwInfo">상품후기 <span><em name="tab_review_size">${productDetail.revwCnt}</em></span></a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#">구매정보</a>
+                                <a href="purchaseInfo">구매정보</a>
                             </li>
                             <li class="tab-menu">
-                                <a href="#">상품문의 <span><em name="tab_qna_size">0</em></span></a>
+                                <a href="inquiryInfo">상품문의 <span><em name="tab_qna_size">0</em></span></a>
                             </li>
                         </ul><!--//tab-group-list-->
                     </div>
                 </div><!--//tab-group-list-wrap-->
-                <div class="goods-detail-con">
+                <div class="goods-detail-con" id="prodDetail">
                     <div class="inner-content move-container flex">
                         <div class="tab-group-cont content-mini left-case">
                             <!-- 상세정보 -->
@@ -285,7 +290,7 @@
 
 
 
-                                        <div class="reviews-list-wrap">
+                                        <div class="reviews-list-wrap" id="rwInfo">
                                             <!-- 상품 리뷰 정보를 반복문을 이용해서 생성 -->
                                             <c:forEach var="reviewDTO" items="${reviewList}">
                                                 <div class="rev-list view-list" data-idx="${reviewDTO.regrId}">
@@ -390,7 +395,7 @@
                             <div class="tab-cont">
 
                                 <div class="fold-box">
-                                    <div class="fold-head">
+                                    <div class="fold-head"  id="purchaseInfo">
                                         <h6>상품 정보 고시</h6>
                                         <i class="icon icon-arr-b"></i>
                                     </div>
@@ -590,7 +595,7 @@
 
                             </div><!-- //구매정보 -->
                             <!-- 상품문의 -->
-                            <div class="tab-cont goods-qna">
+                            <div class="tab-cont goods-qna" id="inquiryInfo">
 
                                 <h4 class="tit">상품문의 <strong class="count color-1" name="tab_qna_size">0</strong></h4>
                                 <div class="qna-head flex space-between">

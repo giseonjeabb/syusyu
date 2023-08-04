@@ -8,9 +8,9 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/29
      */
-     flatpickr(".datepicker", {
+    flatpickr(".datepicker", {
         dateFormat: "Y-m-d"
-     });
+    });
 
     /**
      * '#summernote' 셀렉터를 가진 HTML 요소에 Summernote 플러그인을 적용하는 함수입니다.
@@ -90,16 +90,16 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/29
      */
-    // 오늘날짜 생성합니다.
-    let today=new Date();
+        // 오늘날짜 생성합니다.
+    let today = new Date();
 
     // 할인 기간 설정 체크박스와 기간 설정 옵션을 참조합니다.
     let checkBox = $("#dc_date_chk");
     let dateDiv = $("#dc_date");
 
     // 체크박스의 상태가 바뀔 때마다 이벤트 핸들러를 실행합니다.
-    checkBox.change(function() {
-        if(checkBox.is(':checked')) {
+    checkBox.change(function () {
+        if (checkBox.is(':checked')) {
             // 체크박스가 선택되면 기간 설정 옵션을 보여줍니다.
             dateDiv.removeClass("d-none");
             /// 오늘 날짜를 시작 날짜로 설정합니다.
@@ -122,7 +122,7 @@ $(document).ready(function () {
     });
 
     // 페이지 로드 시 체크박스 상태에 따라 캘린더의 가시성을 설정
-    if(checkBox.is(':checked')) {
+    if (checkBox.is(':checked')) {
         dateDiv.show(); // show div
     } else {
         dateDiv.hide(); // hide div
@@ -141,7 +141,7 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/29
      */
-    const saleDate=$('.sale_date').hide()
+    const saleDate = $('.sale_date').hide()
 
     $('#sale_btnradio').click(function () {
         saleDate.show(); // "설정함" 클릭시 행을 보여줍니다.
@@ -171,7 +171,7 @@ $(document).ready(function () {
      * @since 2023/07/29
      */
     const productPerInput = document.getElementById('product_per');
-    productPerInput.addEventListener('input', function() {
+    productPerInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
         validateDiscountInput(this);
@@ -186,7 +186,7 @@ $(document).ready(function () {
      * @since 2023/07/30
      */
     const productPriceInput = document.getElementById('product_price');
-    productPriceInput.addEventListener('input', function() {
+    productPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
         this.value = formatWithComma(this.value);
@@ -200,8 +200,8 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/29
      */
-    const productBuyPriceInput=document.getElementById('product_buy_price');
-    productBuyPriceInput.addEventListener('input',function(){
+    const productBuyPriceInput = document.getElementById('product_buy_price');
+    productBuyPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
         this.value = formatWithComma(this.value);
@@ -216,7 +216,7 @@ $(document).ready(function () {
      * @since 2023/07/29
      */
     const colorInput = document.getElementById('input_color');
-    colorInput.addEventListener('blur', function() {
+    colorInput.addEventListener('blur', function () {
         validateOneWordInput(this);
     });
 
@@ -228,7 +228,7 @@ $(document).ready(function () {
      * @since 2023/07/29
      */
     const sizeInput = document.getElementById('input_size');
-    sizeInput.addEventListener('input', function() {
+    sizeInput.addEventListener('input', function () {
         validateNumericCommaSpaceInput(this);
         removeLeadingZeros(this);
     });
@@ -247,7 +247,7 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/30
      */
-    document.getElementById('chk_del').addEventListener('click', function() {
+    document.getElementById('chk_del').addEventListener('click', function () {
         // 모든 체크박스를 가져옵니다.
         const checkboxes = document.querySelectorAll('.opt_chk input');
 
@@ -277,9 +277,9 @@ $(document).ready(function () {
      * @author soso
      * @since 2023/07/31
      */
-    document.getElementById("cancelBtn").addEventListener("click", function(event) {
+    document.getElementById("cancelBtn").addEventListener("click", function (event) {
         let confirmation = confirm("수정된 내용이 있습니다. 페이지를 나가시겠습니까?");
-        if(!confirmation) {
+        if (!confirmation) {
             event.preventDefault(); // 페이지 이동을 막음
         } else {
             window.location.href = "/admin/dashboard"; // 페이지 이동
@@ -309,7 +309,7 @@ function applyOptions() {
         let currentSizes = Array.from(document.querySelectorAll('.opt_size')).map(td => td.textContent);
 
         // 사이즈 값이 이전에 입력한 값과 같은지 확인
-        if(currentSizes.includes(sizes[i])){
+        if (currentSizes.includes(sizes[i])) {
             alert('이미 입력된 사이즈가 있습니다: ' + sizes[i]);
             continue;  // 중복된 사이즈를 입력하면 무시하고 다음 사이즈로 넘어갑니다.
         }
@@ -341,7 +341,7 @@ function applyOptions() {
         let priceCell = document.createElement('td');
         priceCell.classList.add('text-center', 'ileen-mellinrant');
         let priceInput = document.createElement('input');
-        priceInput.classList.add('opt_price','border-0', 'w-100');
+        priceInput.classList.add('opt_price', 'border-0', 'w-100');
         priceInput.type = "text";
         priceInput.min = "0";
         priceInput.oninput = function () {
@@ -411,7 +411,7 @@ function applyOptions() {
         row.appendChild(delCell);
 
         // 삭제 버튼에 이벤트 리스너 추가
-        delBtn.addEventListener('click', function() {
+        delBtn.addEventListener('click', function () {
             // 행 삭제
             row.remove();
 
@@ -431,13 +431,13 @@ function applyOptions() {
         sizeInput.value = '';
 
         // 사이즈 입력 필드에 입력 이벤트 리스너를 추가
-        sizeInput.addEventListener('input', function() {
+        sizeInput.addEventListener('input', function () {
             const newSizeValues = this.value.split(/\,\s*/);
             this.value = newSizeValues.join(', ');
         });
 
         // 재고 수량이 변경될 때 판매 상태 업데이트
-        qtyInput.addEventListener('input', function() {
+        qtyInput.addEventListener('input', function () {
             updateSaleStatus(this, statusCell);
             updateTotalQuantity();
         });
@@ -791,7 +791,7 @@ function getAndValidateImages() {
     let filesToValidate = [];
 
     // 대표이미지 파일이 있으면 검증할 파일 배열에 추가합니다.
-    if(repImgInput.files[0]) {
+    if (repImgInput.files[0]) {
         filesToValidate.push(repImgInput.files[0]);
     } else {
         // 대표 이미지 파일이 없으면 경고 메시지를 표시하고 null을 반환합니다.
@@ -801,15 +801,15 @@ function getAndValidateImages() {
 
     // 추가 이미지 파일들을 검증할 파일 배열에 추가합니다.
     // 단, 파일이 선택된 입력 필드만 추가됩니다.
-    for(let i = 0; i < smlImgInputs.length; i++) {
-        if(smlImgInputs[i].files[0]) {
+    for (let i = 0; i < smlImgInputs.length; i++) {
+        if (smlImgInputs[i].files[0]) {
             filesToValidate.push(smlImgInputs[i].files[0]);
         }
     }
 
     // 파일 유효성 검사를 진행합니다.
-    for(let i = 0; i < filesToValidate.length; i++) {
-        if(!validateFile(filesToValidate[i])) {
+    for (let i = 0; i < filesToValidate.length; i++) {
+        if (!validateFile(filesToValidate[i])) {
             // 유효하지 않은 파일이 발견되면 경고 메시지를 표시하고 null을 반환합니다.
             alert("유효하지 않은 파일이 포함되어 있습니다.");
             return null;
@@ -825,47 +825,46 @@ function getAndValidateImages() {
 }
 
 /**
- * 사용자가 입력한 상품 정보와 이미지를 서버에 전송하여 상품을 등록하는 함수입니다.
- * 이 함수는 먼저 사용자가 선택한 이미지 파일들을 검증한 후, 유효한 경우에만 서버에 전송합니다.
+ * 사용자가 제공한 상품 정보를 수집하고, 해당 정보를 서버에 전송하여 상품을 등록하는 함수입니다.
  *
- * @function productRegisterSave - 상품 정보와 이미지를 서버에 전송하여 상품을 등록하는 함수입니다.
- * @author soso
- * @since 2023/07/28
+ * 각 상품의 정보, 가격, 옵션값, 옵션명, 옵션가격, 재고수량 등을 수집하고,
+ * 수집된 데이터는 JSON 형태로 변환되어 서버에 전송됩니다.
+ * 또한 사용자가 선택한 이미지도 FormData 객체에 추가하여 같이 전송합니다.
+ *
+ * 이 함수는 jQuery의 $.ajax() 메서드를 사용하여 서버에 데이터를 전송하고,
+ * 성공적으로 데이터를 전송한 후에는 알림 메시지를 표시하고 대시보드 페이지로 이동합니다.
+ *
+ * 에러 발생 시 콘솔에 에러 메시지를 출력합니다.
+ *
+ * 주의: 입력 필드의 유효성 검사나 서버 응답 처리 등에 대한 로직은 이 함수에 포함되어 있지 않습니다.
+ *
+ * @returns {Object} JSON 형태의 상품 데이터를 반환합니다.
+ * @property {Object} product 상품 정보를 담은 객체
+ * @property {Object} price 상품 가격 정보를 담은 객체
+ * @property {Array} optPrices 옵션 가격을 담은 배열
+ * @property {Array} optInvQtys 재고 수량을 담은 배열
+ * @property {Array} optItemNms 옵션 이름을 담은 배열
+ * @property {Array} optGrpNms 옵션 그룹 이름을 담은 배열
+ * @property {Object} repImgFile 대표 이미지 파일
+ * @property {Array} smlImgList 소형 이미지 파일 리스트
+ *
+ * @function productRegisterSave
+ * @author  soso
+ * @date    2023/07/28
  */
-function productRegisterSave(){
+function productRegisterSave() {
     const cateList = JSON.parse(document.getElementById('jsonCateList').value);
     const selectLarge = document.getElementById("cate_large");
     const selectMiddle = document.getElementById("cate_middle");
     const selectSmall = document.getElementById("cate_small");
 
     let productCateId = null;
-    cateList.forEach((cate)=>{
-        if(parseInt(selectSmall.value)===cate.smallNo && parseInt(selectMiddle.value)===cate.middleNo && parseInt(selectLarge.value)===cate.largeNo){
+    cateList.forEach((cate) => {
+        if (parseInt(selectSmall.value) === cate.smallNo && parseInt(selectMiddle.value) === cate.middleNo && parseInt(selectLarge.value) === cate.largeNo) {
             console.log(cate.cateId);
             productCateId = cate.cateId;
         }
     });
-
-    // 사용자가 선택한 이미지를 검증하고 유효성검사에 실패한 경우 함수를 종료.
-    let images = getAndValidateImages();
-    console.log("Validated images:", images);
-    if(!images) return;
-
-    // 유효성 검사를 통과한 대표 이미지 파일을 가져옵니다.
-    // let repImgFile = images.repImgFile;
-    // let formData = new FormData();
-    // if(repImgFile) {
-    //     formData.append("repImg", repImgFile, repImgFile.name);
-    // }
-    // 서버에 전송할 데이터를 저장할 FormData 객체를 생성합니다.
-    // 유효성 검사를 통과한 추가 이미지 파일들을 formData에 추가합니다.
-    // let smlImgFiles = images.smlImgFiles;
-    // for(let i = 0; i < smlImgFiles.length; i++){
-    //     formData.append("smlImgList", smlImgFiles[i]);
-    // }
-
-
-
 
     // 상품정보
     let product = {
@@ -876,9 +875,9 @@ function productRegisterSave(){
         mfgdMatr: document.getElementById('mfgdMatr').value,
         mftco: document.getElementById('mftco').value,
         mftNatn: document.getElementById('mftNatn').value,
-        rlesDt:document.getElementById('rles_dt').value,
+        rlesDt: document.getElementById('rles_dt').value,
         prodDtlDesc: $('#summernote').summernote('code'),
-        dlvChgDtl:document.getElementById('dlvChgDtl').value,
+        dlvChgDtl: document.getElementById('dlvChgDtl').value,
         status: 601
     };
 
@@ -894,42 +893,42 @@ function productRegisterSave(){
     };
 
     //옵션값, 옵션명, 옵션가격, 재고수량
-    let optPrices = Array.from(document.querySelectorAll('.opt_price')).map(el => ({ optPrc: el.value ? el.value.replace(/,/g, '') : '' }));
-    let optInvQtys = Array.from(document.querySelectorAll('.opt_inv_qty')).map(el => ({ InvQty: el.value ? el.value.replace(/,/g, '') : '' }));
+    let optPrices = Array.from(document.querySelectorAll('.opt_price')).map(el => ({optPrc: el.value ? el.value.replace(/,/g, '') : ''}));
+    let optInvQtys = Array.from(document.querySelectorAll('.opt_inv_qty')).map(el => ({invQty: el.value ? el.value.replace(/,/g, '') : ''}));
     let optColors = Array.from(document.querySelectorAll('.opt_color')).map(cell => cell.textContent);
     let optSizes = Array.from(document.querySelectorAll('.opt_size')).map(cell => cell.textContent);
 
-    let optItemNms = [optColors[0], ...optSizes].map(optItemNm => ({ optItemNm }));
-    let optGrpNms = [{optGrpNm:"color"}, {optGrpNm:"size"}];
+    let optItemNms = [optColors[0], ...optSizes].map(optItemNm => ({optItemNm}));
+    let optGrpNms = [{optGrpNm: "color"}, {optGrpNm: "size"}];
 
 
-    let data={
-        product:product,
-        price:price,
-        optPrices:optPrices,
+    let data = {
+        product: product,
+        price: price,
+        optPrices: optPrices,
         optInvQtys: optInvQtys,
         optItemNms: optItemNms,
         optGrpNms: optGrpNms
     }
-
+    // 사용자가 선택한 이미지를 검증하고 유효성검사에 실패한 경우 함수를 종료.
+    let images = getAndValidateImages();
+    console.log("Validated images:", images);
+    if (!images) return;
 
     // 'repImgFile' 및 'smlImgFiles'를 현재 함수 스코프에서 선언하고 값 할당
     let repImgFile = images.repImgFile;
     let smlImgFiles = images.smlImgFiles;
     let formData = new FormData();
+
     formData.append('data', JSON.stringify(data));
+    formData.append('repImg', repImgFile, repImgFile.name);
 
 // 이미지 파일 추가
-    formData.append('repImg', repImgFile, repImgFile.name);
     smlImgFiles.forEach((file, i) => {
-        formData.append(`smlImgList[${i}]`, file, file.name);
+        formData.append('smlImgList', file, file.name);
     });
     console.log("FormData after adding images:", formData);
 
-
-    for (let pair of formData.entries()) {
-        console.log(pair[0]+ ', '+ pair[1]);
-    }
     formData.forEach((value, key) => {
         console.log(key + " " + value);
     });
@@ -940,16 +939,16 @@ function productRegisterSave(){
         data: formData,
         processData: false,
         contentType: false,
-        beforeSend: function() {
+        beforeSend: function () {
             console.log("Request is about to be sent");
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log("Error occurred: " + textStatus, errorThrown);
         },
-        complete: function() {
+        complete: function () {
             console.log("Request completed");
         }
-    }).done(function(data) {
+    }).done(function (data) {
 
         console.log(data);
         alert("상품이 등록됐습니다.")

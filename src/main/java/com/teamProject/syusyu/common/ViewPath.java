@@ -7,9 +7,9 @@ public class ViewPath {
     public static final String FOS_PRODUCT = ".tiles" + FOS + "product/";
     public static final String FOS_ORDER = ".tiles" + FOS + "order/";
     public static final String FOS_CS = ".tiles" + FOS + "cs/";
-    public static final String FOS_POPUP = "" + FOS + "popup/";
     public static final String FOS_MYPAGE = ".mypage" + FOS + "cs/mypage/";
     public static final String FOS_HELP = ".help" + FOS + "cs/help/";
+    public static final String FOS_POPUP = FOS + "popup/";
 
     //  BOS
     public static final String BOS = "/bos/";
@@ -19,4 +19,5 @@ public class ViewPath {
     public static final String BOS_CS = ".dashboard" + BOS + "cs/";
     public static final String BOS_DASHBOARD = ".dashboard" + BOS + "dashboard/";
     public static final String BOS_MYPAGE = ".mypage" + BOS + "cs/mypage/";
+    public static final String BOS_WINDOW_POPUP = ".bos-window-popup" + BOS + "popup/";
 }

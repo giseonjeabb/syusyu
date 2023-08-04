@@ -81,9 +81,9 @@ td {
 }
 
 #listBtn {
-  background-color: rgb(236, 236, 236); /* Blue background */
+  color: #fff;
+  background: #212529;
   border: none; /* Remove borders */
-  color: black; /* White text */
   padding: 6px 12px; /* Some padding */
   font-size: 16px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
@@ -93,6 +93,12 @@ td {
 
 .btn:hover {
   text-decoration: underline;
+}
+
+header .h-search-wrap .input .btn.search {
+  position: absolute;
+  top: 25px;
+  right: 20px;
 }
 
 /*# sourceMappingURL=notice.css.map */

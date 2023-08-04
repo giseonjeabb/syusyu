@@ -3,36 +3,34 @@ package com.teamProject.syusyu.controller.bos.product;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.util.FileUploadUtils;
 import com.teamProject.syusyu.domain.product.*;
 import com.teamProject.syusyu.service.bos.product.BOS_ProductService;
 import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.FileCopyUtils;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(ViewPath.BOS)
 public class BOS_ProductController {
 
+    //로그 선언.
     private static final Logger LOGGER = LoggerFactory.getLogger(BOS_ProductController.class);
-    //상품 이미지를 저장할 서버 상의 디렉토리 경로를 나타냅니다.
-    private final String directory = "/resources/static/image/product/";
 
+    @Autowired
+    private FileUploadUtils fileUploadUtils;
     @Autowired
     FOS_CategoryService CategoryService;
     @Autowired
@@ -79,135 +77,26 @@ public class BOS_ProductController {
     }
 
     /**
-     * 상품 등록 요청을 처리하는 메소드입니다.
+     * 이 메소드는 상품 등록 요청을 처리합니다.
      * 클라이언트로부터 상품 정보와 이미지 파일을 받아, 서버에 저장하고 상품을 데이터베이스에 등록합니다.
      *
-     * @param productStr   등록할 상품 정보가 담긴 ProductDTO 객체
-     * @param repImg       대표 이미지 파일
-     * @param smlImgList   추가 이미지 파일들
-     * @param optPrcStr    옵션가격이 저장되는 리스트
-     * @param invQtyStr    옵션 재고수량 저장되는 리스트
-     * @param optItemNmStr 옵션값들 저장되는 리스트
-     * @param optGrpNmStr  옵션명이 저장되는ㄴ 리스트
-     * @param mbrId        세션에 저장된 회원 ID
-     * @return 상품 등록이 성공하면 HTTP 상태 코드 200(OK)와 함께 등록된 상품의 ID를 반환, 그렇지 않으면 HTTP 상태 코드 400(BAD REQUEST)를 반환합니다.
+     * @param productInfo 상품 정보가 포함된 JSON 문자열
+     * @param repImg      대표 이미지 파일
+     * @param smlImgList  추가 이미지 파일 목록
+     * @param mbrId       세션에 저장된 회원 ID
+     * @return 상품 등록이 성공하면 HTTP 상태 코드 200(OK)를 반환,
+     * 필수 파라미터가 누락되었을 경우 HTTP 상태 코드 400(BAD REQUEST)를 반환하고,
+     * 그 외의 예외 발생 시 HTTP 상태 코드 500(INTERNAL SERVER ERROR)를 반환합니다.
+     * @throws IOException 이미지 파일 저장 중에 발생하는 예외
+     * @throws Exception   데이터베이스 삽입 도중 발생할 수 있는 예외
      * @author soso
      * @since 2023/07/29
      */
-////    @PostMapping("productRegister")
-////    public ResponseEntity<String> addProduct(
-////            @RequestBody ProductDTO product,
-////            @RequestParam PriceDTO price,
-////            @RequestParam("optPrices") String optPricesStr,
-////            @RequestParam("optInvQtys") String optInvQtysStr,
-////            @RequestPart("optItemNms") List<OptItemDTO> optItemNms,
-////            @RequestPart("optGrpNms") List<OptGrpDTO> optGrpNms,
-////            @RequestPart("repImg") MultipartFile repImg,
-////            @RequestPart("smlImgList") MultipartFile[] smlImgList,
-////            @SessionAttribute int mbrId) {
-//
-////    @PostMapping("productRegister")
-////    public ResponseEntity<String> addProduct(
-////            @RequestPart("data") String dataStr, // JSON 데이터
-////            @RequestPart("repImg") MultipartFile repImg,
-////            @RequestPart("smlImgList") MultipartFile[] smlImgList,
-////            @SessionAttribute int mbrId
-////    ) {
-//        try {
-//            // Convert product, price, prodOpt JSON strings to DTOs
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            Map<String, Object> data = objectMapper.readValue(dataStr, new TypeReference<Map<String, Object>>() {});
-//            // JSON으로부터 DTO를 생성
-//            //상품
-//            ProductDTO product = objectMapper.convertValue(data.get("product"), ProductDTO.class);
-//            String repImgUri = saveFileAndGetUri(repImg);
-////            ProductDTO product = objectMapper.readValue(productStr, ProductDTO.class);
-//            product.setRepImg(repImgUri);
-//            product.setRegrId(mbrId);
-//
-//            //가격
-////            PriceDTO price = objectMapper.readValue(priceStr,PriceDTO.class);
-//
-//            PriceDTO price = objectMapper.convertValue(data.get("price"), PriceDTO.class);
-//            price.setRegrId(mbrId);
-//
-//            // 사진리스트로 이미지 URI를 관리
-//            List<ImageDTO> smlImgDTOs = new ArrayList<>();
-//            for (int i = 0; i < smlImgList.length; i++) {
-//                String imagePath = saveFileAndGetUri(smlImgList[i]);
-//                ImageDTO smlImgDTO = new ImageDTO();
-//                smlImgDTO.setImagePath(imagePath);
-//                smlImgDTO.setRegrId(mbrId);
-//                smlImgDTOs.add(smlImgDTO);
-//            }
-//
-//            //옵션 처리
-//            List<ProdOptDTO> optPrices = objectMapper.convertValue(data.get("optPrices"), new TypeReference<List<ProdOptDTO>>() {});
-//            List<ProdOptDTO> optInvQtys = objectMapper.convertValue(data.get("optInvQtys"), new TypeReference<List<ProdOptDTO>>() {});
-//
-////         List<ProdOptDTO> prodOptList = new ArrayList<>();
-////            for (int i = 0; i < optPrcList.size(); i++) {
-////                ProdOptDTO prodOptDTO = new ProdOptDTO();
-////                prodOptDTO.setOptPrc(Integer.parseInt(optPrcList.get(i).get("optPrc")));
-////                prodOptDTO.setInvQty(Integer.parseInt(invQtyList.get(i).get("InvQty")));
-////                prodOptDTO.setRegrId(mbrId);
-////                prodOptList.add(prodOptDTO);
-////            }
-////            List<ProdOptDTO> optPrcList = objectMapper.readValue(optPricesStr, new TypeReference<List<ProdOptDTO>>() {});
-////            List<ProdOptDTO> invQtyList = objectMapper.readValue(optInvQtysStr, new TypeReference<List<ProdOptDTO>>() {});
-//
-//            List<ProdOptDTO> prodOptList = new ArrayList<>();
-//            for (int i = 0; i < optPrices.size(); i++) {
-//                ProdOptDTO prodOptDTO = new ProdOptDTO();
-//                prodOptDTO.setOptPrc(optPrices.get(i).getOptPrc());
-//                prodOptDTO.setInvQty(optInvQtys.get(i).getInvQty());
-//                prodOptDTO.setRegrId(mbrId);
-//                prodOptList.add(prodOptDTO);
-//            }
-//            List<OptItemDTO> optItemNms = objectMapper.convertValue(data.get("optItemNms"), new TypeReference<List<OptItemDTO>>() {});
-//            List<OptItemDTO> optItemDTOList = new ArrayList<>();
-//            for (OptItemDTO optItemDTO : optItemNms) {
-//                optItemDTO.setRegrId(mbrId);
-//                optItemDTOList.add(optItemDTO);
-//            }
-//            List<OptGrpDTO> optGrpNms = objectMapper.convertValue(data.get("optGrpNms"), new TypeReference<List<OptGrpDTO>>() {});
-//            List<OptGrpDTO> optGrpDTOList = new ArrayList<>();
-//            for (OptGrpDTO optGrpDTO : optGrpNms) {
-//                optGrpDTO.setRegrId(mbrId);
-//                optGrpDTOList.add(optGrpDTO);
-//            }
-////            List<OptItemDTO> optItemDTOList = new ArrayList<>();
-////            for (Map<String, String> optItemNm : optItemNmList) {
-////                OptItemDTO optItemDTO = new OptItemDTO();
-////                optItemDTO.setOptItemNm(optItemNm.get("optItemNm"));
-////                optItemDTO.setRegrId(mbrId);
-////                optItemDTOList.add(optItemDTO);
-////            }
-////
-////            List<OptGrpDTO> optGrpDTOList = new ArrayList<>();
-////            for (Map<String, String> optGrpNm : optGrpNmList) {
-////                OptGrpDTO optGrpDTO = new OptGrpDTO();
-////                optGrpDTO.setOptGrpNm(optGrpNm.get("optGrpNm"));
-////                optGrpDTO.setRegrId(mbrId);
-////                optGrpDTOList.add(optGrpDTO);
-////            }
-//
-//
-//            // 서비스 호출하여 상품, 가격, 이미지, 옵션 등록
-//            productService.addProductData(product, price, smlImgDTOs, prodOptList, optItemDTOList, optGrpDTOList);
-//
-//
-//            return new ResponseEntity<>("상품을 등록 완료했습니다.", HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
     @PostMapping("/productRegister")
     public ResponseEntity<?> registerProduct(
             @RequestParam(value = "data", required = false) String productInfo,
             @RequestParam(value = "repImg", required = false) MultipartFile repImg,
-            @RequestParam(value = "smlImgList", required = false) MultipartFile[] smlImgList,
+            @RequestParam(value = "smlImgList", required = false) List<MultipartFile> smlImgList,
             @SessionAttribute int mbrId
     ) {
 
@@ -225,7 +114,7 @@ public class BOS_ProductController {
             // product 정보 넣기 (대표 이미지 파일 처리 및 저장)
             ProductDTO product = mapper.convertValue(productMap.get("product"), ProductDTO.class);
             try {
-                String repImgUri = saveFileAndGetUri(repImg);
+                String repImgUri = fileUploadUtils.saveFileAndGetUri(repImg);
                 // product 정보 넣기
                 product.setRepImg(repImgUri);
             } catch (IOException e) {
@@ -240,34 +129,55 @@ public class BOS_ProductController {
             // 작은 이미지 파일 목록 처리 및 저장
             List<ImageDTO> imageList = new ArrayList<>();
             for (MultipartFile smlImg : smlImgList) {
+                // 먼저 파일이 null이 아니고 비어 있지 않은지 확인합니다.
+                if (smlImg == null || smlImg.isEmpty()) {
+                    LOGGER.error("제공된 이미지 파일이 비어 있습니다.");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Provided image file is empty");
+                }
+
                 try {
                     ImageDTO imageDTO = new ImageDTO();
-                    imageDTO.setImagePath(saveFileAndGetUri(smlImg));
+
+                    // 파일 저장 시도 후에 로그를 출력합니다.
+                    String uri = fileUploadUtils.saveFileAndGetUri(smlImg);
+                    LOGGER.info("Saved file with URI: {}", uri);
+
+                    imageDTO.setImagePath(uri);
+                    LOGGER.info("Saved image path: " + imageDTO.getImagePath());
+
+                    LOGGER.info("Successfully saved image: {}", smlImg.getOriginalFilename());
                     imageList.add(imageDTO);
+
                 } catch (IOException e) {
                     LOGGER.error("Error while saving small image: {}", e.getMessage());
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid image file");
                 }
             }
+            // 받은 smlImgList의 크기를 로그로 출력합니다.
+            LOGGER.info("Received 'smlImgList' with size: {}", (smlImgList != null ? smlImgList.size() : "null"));
 
             //옵션정보 넣기
             //opotGrp
-            List<OptGrpDTO> optGrpNmList = mapper.convertValue(productMap.get("optGrpNms"), new TypeReference<List<OptGrpDTO>>(){});
+            List<OptGrpDTO> optGrpNmList = mapper.convertValue(productMap.get("optGrpNms"), new TypeReference<List<OptGrpDTO>>() {
+            });
 
 
             //prodOpt
-            List<Integer> optPrcList = mapper.convertValue(productMap.get("optPrices"), new TypeReference<List<Integer>>(){});
-            List<Integer> optInvQtyList = mapper.convertValue(productMap.get("optInvQtys"), new TypeReference<List<Integer>>(){});
+            List<ProdOptDTO> optPrcList = mapper.convertValue(productMap.get("optPrices"), new TypeReference<List<ProdOptDTO>>() {
+            });
+            List<ProdOptDTO> optInvQtyList = mapper.convertValue(productMap.get("optInvQtys"), new TypeReference<List<ProdOptDTO>>() {
+            });
             List<ProdOptDTO> prodOptList = new ArrayList<>();
             for (int i = 0; i < optPrcList.size(); i++) {
                 ProdOptDTO prodOptDTO = new ProdOptDTO();
-                prodOptDTO.setOptPrc(optPrcList.get(i));
-                prodOptDTO.setInvQty(optInvQtyList.get(i));
+                prodOptDTO.setOptPrc(optPrcList.get(i).getOptPrc());
+                prodOptDTO.setInvQty(optInvQtyList.get(i).getInvQty());
                 prodOptList.add(prodOptDTO);
             }
 
             //prodItem
-            List<OptItemDTO> optItemDTOList = mapper.convertValue(productMap.get("optItemNms"), new TypeReference<List<OptItemDTO>>(){});
+            List<OptItemDTO> optItemDTOList = mapper.convertValue(productMap.get("optItemNms"), new TypeReference<List<OptItemDTO>>() {
+            });
 
             productService.addProductData(product, price, imageList, optGrpNmList, prodOptList, optItemDTOList, mbrId);
 
@@ -280,59 +190,5 @@ public class BOS_ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-    /**
-     * 이미지 파일을 서버에 저장하고, 저장된 이미지의 URI를 반환하는 메소드입니다.
-     * Ï
-     *
-     * @param file 저장할 이미지 파일
-     * @return 저장된 이미지 파일의 URI
-     * @throws IOException 파일 저장 도중 발생할 수 있는 IOException
-     * @author soso
-     * @since 2023/07/31
-     */
-    private String saveFileAndGetUri(MultipartFile file) throws IOException {
-        // 파일 이름을 가져옴
-        String originalFilename = file.getOriginalFilename();
-
-        // 파일의 확장자를 얻어와, 악의적인 파일 업로드를 방지함
-        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-        String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".gif", ".bmp"};
-        if (!Arrays.asList(allowedExtensions).contains(extension.toLowerCase())) {
-            LOGGER.error("Disallowed file extension: " + extension);
-            throw new IOException("Disallowed file extension: " + extension);
-        }
-
-        // 파일 이름에 현재 시간을 추가하여 중복을 방지함
-        String filename = originalFilename.substring(0, originalFilename.lastIndexOf("."))
-                + "_" + System.currentTimeMillis() + extension;
-
-        // 파일을 디스크에 저장
-        InputStream is = file.getInputStream();
-        byte[] buffer = new byte[is.available()];
-        is.read(buffer);
-
-        // File directory under system's temp directory
-        File targetDir = new File(System.getProperty("java.io.tmpdir"), "/static/image/product/");
-        if (!targetDir.exists()) {
-            if (!targetDir.mkdirs()) {
-                LOGGER.error("Error while creating directories: " + targetDir.getPath());
-                throw new IOException("Error while creating directories: " + targetDir.getPath());
-            }
-        }
-        File targetFile = new File(targetDir, filename);
-        if (!targetFile.exists()) {
-            targetFile.createNewFile();
-        }
-        OutputStream outStream = new FileOutputStream(targetFile);
-        outStream.write(buffer);
-        outStream.close();
-        is.close();
-
-        // 저장된 파일의 절대 경로를 반환
-        String filePath = targetFile.getAbsolutePath();
-        return filePath;
-    }
-
 
 }
