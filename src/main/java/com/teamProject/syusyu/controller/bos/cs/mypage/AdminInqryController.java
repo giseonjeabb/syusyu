@@ -77,6 +77,19 @@ public class AdminInqryController {
         return ViewPath.BOS_CS + "adminInqry";
     }
 
+    @GetMapping("/modify")
+    public String modify(Integer inqryNo, Model m, HttpSession session, RedirectAttributes rattr){
+
+        try {
+            InqryDTO inqryDTO = inqryService.read(inqryNo);
+            m.addAttribute("inqryDTO", inqryDTO);
+            System.out.println("inqryNo = " + inqryNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ViewPath.BOS_CS + "adminInqry";
+    }
+
     @PostMapping("/modify")
     @ResponseBody
     public int updateInqry(@RequestBody InqryDTO inqryDTO, HttpSession session) {
