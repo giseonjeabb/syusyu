@@ -142,6 +142,6 @@ public class BOS_OrderController {
             return "error";
         }
 
-        return ViewPath.BOS_ORDER + "orderDetail";
+        return ViewPath.BOS_WINDOW_POPUP + "orderDetailPopup";
     }
 }
