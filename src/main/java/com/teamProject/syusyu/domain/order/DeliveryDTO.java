@@ -12,6 +12,7 @@ public class DeliveryDTO {
     private Date shmtDttm;    // 출하일시
     private Date cmplDttm;    // 배송완료일시
     private String dlvCom;    // 택배사
+    private String dlvComNm;    // 택배사명
     private String trckNo;    // 송장번호
     private Date regDttm;     // 등록일시
     private int regId;        // 등록자
@@ -97,6 +98,14 @@ public class DeliveryDTO {
         this.dlvCom = dlvCom;
     }
 
+    public String getDlvComNm() {
+        return dlvComNm;
+    }
+
+    public void setDlvComNm(String dlvComNm) {
+        this.dlvComNm = dlvComNm;
+    }
+
     public String getTrckNo() {
         return trckNo;
     }
@@ -149,6 +158,7 @@ public class DeliveryDTO {
                 ", shmtDttm=" + shmtDttm +
                 ", cmplDttm=" + cmplDttm +
                 ", dlvCom='" + dlvCom + '\'' +
+                ", dlvComNm='" + dlvComNm + '\'' +
                 ", trckNo='" + trckNo + '\'' +
                 ", regDttm=" + regDttm +
                 ", regId=" + regId +

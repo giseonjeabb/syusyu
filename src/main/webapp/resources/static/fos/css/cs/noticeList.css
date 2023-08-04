@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .fb__bbs__header__filter {
   position: absolute;
-  top: 60px;
+  top: 0px;
   right: 30px;
 }
 
@@ -42,6 +42,7 @@ select {
   vertical-align: baseline;
   margin: 0 15px;
   border: 1px solid #ccc;
+  border-radius: 0.375rem;
 }
 
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
@@ -73,15 +74,21 @@ button, input {
 .fb__bbs__header__filter select, .fb__bbs__header__filter input {
   outline: none;
   vertical-align: middle;
+  border-radius: 0.375rem;
 }
 
 #btnSearch {
   color: #fff;
-  background: #666;
+  background: black;
   border: 0;
   height: 40px;
   width: 70px;
   font-size: 15px;
+  border-radius: 6px;
+}
+
+#btnSearch:hover {
+  background: #5c636a;
 }
 
 .btn-default {
@@ -100,7 +107,7 @@ button, [type=button], [type=reset], [type=submit] {
 }
 
 table {
-  margin-top: 40px;
+  margin-top: 15px;
   table-layout: fixed;
   width: 100%;
   max-width: 100%;
@@ -140,6 +147,7 @@ td {
   padding: 15px;
   line-height: 35px;
   border-bottom: 1px solid #eee;
+  font-size: 16px;
 }
 
 .tbl.ty1 > table > tbody > tr > td a {
@@ -152,7 +160,7 @@ td {
 }
 
 .fw-7 {
-  font-weight: 300 !important;
+  font-weight: 450 !important;
 }
 
 a {
