@@ -26,15 +26,15 @@
              , PRC.DC_ED_DTTM
              , P.REG_DTTM
              , P.REGR_ID
-             , COALESCE(ASR.AVG_STAR_RATING, 0)                                AS AVG_STAR_RATING
-             , COALESCE(ASR.REVW_CNT, 0)                                       AS REVW_CNT
+             , COALESCE(ASR.AVG_STAR_RATING, 0) AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0) AS REVW_CNT
         FROM PRODUCT P
-                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
-                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
-                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
-                 LEFT JOIN (SELECT prod_id,
-                                   ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
-                                   COUNT(REVW_NO)             AS REVW_CNT
+                JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
+                JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
+                LEFT JOIN (SELECT prod_id,
+                                  ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
+                                  COUNT(REVW_NO) AS REVW_CNT
                             FROM review
                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
         WHERE P.STATUS = 601 /* 판매중 */
@@ -43,7 +43,33 @@
                                                    SMALL_NM
                                             FROM CATEGORY SC
                                             WHERE MIDDLE_NO = #{middleNo}
-                                              AND SMALL_NO = #{smallNo})
+                                            AND SMALL_NO = #{smallNo})
+        <choose>
+            <when test="sort == 'newArrival'">
+                ORDER BY P.REG_DTTM DESC
+            </when>
+            <when test="sort == 'discount'">
+                ORDER BY PRC.DC_PER DESC
+            </when>
+            <when test="sort == 'lowPrice'">
+                ORDER BY PRC.SALE_PRC ASC
+            </when>
+            <when test="sort == 'highPrice'">
+                ORDER BY PRC.SALE_PRC DESC
+            </when>
+            <when test="sort == 'popularity'">
+                ORDER BY P.VW_CNT DESC
+            </when>
+            <when test="sort == 'reviewCount'">
+                ORDER BY ASR.REVW_CNT DESC
+            </when>
+            <when test="sort == 'ratingCount'">
+                ORDER BY ASR.AVG_STAR_RATING DESC
+            </when>
+            <when test="sort == null">
+                ORDER BY P.REG_DTTM DESC
+            </when>
+        </choose>
     </select>
     <!--중분류에 따른 전체 상품 리스트-->
     <select id="selectProductAllList" parameterType="int" resultType="ProductDTO">
@@ -85,6 +111,32 @@
                                                    SMALL_NM
                                             FROM CATEGORY SC
                                             WHERE MIDDLE_NO = #{middleNo})
+        <choose>
+            <when test="sort == 'newArrival'">
+                ORDER BY P.REG_DTTM DESC
+            </when>
+            <when test="sort == 'discount'">
+                ORDER BY PRC.DC_PER DESC
+            </when>
+            <when test="sort == 'lowPrice'">
+                ORDER BY PRC.SALE_PRC ASC
+            </when>
+            <when test="sort == 'highPrice'">
+                ORDER BY PRC.SALE_PRC DESC
+            </when>
+            <when test="sort == 'popularity'">
+                ORDER BY P.VW_CNT DESC
+            </when>
+            <when test="sort == 'reviewCount'">
+                ORDER BY ASR.REVW_CNT DESC
+            </when>
+            <when test="sort == 'ratingCount'">
+                ORDER BY ASR.AVG_STAR_RATING DESC
+            </when>
+            <when test="sort == null">
+                ORDER BY P.REG_DTTM DESC
+            </when>
+        </choose>
     </select>
 
     <select id="selectProductStatus" parameterType="int" resultType="ProductDTO">

@@ -1,61 +1,100 @@
 /**
-  * 이 함수는 지정된 중분류와 소분류 카테고리에 속하는 상품 목록을 AJAX POST 요청을 통해 가져옵니다.
-  * 반환 값은 각 카테고리에 대한 상품 목록과 총 상품 수를 포함하는 JSON 형식의 데이터입니다.
-  *
-  * @param middleNo 중분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 기본값은 1입니다.
-  * @param smallNo 소분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 해당 카테고리 전체 상품을 가져옵니다.
-  * @return 성공적인 경우, 상품 정보를 담은 JSON 데이터를 반환합니다. 실패할 경우, AJAX 요청 실패 메시지를 콘솔에 출력합니다.
-  * @throws Exception 상품 리스트를 가져오는 동안 발생할 수 있는 예외를 처리합니다.
-  * @author soso
-  * @since 2023/07/07
-  */
+ * 이 함수는 페이지 로드 시 다음 작업을 수행합니다:
+ * 1) URL의 경로를 파싱하여 중분류와 소분류 카테고리 번호를 가져옵니다.
+ * 2) 만약 중분류 카테고리 번호가 undefined 혹은 null인 경우, 기본값 1을 할당합니다.
+ * 3) 정렬 기준을 설정하고, 사용자가 정렬 기준을 클릭하여 변경할 수 있도록 이벤트 리스너를 추가합니다.
+ * 4) 지정된 중분류와 소분류 카테고리에 속하는 상품 목록을 AJAX POST 요청을 통해 가져옵니다.
+ *
+ * 반환 값은 각 카테고리에 대한 상품 목록과 총 상품 수를 포함하는 JSON 형식의 데이터입니다.
+ *
+ * @param middleNo 중분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 기본값은 1입니다.
+ * @param smallNo 소분류 카테고리 번호. 이 값이 null 혹은 undefined일 경우, 해당 카테고리 전체 상품을 가져옵니다.
+ * @return 성공적인 경우, 상품 정보를 담은 JSON 데이터를 반환합니다. 실패할 경우, AJAX 요청 실패 메시지를 콘솔에 출력합니다.
+ * @throws Exception 상품 리스트를 가져오는 동안 발생할 수 있는 예외를 처리합니다.
+ * @author soso
+ * @since 2023/07/07
+ */
 $(function () {
-
-
+    // 현재 URL의 path를 가져옵니다.
     const path = window.location.pathname;
     const pathParts = path.split('/');
     let middleNo = pathParts[3];
     const smallNo = pathParts[4];
+
+    // middleNo가 undefined 또는 null일 경우, 기본값 1을 할당합니다.
     if (middleNo === undefined || middleNo === null) {
         middleNo = 1;
     }
-    console.log(middleNo, smallNo)
-    //카테고리 중분류만 클릭했을때 불러오는 상품리스트
-    if (smallNo === undefined || smallNo === null) {
-        $.ajax({
-            type: 'GET',
-            url: "/fos/productsData/" + middleNo,
-            contentType: 'application/json; charset=utf-8',
-            dataType : "json",
-            success : function(data) {
-                // const productList = data.productList;
-                // console.log("Data received: " + productList);
-                showProductList(data);
-            },
-            error : function(jqXHR, error, errorThrown) {
-                console.error("AJAX request failed. " + error);
-            }
-        });
 
-    } else {
-        //카테고리 소분류 클릭햇을때 불러오는 상품리스트
-        $.ajax({
-            type: 'GET',
-            url: "/fos/productsData/" + middleNo + "/" + smallNo,
-            contentType: 'application/json; charset=utf-8',
-            dataType : "json",
-            success : function(data) {
-                showProductList(data);
-                const productList = data.productList;
-                console.log("Data received: " + productList);
-            },
-            error : function(jqXHR, error, errorThrown) {
-                console.error("AJAX request failed. " + error);
-            }
+    // 정렬 기준(sort)의 기본값을 'default'로 설정합니다.
+    let sort = 'default';
+
+    // '#sort a' 요소가 클릭되었을 때의 동작을 정의합니다.
+    const links = document.querySelectorAll("#sort a");
+
+    links.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            links.forEach(link => {
+                link.classList.remove("active");
+            });
+
+            e.currentTarget.classList.add("active");
+
+            const sort = e.currentTarget.id;
+            console.log(sort);
+            getProducts(middleNo, smallNo, sort);
         });
-    }
+    });
+
+    console.log(middleNo, smallNo)
+
+    // 상품 리스트를 가져옵니다.
+    getProducts(middleNo, smallNo, sort);
+
 
 });
+
+/**
+ * 이 함수는 지정된 중분류와 소분류 카테고리에 속하는 상품 목록을 AJAX GET 요청을 통해 가져옵니다.
+ * 반환 값은 각 카테고리에 대한 상품 목록을 포함하는 JSON 형식의 데이터입니다.
+ *
+ * @param middleNo 중분류 카테고리 번호.
+ * @param smallNo 소분류 카테고리 번호. 이 값이 빈 문자열일 경우, 해당 카테고리 전체 상품을 가져옵니다.
+ * @param sort 정렬 기준. 이 값이 'defaultSort'일 경우, 기본 정렬 기준을 사용합니다.
+ * @return 성공적인 경우, 상품 정보를 담은 JSON 데이터를 반환합니다. 실패할 경우, AJAX 요청 실패 메시지를 콘솔에 출력합니다.
+ * @author soso
+ * @since 2023/08/05
+ */
+function getProducts(middleNo, smallNo = '', sort = 'defaultSort') {
+    const baseURL = "/fos/productsData/";
+    let requestURL = baseURL + middleNo;
+    console.log(sort);
+    // smallNo가 있을 경우, URL에 추가합니다.
+    if (smallNo) {
+        requestURL += "/" + smallNo;
+    }
+
+    // 정렬 기준(sort)를 URL에 추가합니다.
+    requestURL += "/" + sort;
+
+    // AJAX 요청을 통해 서버에서 상품 리스트를 가져옵니다.
+    $.ajax({
+        type: 'GET',
+        url: requestURL,
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (data) {
+            // 가져온 상품 리스트를 보여줍니다.
+            showProductList(data);
+        },
+        error: function (jqXHR, error, errorThrown) {
+            console.error("AJAX request failed. " + error);
+        }
+    });
+}
+
 
 /**
  * 상품 리스트를 화면에 표시하는 함수입니다.
@@ -200,15 +239,4 @@ const showProductList = (data) => {
             productItems.appendChild(productItemDiv);
         });
     }
-    // $('a[data-category-name]').on('click', function(e) {
-    //     e.preventDefault();
-    //     console.log('a[data-category-name]')
-    //     let categoryName = $(this).data('category-name');
-    //     if (categoryName === undefined) {
-    //         categoryName = "전체";
-    //     }
-    //
-    //     $('.title-t.ty2').text(categoryName);
-    //     console.log(categoryName);
-    // });
 };
