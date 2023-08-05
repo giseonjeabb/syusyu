@@ -158,7 +158,7 @@ header {
           &:focus,
           &:hover,
           &.active {
-            color: #d3233a;
+            color: $highlight-color;
           }
         }
       }
@@ -260,7 +260,7 @@ header {
       }
       &:nth-child(-n + 3) {
         .sw-num {
-          color: #d3233a;
+          color: $highlight-color;
         }
       }
       > a {
@@ -305,7 +305,7 @@ header {
     &.ty2 {
       > li {
         a {
-          color: #d3233a;
+          color: $highlight-color;
         }
       }
     }
@@ -351,7 +351,7 @@ header {
 
       .highlight {
         font-weight: 700;
-        color: #d3233a;
+        color: $highlight-color;
       }
     }
   }
@@ -475,7 +475,7 @@ header {
           }
           &:hover{
             >a{
-              color: #d3233a;
+              color: $highlight-color;
               font-weight: bold;
             }
             .depth2{
@@ -485,7 +485,7 @@ header {
                   &:hover{
                     >a{
                       background: #fafafa;
-                      color: #d3233a;
+                      color: $highlight-color;
                       font-weight: bold;
                     }
                   }
@@ -774,7 +774,7 @@ main {
               &:hover,
               &.active {
                 font-weight: 700;
-                color: #d3233a;
+                color: $highlight-color;
               }
             }
           }
@@ -974,7 +974,7 @@ main {
         display: block;
         width: 0;
         opacity: 0;
-        background-color: #d3233a;
+        background-color: $highlight-color;
         font-size: 0;
         font-weight: bold;
         line-height: 20px;

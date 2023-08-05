@@ -383,7 +383,7 @@
     }
     .per{
       margin-right: 6px;
-      color: #d3233a;
+      color: $highlight-color;
     }
     .won{
       font-size: 18px;
@@ -1017,7 +1017,7 @@
       right: 0;
       width: 5px;
       height: 5px;
-      background-color: #d3233a;
+      background-color: $highlight-color;
       border-radius: 100%;
     }
   }
@@ -1055,7 +1055,7 @@
       .note {
         margin: 15px 0 0 34px;
         line-height: 19px;
-        color: #d3233a;
+        color: $highlight-color;
       }
       .flex {
         margin: 15px 0 0 34px;
@@ -1272,12 +1272,12 @@
     }
     .mark-wrap {
       > .mark-cont {
-        color: #d3233a;
-        border: 1px solid #d3233a;
+        color: $highlight-color;
+        border: 1px solid $highlight-color;
         box-shadow: 0 5px 10px 0 rgba(213, 50, 50, 0.08);
         &:after {
-          border-top: 1px solid #d3233a;
-          border-right: 1px solid #d3233a;
+          border-top: 1px solid $highlight-color;
+          border-right: 1px solid $highlight-color;
         }
       }
     }
@@ -1544,14 +1544,14 @@
     line-height: 16px;
     color: #fff;
     border-radius: 20px;
-    background-color: #d3233a;
+    background-color: $highlight-color;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.16);
     &::before {
       content: '';
       position: absolute;
       top: -8px;
       left: 6px;
-      border-bottom: 16px solid #d3233a;
+      border-bottom: 16px solid $highlight-color;
       border-right: 16px solid transparent;
     }
   }
@@ -1646,7 +1646,7 @@
     .inner {
       .input {
         > .inp {
-          border-color:#d3233a;
+          border-color:$highlight-color;
         }
       }
     }
@@ -1843,7 +1843,7 @@
       font-weight: 700;
       font-size: 18px;
       line-height: 21px;
-      color: #d3233a;
+      color: $highlight-color;
     }
     span {
       display: block;
@@ -2056,7 +2056,7 @@ $n: 30;
       font-weight: 700;
       font-size: 16px;
       line-height: 26px;
-      color: #d3233a;
+      color: $highlight-color;
     }
     > strong {
       display: inline-block;
@@ -2072,7 +2072,7 @@ $n: 30;
       }
       > strong {
         font-weight: 700;
-        color: #d3233a;
+        color: $highlight-color;
       }
     }
   }
@@ -2859,7 +2859,7 @@ $n: 30;
           font-weight: 700;
           .per{
             margin-right: 6px;
-            color: #d3233a;
+            color: $highlight-color;
           }
           .won{
             font-size: 28px;
@@ -2899,7 +2899,7 @@ $n: 30;
               .cp-tit{
                 padding: 0;
                 .range{
-                  color: #d3233a;
+                  color: $highlight-color;
                   font-size: 16px;
                   font-weight: 700;
                 }
@@ -2993,7 +2993,7 @@ $n: 30;
           strong{
             display: inline-block;
             margin-left: 10px;
-            color: #d3233a;
+            color: $highlight-color;
             font-size: 32px;
             letter-spacing: -0.8px;
           }
@@ -3111,7 +3111,7 @@ $n: 30;
                     position: absolute;
                     left: 0;
                     display: inline-block;
-                    color: #d3233a;
+                    color: $highlight-color;
                     font-size: 16px;
                     font-weight: 700;
                   }
@@ -3142,7 +3142,7 @@ $n: 30;
               margin-top: 10px;
               font-size: 15px;
               line-height: 18px;
-              color: #d3233a;
+              color: $highlight-color;
               position: relative;
               padding-right: 12px;
               &:after{
@@ -3227,8 +3227,8 @@ $n: 30;
       font-size: 15px;
       color:#555;
       &.active{
-        color: #D3233A;
-        border-bottom:1px solid #D3233A;
+        color: $highlight-color;
+        border-bottom:1px solid $highlight-color;
         position: relative;
         &::after{
           display:block;
@@ -3257,7 +3257,7 @@ $n: 30;
   display: flex;
   align-items: center;
   padding: 40px 0;
-  background: #f8f2eb;
+  background: #f8f8f8;
   border-radius: 10px;
   > div{
     width: 50%;
@@ -3280,7 +3280,7 @@ $n: 30;
     display: flex;
     .benefit{
       width: 50%;
-      border-left: 1px solid #e4d8cd;
+      border-left: 1px solid #e0e0e0;
       text-align: center;
       .txt{
         display: inline-block;

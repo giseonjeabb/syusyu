@@ -124,10 +124,10 @@
       }
       &.active {
         font-weight: bold;
-        color: #d3233a;
+        color: $highlight-color;
         em{
           font-weight: bold;
-          color: #d3233a;
+          color: $highlight-color;
         }
       }
     }
@@ -144,7 +144,7 @@
             bottom:-1px;
             width:100%;
             height: 2px;
-            background-color: #d3233a;
+            background-color: $highlight-color;
           }
         }
       }
@@ -171,8 +171,8 @@
         margin-left: -1px;
         &.active {
           color: #fff;
-          border-color: #d3233a;
-          background: #d3233a;
+          border-color: $highlight-color;
+          background: $highlight-color;
         }
       }
     }
@@ -299,7 +299,7 @@
       margin-top: 10px;
       font-size: 15px;
       line-height: 18px;
-      color: #d3233a;
+      color: $highlight-color;
       position: relative;
       padding-right: 12px;
       &::after{
@@ -775,10 +775,10 @@
           &:checked {
             & + .text {
               font-weight: bold;
-              color:#d3233a;
+              color:$highlight-color;
 
               &:before {
-                background-color: #d3233a;
+                background-color: $highlight-color;
               }
               &:after {
                 content:none;
@@ -1060,7 +1060,7 @@
   top:50%;
   width: 40px;
   height: 40px;
-  background: #D3233A;
+  background: $highlight-color;
   border-radius: 50%;
   transform: translate(-50%,-50%);
   z-index: -1;
@@ -1150,7 +1150,7 @@
       font-weight: 700;
       font-size: 16px;
       line-height: 26px;
-      color: #d3233a;
+      color: $highlight-color;
     }
     > strong {
       display: inline-block;
@@ -1170,7 +1170,7 @@
       }
       > strong {
         font-weight: 700;
-        color: #d3233a;
+        color: $highlight-color;
       }
     }
   }
@@ -1197,7 +1197,7 @@
           font-weight: 700;
           font-size: 16px;
           line-height: 26px;
-          color: #d3233a;
+          color: $highlight-color;
         }
         .cont {
           flex: 1 1 0%;
@@ -1353,7 +1353,7 @@
             &.red-tier{
               background: #fef8f8;
               p{
-                color:#d3233a;
+                color:$highlight-color;
               }
             }
             &.yellow-tier{
