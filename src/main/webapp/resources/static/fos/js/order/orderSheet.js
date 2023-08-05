@@ -5,6 +5,7 @@ orderSheet = {
 
         // 전화번호 포매팅
         formatPhoneNumberForElement('memberMpNoTxt');
+        formatPhoneNumberForElement('mpNoTxt');
     },
 
     bindButtonEvent: () => { // 버튼에 이벤트 핸들러를 연결
@@ -191,6 +192,8 @@ function createOrder(rsp) {
         dtlAddr: dtlAddr,
         dlvReqComt: "문 앞에 놔주세요" // TODO 수정필요
     };
+
+    debugger;
 
     // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
     // jQuery로 HTTP 요청
