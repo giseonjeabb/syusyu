@@ -1,3 +1,5 @@
+@import "variables";
+
 @mixin input {
   position: absolute;
   top: 0;
@@ -329,7 +331,7 @@
 }
 
 .color-1 {
-  color: #d3233a !important;
+  color: $highlight-color !important;
 }
 .color-2 {
   color: #00317a !important;
@@ -604,10 +606,10 @@
   }
   &.inp-error {
     > .inp {
-      border: 1px solid #d3233a;
+      border: 1px solid $highlight-color;
       &:focus,
       &:hover {
-        border: 1px solid #d3233a;
+        border: 1px solid $highlight-color;
       }
     }
   }
@@ -761,8 +763,8 @@
         &:checked {
           & + .text {
             &::before {
-              border-color:#d3233a;
-              background: #d3233a url("../../../image/icon_check_w.svg") no-repeat 5px 7px;
+              border-color:$highlight-color;
+              background: $highlight-color url("../../../image/icon_check_w.svg") no-repeat 5px 7px;
             }
           }
           &:disabled {
@@ -834,8 +836,8 @@
         &:checked {
           & + .text {
             &::before {
-              background-color: #d3233a;
-              border-color:#d3233a
+              background-color: $highlight-color;
+              border-color:$highlight-color
             }
             &::after {
               opacity: 1;
@@ -906,7 +908,7 @@
             .text {
               display: inline-block;
               padding-left: 20px;
-              color: #d3233a;
+              color: $highlight-color;
               font-size: 15px;
               line-height: 40px;
               &::before {
@@ -957,7 +959,7 @@
 
         & + .text {
           &::before {
-            background-color: #D3233A;
+            background-color: $highlight-color;
           }
           &::after {
             right: -8px;
@@ -1431,7 +1433,7 @@
         text-align: center;
         border: 2px solid #fff;
         border-radius: 50%;
-        background-color: #d3233a;
+        background-color: $highlight-color;
       }
     }
     &.change-list {
@@ -1669,7 +1671,7 @@
   }
 
   &.c-ty1 {
-    background-color: #d3233a;
+    background-color: $highlight-color;
     > span {
       color: #fff;
     }
@@ -1683,11 +1685,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border: 1px solid #d3233a;
+      border: 1px solid $highlight-color;
       border-radius: 6px;
     }
     > span {
-      color: #d3233a;
+      color: $highlight-color;
     }
   }
   &.c-ty3 {
@@ -1748,7 +1750,7 @@
   &.c-ty9 {
     background-color: #fff;
     > span {
-      color: #d3233a;
+      color: $highlight-color;
     }
   }
 
@@ -1924,8 +1926,8 @@
   border: 1px solid #e4e4e4;
   &.active {
     font-weight: 700;
-    color: #d3233a;
-    border: 1px solid #d3233a;
+    color: $highlight-color;
+    border: 1px solid $highlight-color;
   }
 }
 
@@ -2046,7 +2048,7 @@
                     align-items: flex-start;
                     > em{
                       font-weight: 700;
-                      color: #d3233a;
+                      color: $highlight-color;
                       margin-right: 10px;
                     }
                   }
@@ -2365,7 +2367,7 @@
         &:focus,
         &.active {
           font-weight: 700;
-          color: #d3233a;
+          color: $highlight-color;
         }
       }
     }
@@ -2443,14 +2445,14 @@
       text-align: center;
       &.active {
         font-weight: 700;
-        color: #d3233a;
+        color: $highlight-color;
         &::after {
           content: '';
           position: absolute;
           left: 0;
           bottom: 0;
           width: 100%;
-          border-bottom: 2px solid #d3233a;
+          border-bottom: 2px solid $highlight-color;
         }
       }
     }
@@ -2472,8 +2474,8 @@
       &.active {
         font-weight: 700;
         color: #fff;
-        background-color: #d3233a;
-        border: 1px solid #d3233a;
+        background-color: $highlight-color;
+        border: 1px solid $highlight-color;
       }
       + a {
         margin-left: -1px;
@@ -2507,8 +2509,8 @@
       &.active {
         font-weight: 700;
         color: #fff;
-        border: 1px solid #d3233a;
-        background-color: #d3233a;
+        border: 1px solid $highlight-color;
+        background-color: $highlight-color;
       }
       &:nth-child(-n + 4) {
         margin-top: 0;
@@ -2980,7 +2982,7 @@
     border-radius: 100px;
     visibility: hidden;
     overflow: hidden;
-    background-color: rgba($color: #d3233a, $alpha: 0.9);
+    background-color: rgba($color: $highlight-color, $alpha: 0.9);
     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.07);
     transform: translateX(-50%);
     transition: 0.3s;
@@ -3196,7 +3198,7 @@
       padding: 0 6px;
       font-size: 13px;
       line-height: 21px;
-      color: #d3233a;
+      color: $highlight-color;
       border: 1px solid #f2afaf;
     }
     &.ty3{
@@ -3218,7 +3220,7 @@
       font-size: 13px;
       line-height: 23px;
       color:#fff;
-      background-color: #d3233a;
+      background-color: $highlight-color;
     }
     &.ty6 {
       padding: 0 6px;
@@ -3239,7 +3241,7 @@
       padding: 0 6px;
       font-size: 13px;
       line-height: 23px;
-      color:#d3233a;
+      color:$highlight-color;
       background-color: #f5f5f5;
     }
     &.ty9 {
@@ -3438,7 +3440,7 @@
       color: #888;
     }
     &.ty2 {
-      color: #d3233a;
+      color: $highlight-color;
     }
     &.ty3 {
       color: #ccc;
@@ -3564,7 +3566,7 @@
     color:#111;
     &.point {
       font-size: 20px;
-      color:#d3233a;
+      color:$highlight-color;
       em{
         font-size: 32px;
       }
@@ -3793,7 +3795,7 @@
     overflow: hidden;
     width: 100%;
     align-items: stretch;
-    border: 1px solid #d3233a;
+    border: 1px solid $highlight-color;
     border-radius: 15px;
   }
   .cp-tit {
@@ -3840,7 +3842,7 @@
   .cp-btn {
     flex: none;
     width: 66px;
-    background: #D3233A url(../images/icon_download_white.svg) no-repeat center/46px;
+    background: $highlight-color url(../images/icon_download_white.svg) no-repeat center/46px;
     overflow: hidden;
     font-size: 0;
     text-indent: -9999px;
