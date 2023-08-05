@@ -12,18 +12,34 @@
     </select>
 
 
+<!--    <select id="selectAll" parameterType="int" resultType="ReviewDTO">-->
+<!--        SELECT STAR_RATING,-->
+<!--               REGR_ID,-->
+<!--               REG_DTTM,-->
+<!--               SHOE_SIZE,-->
+<!--               HEIGHT,-->
+<!--               WEIGHT,-->
+<!--               LIKE_CNT,-->
+<!--               REVW_CN-->
+<!--        FROM review-->
+<!--        where PROD_ID = #{prodId}-->
+<!--        order by REG_DTTM DESC-->
+<!--    </select>-->
+
     <select id="selectAll" parameterType="int" resultType="ReviewDTO">
-        SELECT STAR_RATING,
-               REGR_ID,
-               REG_DTTM,
-               SHOE_SIZE,
-               HEIGHT,
-               WEIGHT,
-               LIKE_CNT,
-               REVW_CN
-        FROM review
-        where PROD_ID = #{prodId}
-        order by REG_DTTM DESC
+        SELECT r.STAR_RATING,
+               r.REGR_ID,
+               m.LGIN_ID,
+               r.REG_DTTM,
+               r.SHOE_SIZE,
+               r.HEIGHT,
+               r.WEIGHT,
+               r.LIKE_CNT,
+               r.REVW_CN
+        FROM review r, member m
+        WHERE r.REGR_ID = m.MBR_ID
+          AND r.PROD_ID = #{prodId}
+        ORDER BY r.REG_DTTM DESC;
     </select>
 
 

@@ -14,6 +14,7 @@ public class ReviewDTO {
     private Integer likeCnt;
     private String revwCn;
     private Date regDttm;
+    private String lginId;
     private Integer regrId;
     private Date updDttm;
     private Integer updrId;
@@ -22,9 +23,11 @@ public class ReviewDTO {
     private String delYn;
 
 
+
+
     public ReviewDTO() {}
 
-    public ReviewDTO(Integer revwNo, Integer prodId, BigDecimal starRating, Integer height, BigDecimal weight, Integer shoeSize, Integer likeCnt, String revwCn, Date regDttm, Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId, String delYn) {
+    public ReviewDTO(Integer revwNo, Integer prodId, BigDecimal starRating, Integer height, BigDecimal weight, Integer shoeSize, Integer likeCnt, String revwCn, Date regDttm, String lginId, Integer regrId, Date updDttm, Integer updrId, Date delDttm, Integer delrId, String delYn) {
         this.revwNo = revwNo;
         this.prodId = prodId;
         this.starRating = starRating;
@@ -34,6 +37,7 @@ public class ReviewDTO {
         this.likeCnt = likeCnt;
         this.revwCn = revwCn;
         this.regDttm = regDttm;
+        this.lginId = lginId;
         this.regrId = regrId;
         this.updDttm = updDttm;
         this.updrId = updrId;
@@ -54,6 +58,7 @@ public class ReviewDTO {
                 ", likeCnt=" + likeCnt +
                 ", revwCn='" + revwCn + '\'' +
                 ", regDttm=" + regDttm +
+                ", lginId='" + lginId + '\'' +
                 ", regrId=" + regrId +
                 ", updDttm=" + updDttm +
                 ", updrId=" + updrId +
@@ -63,6 +68,18 @@ public class ReviewDTO {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReviewDTO reviewDTO = (ReviewDTO) o;
+        return Objects.equals(revwNo, reviewDTO.revwNo) && Objects.equals(prodId, reviewDTO.prodId) && Objects.equals(starRating, reviewDTO.starRating) && Objects.equals(height, reviewDTO.height) && Objects.equals(weight, reviewDTO.weight) && Objects.equals(shoeSize, reviewDTO.shoeSize) && Objects.equals(likeCnt, reviewDTO.likeCnt) && Objects.equals(revwCn, reviewDTO.revwCn) && Objects.equals(regDttm, reviewDTO.regDttm) && Objects.equals(lginId, reviewDTO.lginId) && Objects.equals(regrId, reviewDTO.regrId) && Objects.equals(updDttm, reviewDTO.updDttm) && Objects.equals(updrId, reviewDTO.updrId) && Objects.equals(delDttm, reviewDTO.delDttm) && Objects.equals(delrId, reviewDTO.delrId) && Objects.equals(delYn, reviewDTO.delYn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(revwNo, prodId, starRating, height, weight, shoeSize, likeCnt, revwCn, regDttm, lginId, regrId, updDttm, updrId, delDttm, delrId, delYn);
+    }
 
     public Integer getRevwNo() {
         return revwNo;
@@ -136,6 +153,14 @@ public class ReviewDTO {
         this.regDttm = regDttm;
     }
 
+    public String getLginId() {
+        return lginId;
+    }
+
+    public void setLginId(String lginId) {
+        this.lginId = lginId;
+    }
+
     public Integer getRegrId() {
         return regrId;
     }
@@ -182,18 +207,5 @@ public class ReviewDTO {
 
     public void setDelYn(String delYn) {
         this.delYn = delYn;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReviewDTO reviewDTO = (ReviewDTO) o;
-        return Objects.equals(revwNo, reviewDTO.revwNo) && Objects.equals(prodId, reviewDTO.prodId) && Objects.equals(starRating, reviewDTO.starRating) && Objects.equals(height, reviewDTO.height) && Objects.equals(weight, reviewDTO.weight) && Objects.equals(shoeSize, reviewDTO.shoeSize) && Objects.equals(likeCnt, reviewDTO.likeCnt) && Objects.equals(revwCn, reviewDTO.revwCn) && Objects.equals(regDttm, reviewDTO.regDttm) && Objects.equals(regrId, reviewDTO.regrId) && Objects.equals(updDttm, reviewDTO.updDttm) && Objects.equals(updrId, reviewDTO.updrId) && Objects.equals(delDttm, reviewDTO.delDttm) && Objects.equals(delrId, reviewDTO.delrId) && Objects.equals(delYn, reviewDTO.delYn);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(revwNo, prodId, starRating, height, weight, shoeSize, likeCnt, revwCn, regDttm, regrId, updDttm, updrId, delDttm, delrId, delYn);
     }
 }

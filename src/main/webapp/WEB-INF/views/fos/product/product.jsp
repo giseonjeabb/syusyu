@@ -293,14 +293,14 @@
                                         <div class="reviews-list-wrap" id="rwInfo">
                                             <!-- 상품 리뷰 정보를 반복문을 이용해서 생성 -->
                                             <c:forEach var="reviewDTO" items="${reviewList}">
-                                                <div class="rev-list view-list" data-idx="${reviewDTO.regrId}">
+                                                <div class="rev-list view-list" data-idx="${reviewDTO.lginId}">
                                                     <div class="rev-detail">
                                                             <div class="star-per-wrap">
                                                                 <div class="star-per"><em style="width:${reviewDTO.starRating * 20}%;">평점</em></div>
                                                                 <p class="star-sc">${reviewDTO.starRating}</p>
                                                             </div>
                                                                 <div class="rev-info">
-                                                                    <span class="writer"><em>작성자</em>${reviewDTO.regrId}</span>
+                                                                    <span class="writer"><em>작성자</em>${reviewDTO.lginId}</span>
                                                                     <span class="shoeSize"><em>사이즈</em>${reviewDTO.shoeSize}</span>
                                                                     <span class="date"><em>날짜</em><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/></span>
                                                                 </div>
