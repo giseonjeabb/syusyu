@@ -190,8 +190,8 @@
     };
 
     $("#btnRegister").on("click", function () {
-        // if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
-        // preventClick++;  //더블클릭 방지용 변수 하나올리고 작업
+        if (preventClick !== 0) return; //더블클릭 방지용 변수가 0이 아닐시 return
+        preventClick++;  //더블클릭 방지용 변수 하나올리고 작업
 
         var currentDate = new Date();
         var formattedDate = currentDate.toISOString(); // ISO 8601 형식으로 변환

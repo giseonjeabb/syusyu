@@ -42,8 +42,8 @@ public class InqryController {
         Integer mbrId = (Integer)session.getAttribute("mbrId");
         // 세션에서 regrId 값 가져오기
         try {
-            if(inqryService.remove(inqryNo, mbrId.toString())!=1)
-                throw new Exception("Delete failed.");
+            if(inqryService.remove(inqryNo, mbrId.toString())!=1);
+//                throw new Exception("Delete failed.");
         } catch (Exception e) {
             e.printStackTrace();
             removeYn = 0;

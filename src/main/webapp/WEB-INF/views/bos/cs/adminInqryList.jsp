@@ -41,7 +41,7 @@
                 color: #000000;
             }
             .badge-item.ty10 {
-                background-color: red; /* 배경색: 주황색 */
+                background-color: #587dc8; /* 배경색: 주황색 */
                 color: #ffffff; /* 글자색: 흰색 */
                 padding: 5px 10px;
                 border-radius: 20px; /* 둥근 모양을 위한 border-radius 속성 */
@@ -51,6 +51,10 @@
             .badge-item.ty10.complete {
                 padding: 5px 10px;
                 border-radius: 20px; /* 둥근 모양을 위한 border-radius 속성 */
+            }
+            .clickable-span {
+                cursor: pointer;
+                /* 기타 스타일 설정 */
             }
         </style>
     </head>
@@ -138,10 +142,11 @@
                             <span class="badge-cont single">
 								<c:choose>
                                     <c:when test="${not empty inqryDTO.ansCn}">
-                                        <span class="badge-item ty10 complete" style="background-color: #05fa42; color: white;">답변완료</span>
+                                        <span class="badge-item ty10 complete" style="background-color: #c8c8c8; color: white;">답변완료</span>
                                     </c:when>
                                     <c:when test="${empty inqryDTO.ansCn}">
-                                        <span class="badge-item ty10" onclick="goToWritePage()">답변대기</span>
+                                        <span class="badge-item ty10 clickable-span" onclick="executeScript()" inqryNo="${inqryDTO.inqryNo}">답변대기</span>
+                                        <%-- <span class="badge-item ty10"><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}">수정</button>답변대기</span>--%>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- 아무것도 하지 않음 -->
@@ -171,8 +176,80 @@
     </section>
 
     <script>
-        function goToWritePage() {
-            location.href = "<c:url value='/adminInqry/write'/>";
-        }
+        <%--var preventClick = false; // 더블 클릭 방지용 변수--%>
 
+        <%--$(document).ready(function () {--%>
+        <%--    $(".btn-modify").on("click", function (event) {--%>
+        <%--        if (preventClick) return; // 더블클릭 방지용 변수가 true이면 클릭 무시--%>
+        <%--        preventClick = true;  // 더블클릭 방지용 변수를 true로 설정--%>
+
+        <%--        if (!confirm("답변 등록을 하시겠습니까?")) {--%>
+        <%--            preventClick = false; // 클릭 이벤트 무시 해제--%>
+        <%--            return;--%>
+        <%--        }--%>
+
+        <%--        const inqryNo = $(event.target).attr('inqryNo');--%>
+        <%--        const modifyUrl = "<c:url value='/adminInqry/modify'/>";--%>
+        <%--        const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;--%>
+
+        <%--        // Ajax 요청을 보냅니다.--%>
+        <%--        $.ajax({--%>
+        <%--            type: 'GET',--%>
+        <%--            url: urlWithParams,--%>
+        <%--            contentType: 'application/json; charset=utf-8',--%>
+        <%--            success: function (response) {--%>
+        <%--                // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.--%>
+        <%--                // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.--%>
+        <%--                // 예: console.log(response);--%>
+        <%--                // 페이지를 이동하려면 아래와 같이 사용합니다.--%>
+        <%--                window.location.href = urlWithParams;--%>
+        <%--                preventClick = 0;--%>
+        <%--            },--%>
+        <%--            error: function () {--%>
+        <%--                // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.--%>
+        <%--                alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");--%>
+        <%--                preventClick = 0;--%>
+        <%--            },--%>
+        <%--            complete: function () {--%>
+        <%--                preventClick = false; // 클릭 이벤트 무시 해제--%>
+        <%--            }--%>
+        <%--        });--%>
+        <%--    });--%>
+        <%--});--%>
+        function executeScript() {
+            var preventClick = false; // 더블 클릭 방지용 변수
+
+            if (preventClick) return; // 더블클릭 방지용 변수가 true이면 클릭 무시
+            preventClick = true;  // 더블클릭 방지용 변수를 true로 설정
+
+            if (!confirm("답변 등록을 하시겠습니까?")) {
+                preventClick = false; // 클릭 이벤트 무시 해제
+                return;
+            }
+
+            const inqryNo = $(".clickable-span").attr("inqryNo");
+            const modifyUrl = "<c:url value='/adminInqry/modify'/>";
+            const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;
+
+            // Ajax 요청을 보냅니다.
+            $.ajax({
+                type: 'GET',
+                url: urlWithParams,
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.
+                    // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.
+                    // 예: console.log(response);
+                    // 페이지를 이동하려면 아래와 같이 사용합니다.
+                    alert(inqryNo);
+                    window.location.href = urlWithParams;
+                    preventClick = false; // 클릭 이벤트 무시 해제
+                },
+                error: function () {
+                    // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.
+                    alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");
+                    preventClick = false; // 클릭 이벤트 무시 해제
+                }
+            });
+        }
     </script>

@@ -120,7 +120,7 @@
         </div>
 
         <div class="btn-area">
-            <a href="http://localhost:80/inqry/inqryList" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
+            <a href="/inqry/inqryList" class="btn ty4  c-ty7 free w-108"><span>취소</span></a>
             <button type="button" class="btn ty4  c-ty1 free w-108" id="btnRegister"><span>등록</span></button>
         </div>
     </section>
@@ -130,6 +130,8 @@
 
 </body>
 <script>
+    var preventClick = 0; // 더블 클릭 방지용 변수
+
     function setInquiryClassify() {
         const inqryTpValue = "${inqryDTO.inqryTp}"; // 'inqryDTO.inqryTp' 변수에는 'inqryTp' 값이 들어 있다고 가정합니다.
 
@@ -184,6 +186,8 @@
     });
 
     $("#btnRegister").on("click", function () {
+        if (preventClick !== 0) return; // 더블클릭 방지용 변수가 0이 아닐시 return
+        preventClick++;  // 더블클릭 방지용 변수 하나 올리고 작업
         // 폼 필드에서 데이터 수집
         const inqryType = $("#inquiry_classify").val();
         const inqryTitle = $("#inquiry_subject").val();
@@ -210,13 +214,16 @@
                 // 사용자에게 업데이트된 데이터 보여주기 (필요하면)
                 alert("수정이 완료되었습니다.");
                 location.href = "/inqry/inqryList";
+                    preventClick = 0;
                 }
                 else{
+                    preventClick = 0;
                     return ;
                 }
             },
             error: function () {
                 alert("1:1문의 업데이트에 실패하였습니다.");
+                preventClick = 0;
             }
         });
     });

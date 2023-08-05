@@ -34,13 +34,52 @@
 
     <!-- Buttons -->
     <button type="button" id="listBtn" class="btn btn-primary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</button>
-    <button type="submit" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i> 등록</button>
+    <button type="button" id="writeBtn" class="btn btn-primary btn-sm"><i class="fa fa-pen-nib"></i> 등록</button>
   </form>
 </div>
+<form id="tmp_form" action="/adminInqry/adminInqryList" method="get">
+    <input type="hidden" id="inqryNo" name="inqryNo" value="${inqryDTO.inqryNo}" />
+</form>
 
 <!-- Show success or error messages -->
 <script>
+    var preventClick = 0; // 더블 클릭 방지용 변수
 
+    $('#writeBtn').on("click", function() {
+        if (preventClick !== 0) return; // 더블클릭 방지용 변수가 0이 아닐시 return
+        preventClick++;  // 더블클릭 방지용 변수 하나 올리고 작업
+
+        var ansCnValue = $("textarea[name='ansCn']").val();
+
+        const inqryData = {
+            ansCn: ansCnValue,
+            inqryNo: "${inqryDTO.inqryNo}" // inqryNo를 데이터 객체에 추가
+        };
+
+        // 사용자에게 확인 메시지를 표시하고 확인 누를 경우에만 AJAX 요청 보내기
+        if (confirm("답변을 등록하시겠습니까?")) {
+            $.ajax({
+                type: "POST",
+                url: "/adminInqry/modify",
+                data: JSON.stringify(inqryData),
+                contentType: "application/json",
+                success: function(result) {
+                    if (result === 1) {
+                        alert("성공적으로 등록되었습니다.");
+                        preventClick = 0;
+                        location.href = "/adminInqry/adminInqryList";
+                    } else {
+                        alert("등록에 실패하였습니다.");
+                        preventClick = 0;
+                    }
+                },
+                error: function() {
+                    alert("등록에 실패하였습니다.");
+                    preventClick = 0;
+                }
+            });
+        }
+    });
 
 
     $(document).ready(function() {
@@ -49,6 +88,5 @@
             location.href = "<c:url value='/adminInqry/adminInqryList' />";
         });
     });
-
 
 </script>
