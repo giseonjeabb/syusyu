@@ -1,10 +1,3 @@
-    <%--
-      Created by IntelliJ IDEA.
-      User: Han
-      Date: 2023-07-10
-      Time: 오전 10:41
-      To change this template use File | Settings | File Templates.
-    --%>
     <%@ page import="java.time.LocalDate" %>
     <%@ page import="java.time.LocalDateTime" %>
     <%@ page import="java.time.format.DateTimeFormatter" %>
@@ -84,24 +77,6 @@
                 <div class="panel panel-seller" hidden="hidden">
                     <div class="panel-heading" hidden="hidden">
                     </div>
-                    <%--                pannel - body--%>
-<%--                    <div class="panel-body">--%>
-<%--                        <div class="seller-search-section">--%>
-<%--                            <div class = "input-search">검색어</div>--%>
-<%--                            <div class = "input-content">--%>
-<%--                                <select id="sType" class="search-option" name="option">--%>
-<%--                                    <option value="A" ${ph.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목 + 내용</option>--%>
-<%--                                    <option value="T" ${ph.option=='T' ? "selected" : ""}>제목만</option>--%>
-<%--                                    <option value="C" ${ph.option=='C' ? "selected" : ""}>내용만</option>--%>
-<%--                                    <option value="N" ${ph.option=='N' ? "selected" : ""}>문의사항 번호</option>--%>
-<%--                                </select> <i class="fa-solid fa-caret-down"></i>--%>
-
-<%--                                <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"--%>
-<%--                                       placeholder="Search keyword">--%>
-<%--                                <input type="submit" id="btnSearch" class="btn btn-secondary my-2 my-sm-0" value="Search">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
                 </div> <%-- panel panel-seller--%>
             </form>
 
@@ -145,7 +120,8 @@
                                         <span class="badge-item ty10 complete" style="background-color: #c8c8c8; color: white;">답변완료</span>
                                     </c:when>
                                     <c:when test="${empty inqryDTO.ansCn}">
-                                        <span class="badge-item ty10 clickable-span" onclick="executeScript()" inqryNo="${inqryDTO.inqryNo}">답변대기</span>
+<%--                                        <span class="badge-item ty10 clickable-span" onclick="executeScript()" inqryNo="${inqryDTO.inqryNo}">답변대기</span>--%>
+                                        <span class="badge-item ty10 clickable-span" onclick="executeScript(${inqryDTO.inqryNo})">답변대기</span>
                                         <%-- <span class="badge-item ty10"><button type="button" class="btn btn-text-type btt1 btn-modify" inqryNo="${inqryDTO.inqryNo}">수정</button>답변대기</span>--%>
                                     </c:when>
                                     <c:otherwise>
@@ -176,47 +152,7 @@
     </section>
 
     <script>
-        <%--var preventClick = false; // 더블 클릭 방지용 변수--%>
-
-        <%--$(document).ready(function () {--%>
-        <%--    $(".btn-modify").on("click", function (event) {--%>
-        <%--        if (preventClick) return; // 더블클릭 방지용 변수가 true이면 클릭 무시--%>
-        <%--        preventClick = true;  // 더블클릭 방지용 변수를 true로 설정--%>
-
-        <%--        if (!confirm("답변 등록을 하시겠습니까?")) {--%>
-        <%--            preventClick = false; // 클릭 이벤트 무시 해제--%>
-        <%--            return;--%>
-        <%--        }--%>
-
-        <%--        const inqryNo = $(event.target).attr('inqryNo');--%>
-        <%--        const modifyUrl = "<c:url value='/adminInqry/modify'/>";--%>
-        <%--        const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;--%>
-
-        <%--        // Ajax 요청을 보냅니다.--%>
-        <%--        $.ajax({--%>
-        <%--            type: 'GET',--%>
-        <%--            url: urlWithParams,--%>
-        <%--            contentType: 'application/json; charset=utf-8',--%>
-        <%--            success: function (response) {--%>
-        <%--                // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.--%>
-        <%--                // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.--%>
-        <%--                // 예: console.log(response);--%>
-        <%--                // 페이지를 이동하려면 아래와 같이 사용합니다.--%>
-        <%--                window.location.href = urlWithParams;--%>
-        <%--                preventClick = 0;--%>
-        <%--            },--%>
-        <%--            error: function () {--%>
-        <%--                // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.--%>
-        <%--                alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");--%>
-        <%--                preventClick = 0;--%>
-        <%--            },--%>
-        <%--            complete: function () {--%>
-        <%--                preventClick = false; // 클릭 이벤트 무시 해제--%>
-        <%--            }--%>
-        <%--        });--%>
-        <%--    });--%>
-        <%--});--%>
-        function executeScript() {
+        function executeScript(inqryNo) {
             var preventClick = false; // 더블 클릭 방지용 변수
 
             if (preventClick) return; // 더블클릭 방지용 변수가 true이면 클릭 무시
@@ -227,7 +163,6 @@
                 return;
             }
 
-            const inqryNo = $(".clickable-span").attr("inqryNo");
             const modifyUrl = "<c:url value='/adminInqry/modify'/>";
             const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;
 
@@ -241,7 +176,6 @@
                     // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.
                     // 예: console.log(response);
                     // 페이지를 이동하려면 아래와 같이 사용합니다.
-                    alert(inqryNo);
                     window.location.href = urlWithParams;
                     preventClick = false; // 클릭 이벤트 무시 해제
                 },
@@ -253,3 +187,65 @@
             });
         }
     </script>
+
+
+    <%--                pannel - body--%>
+    <%--                    <div class="panel-body">--%>
+    <%--                        <div class="seller-search-section">--%>
+    <%--                            <div class = "input-search">검색어</div>--%>
+    <%--                            <div class = "input-content">--%>
+    <%--                                <select id="sType" class="search-option" name="option">--%>
+    <%--                                    <option value="A" ${ph.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목 + 내용</option>--%>
+    <%--                                    <option value="T" ${ph.option=='T' ? "selected" : ""}>제목만</option>--%>
+    <%--                                    <option value="C" ${ph.option=='C' ? "selected" : ""}>내용만</option>--%>
+    <%--                                    <option value="N" ${ph.option=='N' ? "selected" : ""}>문의사항 번호</option>--%>
+    <%--                                </select> <i class="fa-solid fa-caret-down"></i>--%>
+
+    <%--                                <input type="text" id="noticeSearchText" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"--%>
+    <%--                                       placeholder="Search keyword">--%>
+    <%--                                <input type="submit" id="btnSearch" class="btn btn-secondary my-2 my-sm-0" value="Search">--%>
+    <%--                            </div>--%>
+    <%--                        </div>--%>
+    <%--                    </div>--%>
+
+
+    <%--var preventClick = false; // 더블 클릭 방지용 변수--%>
+
+    <%--$(document).ready(function () {--%>
+    <%--    $(".btn-modify").on("click", function (event) {--%>
+    <%--        if (preventClick) return; // 더블클릭 방지용 변수가 true이면 클릭 무시--%>
+    <%--        preventClick = true;  // 더블클릭 방지용 변수를 true로 설정--%>
+
+    <%--        if (!confirm("답변 등록을 하시겠습니까?")) {--%>
+    <%--            preventClick = false; // 클릭 이벤트 무시 해제--%>
+    <%--            return;--%>
+    <%--        }--%>
+
+    <%--        const inqryNo = $(event.target).attr('inqryNo');--%>
+    <%--        const modifyUrl = "<c:url value='/adminInqry/modify'/>";--%>
+    <%--        const urlWithParams = modifyUrl + "?inqryNo=" + inqryNo;--%>
+
+    <%--        // Ajax 요청을 보냅니다.--%>
+    <%--        $.ajax({--%>
+    <%--            type: 'GET',--%>
+    <%--            url: urlWithParams,--%>
+    <%--            contentType: 'application/json; charset=utf-8',--%>
+    <%--            success: function (response) {--%>
+    <%--                // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.--%>
+    <%--                // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.--%>
+    <%--                // 예: console.log(response);--%>
+    <%--                // 페이지를 이동하려면 아래와 같이 사용합니다.--%>
+    <%--                window.location.href = urlWithParams;--%>
+    <%--                preventClick = 0;--%>
+    <%--            },--%>
+    <%--            error: function () {--%>
+    <%--                // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.--%>
+    <%--                alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");--%>
+    <%--                preventClick = 0;--%>
+    <%--            },--%>
+    <%--            complete: function () {--%>
+    <%--                preventClick = false; // 클릭 이벤트 무시 해제--%>
+    <%--            }--%>
+    <%--        });--%>
+    <%--    });--%>
+    <%--});--%>
