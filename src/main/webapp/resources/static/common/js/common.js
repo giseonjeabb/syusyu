@@ -137,6 +137,7 @@ const setCalendarRangeByDays = (startDateId, endDateId, day) => {
  * @param startDateId 시작 날짜 선택 필드의 ID
  * @param endDateId 종료 날짜 선택 필드의 ID
  * @param month endDate로부터 뺄 월수
+ * @author min
  * @since 2023/07/19
  */
 const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
@@ -159,7 +160,7 @@ const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
  * @param {string} startDateId - 시작 날짜 선택 필드의 ID
  * @param {string} endDateId - 종료 날짜 선택 필드의 ID
  * @param {number} day - startDate로부터 더할 일 수
- * @author soso
+ * @author min
  * @since 2023/07/30
  */
 const setCalendarRangeAddDays =(startDateId, endDateId, day) => {
@@ -172,4 +173,22 @@ const setCalendarRangeAddDays =(startDateId, endDateId, day) => {
 
     setFlatpickrCalendar(endDateId, endDate);
     setFlatpickrCalendar(startDateId, startDate);
+}
+
+/**
+ * 현재 날짜와 시간을 'YYYMMDD_HHMM' 형식의 문자열로 반환한다.
+ *
+ * @returns {string} 현재 날짜와 시간을 나타내는 문자열
+ * @author min
+ * @since 2023/08/06
+ */
+const getYYYYMMDDHHMM = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+
+    return year + month + day + "_" + hour + minute;
 }
