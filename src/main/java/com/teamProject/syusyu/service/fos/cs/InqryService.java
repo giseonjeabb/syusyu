@@ -23,8 +23,10 @@ public interface InqryService {
     List<InqryDTO> getPage(Map map) throws Exception;
     int modify(InqryDTO inqryDTO) throws Exception;
 
+    int modifyAnswerOnly(InqryDTO inqryDTO);
+
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
     List<InqryDTO> getSearchResultPage(SearchCondition sc) throws Exception;
-    
+
 }

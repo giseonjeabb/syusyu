@@ -20,11 +20,14 @@ public class OrderInfoDTO {
     private int qty; // 수량
     private int prodAmt; // 상품금액 (할인가격 + 옵션가) * 주문수량
     private String optNm; // 옵션명
-    private String payTp; // 결제방법
+    private String payTp; // 결제방법코드
+    private String payTpNm; // 결제방법코드
     private int realPayAmt; // 결제금액
     private String repImg; // 이미지
     private String claimStus; // 클레임 처리상태
+    private String claimStusNm; // 클레임 처리상태명
     private String ordrId; // 구매자 ID
+    private String lginId; // 구매자 로그인 ID
     private String ordrNm; // 구매자명
     private String recipient; // 수령인
 
@@ -143,6 +146,14 @@ public class OrderInfoDTO {
         this.payTp = payTp;
     }
 
+    public String getPayTpNm() {
+        return payTpNm;
+    }
+
+    public void setPayTpNm(String payTpNm) {
+        this.payTpNm = payTpNm;
+    }
+
     public int getRealPayAmt() {
         return realPayAmt;
     }
@@ -167,12 +178,28 @@ public class OrderInfoDTO {
         this.claimStus = claimStus;
     }
 
+    public String getClaimStusNm() {
+        return claimStusNm;
+    }
+
+    public void setClaimStusNm(String claimStusNm) {
+        this.claimStusNm = claimStusNm;
+    }
+
     public String getOrdrId() {
         return ordrId;
     }
 
     public void setOrdrId(String ordrId) {
         this.ordrId = ordrId;
+    }
+
+    public String getLginId() {
+        return lginId;
+    }
+
+    public void setLginId(String lginId) {
+        this.lginId = lginId;
     }
 
     public String getOrdrNm() {
@@ -208,10 +235,13 @@ public class OrderInfoDTO {
                 ", prodAmt=" + prodAmt +
                 ", optNm='" + optNm + '\'' +
                 ", payTp='" + payTp + '\'' +
+                ", payTpNm='" + payTpNm + '\'' +
                 ", realPayAmt=" + realPayAmt +
                 ", repImg='" + repImg + '\'' +
                 ", claimStus='" + claimStus + '\'' +
+                ", claimStusNm='" + claimStusNm + '\'' +
                 ", ordrId='" + ordrId + '\'' +
+                ", lginId='" + lginId + '\'' +
                 ", ordrNm='" + ordrNm + '\'' +
                 ", recipient='" + recipient + '\'' +
                 '}';
@@ -232,10 +262,13 @@ public class OrderInfoDTO {
         private int prodAmt;
         private String optNm;
         private String payTp;
+        private String payTpNm;
         private int realPayAmt;
         private String repImg;
         private String claimStus;
+        private String claimStusNm;
         private String ordrId;
+        private String lginId;
         private String ordrNm;
         private String recipient;
 
@@ -316,6 +349,11 @@ public class OrderInfoDTO {
             return this;
         }
 
+        public Builder payTpNm(String payTpNm) {
+            this.payTpNm = payTpNm;
+            return this;
+        }
+
         public Builder realPayAmt(int realPayAmt) {
             this.realPayAmt = realPayAmt;
             return this;
@@ -331,8 +369,18 @@ public class OrderInfoDTO {
             return this;
         }
 
+        public Builder claimStusNm(String claimStusNm) {
+            this.claimStusNm = claimStusNm;
+            return this;
+        }
+
         public Builder ordrId(String ordrId) {
             this.ordrId = ordrId;
+            return this;
+        }
+
+        public Builder lginId(String lginId) {
+            this.lginId = lginId;
             return this;
         }
 
@@ -362,10 +410,13 @@ public class OrderInfoDTO {
             orderInfoDTO.setProdAmt(prodAmt);
             orderInfoDTO.setOptNm(optNm);
             orderInfoDTO.setPayTp(payTp);
+            orderInfoDTO.setPayTpNm(payTpNm);
             orderInfoDTO.setRealPayAmt(realPayAmt);
             orderInfoDTO.setRepImg(repImg);
             orderInfoDTO.setClaimStus(claimStus);
+            orderInfoDTO.setClaimStusNm(claimStusNm);
             orderInfoDTO.setOrdrId(ordrId);
+            orderInfoDTO.setLginId(lginId);
             orderInfoDTO.setOrdrNm(ordrNm);
             orderInfoDTO.setRecipient(recipient);
             return orderInfoDTO;

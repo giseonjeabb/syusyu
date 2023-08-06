@@ -10,8 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-
-
 <%@ page session="true"%>
 
 
@@ -20,6 +18,7 @@
         @import url(${cssUrlBos}/cs/adminNotice.scss);
     </style>
 </head>
+
 <script>
     let msg = "${msg}";
     if (msg == "LIST_ERR") alert("게시물 목록을 가져오는데 실패했습니다. 다시 시도해 주세요.");
@@ -38,7 +37,7 @@
 
         <form id="form" class="frm" action="" method="post">
 
-        <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}">
+        <input type="hidden" name="notcNo" value="${noticeDTO.notcNo}"/>
 
         <colgroup>
             <col style="width: 105px">
@@ -86,17 +85,11 @@
 
 
 
-<%--            <span class="date-info" >--%>
-<%--                등록날짜: <span><fmt:formatDate value="${noticeDTO.regDttm}" pattern="yyyy-MM-dd" /></span><br>--%>
-<%--                        <input type="hidden" name="startDate" value="<fmt:formatDate value="${noticeDTO.startDttm}" pattern="yyyy-MM-dd" />" />--%>
-<%--                        <input type="hidden" name="endDate" value="<fmt:formatDate value="${noticeDTO.endDttm}" pattern="yyyy-MM-dd" />" />--%>
-<%--            </span>--%>
-
 <table id="contentForm">
     <tr>
-            <td>
-                <textarea name="content" rows="15" class="detail-cont" readonly="readonly">${noticeDTO.content}</textarea>
-            </td>
+        <td id="test6294"  class="detail-cont">
+<%--                <textarea name="content" id="test08043" rows="15" class="detail-cont" readonly="readonly">${noticeDTO.content}</textarea>--%>
+        </td>
     </tr>
 
 
@@ -107,7 +100,7 @@
                     <span class="nextPage">다음 글&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-sharp fa-solid fa-caret-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <c:if test="${not empty nextTitle}">
-                        <a href="/adminNotice/read?notcNo=${noticeDTO.notcNo + 1}">&nbsp; ${nextTitle}</a>
+                        <a href="/adminNotice/read?notcNo=${nextNo}">&nbsp; ${nextTitle}</a>
                     </c:if>
                     <c:if test="${empty nextTitle}">
                         <span>&nbsp;&nbsp;다음 글이 존재하지 않습니다. </span>
@@ -125,7 +118,7 @@
                     <span class="prevPage">이전 글&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-caret-down"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <c:if test="${not empty prevTitle}">
-                        <a href="/adminNotice/read?notcNo=${noticeDTO.notcNo - 1}">&nbsp; ${prevTitle}</a>
+                        <a href="/adminNotice/read?notcNo=${prevNo}">&nbsp; ${prevTitle}</a>
                     </c:if>
                     <c:if test = "${empty prevTitle}">
                         <span>&nbsp;&nbsp;이전 글이 존재 하지 않습니다. </span>
@@ -215,6 +208,7 @@
 <script>
 
     $(document).ready(function (){
+
          $('#listBtn').on("click", function(){
             location.href = "<c:url value="/adminNotice/list"/>?page=${sc.page}&pageSize=${sc.pageSize}";
          });
@@ -232,6 +226,11 @@
             const notcNo=$(this).data("notc-no");
             location.href = '/adminNotice/modify?notcNo='+notcNo;
         });
+
+
+
+        const test = '${noticeDTO.content}';
+        document.getElementById('test6294').innerHTML = test;
 
     });
 </script>

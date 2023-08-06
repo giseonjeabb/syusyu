@@ -8,10 +8,10 @@
         </div>
         <div class="footer_wrapper_info">
             <div class="footer_info" style="float: left; width: 920px;">
-                <div class="footer_info_desc"> 상호명 : FORESTALLMENT | 대표자명 : 한기선, 방채민, 이소윤 | 사업자등록번호: 123-12-12345 |
+                <div class="footer_info_desc"> 상호명 : FORESTALLMENT | 대표자명 : 한기선, 방채민, 이소윤, 김수철 | 사업자등록번호: 123-12-12345 |
                     통신팬매업신고 : 종로구청 제 2023-01234
                 </div>
-                <div class="footer_info_desc"> 사업장 주소 : 서울 종로구 종로 69 서울YMCA 522 정석코딩 FORESTALLMENT| 대표전화: 1588-1234
+                <div class="footer_info_desc"> 사업장 주소 : 서울 종로구 종로 69 서울YMCA 522 정석코딩 FORESTALLMENT| 대표전화: 080-123-4567
                 </div>
                 <div class="footer_info_desc"> Copyright © 2023 FORESTALLMENT all rights reserved.</div>
             </div>

@@ -50,9 +50,9 @@
             </a>
             <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="<c:url value="/bos/orders/view"/>">주문 통합 검색</a>
-                    <a class="nav-link" href="<c:url value="/bos/dispatches/view"/>">주문확인/발송관리</a>
-                    <a class="nav-link" href="<c:url value="/bos/deliveries/view"/>">배송 현황 관리</a>
+                    <a class="nav-link" href="<c:url value="/bos/orderView"/>">주문 통합 검색</a>
+                    <a class="nav-link" href="<c:url value="/bos/dispatchManageView"/>">주문확인/발송관리</a>
+                    <a class="nav-link" href="<c:url value="/bos/deliveryManageView"/>">배송 현황 관리</a>
                     <a class="nav-link" href="#">구매 확정 내역</a>
                     <a class="nav-link" href="#">취소 관리</a>
                     <a class="nav-link" href="#">반품 관리</a>

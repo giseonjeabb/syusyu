@@ -1,5 +1,6 @@
 package com.teamProject.syusyu.dao.cs.impl;
 
+import com.teamProject.syusyu.dao.cs.BOS_FaqDAO;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class BOS_FaqDAOImpl implements com.teamProject.syusyu.dao.cs.BOS_FaqDAO {
+public class BOS_FaqDAOImpl implements BOS_FaqDAO {
 
 
     @Autowired

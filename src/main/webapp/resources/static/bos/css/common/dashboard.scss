@@ -11450,3 +11450,68 @@ body {
     width: 100%;
   }
 }
+
+.data_view_table_container {
+  width: 800px;
+  margin: 20px;
+
+  > p {
+    border: 3px solid #e8e8e8;
+    padding: 10px;
+  }
+
+  h5 {
+    margin-top: 20px;
+  }
+
+  .data_view_table {
+    background-color: white;
+    table {
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #d9dadc;
+      padding: 13px 20px 13px 22px;
+    }
+    th {
+      padding-left: 10px;
+      background-color: #fafafb;
+    }
+    td {
+      padding: 10px;
+      & * {
+        margin-right: 10px;
+        float: left;
+      }
+    }
+  }
+}
+
+.popup-head {
+  position: relative;
+  background-color: #587dc8;
+  color: white;
+  padding: 7px 5px 5px 10px;
+
+  .btn.remove_19 {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: url("../../../image/remove_1.svg") no-repeat center center;
+
+    > .text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+  }
+}
+

@@ -35,6 +35,7 @@ orderCancel.eventHandler = {
 
         // 2. 주문취소 api 호출
         syusyu.common.Ajax.sendJSONRequest('POST', '/fos/orders/cancel', param, () => {
+            alert("주문취소되었습니다.");
             // 3. 성공 시 주문조회로 이동
             location.href = '/fos/orderView';
         });

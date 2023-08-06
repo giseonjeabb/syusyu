@@ -77,4 +77,38 @@ public class AdminInqryController {
         return ViewPath.BOS_CS + "adminInqry";
     }
 
+    @GetMapping("/modify")
+    public String modify(Integer inqryNo, Model m, HttpSession session, RedirectAttributes rattr){
+
+        try {
+            InqryDTO inqryDTO = inqryService.read(inqryNo);
+            m.addAttribute("inqryDTO", inqryDTO);
+            System.out.println("inqryNo = " + inqryNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ViewPath.BOS_CS + "adminInqry";
+    }
+
+    @PostMapping("/modify")
+    @ResponseBody
+    public int updateInqry(@RequestBody InqryDTO inqryDTO, HttpSession session) {
+        Integer regrId = (Integer) session.getAttribute("mbrId");
+        inqryDTO.setRegrId(regrId);
+
+        try {
+            // inqryDTO에서 필요한 데이터를 추출하고 비즈니스 로직을 처리합니다.
+            // 이후 inqryService를 통해 DB에 업데이트 작업을 수행합니다.
+            inqryService.modifyAnswerOnly(inqryDTO);
+
+            // 성공적으로 등록되었음을 클라이언트에게 알리기 위해 1 반환
+            return 1;
+        } catch (Exception e) {
+            // 예외 처리가 필요한 경우 처리합니다.
+            e.printStackTrace();
+            // 오류가 발생했음을 나타내는 오류 코드를 반환
+            return -1;
+        }
+    }
+
 }

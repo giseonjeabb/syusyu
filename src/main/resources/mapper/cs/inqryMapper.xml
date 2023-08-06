@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.InqryMapper">
-
     <select id="select" parameterType="int" resultType="InqryDTO">
         select INQRY_NO,
                INQRY_TP,

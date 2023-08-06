@@ -3,7 +3,6 @@ package com.teamProject.syusyu.controller.fos.member;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.member.MemberDTO;
 import com.teamProject.syusyu.service.fos.member.FOS_MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -77,9 +76,10 @@ public class FOS_LoginController {
         try {
             // 1. id와 pwd를 확인한다.
             checkedMember = memberService.loginCheck(memberDTO);
-            if (checkedMember == null) {
+
+            if (checkedMember == null)
                 throw new Exception("잘못된 아이디 또는 비밀번호");
-            }
+
         } catch (Exception e) {
             // 로그인 확인 중 예외 발생
             e.printStackTrace();
@@ -89,6 +89,7 @@ public class FOS_LoginController {
         // 로그인 성공 시 세션에 ID 저장
         HttpSession session = request.getSession();
         session.setAttribute("mbrId", checkedMember.getMbrId());
+        session.setAttribute("memberDTO", checkedMember);
 
         // 사용자의 권한에 따른 리다이렉트 URL 설정
         String redirectUrl = determineRedirectUrlBasedOnRole(checkedMember.getRole(), session);
@@ -116,7 +117,15 @@ public class FOS_LoginController {
             return ADMIN_DASHBOARD_URL;
         } else {
             // 이전 페이지 URL을 세션에서 가져옴
-            return (String) session.getAttribute("prevPage");
+            String prevPage = (String) session.getAttribute("prevPage");
+            System.out.println("prevPage = " + prevPage);
+            if (prevPage.contains("/fos/register")) {
+                prevPage = "/";
+            }
+
+            System.out.println("prevPage = " + prevPage);
+
+            return prevPage;
         }
     }
 }
