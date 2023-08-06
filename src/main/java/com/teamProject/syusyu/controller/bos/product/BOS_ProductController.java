@@ -191,4 +191,9 @@ public class BOS_ProductController {
         }
     }
 
+    @GetMapping("/product/ProductList")
+    public String getProductList() {
+        return ViewPath.BOS_PRODUCT+"productManagement";
+    }
 }
+

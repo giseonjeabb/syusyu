@@ -5,6 +5,28 @@
 <c:set var="categories" value="${sessionScope.categories}"/>
 <head>
     <script src="<c:url value='${jsUrlFos}/product/productList.js'/>"></script>
+    <style>
+        .star-rating {
+            position: relative;
+            display: inline-block;
+        }
+
+        .star-rating span {
+            font-size: 20px;  // 원하는 크기로 조절
+        }
+
+        .star-rating .star-rating-top {
+            color: black;  // 원하는 색상으로 조절
+        position: absolute;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-rating .star-rating-bottom {
+            color: lightgrey;  // 원하는 색상으로 조절
+        z-index: 0;
+        }
+    </style>
 </head>
 
 

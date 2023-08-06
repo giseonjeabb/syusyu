@@ -194,11 +194,14 @@ const showProductList = (data) => {
                 itemAmountP.appendChild(itemWonSpan);
             }
 
+
+
             //리뷰 별점, 리뷰수
             const itemRevwDiv = document.createElement('div');
             itemRevwDiv.setAttribute('class', 'grade');
 
             const itemRevwStrong = document.createElement('strong');
+            itemRevwStrong.style.width='${(item.avgStarRating*100)/5}';
             itemRevwStrong.innerText = `${item.avgStarRating}`;
 
             const itemRevwSpan = document.createElement('span');
