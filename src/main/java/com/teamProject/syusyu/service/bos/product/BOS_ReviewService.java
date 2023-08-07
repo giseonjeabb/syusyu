@@ -15,4 +15,6 @@ public interface BOS_ReviewService {
     List<ReviewDTO> getSearchSelectPageReview(SearchCondition sc) throws Exception;
 
     int getSearchResultCntReview(SearchCondition sc) throws Exception;
+
+    int removeAdmin(Integer revwNo)throws Exception;
 }

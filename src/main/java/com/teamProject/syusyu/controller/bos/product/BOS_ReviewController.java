@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -46,6 +49,23 @@ public class BOS_ReviewController {
         }
         return ViewPath.BOS_PRODUCT+"BOS_ReviewList";
 
+    }
+    @PostMapping("reviewRemoveAdmin")
+    public String removeUser(Integer revwNo, ReviewDTO reviewDTO, SearchCondition sc, Model m , RedirectAttributes rattr , @SessionAttribute int mbrId){
+
+        try {
+            reviewDTO.setRegrId(mbrId);
+
+            m.addAttribute("sc",sc);
+            System.out.println("revwNo = " + revwNo);
+
+            reviewService.removeAdmin(revwNo);
+            rattr.addFlashAttribute("msg","DEL_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+        }
+        return "redirect:/bos/reviewList";
     }
 
 }

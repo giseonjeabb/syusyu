@@ -110,7 +110,7 @@
                         <td><c:out value="${reviewDTO.lginId}"/></td>
     <%--                <td><a href = "<c:url value="/bos/faqRead${ph.sc.queryString}&faqNo=${faqDTO.faqNo}"/>"> ${faqDTO.title}</a></td> &lt;%&ndash;-FAQ 제목-&ndash;%&gt;--%>
                         <td><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
-                        <td><button type="button" id="removeBtn" class="removeBtn" data-faq-no="${reviewDTO.revwNo}">삭 제</button></td>
+                        <td><button type="button" id="removeBtn" class="removeBtn" data-revw-no="${reviewDTO.revwNo}">삭 제</button></td>
                     </tr>
             </c:forEach>
 
@@ -174,8 +174,8 @@
         $('.removeBtn').on("click", function(){
             if(!confirm("삭제 하시겠습니까 ?")) return;
             let form =  $('#form');
-            const faqNo = $(this).data("faq-no");
-            let url =  "/bos/faqRemove?faqNo=" + faqNo;
+            const revwNo = $(this).data("revw-no");
+            let url =  "/bos/reviewRemoveAdmin?revwNo=" + revwNo;
             form.attr("action", url);
             form.attr("method", "post");
             form.submit();

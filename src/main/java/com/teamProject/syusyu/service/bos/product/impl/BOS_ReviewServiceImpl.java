@@ -36,6 +36,11 @@ public class BOS_ReviewServiceImpl implements BOS_ReviewService {
     }
 
     @Override
+    public int removeAdmin(Integer revwNo)throws Exception{
+        return reviewDAO.deleteAdmin(revwNo);
+    }
+
+    @Override
     public List<ReviewDTO> getSearchSelectPageReview(SearchCondition sc)throws Exception{
         return reviewDAO.SearchSelectPageReview(sc);
     }
