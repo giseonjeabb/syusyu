@@ -76,10 +76,10 @@
                         <div class="h-search-autocomplete"></div>
                     </div>
                     <div class="header-bottom-utils">
-                        <a href="/fos/mypage/main" class="btn icon mypage"><span class="text">마이페이지</span></a>
+                        <a href="/fos/orderView" class="btn icon mypage"><span class="text">마이페이지</span></a>
                         <a href="/fos/cart" class="btn icon bag" style="display: inline-block">
                             <span class="text">장바구니</span>
-                            <span class="cnt" data-name="basket-cnt">3</span>
+<%--                            <span class="cnt" data-name="basket-cnt">3</span>--%>
                         </a>
                     </div>
                 </div>

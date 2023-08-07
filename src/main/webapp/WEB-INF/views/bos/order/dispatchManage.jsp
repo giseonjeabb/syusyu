@@ -99,6 +99,7 @@
     <div class="grid-container">
         <div>
             <div class="button_area">
+                <button id="btn_excel_download" class="btn btn-outline-dark date_range">엑셀 다운로드</button>
                 <button id="btn_order_confirm" class="btn btn-outline-dark date_range">주문확인</button>
                 <button id="btn_order_dispatch" class="btn btn-outline-dark date_range">발송처리</button>
             </div>

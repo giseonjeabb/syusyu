@@ -5,6 +5,7 @@ import com.teamProject.syusyu.domain.order.PayDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -17,7 +18,7 @@ public class PayDAOImpl implements PayDAO {
     }
 
     /**
-     * 결제 정보를 DB에 삽입한다.
+     * 결제 정보를 삽입한다.
      *
      * @param payDTO 삽입할 결제 정보를 담은 DTO
      * @return DB에 성공적으로 삽입된 row의 수
@@ -45,7 +46,7 @@ public class PayDAOImpl implements PayDAO {
     }
 
     /**
-     * 결제번호에 해당하는 결제 정보를 DB에서 조회한다.
+     * 결제번호에 해당하는 결제 정보를 조회한다.
      *
      * @param payNo 조회할 결제 정보의 결제번호
      * @return 조회된 결제 정보를 담은 DTO
@@ -73,7 +74,7 @@ public class PayDAOImpl implements PayDAO {
     }
 
     /**
-     * 모든 결제 정보를 DB에서 삭제한다.
+     * 모든 결제 정보를 삭제한다.
      *
      * @return DB에서 성공적으로 삭제된 row의 수
      * @throws Exception DB 삭제 도중 발생할 수 있는 예외
@@ -86,7 +87,7 @@ public class PayDAOImpl implements PayDAO {
     }
 
     /**
-     * DB에 저장된 결제 정보의 총 개수를 조회한다.
+     * 결제 정보의 총 개수를 조회한다.
      *
      * @return DB에 저장된 결제 정보의 총 개수
      * @throws Exception DB 조회 도중 발생할 수 있는 예외
@@ -97,4 +98,18 @@ public class PayDAOImpl implements PayDAO {
     public int countPay() throws Exception {
         return session.selectOne(namespace + "countPay");
     }
+
+    /**
+     * 최근 1개월간 일별 결제금액을 조회한다.
+     *
+     * @return 일별 결제금액 정보를 담은 Map의 List
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/08/06
+     */
+    @Override
+    public List<Map<String, Object>> selectDailyTotalPayAmt() throws Exception {
+        return session.selectList(namespace + "selectDailyTotalPayAmt");
+    }
+
 }

@@ -11843,4 +11843,63 @@ body {
   width: 100%;
 }
 
+.data_view_table_container {
+  width: 800px;
+  margin: 20px;
+}
+.data_view_table_container > p {
+  border: 3px solid #e8e8e8;
+  padding: 10px;
+}
+.data_view_table_container h5 {
+  margin-top: 20px;
+}
+.data_view_table_container .data_view_table {
+  background-color: white;
+}
+.data_view_table_container .data_view_table table {
+  width: 100%;
+}
+.data_view_table_container .data_view_table th, .data_view_table_container .data_view_table td {
+  border: 1px solid #d9dadc;
+  padding: 13px 20px 13px 22px;
+}
+.data_view_table_container .data_view_table th {
+  padding-left: 10px;
+  background-color: #fafafb;
+}
+.data_view_table_container .data_view_table td {
+  padding: 10px;
+}
+.data_view_table_container .data_view_table td * {
+  margin-right: 10px;
+  float: left;
+}
+
+.popup-head {
+  position: relative;
+  background-color: #587dc8;
+  color: white;
+  padding: 7px 5px 5px 10px;
+}
+.popup-head .btn.remove_19 {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background: url("../../../image/remove_1.svg") no-repeat center center;
+}
+.popup-head .btn.remove_19 > .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
 /*# sourceMappingURL=dashboard.css.map */

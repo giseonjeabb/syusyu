@@ -11,6 +11,7 @@
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
 <script src="<c:url value="${jsUrlBos}/common/bos-common.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/chart-common.js"/>"></script>
 <%--e : ============================== 공통함수 ==============================--%>
 
 <%--부트스트랩 js--%>
@@ -28,9 +29,13 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <%--e : ============================== flatpickr 캘린더 라이브러리 ==============================--%>
 
+<%--xlsx : 엑셀 라이브러리--%>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
 <%-- s : ============================== Tabulator ==============================--%>
 <!-- Tabulator 라이브러리 -->
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 <%-- Tabulator 공통 함수 --%>
 <script src="<c:url value="${jsUrlBos}/common/tabulator-common.js"/>"></script>
 <%--e : ============================== Tabulator ==============================--%>
+

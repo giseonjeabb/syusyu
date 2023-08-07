@@ -1,4 +1,4 @@
-
+@import "../common/variables";
 
 .wrap-pagination {
   margin: 50px auto 0;
@@ -34,8 +34,8 @@
 .faqType-small.active {
   font-weight: 700;
   color: #fff;
-  border: 1px solid #d3233a;
-  background-color: #d3233a;
+  border: 1px solid #587dc8;
+  background-color: #587dc8;
 }
 .wrap-pagination .page.paging-active {
   font-weight: bold;

@@ -5,6 +5,7 @@ orderSheet = {
 
         // 전화번호 포매팅
         formatPhoneNumberForElement('memberMpNoTxt');
+        formatPhoneNumberForElement('mpNoTxt');
     },
 
     bindButtonEvent: () => { // 버튼에 이벤트 핸들러를 연결

@@ -24,7 +24,7 @@
                , #{regrId})
     </insert>
 
-    <select id="selectOrdDlvAddr" parameterType="int" resultType="OrdDlvAddrDTO">
+    <select id="selectOrdDlvAddrByOrdDtlNo" parameterType="int" resultType="OrdDlvAddrDTO">
         SELECT RECIPIENT
              , DFLT_ADDR
              , DTL_ADDR
@@ -32,6 +32,16 @@
              , DLV_REQ_COMT
         FROM ORD_DLV_ADDR
         WHERE ORD_NO = (SELECT ORD_NO FROM ORD_DTL WHERE ORD_DTL_NO = #{ordDtlNo})
+    </select>
+
+    <select id="selectOrdDlvAddrByOrdNo" parameterType="int" resultType="OrdDlvAddrDTO">
+        SELECT RECIPIENT
+             , DFLT_ADDR
+             , DTL_ADDR
+             , MP_NO
+             , DLV_REQ_COMT
+        FROM ORD_DLV_ADDR
+        WHERE ORD_NO = #{ordNo}
     </select>
 
     <delete id="deleteAllOrdDlvAddr">

@@ -20,7 +20,8 @@ public class OrderInfoDTO {
     private int qty; // 수량
     private int prodAmt; // 상품금액 (할인가격 + 옵션가) * 주문수량
     private String optNm; // 옵션명
-    private String payTp; // 결제방법
+    private String payTp; // 결제방법코드
+    private String payTpNm; // 결제방법코드
     private int realPayAmt; // 결제금액
     private String repImg; // 이미지
     private String claimStus; // 클레임 처리상태
@@ -145,6 +146,14 @@ public class OrderInfoDTO {
         this.payTp = payTp;
     }
 
+    public String getPayTpNm() {
+        return payTpNm;
+    }
+
+    public void setPayTpNm(String payTpNm) {
+        this.payTpNm = payTpNm;
+    }
+
     public int getRealPayAmt() {
         return realPayAmt;
     }
@@ -226,6 +235,7 @@ public class OrderInfoDTO {
                 ", prodAmt=" + prodAmt +
                 ", optNm='" + optNm + '\'' +
                 ", payTp='" + payTp + '\'' +
+                ", payTpNm='" + payTpNm + '\'' +
                 ", realPayAmt=" + realPayAmt +
                 ", repImg='" + repImg + '\'' +
                 ", claimStus='" + claimStus + '\'' +
@@ -252,6 +262,7 @@ public class OrderInfoDTO {
         private int prodAmt;
         private String optNm;
         private String payTp;
+        private String payTpNm;
         private int realPayAmt;
         private String repImg;
         private String claimStus;
@@ -338,6 +349,11 @@ public class OrderInfoDTO {
             return this;
         }
 
+        public Builder payTpNm(String payTpNm) {
+            this.payTpNm = payTpNm;
+            return this;
+        }
+
         public Builder realPayAmt(int realPayAmt) {
             this.realPayAmt = realPayAmt;
             return this;
@@ -394,6 +410,7 @@ public class OrderInfoDTO {
             orderInfoDTO.setProdAmt(prodAmt);
             orderInfoDTO.setOptNm(optNm);
             orderInfoDTO.setPayTp(payTp);
+            orderInfoDTO.setPayTpNm(payTpNm);
             orderInfoDTO.setRealPayAmt(realPayAmt);
             orderInfoDTO.setRepImg(repImg);
             orderInfoDTO.setClaimStus(claimStus);
