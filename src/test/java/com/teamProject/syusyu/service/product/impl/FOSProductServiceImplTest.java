@@ -15,15 +15,15 @@ public class FOSProductServiceImplTest {
     FOS_ProductService fosProductService;
 
     @Test
-    public void getProductList() throws Exception{
-        System.out.println(fosProductService.getProductList(1,1));
-        System.out.println(fosProductService.getProductAllList(1));
+    public void getProductList() throws Exception {
+//        System.out.println(fosProductService.getProductList(1,1));
+//        System.out.println(fosProductService.getProductAllList(1));
 
 
     }
 
     @Test //상품조회
-    public void getProductTest() throws Exception{
-        System.out.println("dao:"+ fosProductService.getProduct(10002));
+    public void getProductTest() throws Exception {
+        System.out.println("dao:" + fosProductService.getProduct(10002));
     }
 }

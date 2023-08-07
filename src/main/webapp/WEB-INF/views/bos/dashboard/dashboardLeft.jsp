@@ -37,7 +37,7 @@
             </a>
             <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="#">상품 조회 / 수정</a>
+                    <a class="nav-link" href="<c:url value='/bos/product/productList'/>">상품 조회 / 수정</a>
                     <a class="nav-link" href="<c:url value='/bos/productRegister'/>">상품 등록</a>
                     <a class="nav-link" href="#">상품 일괄 등록</a>
                     <a class="nav-link" href="#">배송정보관리</a>
