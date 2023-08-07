@@ -6,9 +6,13 @@
 
 
 <head>
-  <style>
-    @import url(${cssUrlBos}/cs/adminNoticeModify.scss);
-  </style>
+  <script src="<c:url value='/static/bos/summernote/summernote-lite.js'/>"></script>
+  <link href="<c:url value='/static/bos/summernote/summernote-lite.css'/>" rel="stylesheet">
+  <script src="<c:url value='/static/bos/summernote/lang/summernote-ko-KR.js'/>"></script>
+
+    <style>
+      @import url(${cssUrlBos}/cs/adminNoticeModify.scss);
+    </style>
 </head>
 
 <script>
@@ -46,8 +50,9 @@
     <input name="title" type="text" value="${noticeDTO.title}" class="detail-tit1" placeholder="제목을 입력해 주세요." required><br>
 
     <!-- Notice Content -->
+
     상세내용
-    <textarea name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required>${noticeDTO.content}</textarea>
+    <textarea id="summernote" name="content" rows="15" class="detail-cont" placeholder="내용을 입력해 주세요." required>${noticeDTO.content}</textarea>
 
 
 
@@ -76,6 +81,21 @@
 
   // Define button click event handlers
   $(document).ready(function() {
+
+    $('#summernote').summernote({
+      placeholder: 'Hello stand alone ui',
+      tabsize: 2,
+      height: 300,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']]
+      ]
+    });
 
 
     $("#listBtn").on("click", function(){

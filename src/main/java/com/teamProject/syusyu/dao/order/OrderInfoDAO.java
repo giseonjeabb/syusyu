@@ -18,4 +18,6 @@ public interface OrderInfoDAO {
     List<Map<String, Integer>> countByOrdStus() throws Exception;
 
     OrderInfoDTO selectOrdDtl(int ordDtlNo) throws Exception;
+
+    List<Map<String, Object>> selectPayByProd() throws Exception;
 }

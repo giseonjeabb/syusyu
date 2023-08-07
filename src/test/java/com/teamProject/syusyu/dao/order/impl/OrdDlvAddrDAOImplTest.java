@@ -47,7 +47,7 @@ public class OrdDlvAddrDAOImplTest {
         assertEquals(1, result);  // 삽입 결과 확인
 
         // 삽입된 배송지 정보 조회
-        OrdDlvAddrDTO insertedOrdDlvAddr = dao.selectOrdDlvAddr(ordDlvAddr.getOrdDlvAddrNo());
+        OrdDlvAddrDTO insertedOrdDlvAddr = dao.selectOrdDlvAddrByOrdDtlNo(ordDlvAddr.getOrdDlvAddrNo());
         assertNotNull(insertedOrdDlvAddr);  // 조회 결과 확인
         assertEquals(ordDlvAddr.getOrdNo(), insertedOrdDlvAddr.getOrdNo());
 
@@ -79,12 +79,12 @@ public class OrdDlvAddrDAOImplTest {
         dao.insertOrdDlvAddr(ordDlvAddr);
 
         // 삽입한 배송지 정보 조회
-        OrdDlvAddrDTO selectedOrdDlvAddr = dao.selectOrdDlvAddr(ordDlvAddr.getOrdDlvAddrNo());
+        OrdDlvAddrDTO selectedOrdDlvAddr = dao.selectOrdDlvAddrByOrdDtlNo(ordDlvAddr.getOrdDlvAddrNo());
         assertNotNull(selectedOrdDlvAddr);  // 조회 결과 확인
         assertEquals(ordDlvAddr.getOrdNo(), selectedOrdDlvAddr.getOrdNo());
 
         // 존재하지 않는 배송지 정보 조회
-        OrdDlvAddrDTO notExistingOrdDlvAddr = dao.selectOrdDlvAddr(99);
+        OrdDlvAddrDTO notExistingOrdDlvAddr = dao.selectOrdDlvAddrByOrdDtlNo(99);
         assertNull(notExistingOrdDlvAddr);  // 조회 결과 확인 (null이어야 함)
     }
 

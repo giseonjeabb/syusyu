@@ -10,7 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -186,5 +188,15 @@ public class PayDAOImplTest {
 
         dao.insertPay(pay);
         assertEquals(1, dao.countPay());
+    }
+
+    @Test
+    public void selectDailyTotalPayAmtTest() throws Exception {
+        List<Map<String, Object>> test = dao.selectDailyTotalPayAmt();
+
+        List<String> payDttmList = test.stream() .map(map -> (String) map.get("PAY_DTTM")) .collect(Collectors.toList());
+        List<Integer> totPayAmtList = test.stream() .map(map -> (Integer) map.get("TOT_PAY_AMT")) .collect(Collectors.toList());
+        System.out.println("test = " + test);
+
     }
 }

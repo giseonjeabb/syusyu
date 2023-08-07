@@ -89,6 +89,9 @@
 
     <div class="grid-container">
         <div>
+            <div class="button_area">
+                <button id="btn_excel_download" class="btn btn-outline-dark date_range">엑셀 다운로드</button>
+            </div>
             <div class="rowCount">
                 <p>총 건수 : <span class="h3_txt" id="resultCnt">0</span> 건</p>
             </div>

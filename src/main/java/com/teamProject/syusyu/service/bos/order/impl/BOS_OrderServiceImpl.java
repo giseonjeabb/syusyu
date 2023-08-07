@@ -123,7 +123,7 @@ public class BOS_OrderServiceImpl extends OrderServiceBase implements BOS_OrderS
         DeliveryDTO delivery = deliveryDAO.selectDelivery(ordDtlNo);
 
         // 3. 배송지정보 조회
-        OrdDlvAddrDTO ordDlvAddr = ordDlvAddrDAO.selectOrdDlvAddr(ordDtlNo);
+        OrdDlvAddrDTO ordDlvAddr = ordDlvAddrDAO.selectOrdDlvAddrByOrdDtlNo(ordDtlNo);
 
         // 4. 주문처리이력 조회
         List<OrdStusHistDTO> ordStusHistList = ordStusHistDAO.selectOrderStatusHistory(ordDtlNo);
