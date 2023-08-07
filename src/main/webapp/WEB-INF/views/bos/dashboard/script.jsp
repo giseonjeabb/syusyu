@@ -11,6 +11,7 @@
 <%--ajax 요청 공통 함수 라이브러리--%>
 <script src="<c:url value="${jsUrlCommon}/ajax.js"/>"></script>
 <script src="<c:url value="${jsUrlBos}/common/bos-common.js"/>"></script>
+<script src="<c:url value="${jsUrlCommon}/chart-common.js"/>"></script>
 <%--e : ============================== 공통함수 ==============================--%>
 
 <%--부트스트랩 js--%>
