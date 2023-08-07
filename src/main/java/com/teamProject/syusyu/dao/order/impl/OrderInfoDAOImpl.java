@@ -102,4 +102,18 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     public OrderInfoDTO selectOrdDtl(int ordDtlNo) throws Exception {
         return session.selectOne(namespace + "selectOrdDtl", ordDtlNo);
     }
+
+    /**
+     * 상품별 판매액을 조회한다.
+     *
+     * @return 각 상품의 ID와 총 판매액을 담은 Map의 리스트
+     * @throws Exception DB 조회 도중 발생할 수 있는 예외
+     * @author min
+     * @since 2023/08/06
+     */
+    @Override
+    public List<Map<String, Object>> selectPayByProd() throws Exception {
+        return session.selectList(namespace + "selectPayByProd");
+    }
+
 }

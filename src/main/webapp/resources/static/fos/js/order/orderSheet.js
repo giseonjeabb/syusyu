@@ -193,8 +193,6 @@ function createOrder(rsp) {
         dlvReqComt: "문 앞에 놔주세요" // TODO 수정필요
     };
 
-    debugger;
-
     // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
     // jQuery로 HTTP 요청
     $.ajax({

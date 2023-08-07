@@ -19,6 +19,7 @@ dispatchManage = {
         const $orderDispatchBtn = document.querySelector('#btn_order_dispatch'); // 발송처리 버튼
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
         const $statusButtonArea = document.querySelector('.status_button_area');
+        const $excelDownloadBtn = document.querySelector('#btn_excel_download'); // 엑셀 다운로드 버튼
 
         $searchNewOrderBtn.addEventListener('click', dispatchManage.eventHandler.searchNewOrderBtnClick);
         $searchOrderConfirmBtn.addEventListener('click', dispatchManage.eventHandler.searchOrderConfirmBtnClick);
@@ -28,6 +29,7 @@ dispatchManage = {
         $orderDispatchBtn.addEventListener('click', dispatchManage.eventHandler.orderDispatchBtnClick);
         $orderStatusCheckbox.addEventListener('click', (e) => dispatchManage.eventHandler.orderStatusCheckboxClick(e));
         $statusButtonArea.addEventListener('click', dispatchManage.eventHandler.statusButtonAreaClick);
+        $excelDownloadBtn.addEventListener('click', dispatchManage.eventHandler.excelDownloadBtnClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -36,6 +38,10 @@ dispatchManage = {
 
 namespace("dispatchManage.eventHandler");
 dispatchManage.eventHandler = {
+    excelDownloadBtnClick() {
+        dispatchManageGrid.download("xlsx", `주문확인/발송관리_${getYYYYMMDDHHMM()}.xlsx`);
+    },
+
     statusButtonAreaClick(e) {
         const that = e.target;
 
@@ -209,23 +215,11 @@ dispatchManage.function = {
         const gridId = '#dispatchManageGrid';
 
         const columns = [ // 테이블의 열을 정의한다.
-            {
-                title: "Select",
-                width: 20,
-                formatter: "rowSelection",
-                titleFormatter: "rowSelection",
-                hozAlign: "center",
-                headerSort: false
-            }, // 체크박스 컬럼 추가
+            {title: "Select", width: 20, formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false, download: false}, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo", width: 120},
             {title: "주문상세번호", field: "ordDtlNo", width: 160, cellClick: syusyu.common.Tabulator.openOrderDetailPopup, formatter: syusyu.common.Tabulator.blueCellFormatter},
             {title: "발송처리일", field: "dispatchDttm", width: 200},
-            {
-                title: "택배사",
-                field: "dlvCom",
-                width: 160,
-                editor: "select",
-                editorParams: {
+            {title: "택배사", field: "dlvCom", width: 160, editor: "select", editorParams: {
                     values: {
                         "1": "롯데택배",
                         "2": "하나로택배",
@@ -266,12 +260,7 @@ dispatchManage.function = {
             {title: "수량", field: "qty", width: 120, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "상품금액", field: "prodAmt", width: 160, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "결제방법", field: "payTpNm", width: 120},
-            {
-                title: "결제금액",
-                field: "realPayAmt",
-                width: 200,
-                formatter: syusyu.common.Tabulator.formatNumberForTabulator
-            },
+            {title: "결제금액", field: "realPayAmt", width: 200, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
         ];
 
 

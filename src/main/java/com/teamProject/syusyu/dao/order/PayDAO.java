@@ -2,6 +2,7 @@ package com.teamProject.syusyu.dao.order;
 
 import com.teamProject.syusyu.domain.order.PayDTO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PayDAO {
@@ -15,4 +16,6 @@ public interface PayDAO {
 
     int deleteAllPay() throws Exception;
     int countPay() throws Exception;
+
+    List<Map<String, Object>> selectDailyTotalPayAmt() throws Exception;
 }

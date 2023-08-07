@@ -14,10 +14,12 @@ orderView = {
         const $searchBtn = document.querySelector('#btn_search');
         const $dateRangeContainer = document.querySelector('.date_range_container'); // 날짜 범위 선택 tab container
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
+        const $excelDownloadBtn = document.querySelector('#btn_excel_download'); // 엑셀 다운로드
 
         $searchBtn.addEventListener('click', orderView.function.getOrderList);
         $dateRangeContainer.addEventListener('click', orderView.eventHandler.dateRangeContainerClick);
         $orderStatusCheckbox.addEventListener('click', (e) => orderView.eventHandler.orderStatusCheckboxClick(e));
+        $excelDownloadBtn.addEventListener('click', orderView.eventHandler.excelDownloadBtnClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -26,6 +28,10 @@ orderView = {
 
 namespace("orderView.eventHandler");
 orderView.eventHandler = {
+    excelDownloadBtnClick() {
+        orderViewGrid.download("xlsx", `주문통합검색_${getYYYYMMDDHHMM()}.xlsx`);
+    },
+
     // 주문 상태 체크박스 클릭 이벤트 핸들러
     orderStatusCheckboxClick(e) {
         const chkAll = document.querySelector('#chk-all');
@@ -113,7 +119,7 @@ orderView.function = {
         const gridId = '#orderViewGrid';
 
         const columns = [ // 테이블의 열을 정의한다.
-            {title: "Select", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false}, // 체크박스 컬럼 추가
+            {title: "Select", formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false, download: false}, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo"},
             {title: "주문상세번호", field: "ordDtlNo", cellClick: syusyu.common.Tabulator.openOrderDetailPopup, formatter: syusyu.common.Tabulator.blueCellFormatter},
             {title: "주문일시", field: "ordDttm"},

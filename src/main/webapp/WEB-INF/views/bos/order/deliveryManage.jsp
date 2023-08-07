@@ -100,6 +100,7 @@
     <div class="grid-container">
         <div>
             <div class="button_area">
+                <button id="btn_excel_download" class="btn btn-outline-dark date_range">엑셀 다운로드</button>
                 <button id="btn_delivery_complete" class="btn btn-outline-dark date_range">배송완료</button>
             </div>
             <div class="rowCount">
