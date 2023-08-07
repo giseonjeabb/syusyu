@@ -36,7 +36,8 @@
                r.HEIGHT,
                r.WEIGHT,
                r.LIKE_CNT,
-               r.REVW_CN
+               r.REVW_CN,
+               r.IMAGE_LIST
         FROM review r, member m
         WHERE r.REGR_ID = m.MBR_ID
           AND r.PROD_ID = #{prodId}
@@ -81,8 +82,8 @@
 <!--    항사 1이기에 resultType을 안쓰나보다-->
     <insert id="insert" parameterType="ReviewDTO">
         INSERT INTO review
-            (PROD_ID, STAR_RATING, HEIGHT, WEIGHT, SHOE_SIZE, REVW_CN, REGR_ID)
-        VALUES (#{prodId}, #{starRating}, #{height}, #{weight}, #{shoeSize}, #{revwCn}, #{regrId})
+            (PROD_ID, STAR_RATING, HEIGHT, WEIGHT, SHOE_SIZE, REVW_CN, REGR_ID ,IMAGE_LIST)
+        VALUES (#{prodId}, #{starRating}, #{height}, #{weight}, #{shoeSize}, #{revwCn}, #{regrId} , #{imageList})
     </insert>
 
 
@@ -102,7 +103,8 @@
             WEIGHT = #{weight},             -- 무게
             SHOE_SIZE = #{shoeSize},        -- 신발 사이즈
             REVW_CN = #{revwCn},            -- 리뷰 내용
-            UPD_DTTM = now()                -- 글 수정한 시간
+            UPD_DTTM = now(),                -- 글 수정한 시간
+            IMAGE_LIST = #{imageList}        -- 이미지 경로
         WHERE REVW_NO = #{revwNo}           -- 리뷰 글 번호
         AND REGR_ID = #{regrId}             -- 작성자 id
         AND PROD_ID = #{prodId}             -- 상품 id
@@ -130,7 +132,6 @@
 <!--    and od.ORD_STUS = 60;-->
 
 <!--    select * from comm_code where CD_TP_NM like '%주문%';-->
-
 
 
 

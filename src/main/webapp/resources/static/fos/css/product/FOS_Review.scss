@@ -1,0 +1,19 @@
+#reviewImg{
+  width: 250px;
+  height: 150px;
+}
+.rev-detail {
+  display: flex;
+  align-items: center;
+}
+#ReviewInfo{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#ReviewContent{
+  margin-right: 50px;
+  margin-left: 30px;
+}
+
