@@ -145,4 +145,23 @@
                  LEFT JOIN ORD_CLAIM OC ON OD.ORD_DTL_NO = OC.ORD_DTL_NO
         WHERE OD.ORD_DTL_NO = #{ordDtlNo};
     </select>
+
+    <!--상품별 판매액 통계쿼리-->
+    <select id="selectPayByProd" resultType="Map">
+        SELECT PROD_NM, TOT_PROD_AMT
+        FROM (SELECT PROD_NM, PROD_ID, SUM(PROD_AMT) AS TOT_PROD_AMT
+              FROM (SELECT PROD.PROD_ID
+                         , PROD.PROD_NM
+                         , (GET_DC_PRC(OD.PROD_PRC, OD.PROD_DC_PER) + IFNULL(PO.OPT_PRC, 0)) *
+                           OD.QTY AS PROD_AMT # 상품금액(할인가격 + 옵션가) * 주문수량
+                    FROM ORD O
+                             JOIN ORD_DTL OD ON O.ORD_NO = OD.ORD_NO
+                             JOIN PAY P ON OD.ORD_NO = P.ORD_NO
+                             JOIN PRODUCT PROD ON OD.PROD_ID = PROD.PROD_ID
+                             LEFT JOIN PROD_OPT PO ON OD.OPT_COMB_NO = PO.OPT_COMB_NO
+                        AND P.PAY_STUS NOT IN (20, 30)) A
+              GROUP BY PROD_ID, PROD_NM) B
+        ORDER BY TOT_PROD_AMT DESC
+        LIMIT 5
+    </select>
 </mapper>
