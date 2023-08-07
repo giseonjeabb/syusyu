@@ -99,6 +99,15 @@
         WHERE PAY_NO = #{payNo}
     </select>
 
+    <select id="selectDailyTotalPayAmt" resultType="Map">
+        SELECT DATE_FORMAT(REG_DTTM, '%Y-%m-%d') AS PAY_DTTM
+             , SUM(ORGN_PAY_AMT) AS TOT_PAY_AMT
+        FROM PAY
+        WHERE REG_DTTM >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        GROUP BY DATE_FORMAT(REG_DTTM, '%Y-%m-%d')
+        ORDER BY PAY_DTTM
+    </select>
+
     <!--주문 취소 시 이전 PAY 데이터 일부주문취소(20)/주문취소(30)로 변경-->
     <update id="updateCancelPay" parameterType="Map">
         UPDATE PAY

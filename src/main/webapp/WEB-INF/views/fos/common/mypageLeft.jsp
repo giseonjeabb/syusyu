@@ -9,7 +9,7 @@
             <dd><a href="" class="">취소/교환/반품 조회</a></dd>
             <dt class="title-t ty7">혜택정보</dt>
             <dd><a href="" class="">쿠폰</a></dd>
-            <dd><a href="" class="active">포인트</a></dd>
+            <dd><a href="">포인트</a></dd>
             <dt class="title-t ty7">쇼핑활동</dt>
             <dd><a href="" class="">상품후기</a></dd>
             <dd><a href="" class="">찜리스트</a></dd>

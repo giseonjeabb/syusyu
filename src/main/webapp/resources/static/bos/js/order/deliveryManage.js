@@ -19,6 +19,7 @@ deliveryManage = {
         const $orderStatusCheckbox = document.querySelector('#orderStatusCheckbox'); // 주문상태 체크박스
         const $statusButtonArea = document.querySelector('.status_button_area');
         const $deliveryCompleteBtn = document.querySelector('#btn_delivery_complete'); // 배송완료 버튼
+        const $excelDownloadBtn = document.querySelector('#btn_excel_download'); // 엑셀 다운로드 버튼
 
         $searchInDeliveryBtn.addEventListener('click', deliveryManage.eventHandler.searchInDeliveryBtnClick);
         $searchDeliveryCompleteBtn.addEventListener('click', deliveryManage.eventHandler.searchDeliveryCompleteBtnClick);
@@ -27,6 +28,7 @@ deliveryManage = {
         $orderStatusCheckbox.addEventListener('click', (e) => deliveryManage.eventHandler.orderStatusCheckboxClick(e));
         $statusButtonArea.addEventListener('click', deliveryManage.eventHandler.statusButtonAreaClick);
         $deliveryCompleteBtn.addEventListener('click', deliveryManage.eventHandler.deliveryCompleteBtnClick);
+        $excelDownloadBtn.addEventListener('click', deliveryManage.eventHandler.excelDownloadBtnClick);
     },
 
     startDate: 'start_date', // 조회시작일
@@ -35,6 +37,10 @@ deliveryManage = {
 
 namespace("deliveryManage.eventHandler");
 deliveryManage.eventHandler = {
+    excelDownloadBtnClick() {
+        deliveryManageGrid.download("xlsx", `배송현황_${getYYYYMMDDHHMM()}.xlsx`);
+    },
+
     // 배송완료(주문상태 60으로 변경)
     deliveryCompleteBtnClick() {
         // 1. 선택되어있는 셀을 가져온다.
@@ -180,23 +186,11 @@ deliveryManage.function = {
         const gridId = '#deliveryManageGrid';
 
         const columns = [ // 테이블의 열을 정의한다.
-            {
-                title: "Select",
-                width: 20,
-                formatter: "rowSelection",
-                titleFormatter: "rowSelection",
-                hozAlign: "center",
-                headerSort: false
-            }, // 체크박스 컬럼 추가
+            {title: "Select", width: 20, formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", headerSort: false, download: false}, // 체크박스 컬럼 추가
             {title: "주문번호", field: "ordNo", width: 120},
             {title: "주문상세번호", field: "ordDtlNo", width: 160, cellClick: syusyu.common.Tabulator.openOrderDetailPopup, formatter: syusyu.common.Tabulator.blueCellFormatter},
             {title: "발송처리일", field: "dispatchDttm", width: 200},
-            {
-                title: "택배사",
-                field: "dlvCom",
-                width: 160,
-                editor: "select",
-                editorParams: {
+            {title: "택배사", field: "dlvCom", width: 160, editor: "select", editorParams: {
                     values: {
                         "1": "롯데택배",
                         "2": "하나로택배",
@@ -237,14 +231,8 @@ deliveryManage.function = {
             {title: "수량", field: "qty", width: 120, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "상품금액", field: "prodAmt", width: 160, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "결제방법", field: "payTpNm", width: 120},
-            {
-                title: "결제금액",
-                field: "realPayAmt",
-                width: 200,
-                formatter: syusyu.common.Tabulator.formatNumberForTabulator
-            },
+            {title: "결제금액", field: "realPayAmt", width: 200, formatter: syusyu.common.Tabulator.formatNumberForTabulator},
         ];
-
 
         deliveryManageGrid = syusyu.common.Tabulator.createTabulatorTable(gridId, orderList, columns, true);
     },
