@@ -11369,6 +11369,7 @@ body {
 .sb-topnav .navbar-brand {
   width: 225px;
   margin: 0;
+  color: white;
 }
 
 .sb-topnav.navbar-dark #sidebarToggle {
@@ -11900,6 +11901,126 @@ body {
   padding: 0;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+.panel_area {
+  background-color: white;
+  width: 100%;
+  text-align: left;
+  padding: 20px 10px 20px 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: 1px solid #d9dadc;
+  /* clearfix */
+  content: "";
+  clear: both;
+  display: table;
+}
+.panel_area .list-wrap {
+  width: 25%;
+  vertical-align: top;
+  display: inline-block;
+}
+.panel_area .list-wrap .panel-icon-area {
+  position: relative;
+}
+.panel_area .list-wrap .panel-icon-area .square-ico-area .icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin-left: 20px;
+  background-repeat: no-repeat;
+}
+.panel_area .list-wrap .panel-icon-area .square-ico-area .icon.icon-order-complete {
+  background-color: #f4d749;
+  background-image: url(../../../image/gift-solid.svg);
+  background-position: 7px 6px !important;
+  -webkit-background-size: 50px 50px !important;
+  background-size: 35px 35px !important;
+}
+.panel_area .list-wrap .panel-icon-area .square-ico-area .icon.icon-delivery {
+  background-color: #4274d8;
+  background-image: url(../../../image/delivery-complete.svg);
+  background-position: 6px 5px !important;
+  -webkit-background-size: 35px 35px !important;
+  background-size: 40px 40px !important;
+}
+.panel_area .list-wrap .panel-icon-area .square-ico-area .icon.icon-claim {
+  background-color: #628ca6;
+  background-image: url(../../../image/rotate-left-solid.svg);
+  background-position: 6px 5px !important;
+  -webkit-background-size: 35px 35px !important;
+  background-size: 40px 40px !important;
+}
+.panel_area .list-wrap .panel-icon-area .square-ico-area .icon.icon-settlement {
+  background-color: #d390e6;
+  background-image: url(../../../image/money-check-dollar-solid.svg);
+  background-position: 5px 5px !important;
+  -webkit-background-size: 35px 35px !important;
+  background-size: 40px 40px !important;
+}
+.panel_area .list-wrap .panel-list {
+  margin-left: 60px;
+}
+.panel_area .list-wrap .panel-list li {
+  margin-bottom: 10px;
+}
+.panel_area .list-wrap .panel-list li .number-area {
+  float: right;
+  margin-right: 20px;
+}
+.panel_area .list-wrap .panel-list li .number-area > a {
+  font-size: 20px;
+}
+.panel_area .list-wrap + .list-wrap {
+  border-left: 1px solid #e2e6ee;
+}
+
+.panel {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.panel > .panel-body {
+  position: relative;
+  padding: 15px 0;
+}
+.panel > .panel-body > .list-wrap {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.panel > .panel-body > .list-wrap .pannel-icon-area {
+  position: relative;
+}
+.panel > .panel-body > .list-wrap .square-ico-area {
+  background-color: #e179ff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+}
+.panel > .panel-body > .list-wrap:nth-child(odd) {
+  margin-right: 25px;
+}
+.panel > .panel-body > .list-wrap + .list-wrap {
+  padding-left: 25px;
+  border-left: 1px solid #e2e6ee;
+}
+
+a:focus, a:visited, a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover, a:active {
+  text-decoration: none;
+  color: inherit;
 }
 
 /*# sourceMappingURL=dashboard.css.map */
