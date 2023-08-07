@@ -17,7 +17,7 @@
              , B.BRND_NM
              , PRC.SALE_PRC
              , PRC.DC_PER /* 할인율 */
-             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
              , PRC.SALE_ST_DTTM
@@ -85,7 +85,7 @@
              , B.BRND_NM
              , PRC.SALE_PRC
              , PRC.DC_PER /* 할인율 */
-             , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), 0) AS DC_PRC /* 할인가 */
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.STATUS
              , PRC.SALE_ST_DTTM
@@ -254,7 +254,7 @@
              , PRC.BUY_PRC
              , PRC.SALE_PRC
              , PRC.DC_PER
-             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_Prc
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC
              , P.DLV_CHG_DTL
              , GET_BUY_CNT(P.PROD_ID) AS BUY_CNT
              , GET_TOT_PNT(P.PROD_ID) AS POINT
