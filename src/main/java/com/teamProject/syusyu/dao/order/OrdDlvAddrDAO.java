@@ -12,4 +12,5 @@ public interface OrdDlvAddrDAO {
     int deleteAllOrdDlvAddr() throws Exception;
 
     int countOrdDlvAddr() throws Exception;
+
 }
