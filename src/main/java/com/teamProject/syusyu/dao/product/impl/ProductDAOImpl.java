@@ -1,8 +1,8 @@
 package com.teamProject.syusyu.dao.product.impl;
 
 import com.teamProject.syusyu.dao.product.ProductDAO;
-import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.SearchConditionDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +17,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Autowired
     private SqlSession session;
     private static final String namespace = "com.teamProject.syusyu.productMapper.";
+
 
     /**
      * 특정 중분류 번호(middleNo), 소분류 번호(smallNo) 및 정렬 기준(sort)에 따라 상품 목록을 데이터베이스에서 조회합니다.
@@ -138,5 +139,20 @@ public class ProductDAOImpl implements ProductDAO {
         return session.insert(namespace + "insertProduct", productDTO);
     }
 
+    /**
+     * 상품 목록을 조회합니다.
+     * 이 메서드는 MyBatis의 SqlSession을 사용하여 상품 목록을 DB에서 가져옵니다.
+     *
+     * @param params 조회에 사용되는 파라미터를 담고 있는 Map 객체입니다.
+     *               예: 검색 키워드, 필터 조건, 정렬 조건, 페이지네이션 정보 등
+     * @return 조회된 상품 정보를 담고 있는 ProductDTO의 List를 반환합니다.
+     * @throws Exception 조회 도중 발생할 수 있는 예외
+     * @author soso
+     * @since 2023/08/07
+     */
+    @Override
+    public List<ProductDTO> selectProductBosList(SearchConditionDTO params){
+        return session.selectList(namespace + "selectProductBosList", params);
+    }
 
 }

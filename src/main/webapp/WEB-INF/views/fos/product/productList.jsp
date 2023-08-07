@@ -99,6 +99,7 @@
                         <a href="#" id="popularity">인기순</a>
                         <a href="#" id="reviewCount">리뷰순</a>
                         <a href="#" id="ratingCount">평점많은순</a>
+                        <a href="#" id="buyCount">구매순</a>
                     </div>
 
                     <div class="r-side-items">

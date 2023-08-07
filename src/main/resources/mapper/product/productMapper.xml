@@ -96,6 +96,7 @@
              , P.REGR_ID
              , COALESCE(ASR.AVG_STAR_RATING, 0)                                   AS AVG_STAR_RATING
              , COALESCE(ASR.REVW_CNT, 0)                                          AS REVW_CNT
+             , GET_BUY_CNT(P.PROD_ID) AS BUY_CNT
         FROM PRODUCT P
                  JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
                  JOIN BRAND B ON P.BRND_ID = B.BRND_ID
@@ -133,6 +134,9 @@
             <when test="sort == 'ratingCount'">
                 ORDER BY ASR.AVG_STAR_RATING DESC
             </when>
+            <when test="sort == 'buyCount'">
+                ORDER BY BUY_CNT DESC
+            </when>
             <when test="sort == null">
                 ORDER BY P.REG_DTTM DESC
             </when>
@@ -166,12 +170,12 @@
              , TRUNCATE(PRC.SALE_PRC - (PRC.SALE_PRC * (PRC.DC_PER / 100)), -1) AS DC_PRC /* 할인가 */
              , P.REP_IMG
              , P.MFGD_MATR /* 제품소재 */
-             , GET_CD_NM('PR001',P.MFTCO) AS MFTCO_NM
-             , P.MFTCO     /* 제조사 */
-             , GET_CD_NM('MC001',P.MFT_NATN) AS MFT_NATN_NM
-             , P.MFT_NATN  /*제조국*/
+             , GET_CD_NM('PR001', P.MFTCO)                                      AS MFTCO_NM
+             , P.MFTCO /* 제조사 */
+             , GET_CD_NM('MC001', P.MFT_NATN)                                   AS MFT_NATN_NM
+             , P.MFT_NATN /*제조국*/
              , P.STATUS
-             , GET_CD_NM('P0002', P.STATUS) AS STATUS_NM
+             , GET_CD_NM('P0002', P.STATUS)                                     AS STATUS_NM
              , P.VW_CNT
              , PRC.SALE_ST_DTTM
              , PRC.SALE_ED_DTTM
@@ -193,7 +197,8 @@
         WHERE P.STATUS
             = 601 /* 판매중 */
           AND P.DEL_YN = 'N'
-          AND P.PROD_ID=${prodId}
+          AND P.DSPY_YN = 'Y'
+          AND P.PROD_ID = ${prodId}
     </select>
 
     <select id="selectMftNatnList" resultType="ProductDTO">
@@ -238,6 +243,77 @@
                , #{regrId})
     </insert>
 
+    <select id="selectProductBosList" parameterType="SearchConditionDTO" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.PROD_NM
+             , P.PROD_DTL_DESC
+             , P.STATUS
+             , GET_CD_NM('P0002', P.STATUS)
+             , P.DSPY_YN
+             , (SELECT SUM(INV_QTY) FROM PROD_OPT WHERE PROD_ID = P.PROD_ID) AS TOT_QTY
+             , PRC.BUY_PRC
+             , PRC.SALE_PRC
+             , PRC.DC_PER
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_Prc
+             , P.DLV_CHG_DTL
+             , GET_BUY_CNT(P.PROD_ID) AS BUY_CNT
+             , GET_TOT_PNT(P.PROD_ID) AS POINT
+             , GET_TOT_PRC(P.PROD_ID) AS TOT_PRC
+             , CATE.LARGE_NO
+             , CATE.LARGE_NM
+             , CATE.MIDDLE_NO
+             , CATE.MIDDLE_NM
+             , CATE.SMALL_NO
+             , CATE.SMALL_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , BRND.BRND_NM
+             , BRND.BRND_KO_NM
+             , P.MFGD_MATR
+             , P.MFTCO
+             , GET_CD_NM('PR001', P.MFTCO)
+             , P.MFT_NATN
+             , GET_CD_NM('MC001', P.MFT_NATN)
+             , P.VW_CNT
+             , P.REG_DTTM
+             , P.REGR_ID
+             , P.UPD_DTTM
+             , P.UPDR_ID
+             , P.DEL_DTTM
+             , P.DERT_ID
+             , P.DEL_YN
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PrC.DC_ED_DTTM
+        FROM PRODUCT P
+                 JOIN PRICE PRC on P.PROD_ID = PRC.PROD_ID
+                 JOIN CATEGORY CATE ON P.CATE_ID = CATE.CATE_ID
+                 JOIN BRAND BRND on BRND.BRND_ID = P.BRND_ID
+        WHERE 1=1
+        <if test="dateType != null and startDate != null and endDate != null">
+            AND P.${dateType} BETWEEN #{startDate} AND #{endDate}
+        </if>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND P.${searchType} LIKE CONCAT('%', #{searchKeyword}, '%')
+        </if>
+        <if test="statusList != null and statusList.size() > 0">
+            AND P.STATUS IN
+            <foreach collection="statusList" item="status" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </if>
+        <if test="largeNm != null and largeNm != '-대분류-'">
+            AND CATE.LARGE_NM = #{largeNm}
+        </if>
+        <if test="middleNm != null and middleNm != '-중분류-'">
+            AND CATE.MIDDLE_NM = #{middleNm}
+        </if>
+        <if test="smallNm != null and smallNm != '-소분류-'">
+            AND CATE.SMALL_NM = #{smallNM}
+        </if>
+        ORDER BY P.PROD_ID DESC
+    </select>
 
 
 

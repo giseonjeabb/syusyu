@@ -5,7 +5,7 @@ import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 import com.teamProject.syusyu.domain.product.ReviewDTO;
-import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
+import com.teamProject.syusyu.service.base.product.CategoryServiceBase;
 import com.teamProject.syusyu.service.fos.product.FOS_ProductService;
 import com.teamProject.syusyu.service.fos.product.FOS_ReviewService;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class FOS_ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(FOS_ProductController.class);
     @Autowired
-    FOS_CategoryService fosCategoryService;
+    CategoryServiceBase categoryService;
     @Autowired
     FOS_ProductService fosProductService;
     @Autowired
@@ -51,7 +51,7 @@ public class FOS_ProductController {
     public ResponseEntity<Map<String, Object>> categoryAllList(HttpServletRequest request) {
         logger.info("Entering categoryAllList() method");
         try {
-            Map<String, Object> categories = fosCategoryService.getCategoryAllList();
+            Map<String, Object> categories = categoryService.getCategoryAllList();
 
             if (categories == null) {
                 logger.info("categories is null");

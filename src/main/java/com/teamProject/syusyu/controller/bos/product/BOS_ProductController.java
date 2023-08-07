@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.common.util.FileUploadUtils;
 import com.teamProject.syusyu.domain.product.*;
+import com.teamProject.syusyu.service.base.product.CategoryServiceBase;
 import com.teamProject.syusyu.service.bos.product.BOS_ProductService;
 import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class BOS_ProductController {
     @Autowired
     private FileUploadUtils fileUploadUtils;
     @Autowired
-    FOS_CategoryService CategoryService;
+    CategoryServiceBase categoryService;
     @Autowired
     BOS_ProductService productService;
 
@@ -52,7 +53,7 @@ public class BOS_ProductController {
         Map<String, Object> productInfo = null; //brand, 제조사, 제조국 정보
         try {
             //select에 들어갈 category
-            categories = CategoryService.getCategoryAllList();
+            categories = categoryService.getCategoryAllList();
             model.addAttribute("categories", categories);
 
             //카테고리json문자열로 바꾸고 자스에서 select된 카테고리들 비교해서 cateId찾기.
@@ -191,9 +192,28 @@ public class BOS_ProductController {
         }
     }
 
-    @GetMapping("/product/ProductList")
-    public String getProductList() {
+    @GetMapping("/product/productList")
+    public String getProductView(Model model){
+        //select에 들어갈 category
+        Map<String, Object> categories = categoryService.getCategoryAllList();
+        model.addAttribute("categories", categories);
         return ViewPath.BOS_PRODUCT+"productManagement";
     }
+
+    @PostMapping("/product/productList")
+    public ResponseEntity<List<ProductDTO>> getProductList(@RequestBody SearchConditionDTO searchConditionDTO) {
+        LOGGER.info("Inside getProductList method. Search conditions: {}", searchConditionDTO); // 로그 추가
+
+        List<ProductDTO> productInfoList;
+        try {
+            productInfoList = productService.getProductBosList(searchConditionDTO);
+        } catch (Exception e) {
+            LOGGER.error("Error occurred while fetching product list.", e); // 오류 로그 추가
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("Returning {} products.", productInfoList.size()); // 반환되는 제품의 수에 대한 로그 추가
+        return new ResponseEntity<>(productInfoList, HttpStatus.OK);
+    }
+
 }
 

@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.dao.product;
 
-import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.SearchConditionDTO;
 
 import java.util.List;
 
@@ -20,4 +20,5 @@ public interface ProductDAO {
 
     int insertProduct(ProductDTO productDTO) throws Exception;
 
+    List<ProductDTO> selectProductBosList(SearchConditionDTO params);
 }
