@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://kit.fontawesome.com/4fb73240ec.js" crossorigin="anonymous"></script>
 
+
 <%--s : ============================== 공통함수 ==============================--%>
 <%--공통함수--%>
 <script src="<c:url value="${jsUrlCommon}/common.js"/>"></script>
@@ -16,6 +17,13 @@
 
 <%--부트스트랩 js--%>
 <script src="<c:url value="${jsUrlBos}/common/dashboard.js"/>"></script>
+
+<%--s : ============================== summernote ==============================--%>
+
+<script src="<c:url value='/static/bos/summernote/lang/summernote-ko-KR.js'/>"></script>
+<script src="<c:url value='/static/bos/summernote/summernote-lite.js'/>"></script>
+<%--e : ============================== summernote ==============================--%>
+
 <%--상위메뉴 클릭하면 하위메뉴 나오기.--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
