@@ -51,8 +51,4 @@ public class FOS_ReviewDAOImpl implements FOS_ReviewDAO {
         return session.delete(namespace+"deleteUser",m);
     }
 
-    @Override
-    public int deleteAdmin(Integer revwNo)throws Exception{
-        return session.delete(namespace+"deleteAdmin",revwNo);
-    }
  }

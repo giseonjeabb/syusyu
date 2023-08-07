@@ -1,14 +1,14 @@
 package com.teamProject.syusyu.dao.product;
 
-import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
+import com.teamProject.syusyu.domain.product.SearchConditionDTO;
 
 import java.util.List;
 
 public interface ProductDAO {
-    List<ProductDTO> selectProductList(int middleNo, int smallNo) throws Exception;
+    List<ProductDTO> selectProductList(int middleNo, int smallNo, String sort) throws Exception;
 
-    List<ProductDTO> selectProductAllList(int middleNo) throws Exception;
+    List<ProductDTO> selectProductAllList(int middleNo, String sort) throws Exception;
 
     List<ProductDTO> selectProductStatus(int[] prodId) throws Exception;
 
@@ -20,4 +20,5 @@ public interface ProductDAO {
 
     int insertProduct(ProductDTO productDTO) throws Exception;
 
+    List<ProductDTO> selectProductBosList(SearchConditionDTO params);
 }

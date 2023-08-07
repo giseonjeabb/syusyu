@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamProject.syusyu.BOS_ReviewMapper">
+
+
+    <!--BOS_ReviewList -->
+
+    <select id="count" resultType="int">
+        select count(*)
+        from review
+    </select>
+
+
+
+
+    <!--    관리자가 삭제를 할때-->
+    <!--    로그인 ID가 admin인 경우, deleteAdmin 메소드를 호출한다.-->
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE
+        FROM review
+        WHERE REVW_NO = #{revwNo}           -- 리뷰 글 번호
+    </delete>
+
+<!--    작성된 리뷰 상세 보기로 읽을때 -->
+
+    <select id="select" parameterType="int" resultType="ReviewDTO">
+        SELECT
+            r.HEIGHT,
+            r.WEIGHT,
+            r.SHOE_SIZE,
+            r.STAR_RATING,
+            r.REVW_CN,
+            b.BRND_KO_NM,
+            r.REGR_ID,
+            m.LGIN_ID
+
+        FROM review r
+                 JOIN member m ON r.REGR_ID = m.MBR_ID
+                 JOIN product p ON r.PROD_ID = p.PROD_ID
+                 JOIN brand b ON p.BRND_ID = b.BRND_ID
+        WHERE r.REGR_ID = m.MBR_ID
+          AND r.PROD_ID = #{prodId}
+          AND r.REVW_NO = #{revwNo}
+    </select>
+
+    <select id="selectAll" parameterType="int" resultType="ReviewDTO">
+        SELECT
+            r.STAR_RATING,
+            r.REGR_ID,
+            m.LGIN_ID,
+            r.REG_DTTM,
+            r.SHOE_SIZE,
+            r.HEIGHT,
+            r.WEIGHT,
+            r.LIKE_CNT,
+            r.REVW_CN
+        FROM review r, member m
+        WHERE r.REGR_ID = m.MBR_ID
+          AND r.PROD_ID = #{prodId}
+        ORDER BY r.REG_DTTM DESC;
+    </select>
+
+
+    <sql id="SearchCondition">
+        <choose>
+            <when test='option=="P"'>
+                AND p.PROD_NM LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND r.REVW_CN LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test='option=="B"'>
+                AND EXISTS (
+                SELECT 1
+                FROM brand b
+                WHERE b.BRND_ID = p.BRND_ID
+                AND b.BRND_KO_NM LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </when>
+            <otherwise>
+                AND (
+                p.PROD_NM LIKE CONCAT('%', #{keyword}, '%')
+                OR r.SHOE_SIZE LIKE CONCAT('%', #{keyword}, '%')
+                OR r.REVW_CN LIKE CONCAT('%', #{keyword}, '%')
+                OR EXISTS (
+                SELECT 1
+                FROM brand b
+                WHERE b.BRND_ID = p.BRND_ID
+                AND b.BRND_KO_NM LIKE CONCAT('%', #{keyword}, '%')
+                )
+                )
+            </otherwise>
+        </choose>
+    </sql>
+
+
+    <select id="SearchSelectPageReview" parameterType="SearchCondition" resultType="ReviewDTO">
+        SELECT
+        r.REVW_NO ,
+        b.BRND_KO_NM ,
+        p.PROD_NM ,
+        r.STAR_RATING ,
+        r.REVW_CN ,
+        r.REGR_ID ,
+        r.REG_DTTM,
+        m.LGIN_ID
+        FROM review r
+        JOIN member m ON r.REGR_ID = m.MBR_ID
+        JOIN product p ON r.PROD_ID = p.PROD_ID
+        JOIN brand b ON p.BRND_ID = b.BRND_ID
+        WHERE TRUE
+        <include refid="SearchCondition"/>
+        ORDER BY REVW_NO asc
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!--    검색후 결과로 나올 행 갯수 카운트-->
+    <select id="SearchResultCntReview" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM review r
+        JOIN member m ON r.REGR_ID = m.MBR_ID
+        JOIN product p ON r.PROD_ID = p.PROD_ID
+        JOIN brand b ON p.BRND_ID = b.BRND_ID
+        WHERE TRUE
+        <include refid="SearchCondition"/>
+    </select>
+</mapper>

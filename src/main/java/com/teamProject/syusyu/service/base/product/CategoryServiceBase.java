@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.service.fos.product.impl;
+package com.teamProject.syusyu.service.base.product;
 
 import com.teamProject.syusyu.dao.product.CategoryDAO;
 import com.teamProject.syusyu.domain.product.CategoryDTO;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FOS_CategoryServiceImpl implements FOS_CategoryService {
+public class CategoryServiceBase implements FOS_CategoryService {
 
     @Autowired
     CategoryDAO categoryDAO;
