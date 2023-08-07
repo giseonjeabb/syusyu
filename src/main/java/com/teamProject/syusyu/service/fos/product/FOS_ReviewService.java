@@ -17,5 +17,5 @@ public interface FOS_ReviewService {
 
     int removeUser(Integer revwNo, Integer regrId) throws Exception;
 
-    int removeAdmin(Integer revwNo) throws Exception;
+
 }

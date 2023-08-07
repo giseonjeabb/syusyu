@@ -27,7 +27,8 @@
 <!--    </select>-->
 
     <select id="selectAll" parameterType="int" resultType="ReviewDTO">
-        SELECT r.STAR_RATING,
+        SELECT
+               r.STAR_RATING,
                r.REGR_ID,
                m.LGIN_ID,
                r.REG_DTTM,
@@ -41,6 +42,33 @@
           AND r.PROD_ID = #{prodId}
         ORDER BY r.REG_DTTM DESC;
     </select>
+
+<!--    후기 작성 완료 MAPPER-->
+<!--    <select id="selectPage" parameterType="PageHandlerReview" resultType="ReviewDTO">-->
+<!--        SELECT-->
+<!--            r.REVW_NO ,     &#45;&#45; 리뷰 번호-->
+<!--            p.PROD_NM ,     &#45;&#45; 제품 이름-->
+<!--            b.BRND_KO_NM ,  &#45;&#45; 브랜드 이름-->
+<!--            r.STAR_RATING , &#45;&#45; 별점-->
+<!--            r.REG_DTTM ,    &#45;&#45; 작성날짜-->
+<!--            r.REVW_CN       &#45;&#45; 리뷰내용-->
+<!--        FROM review r-->
+<!--                 JOIN member m ON r.REGR_ID = m.MBR_ID-->
+<!--                 JOIN product p ON r.PROD_ID = p.PROD_ID-->
+<!--                 JOIN brand b ON p.BRND_ID = b.BRND_ID-->
+<!--                 JOIN ord o ON o.ORDR_ID = p.-->
+<!--        ORDER BY REVW_NO asc-->
+<!--            LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
+<!--    <select id="selectPageCnt" parameterType="PageHandlerReview" resultType="int">-->
+<!--        SELECT count(*)-->
+<!--        FROM review r-->
+<!--                 JOIN member m ON r.REGR_ID = m.MBR_ID-->
+<!--                 JOIN product p ON r.PROD_ID = p.PROD_ID-->
+<!--                 JOIN brand b ON p.BRND_ID = b.BRND_ID-->
+<!--    </select>-->
+
 
 
 
@@ -62,7 +90,7 @@
     <update id="increaseLikeCnt" parameterType="int">
         update review
         set     LIKE_CNT = LIKE_CNT + 1
-        where REVW_NO = #{revdwNo}
+        where REVW_NO = #{revwNo}
     </update>
 
 <!--    본인이 작성한 리뷰에 대한 수정-->
@@ -90,18 +118,18 @@
         AND REGR_ID = #{regrId}             -- 작성자 id
     </delete>
 
-<!--    관리자가 삭제를 할때-->
-<!--    로그인 ID가 admin인 경우, deleteAdmin 메소드를 호출한다.-->
-    <delete id="deleteAdmin" parameterType="int">
-        DELETE
-        FROM review
-        WHERE REVW_NO = #{revwNo}           -- 리뷰 글 번호
-    </delete>
 
 
+<!-- ord, ord_Dtl, prod-->
 
+<!--    select *-->
+<!--    from ord o-->
+<!--    join ord_dtl od on o.ORD_NO = od.ORD_NO-->
+<!--    join product p on od.PROD_ID = p.PROD_ID-->
+<!--    where o.ORDR_ID = 80001-->
+<!--    and od.ORD_STUS = 60;-->
 
-
+<!--    select * from comm_code where CD_TP_NM like '%주문%';-->
 
 
 

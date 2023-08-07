@@ -17,5 +17,4 @@ public interface FOS_ReviewDAO {
 
     int deleteUser(Integer revwNo, Integer regrId) throws Exception;
 
-    int deleteAdmin(Integer revwNo) throws Exception;
 }
