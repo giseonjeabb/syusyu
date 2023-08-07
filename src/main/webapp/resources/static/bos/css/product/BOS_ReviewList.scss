@@ -14,6 +14,7 @@
   position: relative;
   margin-bottom: 10px;
   background-color: #fff;
+  height: auto;
 }
 .panel-seller .panel-heading {
   border-bottom: none;
@@ -221,8 +222,8 @@ ta-c {
 
 .fa-caret-down {
   position: absolute;
-  top: 72%;
-  left: 230px; /* 아이콘의 위치 조정 */
+  top: 50%;
+  left: 220px; /* 아이콘의 위치 조정 */
   transform: translateY(-50%);
   pointer-events: none; /* 아이콘에 마우스 이벤트 적용되지 않도록 설정 */
 }
@@ -263,6 +264,7 @@ ta-c {
 .input-search{
   margin-right: 10px;
   margin-top: 10px;
+  margin-left: 30px;
 }
 
 /* Add the following CSS styles to adjust column widths */
@@ -272,30 +274,38 @@ table {
 
 th:first-child,
 td:first-child {
-  width: 100px; /* Adjust the width as needed for the 번호 column */
+  text-align: center;
+  width: 120px; /* Adjust the width as needed for the 번호 column */
 }
 th:nth-child(2),
 td:nth-child(2){
-  width: 150px;
+  text-align: center;
+  width: 160px;
 }
 
 th:nth-child(3),
 td:nth-child(3) {
-  width: 350px; /* Adjust the width as needed for the 제목 column */
+  width: 400px; /* Adjust the width as needed for the 제목 column */
 }
 th:nth-child(4),
 td:nth-child(4) {
-  width: 120px; /* Adjust the width as needed for the 제목 column */
+  text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
 }
 th:nth-child(5),
 td:nth-child(5) {
   text-align: center;
-  width: 120px; /* Adjust the width as needed for the 제목 column */
+  width: 150px; /* Adjust the width as needed for the 제목 column */
 }
 th:nth-child(6),
 td:nth-child(6) {
   text-align: center;
-  width: 120px; /* Adjust the width as needed for the 제목 column */
+  width: 150px; /* Adjust the width as needed for the 제목 column */
+}
+th:nth-child(7),
+td:nth-child(7) {
+  text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
 }
 
 

@@ -9,6 +9,7 @@
 .panel, .panel-seller{
   border: 1px solid #dbdde2;
   box-shadow: none;
+  height: auto;
 }
 .panel-seller{
   position: relative;
@@ -221,8 +222,8 @@ ta-c {
 
 .fa-caret-down {
   position: absolute;
-  top: 72%;
-  left: 230px; /* 아이콘의 위치 조정 */
+  top: 50%;
+  left: 220px; /* 아이콘의 위치 조정 */
   transform: translateY(-50%);
   pointer-events: none; /* 아이콘에 마우스 이벤트 적용되지 않도록 설정 */
 }
@@ -263,6 +264,7 @@ ta-c {
 .input-search{
   margin-right: 10px;
   margin-top: 10px;
+  margin-left: 30px;
 }
 
 /* Add the following CSS styles to adjust column widths */
