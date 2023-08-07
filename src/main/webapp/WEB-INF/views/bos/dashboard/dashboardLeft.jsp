@@ -41,6 +41,7 @@
                     <a class="nav-link" href="<c:url value='/bos/productRegister'/>">상품 등록</a>
                     <a class="nav-link" href="#">상품 일괄 등록</a>
                     <a class="nav-link" href="#">배송정보관리</a>
+                    <a class="nav-link" href="<c:url value ='/bos/reviewList'/>"> 상품 리뷰 관리</a>
                 </nav>
             </div>
 
