@@ -1,26 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const swiper = new Swiper('.swiper-container', {
-        direction: 'horizontal',
+document.addEventListener("DOMContentLoaded", function() {
+    const swiper = new Swiper('.swiper', {
         loop: true,
-
-        // 네비게이션 버튼
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+        slidesPerView: 1,  // 한 번에 보여줄 슬라이드 수
+        spaceBetween: 30,  // 슬라이드 사이의 간격
+        centeredSlides: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
         },
-
-        // 점(dot) 네비게이션
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
-
-        // 자동 슬라이드 옵션
-        autoplay: {
-            delay: 6000,  // 6초마다 슬라이드 자동 전환
-            disableOnInteraction: false,  // 사용자의 슬라이드 조작 후에도 자동 슬라이드 계속 진행
-        }
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        mousewheel: true,
+        keyboard: {
+            enabled: true,
+        },
     });
+
+    let currentPage = window.location.pathname;
+
+    if (currentPage === '/') {
+        let mainElement = document.querySelector('main');
+        mainElement.style.padding = '0 0 130px 0';
+    }
 });
 
 
