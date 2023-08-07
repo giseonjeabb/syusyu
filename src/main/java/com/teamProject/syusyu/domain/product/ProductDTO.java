@@ -3,6 +3,7 @@ package com.teamProject.syusyu.domain.product;
 import java.time.LocalDate;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductDTO {
@@ -28,6 +29,7 @@ public class ProductDTO {
     private String repImg;
     private int status; //판매중, 품절
     private String statusNm;
+    private String dspyYn;
     private Date saleStDttm;
     private Date saleEdDttm;
     private Date dcStDttm;
@@ -39,9 +41,12 @@ public class ProductDTO {
     private Date delDttm;
     private int dertId;
     private String delYn;
+    private int buyCnt;
+    private int buyPrc;
 
     //브랜드이름
     private String brndNm;
+    private String brndKoNm;
 
     //카테고리
     private int largeNo;
@@ -50,10 +55,17 @@ public class ProductDTO {
     private String middleNm;
     private int smallNo;
     private String smallNm;
-
-
+    //정렬
+    private String sort;
+    //공통코드
     private int code;
     private String cdNm;
+    private int totQty;
+    private int point;
+    private int totPrc;
+    private String mftcoName;
+    private String mftNatnName;
+    private int vwCnt;
 
     public ProductDTO() {
     }
@@ -63,6 +75,8 @@ public class ProductDTO {
         this.cdNm = cdNm;
     }
 
+
+    //상품등록
     public ProductDTO(int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, int regrId) {
         this.cateId = cateId;
         this.prodNm = prodNm;
@@ -79,7 +93,7 @@ public class ProductDTO {
         this.regrId = regrId;
     }
 
-    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt) {
+    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt, String sort) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.middleNo = middleNo;
@@ -103,9 +117,10 @@ public class ProductDTO {
         this.regrId = regrId;
         this.avgStarRating = avgStarRating;
         this.revwCnt = revwCnt;
+        this.sort = sort;
     }
 
-    public ProductDTO(String mftcoNm, String mftNatnNm, String statusNm, int prodId, int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcEdDttm, Date regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm) {
+    public ProductDTO(String mftcoNm, String mftNatnNm, String statusNm, int prodId, int cateId, String prodNm, String modelNm, int brndId, Date rlesDt, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, String prodDtlDesc, String mfgdMatr, int mftco, int mftNatn, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcEdDttm, Date regDttm, String brndNm, int middleNo, String middleNm, int smallNo, String smallNm, String sort) {
         this.mftcoNm = mftcoNm;
         this.mftNatnNm = mftNatnNm;
         this.statusNm = statusNm;
@@ -135,9 +150,147 @@ public class ProductDTO {
         this.middleNm = middleNm;
         this.smallNo = smallNo;
         this.smallNm = smallNm;
+        this.sort = sort;
 
     }
 
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, Integer dlvGhg, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, String mftcoNm, int mftNatn, String mftNatnNm, int status, String statusNm, String dspyYn, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, Date updDttm, int buyCnt, String brndNm, int largeNo, String largeNm, int middleNo, String middleNm, int smallNo, String smallNm, String sort, int code, String cdNm, int totQty, int buyPrc, int point, int totPrc, String mftcoName, String mftNatnName, int vwCnt, String brndKoNm) {
+        this.prodId = prodId;
+        this.cateId = cateId;
+        this.prodNm = prodNm;
+        this.modelNm = modelNm;
+        this.brndId = brndId;
+        this.salePrc = salePrc;
+        this.dcPer = dcPer;
+        this.dcPrc = dcPrc;
+        this.avgStarRating = avgStarRating;
+        this.revwCnt = revwCnt;
+        this.dlvGhg = dlvGhg;
+        this.dlvChgDtl = dlvChgDtl;
+        this.prodDtlDesc = prodDtlDesc;
+        this.mfgdMatr = mfgdMatr;
+        this.mftco = mftco;
+        this.mftcoNm = mftcoNm;
+        this.mftNatn = mftNatn;
+        this.mftNatnNm = mftNatnNm;
+        this.status = status;
+        this.statusNm = statusNm;
+        this.dspyYn = dspyYn;
+        this.saleStDttm = saleStDttm;
+        this.saleEdDttm = saleEdDttm;
+        this.dcStDttm = dcStDttm;
+        this.dcEdDttm = dcEdDttm;
+        this.regDttm = regDttm;
+        this.regrId = regrId;
+        this.updDttm = updDttm;
+        this.buyCnt = buyCnt;
+        this.brndNm = brndNm;
+        this.largeNo = largeNo;
+        this.largeNm = largeNm;
+        this.middleNo = middleNo;
+        this.middleNm = middleNm;
+        this.smallNo = smallNo;
+        this.smallNm = smallNm;
+        this.sort = sort;
+        this.code = code;
+        this.cdNm = cdNm;
+        this.totQty = totQty;
+        this.buyPrc = buyPrc;
+        this.point = point;
+        this.totPrc = totPrc;
+        this.mftcoName = mftcoName;
+        this.mftNatnName = mftNatnName;
+        this.vwCnt = vwCnt;
+        this.brndKoNm=brndKoNm;
+    }
+
+    public String getBrndKoNm() {
+        return brndKoNm;
+    }
+
+    public void setBrndKoNm(String brndKoNm) {
+        this.brndKoNm = brndKoNm;
+    }
+
+    public int getTotQty() {
+        return totQty;
+    }
+
+    public void setTotQty(int totQty) {
+        this.totQty = totQty;
+    }
+
+    public int getBuyPrc() {
+        return buyPrc;
+    }
+
+    public void setBuyPrc(int buyPrc) {
+        this.buyPrc = buyPrc;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getTotPrc() {
+        return totPrc;
+    }
+
+    public void setTotPrc(int totPrc) {
+        this.totPrc = totPrc;
+    }
+
+    public String getMftcoName() {
+        return mftcoName;
+    }
+
+    public void setMftcoName(String mftcoName) {
+        this.mftcoName = mftcoName;
+    }
+
+    public String getMftNatnName() {
+        return mftNatnName;
+    }
+
+    public void setMftNatnName(String mftNatnName) {
+        this.mftNatnName = mftNatnName;
+    }
+
+    public int getVwCnt() {
+        return vwCnt;
+    }
+
+    public void setVwCnt(int vwCnt) {
+        this.vwCnt = vwCnt;
+    }
+
+    public int getBuyCnt() {
+        return buyCnt;
+    }
+
+    public void setBuyCnt(int buyCnt) {
+        this.buyCnt = buyCnt;
+    }
+
+    public String getDspyYn() {
+        return dspyYn;
+    }
+
+    public void setDspyYn(String dspyYn) {
+        this.dspyYn = dspyYn;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
 
     public int getCode() {
         return code;
@@ -480,12 +633,12 @@ public class ProductDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDTO that = (ProductDTO) o;
-        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && code == that.code && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(mftcoNm, that.mftcoNm) && Objects.equals(mftNatnNm, that.mftNatnNm) && Objects.equals(repImg, that.repImg) && Objects.equals(statusNm, that.statusNm) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(cdNm, that.cdNm);
+        return prodId == that.prodId && cateId == that.cateId && brndId == that.brndId && salePrc == that.salePrc && Double.compare(that.avgStarRating, avgStarRating) == 0 && mftco == that.mftco && mftNatn == that.mftNatn && status == that.status && regrId == that.regrId && updrId == that.updrId && dertId == that.dertId && buyCnt == that.buyCnt && largeNo == that.largeNo && middleNo == that.middleNo && smallNo == that.smallNo && code == that.code && totQty == that.totQty && buyPrc == that.buyPrc && point == that.point && totPrc == that.totPrc && vwCnt == that.vwCnt && Objects.equals(prodNm, that.prodNm) && Objects.equals(modelNm, that.modelNm) && Objects.equals(rlesDt, that.rlesDt) && Objects.equals(dcPer, that.dcPer) && Objects.equals(dcPrc, that.dcPrc) && Objects.equals(revwCnt, that.revwCnt) && Objects.equals(dlvGhg, that.dlvGhg) && Objects.equals(dlvChgDtl, that.dlvChgDtl) && Objects.equals(prodDtlDesc, that.prodDtlDesc) && Objects.equals(mfgdMatr, that.mfgdMatr) && Objects.equals(mftcoNm, that.mftcoNm) && Objects.equals(mftNatnNm, that.mftNatnNm) && Objects.equals(repImg, that.repImg) && Objects.equals(statusNm, that.statusNm) && Objects.equals(dspyYn, that.dspyYn) && Objects.equals(saleStDttm, that.saleStDttm) && Objects.equals(saleEdDttm, that.saleEdDttm) && Objects.equals(dcStDttm, that.dcStDttm) && Objects.equals(dcEdDttm, that.dcEdDttm) && Objects.equals(regDttm, that.regDttm) && Objects.equals(updDttm, that.updDttm) && Objects.equals(delDttm, that.delDttm) && Objects.equals(delYn, that.delYn) && Objects.equals(brndNm, that.brndNm) && Objects.equals(brndKoNm, that.brndKoNm) && Objects.equals(largeNm, that.largeNm) && Objects.equals(middleNm, that.middleNm) && Objects.equals(smallNm, that.smallNm) && Objects.equals(sort, that.sort) && Objects.equals(cdNm, that.cdNm) && Objects.equals(mftcoName, that.mftcoName) && Objects.equals(mftNatnName, that.mftNatnName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftcoNm, mftNatn, mftNatnNm, repImg, status, statusNm, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, brndNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, code, cdNm);
+        return Objects.hash(prodId, cateId, prodNm, modelNm, brndId, rlesDt, salePrc, dcPer, dcPrc, avgStarRating, revwCnt, dlvGhg, dlvChgDtl, prodDtlDesc, mfgdMatr, mftco, mftcoNm, mftNatn, mftNatnNm, repImg, status, statusNm, dspyYn, saleStDttm, saleEdDttm, dcStDttm, dcEdDttm, regDttm, regrId, updDttm, updrId, delDttm, dertId, delYn, buyCnt, brndNm, brndKoNm, largeNo, largeNm, middleNo, middleNm, smallNo, smallNm, sort, code, cdNm, totQty, buyPrc, point, totPrc, mftcoName, mftNatnName, vwCnt);
     }
 
     @Override
@@ -513,6 +666,7 @@ public class ProductDTO {
                 ", repImg='" + repImg + '\'' +
                 ", status=" + status +
                 ", statusNm='" + statusNm + '\'' +
+                ", dspyYn='" + dspyYn + '\'' +
                 ", saleStDttm=" + saleStDttm +
                 ", saleEdDttm=" + saleEdDttm +
                 ", dcStDttm=" + dcStDttm +
@@ -524,15 +678,25 @@ public class ProductDTO {
                 ", delDttm=" + delDttm +
                 ", dertId=" + dertId +
                 ", delYn='" + delYn + '\'' +
+                ", buyCnt=" + buyCnt +
                 ", brndNm='" + brndNm + '\'' +
+                ", brndKoNm='" + brndKoNm + '\'' +
                 ", largeNo=" + largeNo +
                 ", largeNm='" + largeNm + '\'' +
                 ", middleNo=" + middleNo +
                 ", middleNm='" + middleNm + '\'' +
                 ", smallNo=" + smallNo +
                 ", smallNm='" + smallNm + '\'' +
+                ", sort='" + sort + '\'' +
                 ", code=" + code +
                 ", cdNm='" + cdNm + '\'' +
+                ", totQty=" + totQty +
+                ", buyPrc=" + buyPrc +
+                ", point=" + point +
+                ", totPrc=" + totPrc +
+                ", mftcoName='" + mftcoName + '\'' +
+                ", mftNatnName='" + mftNatnName + '\'' +
+                ", vwCnt=" + vwCnt +
                 '}';
     }
 }

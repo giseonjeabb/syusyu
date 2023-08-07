@@ -96,7 +96,7 @@
                             </div><!--//name-->
                             <div class="star-avg">
                                 <div class="avg-per">
-                                    <span class="star-per"><em style="width:100.0%;">평점</em></span>
+                                    <span class="star-per"><em style="width:${(productDetail.avgStarRating*100)/5}%;">평점</em></span>
                                     <span data-name="num">${productDetail.avgStarRating}</span>
                                     <a href="#goodsReview" class="txt">${productDetail.revwCnt}건</a>
                                 </div>

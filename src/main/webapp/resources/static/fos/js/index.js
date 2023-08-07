@@ -1,44 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var banners = Array.from(document.getElementsByClassName('banner-container'));
-    var currentIndex = 0;
-    var dotContainer = document.querySelector('.dot-container');
+    const swiper = new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
 
-    function showBanner(index) {
-        banners.forEach((banner, i) => {
-            banner.style.display = i === index ? 'block' : 'none';
-        });
-        updateDots(index);
-    }
+        // 네비게이션 버튼
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
 
-    function updateDots(index) {
-        var dots = Array.from(document.getElementsByClassName('dot'));
-        dots.forEach((dot, i) => {
-            dot.className = i === index ? 'dot active' : 'dot';
-        });
-    }
+        // 점(dot) 네비게이션
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
 
-    banners.forEach((_, i) => {
-        var dot = document.createElement('div');
-        dot.className = 'dot';
-        dot.addEventListener('click', () => {
-            currentIndex = i;
-            showBanner(currentIndex);
-        });
-        dotContainer.appendChild(dot);
+        // 자동 슬라이드 옵션
+        autoplay: {
+            delay: 6000,  // 6초마다 슬라이드 자동 전환
+            disableOnInteraction: false,  // 사용자의 슬라이드 조작 후에도 자동 슬라이드 계속 진행
+        }
     });
-
-    document.querySelector('.btn-prev').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + banners.length) % banners.length;
-        showBanner(currentIndex);
-    });
-
-    document.querySelector('.btn-next').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % banners.length;
-        showBanner(currentIndex);
-    });
-
-    showBanner(currentIndex);
-
 });
 
 

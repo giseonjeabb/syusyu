@@ -5,6 +5,28 @@
 <c:set var="categories" value="${sessionScope.categories}"/>
 <head>
     <script src="<c:url value='${jsUrlFos}/product/productList.js'/>"></script>
+    <style>
+        .star-rating {
+            position: relative;
+            display: inline-block;
+        }
+
+        .star-rating span {
+            font-size: 20px;  // 원하는 크기로 조절
+        }
+
+        .star-rating .star-rating-top {
+            color: black;  // 원하는 색상으로 조절
+        position: absolute;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-rating .star-rating-bottom {
+            color: lightgrey;  // 원하는 색상으로 조절
+        z-index: 0;
+        }
+    </style>
 </head>
 
 
@@ -49,13 +71,12 @@
         <div class="tab ty1">
             <div class="inner">
                 <a href="<c:url value='/fos/products/${middleNo}'/>" class="allCategory">전체</a>
-                <%--                <c:out value="${middleNo}"/>--%>
-                <%--                <c:out value="${smallNo}"/>--%>
                 <c:forEach var="small" items="${categories.smallCategories}">
                     <c:if test="${small.key == middleNo}">
                         <c:forEach var="smallCategoryItem" items="${small.value}">
 
-                            <a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>" class ="smallCategory" data-category-name="${smallCategoryItem.value}">
+                            <a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>"
+                               class="smallCategory" data-category-name="${smallCategoryItem.value}">
                                 <c:out value="${smallCategoryItem.value}"/>
                             </a>
 
@@ -70,13 +91,17 @@
             <div class="content-top">
                 <span class="prd-counter">전체 <strong></strong>개</span>
                 <div class="r-side">
-                    <div class="tab ty3">
-                        <a href="#" class="active" name="pop">인기순</a>
-                        <a href="#" name="new">신제품순</a>
-                        <a href="#" name="disc">할인순</a>
-                        <a href="#" name="lowp">낮은가격순</a>
-                        <a href="#" name="highp">높은가격순</a>
+                    <div class="tab ty3" id="sort">
+                        <a href="#" id="newArrival" class="active">신제품순</a>
+                        <a href="#" id="lowPrice">낮은가격순</a>
+                        <a href="#" id="highPrice">높은가격순</a>
+                        <a href="#" id="discount">할인순</a>
+                        <a href="#" id="popularity">인기순</a>
+                        <a href="#" id="reviewCount">리뷰순</a>
+                        <a href="#" id="ratingCount">평점많은순</a>
+                        <a href="#" id="buyCount">구매순</a>
                     </div>
+
                     <div class="r-side-items">
                         <select name="pageSize" id="pageSize" class="selectbox ty2">
                             <option value="40">40개</option>

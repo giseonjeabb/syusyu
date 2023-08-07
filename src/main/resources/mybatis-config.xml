@@ -16,6 +16,7 @@
         <!-- product -->
         <typeAlias alias="CategoryDTO" type="com.teamProject.syusyu.domain.product.CategoryDTO"/>
         <typeAlias alias="ProductDTO" type="com.teamProject.syusyu.domain.product.ProductDTO"/>
+        <typeAlias alias="SearchConditionDTO" type="com.teamProject.syusyu.domain.product.SearchConditionDTO"/>
         <typeAlias alias="ImageDTO" type="com.teamProject.syusyu.domain.product.ImageDTO"/>
         <typeAlias alias="BrandDTO" type="com.teamProject.syusyu.domain.product.BrandDTO"/>
         <typeAlias alias="ImageDTO" type="com.teamProject.syusyu.domain.product.ImageDTO"/>
