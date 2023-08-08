@@ -9,12 +9,12 @@
 .panel, .panel-seller{
   border: 1px solid #dbdde2;
   box-shadow: none;
-  height: auto;
 }
 .panel-seller{
   position: relative;
   margin-bottom: 10px;
   background-color: #fff;
+  height: auto;
 }
 .panel-seller .panel-heading {
   border-bottom: none;
@@ -66,7 +66,7 @@
 }
 
 .search-option {
-  margin-left: 30px;
+  margin-left: 35px;
   margin-right: 30px;
   height: 40px;
   padding: 0 50px 0 10px;
@@ -84,7 +84,6 @@
   user-select: none;
   outline: 0;
   cursor: pointer;
-  border-radius: 0.375rem;
 }
 * {
   box-sizing: border-box;
@@ -112,7 +111,6 @@
   vertical-align: middle;
   outline: 0;
   font-family: inherit;
-  border-radius: 0.375rem;
 }
 button, input {
   overflow: visible;
@@ -225,7 +223,7 @@ ta-c {
 .fa-caret-down {
   position: absolute;
   top: 50%;
-  left: 240px; /* 아이콘의 위치 조정 */
+  left: 220px; /* 아이콘의 위치 조정 */
   transform: translateY(-50%);
   pointer-events: none; /* 아이콘에 마우스 이벤트 적용되지 않도록 설정 */
 }
@@ -239,7 +237,7 @@ ta-c {
   margin-left: 20px;
   margin-top: 10px;
 }
-.notice_count{
+.review_count{
   margin-left: 10px;
 }
 
@@ -266,7 +264,7 @@ ta-c {
 .input-search{
   margin-right: 10px;
   margin-top: 10px;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 
 /* Add the following CSS styles to adjust column widths */
@@ -276,29 +274,40 @@ table {
 
 th:first-child,
 td:first-child {
-  width: 100px; /* Adjust the width as needed for the 번호 column */
+  text-align: center;
+  width: 120px; /* Adjust the width as needed for the 번호 column */
 }
 th:nth-child(2),
 td:nth-child(2){
-  width: 150px;
+  text-align: center;
+  width: 160px;
 }
 
 th:nth-child(3),
 td:nth-child(3) {
-  width: 330px; /* Adjust the width as needed for the 제목 column */
+  width: 400px; /* Adjust the width as needed for the 제목 column */
 }
 th:nth-child(4),
 td:nth-child(4) {
-  width: 120px; /* Adjust the width as needed for the 제목 column */
-}
-th:nth-child(8),
-td:nth-child(8) {
- text-align: center;
-}
-th:nth-child(9),
-td:nth-child(9) {
   text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
 }
+th:nth-child(5),
+td:nth-child(5) {
+  text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
+}
+th:nth-child(6),
+td:nth-child(6) {
+  text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
+}
+th:nth-child(7),
+td:nth-child(7) {
+  text-align: center;
+  width: 150px; /* Adjust the width as needed for the 제목 column */
+}
+
 
 
 .wrap-pagination .page.paging-active {
@@ -308,7 +317,6 @@ td:nth-child(9) {
   padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
   border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
 }
-
 
 #writeNewBtn{
   background-color: black;
@@ -338,6 +346,7 @@ td:nth-child(9) {
   width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
 }
 
 #modifyBtn:hover {
@@ -351,7 +360,9 @@ td:nth-child(9) {
   width: 70px;
   font-size: 15px;
   border-radius: 5px;
+  margin :0 5px;
 }
 #removeBtn:hover {
   background: #5c636a;
 }
+

@@ -28,7 +28,7 @@
 <div class = all-board>
 
   <div class="fb__bbs__header">
-    <h3 class="title-t ty3 mb-30"><a href="<c:url value="/bos/faqlist"/>"> FAQ 관리 </a></h3>
+    <h3 class="title-t ty3 mb-30"><a href="<c:url value="/bos/faqList"/>"> FAQ 관리 </a></h3>
   </div>
 
 

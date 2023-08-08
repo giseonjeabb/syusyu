@@ -199,7 +199,7 @@ public class FOS_OrderServiceImplTest {
         List<OrdStusHistDTO> ordStusHistDTOList = order.getOrdStusHistList();
         ordStusHistDTOList.forEach(ordStusHistDTO -> {
             try {
-                List<OrdStusHistDTO> ordStusHistDTOResult = ordStusHistDAO.selectOrderStatusHistory(ordStusHistDTO.getOrdStusHistNo());
+                OrdStusHistDTO ordStusHistDTOResult = (OrdStusHistDTO) ordStusHistDAO.selectOrderStatusHistory(ordStusHistDTO.getOrdStusHistNo());
                 System.out.println("ordStusHistDTOResult = " + ordStusHistDTOResult);
                 assertNotNull(ordStusHistDTOResult);
             } catch (Exception e) {
@@ -217,7 +217,6 @@ public class FOS_OrderServiceImplTest {
 
         // 1-6. ORD_DLV_ADDR
 //        OrdDlvAddrDTO ordDlvAddrDTO = ordDlvAddrDAO.selectOrdDlvAddr(order.getOrdDlvAddr().getOrdDlvAddrNo());
-//        OrdDlvAddrDTO ordDlvAddrDTO = new OrdDlvAddrDTO();
 //        assertNotNull(ordDlvAddrDTO);
 
     }

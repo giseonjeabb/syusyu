@@ -49,9 +49,6 @@ public class FOS_ReviewServiceImpl implements FOS_ReviewService {
         return fosReviewDAO.deleteUser(revwNo,regrId);
     }
 
-    @Override
-    public int removeAdmin(Integer revwNo)throws Exception{
-        return fosReviewDAO.deleteAdmin(revwNo);
-    }
+
 
 }

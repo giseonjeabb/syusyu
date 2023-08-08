@@ -55,7 +55,6 @@
                     </c:if>
                 </li>
 
-                <br>
                 <%--        이전글 :  이전글 제목--%>
                 <%--        이전글이 없다면 emptyprevTitle--%>
                 <li class="detail__nav-prev">
@@ -112,7 +111,8 @@
 
 
         <%--$("#listBtn").on("click", function(){--%>
-        <%--    location.href="<c:url value='/notice/noticeList${searchCondition.queryString}'/>";--%>
+        <%--    location.href="<c:ur
+         value='/notice/noticeList${searchCondition.queryString}'/>";--%>
         <%--});--%>
 
         $("#listBtn").on("click", function(){

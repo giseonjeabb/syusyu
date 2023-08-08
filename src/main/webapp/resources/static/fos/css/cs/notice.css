@@ -101,4 +101,9 @@ header .h-search-wrap .input .btn.search {
   right: 20px;
 }
 
+#editContent {
+  width: 100%;
+  height: 500px;
+}
+
 /*# sourceMappingURL=notice.css.map */
