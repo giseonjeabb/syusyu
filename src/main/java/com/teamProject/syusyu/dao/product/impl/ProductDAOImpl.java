@@ -155,4 +155,19 @@ public class ProductDAOImpl implements ProductDAO {
         return session.selectList(namespace + "selectProductBosList", params);
     }
 
+    @Override
+    public List<ProductDTO> selectNewProductList(){
+        return session.selectList(namespace+"selectNewProductList");
+    }
+
+    @Override
+    public List<ProductDTO> selectPickProductList(){
+        return session.selectList(namespace+"selectPickProductList");
+    }
+
+    @Override
+    public List<ProductDTO> selectPopularProductList(){
+        return session.selectList(namespace+"selectPopularProductList");
+    }
+
 }

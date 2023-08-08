@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -253,5 +254,20 @@ public class FOS_ProductController {
             e.printStackTrace();
         }
         return ViewPath.FOS_PRODUCT + "product";
+    }
+
+
+    @GetMapping("/categoryProduct")
+    public ResponseEntity<Map<String, List<ProductDTO>>> getDspyProductList() {
+        Map<String, List<ProductDTO>> mainProductList = new HashMap<>();
+
+        try {
+            mainProductList = fosProductService.getDspyProductList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(mainProductList, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(mainProductList, HttpStatus.OK);
     }
 }
