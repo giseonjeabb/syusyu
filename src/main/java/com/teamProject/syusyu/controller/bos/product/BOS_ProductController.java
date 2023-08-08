@@ -119,7 +119,6 @@ public class BOS_ProductController {
                 // product 정보 넣기
                 product.setRepImg(repImgUri);
             } catch (IOException e) {
-                LOGGER.error("Error while saving representative image: {}", e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid image file");
             }
 
@@ -186,8 +185,6 @@ public class BOS_ProductController {
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error(e.getMessage(), e);
-            LOGGER.error("An error occurred while registering a product: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -211,7 +208,6 @@ public class BOS_ProductController {
             LOGGER.error("Error occurred while fetching product list.", e); // 오류 로그 추가
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        LOGGER.info("Returning {} products.", productInfoList.size()); // 반환되는 제품의 수에 대한 로그 추가
         return new ResponseEntity<>(productInfoList, HttpStatus.OK);
     }
 

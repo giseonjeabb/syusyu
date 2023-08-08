@@ -21,4 +21,10 @@ public interface ProductDAO {
     int insertProduct(ProductDTO productDTO) throws Exception;
 
     List<ProductDTO> selectProductBosList(SearchConditionDTO params);
+
+    List<ProductDTO> selectNewProductList();
+
+    List<ProductDTO> selectPickProductList();
+
+    List<ProductDTO> selectPopularProductList();
 }

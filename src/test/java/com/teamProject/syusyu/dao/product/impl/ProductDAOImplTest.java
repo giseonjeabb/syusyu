@@ -209,4 +209,11 @@ public class ProductDAOImplTest {
             System.out.println(optCombNoList.get(i) + ", " + optItemIdList.get(i + 1));
         }
     }
+
+    @Test
+    public void testPopprod() {
+//        System.out.println(productDAO.selectPopularProductList());
+//        System.out.println(productDAO.selectPickProductList());
+        System.out.println(productDAO.selectNewProductList());
+    }
 }

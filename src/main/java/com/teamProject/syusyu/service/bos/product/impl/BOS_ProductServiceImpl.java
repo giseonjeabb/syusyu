@@ -167,19 +167,10 @@ public class BOS_ProductServiceImpl implements BOS_ProductService {
         }
     }
 
-//    @Override
-//    public Map<String, Object> getProductBosList(SearchConditionDTO searchConditionDTO){
-//        List<ProductDTO> productInfoList = productDAO.selectProductBosList(searchConditionDTO);
-//        int searchCnt=productInfoList.size();
-//
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("productInfoList", productInfoList);
-//        result.put("searchCnt", searchCnt);
-//        return result;
-//    }
-
     @Override
     public List<ProductDTO> getProductBosList(SearchConditionDTO searchConditionDTO){
         return productDAO.selectProductBosList(searchConditionDTO);
     }
+
+
 }

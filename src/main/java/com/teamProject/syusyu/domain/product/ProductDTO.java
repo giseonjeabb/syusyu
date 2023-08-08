@@ -93,7 +93,7 @@ public class ProductDTO {
         this.regrId = regrId;
     }
 
-    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt, String sort) {
+    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt, String sort, int buyCnt) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.middleNo = middleNo;
@@ -204,6 +204,32 @@ public class ProductDTO {
         this.brndKoNm=brndKoNm;
     }
 
+    public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt, int buyCnt) {
+        this.prodId = prodId;
+        this.cateId = cateId;
+        this.middleNo = middleNo;
+        this.middleNm = middleNm;
+        this.smallNo = smallNo;
+        this.smallNm = smallNm;
+        this.prodNm = prodNm;
+        this.modelNm = modelNm;
+        this.brndId = brndId;
+        this.brndNm = brndNm;
+        this.salePrc = salePrc;
+        this.dcPer = dcPer;
+        this.dcPrc = dcPrc;
+        this.repImg = repImg;
+        this.status = status;
+        this.saleStDttm = saleStDttm;
+        this.saleEdDttm = saleEdDttm;
+        this.dcStDttm = dcStDttm;
+        this.dcEdDttm = dcEdDttm;
+        this.regDttm = regDttm;
+        this.regrId = regrId;
+        this.avgStarRating = avgStarRating;
+        this.revwCnt = revwCnt;
+        this.buyCnt=buyCnt;
+    }
     public String getBrndKoNm() {
         return brndKoNm;
     }
