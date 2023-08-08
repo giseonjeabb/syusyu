@@ -94,4 +94,15 @@ public class FOS_ProductServiceImpl implements FOS_ProductService {
         return map;
     }
 
+    @Override
+    public Map<String,List<ProductDTO>> getDspyProductList()throws Exception{
+        List<ProductDTO> newProductList= productDAO.selectNewProductList();
+        List<ProductDTO> pickProductList= productDAO.selectPickProductList();
+        List<ProductDTO> popularProductList= productDAO.selectPopularProductList();
+        Map<String, List<ProductDTO>> map=new HashMap<>();
+        map.put("newProductList", newProductList);
+        map.put("pickProductList", pickProductList);
+        map.put("popularProductList", popularProductList);
+        return map;
+    }
 }

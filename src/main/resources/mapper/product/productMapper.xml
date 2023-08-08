@@ -314,8 +314,126 @@
         </if>
         ORDER BY P.PROD_ID DESC
     </select>
-
-
+    <select id="selectNewProductList" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.CATE_ID
+             , C.MIDDLE_NO
+             , C.MIDDLE_NM
+             , C.SMALL_NO
+             , C.SMALL_NM
+             , P.PROD_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , B.BRND_NM
+             , PRC.SALE_PRC
+             , PRC.DC_PER /* 할인율 */
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC /* 할인가 */
+             , P.REP_IMG
+             , P.STATUS
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PRC.DC_ED_DTTM
+             , P.REG_DTTM
+             , P.REGR_ID
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                                AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                       AS REVW_CNT
+             , GET_BUY_CNT(P.PROD_ID)                                          AS BUY_CNT
+        FROM PRODUCT P
+                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
+                 LEFT JOIN (SELECT prod_id
+                                 , ROUND(AVG(STAR_RATING), 1)                  AS AVG_STAR_RATING,
+                             COUNT(REVW_NO)                                    AS REVW_CNT
+                             FROM review
+                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
+        WHERE P.STATUS = 601 /* 판매중 */
+        AND P.DEL_YN = 'N'
+        AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+        ORDER BY P.REG_DTTM DESC
+        LIMIT 10;
+    </select>
+    <select id="selectPickProductList" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.CATE_ID
+             , C.MIDDLE_NO
+             , C.MIDDLE_NM
+             , C.SMALL_NO
+             , C.SMALL_NM
+             , P.PROD_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , B.BRND_NM
+             , PRC.SALE_PRC
+             , PRC.DC_PER /* 할인율 */
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC /* 할인가 */
+             , P.REP_IMG
+             , P.STATUS
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PRC.DC_ED_DTTM
+             , P.REG_DTTM
+             , P.REGR_ID
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                         AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                AS REVW_CNT
+             , GET_BUY_CNT(P.PROD_ID)                                   AS BUY_CNT
+        FROM PRODUCT P
+                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
+                 LEFT JOIN (SELECT prod_id,
+                                   ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
+                                   COUNT(REVW_NO)             AS REVW_CNT
+                            FROM review
+                            GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
+        WHERE P.STATUS = 601 /* 판매중 */
+          AND P.DEL_YN = 'N'
+          AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+        ORDER BY P.VW_CNT DESC
+        LIMIT 10
+    </select>
+    <select id="selectPopularProductList" resultType="ProductDTO">
+        SELECT P.PROD_ID
+             , P.CATE_ID
+             , C.MIDDLE_NO
+             , C.MIDDLE_NM
+             , C.SMALL_NO
+             , C.SMALL_NM
+             , P.PROD_NM
+             , P.MODEL_NM
+             , P.BRND_ID
+             , B.BRND_NM
+             , PRC.SALE_PRC
+             , PRC.DC_PER /* 할인율 */
+             , GET_DC_PRC(PRC.SALE_PRC, PRC.DC_PER) AS DC_PRC /* 할인가 */
+             , P.REP_IMG
+             , P.STATUS
+             , PRC.SALE_ST_DTTM
+             , PRC.SALE_ED_DTTM
+             , PRC.DC_ST_DTTM
+             , PRC.DC_ED_DTTM
+             , P.REG_DTTM
+             , P.REGR_ID
+             , COALESCE(ASR.AVG_STAR_RATING, 0)                                AS AVG_STAR_RATING
+             , COALESCE(ASR.REVW_CNT, 0)                                       AS REVW_CNT
+             , GET_BUY_CNT(P.PROD_ID)                                   AS BUY_CNT
+        FROM PRODUCT P
+                 JOIN CATEGORY C ON P.CATE_ID = C.CATE_ID
+                 JOIN BRAND B ON P.BRND_ID = B.BRND_ID
+                 JOIN PRICE PRC ON P.PROD_ID = PRC.PROD_ID
+                 LEFT JOIN (SELECT prod_id,
+                                   ROUND(AVG(STAR_RATING), 1) AS AVG_STAR_RATING,
+                                   COUNT(REVW_NO)             AS REVW_CNT
+                            FROM review
+                            GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
+        WHERE P.STATUS = 601 /* 판매중 */
+          AND P.DEL_YN = 'N'
+          AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+        ORDER BY BUY_CNT
+        LIMIT 10
+    </select>
 
 
 
