@@ -15,4 +15,5 @@ public interface FOS_ProductService {
 
     Map<String, Object> getProduct(int prodId) throws Exception;
 
+    Map<String,List<ProductDTO>> getDspyProductList() throws Exception;
 }

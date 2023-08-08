@@ -21,6 +21,4 @@ public interface BOS_ProductService {
 //    Map<String, Object> getProductBosList(SearchConditionDTO searchConditionDTO);
 
     List<ProductDTO> getProductBosList(SearchConditionDTO searchConditionDTO);
-
-
 }

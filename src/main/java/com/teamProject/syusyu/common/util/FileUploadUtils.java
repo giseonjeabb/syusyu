@@ -66,7 +66,6 @@ public class FileUploadUtils {
         // 현재 작업 디렉토리를 로그로 출력합니다.
         String currentDir = System.getProperty("user.dir");
         LOGGER.info("현재 작업 디렉토리: " + currentDir);
-        LOGGER.info("Storage Path: " + storagePath.getAbsolutePath());
 
         // 저장된 파일의 상대 경로를 반환합니다.
         return "/static/image/product/" + filename;
