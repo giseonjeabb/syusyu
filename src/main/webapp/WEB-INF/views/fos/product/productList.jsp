@@ -54,7 +54,7 @@
         <h2 class="title-t ty2">
             <c:choose>
                 <c:when test="${empty smallNo}">
-                    전체
+                    ${categories.middleCategories.get(middleNo)}
                 </c:when>
                 <c:otherwise>
                     ${categories.smallCategories.get(middleNo).get(smallNo)}
