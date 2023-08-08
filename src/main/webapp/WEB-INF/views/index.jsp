@@ -2,14 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
-<head>
-    <!-- swiper-->
-    <style>
-        @import url(https://unpkg.com/swiper/swiper-bundle.min.css);
-        @import url(${cssUrlFos}/common/index.scss);
-    </style>
-    <script src="<c:url value="${jsUrlFos}/index.js"/>"></script>
-</head>
+<!-- swiper-->
+<style>
+    @import url(https://unpkg.com/swiper/swiper-bundle.min.css);
+    @import url(${cssUrlFos}/common/index.scss);
+</style>
+<script src="<c:url value="${jsUrlFos}/index.js"/>"></script>
 <!-- Swiper Container -->
 <div class="swiper mySwiper">
     <!-- Slides -->
@@ -48,47 +46,6 @@
             <div class="tab-wrap">
                 <div class="prd-list-wrap">
                     <div class="prd-lists n5 productContainer">
-                        <script type="text/template" id="product-template">
-                            <div class="prd-item">
-                                <div class="thumbs hover">
-                                    <a href="/fos/products/product/{{prodId}}" target="_self" pno="{{prodId}}">
-                                        <img src="{{repImg}}" alt="{{prodNm}}">
-                                    </a>
-                                </div>
-                                <div class="desc">
-                                    <a href="/fos/products/product/{{prodId}}" target="_self" pno="{{prodId}}">
-                                        <p class="name line-clamp-2">{{prodNm}}</p>
-                                        <div class="price">
-                                            <p class="amount">
-                                                <!-- 판매 할인이 있는 경우 -->
-                                                <c:choose>
-                                                    <c:when test="{{dcPer}}>0">
-                                                        <span class="per">{{dcPer}}%</span>
-                                                        {{dcPrc}}
-                                                        <span class="won"></span>
-                                                        <del>{{salePrc}} 원</del>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <!-- 판매할인이 없는경우 -->
-                                                        {{salePrc}}
-                                                        <span class="won"></span>
-
-                                                    </c:otherwise>
-                                                </c:choose>
-
-                                            </p>
-                                        </div>
-                                        <div class="grade">
-                                            <strong style="width:{{avgStarRatingPer}}">{{avgStarRating}}</strong>
-                                            <span>({{revwCnt}})</span>
-                                        </div>
-                                    </a>
-                                    <div class="prd-item-btn">
-                                        <button type="button" class="btn icon alarm add-alarm-bt" pno="{{prodId}}"><span class="text">장바구니 담기</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </script>
                     </div>
                 </div>
             </div>
