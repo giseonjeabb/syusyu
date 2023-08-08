@@ -293,59 +293,38 @@
 
 
 
-
+<%--========================================================리뷰 리스트 start===============================================================--%>
                                         <div class="reviews-list-wrap" id="rwInfo">
                                             <!-- 상품 리뷰 정보를 반복문을 이용해서 생성 -->
                                             <c:forEach var="reviewDTO" items="${reviewList}">
-                                                <div class="rev-list view-list" data-idx="${reviewDTO.lginId}">
+                                                <div id="reviewList" class="rev-list view-list" data-idx="${reviewDTO.lginId}">
                                                     <div class="rev-detail">
-                            <div id="rating-dttm">
-                                    <div class="star-per-wrap">
-                                        <div class="star-per"><em style="width:${reviewDTO.starRating * 20}%;">평점</em></div>
-                                        <p class="star-sc">${reviewDTO.starRating}</p>
-                                    </div>
-                                        <div class="rev-info" id="ReviewInfo">
-                                            <span class="writer"><em>작성자</em>${reviewDTO.lginId}</span>
-                                            <span class="shoeSize"><em>사이즈</em>${reviewDTO.shoeSize}</span>
-                                            <span class="date"><em>날짜</em><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/></span>
-                                        </div>
-                            </div>
+                                                                <div id="rating-dttm">
+                                                                    <div class="star-per-wrap">
+                                                                        <div class="star-per"><em style="width:${reviewDTO.starRating * 20}%;">평점</em></div>
+                                                                        <p class="star-sc">${reviewDTO.starRating}</p>
+                                                                    </div>
+                                                                            <div class="rev-info" id="ReviewInfo">
+                                                                                <span class="writer"><em>작성자</em>${reviewDTO.lginId}</span>
+                                                                                <span class="shoeSize"><em>사이즈</em>${reviewDTO.shoeSize}</span>
+                                                                                <span class="date"><em>날짜</em><fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/></span>
+                                                                            </div>
+                                                                </div>   <%--=== <div id="rating-dttm">====----%>
 
-<%--    <div id="rating-dttm">--%>
-<%--        <div class="star-per-wrap">--%>
-<%--            <div class="star-per"><em style="width:${reviewDTO.starRating * 20}%;">평점</em></div>--%>
-<%--            <p class="star-sc">${reviewDTO.starRating}</p>--%>
-<%--        </div>--%>
-<%--        <div class="rev-info">--%>
-<%--            <span class="writer">작성자: ${reviewDTO.lginId} </span>--%>
-<%--            <span class="shoeSize">사이즈: ${reviewDTO.shoeSize} </span>--%>
-<%--            <span class="date">날짜: <fmt:formatDate value="${reviewDTO.regDttm}" pattern="yyyy.MM.dd"/> </span>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-                                                             <div class="rev-cont" id="ReviewContent">${reviewDTO.revwCn}</div>
-                                                        <!-- 이미지 정보가 있을 경우에만 생성 -->
-                                                            <div id="reviewImg">
-                                                            <c:if test="${not empty reviewDTO.imageList}">
-                                                                   <img src="${reviewDTO.imageList}">
-                                                            </c:if>
-                                                            </div>
-                                                    </div>
-<%--                                                        <div class="rev-photo">--%>
-<%--                                                                <div class="photo-list">--%>
-<%--                                                                    <!-- 이미지 정보가 있을 경우에만 생성 -->--%>
-<%--                                                                    <c:if test="${not empty reviewDTO.imageList}">--%>
-<%--                                                                        <c:forEach var="image" items="${reviewDTO.imageList}">--%>
-<%--                                                                            <a href="#">--%>
-<%--                                                                                <img src="${reviewDTO.imageUrl}" alt="">--%>
-<%--                                                                            </a>--%>
-<%--                                                                        </c:forEach>--%>
-<%--                                                                    </c:if>--%>
-<%--                                                                </div>--%>
-<%--                                                        </div>--%>
-                                                </div>
+
+                                                                     <div class="rev-cont" id="ReviewContent">${reviewDTO.revwCn}</div>
+                                                                    <!-- 이미지 정보가 있을 경우에만 생성 -->
+                                                                    <div id="reviewImg">
+                                                                        <c:if test="${not empty reviewDTO.imageList}">
+                                                                               <img src="${reviewDTO.imageList}">
+                                                                        </c:if>
+                                                                    </div>
+
+                                                    </div> <%--===  <div class="rev-detail">====----%>
+                                                </div>   <%--=== <div class="rev-list view-list"====----%>
                                             </c:forEach>
                                         </div>
-
+<%--========================================================리뷰 리스트 end===============================================================--%>
 
 
 
