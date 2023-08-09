@@ -3,15 +3,10 @@
 
 <head>
   <script type="text/javascript"src="<c:url value='${jsUrlBos}/product/productManagement.js'/>"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.21/datatables.min.css"/>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.21/datatables.min.js"></script>
-  <style>
-    #productTable_wrapper .dataTables_scrollBody {
-      width: 100%;
-      max-width: 1200px; /* 원하는 너비로 조정하세요. */
-      overflow-x: auto;
-    }
 
+  <style>
+    @import url(https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.21/datatables.min.css);
   </style>
 </head>
 <div class="container-fluid px-4">
@@ -31,14 +26,14 @@
           </select>
 
           <div class="date_range_container">
-            <button data-interval="0" class="btn btn-outline-dark date_range active">오늘</button>
+            <button data-interval="0" class="btn btn-outline-dark date_range">오늘</button>
             <button data-interval="1" class="btn btn-outline-dark date_range">어제</button>
             <button data-interval="3" class="btn btn-outline-dark date_range">3일</button>
             <button data-interval="7" class="btn btn-outline-dark date_range">7일</button>
             <button data-interval="15" class="btn btn-outline-dark date_range">15일</button>
             <button data-interval="30" class="btn btn-outline-dark date_range">1개월</button>
             <button data-interval="90" class="btn btn-outline-dark date_range">3개월</button>
-            <button data-interval="180" class="btn btn-outline-dark date_range">6개월</button>
+            <button data-interval="180" class="btn btn-outline-dark date_range active">6개월</button>
           </div>
 
           <div class="calendar">
@@ -112,11 +107,6 @@
   </div>
 
   <div class="grid-container">
-    <div>
-      <div class="rowCount">
-        <p>총 건수 : <span class="h3_txt" id="resultCnt">0</span> 건</p>
-      </div>
-    </div>
     <table id="productTable" class="display nowrap dataTable">
       <thead>
       <tr>

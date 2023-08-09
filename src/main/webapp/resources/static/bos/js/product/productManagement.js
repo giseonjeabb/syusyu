@@ -6,8 +6,7 @@ $(document).ready(function() {
     let today = new Date();
 
     // 페이지 로드 시 시작/종료 날짜를 오늘 날짜로 설정
-    setFlatpickrCalendar('start_date', today);
-    setFlatpickrCalendar('end_date', today);
+    setCalendarRangeByDays('start_date','end_date',180)
 
     // 날짜버튼 클릭 이벤트 설정
     const container = document.querySelector('.date_range_container');
@@ -148,6 +147,7 @@ function updateTable(data) {
     $('#productTable').DataTable({
         data:data,
         destroy:true,  // 기존의 DataTables 인스턴스가 있다면 제거
+        scrollX: true,  // 가로 스크롤 활성화
         columns:[
             {//체크박스
                 "title": "<input type='checkbox' id='select-all' />",
