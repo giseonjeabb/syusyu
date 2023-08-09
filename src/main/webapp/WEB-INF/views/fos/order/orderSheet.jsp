@@ -47,12 +47,12 @@
                                                 <div class="item-area">
                                                     <div class="prd-item etc-ty1">
                                                         <div class="thumbs hover">
-                                                            <a href="https://www.ottogimall.co.kr/front/product/525">
+                                                            <a href="#">
                                                                 <img src="${cartProd.repImg}" alt="스파게티 (150GX4)">
                                                             </a>
                                                         </div>
                                                         <div class="desc">
-                                                            <a href="https://www.ottogimall.co.kr/front/product/525">
+                                                            <a href="#">
                                                                 <p class="name">${cartProd.prodNm}</p>
                                                                 <div class="option">
                                                                     <p>
