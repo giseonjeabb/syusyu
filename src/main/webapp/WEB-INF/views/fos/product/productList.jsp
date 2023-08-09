@@ -102,14 +102,14 @@
                         <a href="#" id="buyCount">구매순</a>
                     </div>
 
-                    <div class="r-side-items">
-                        <select name="pageSize" id="pageSize" class="selectbox ty2">
-                            <option value="40">40개</option>
-                            <option value="60">60개</option>
-                            <option value="80" selected="">80개</option>
-                            <option value="100">100개</option>
-                        </select>
-                    </div>
+<%--                    <div class="r-side-items">--%>
+<%--                        <select name="pageSize" id="pageSize" class="selectbox ty2">--%>
+<%--                            <option value="40">40개</option>--%>
+<%--                            <option value="60">60개</option>--%>
+<%--                            <option value="80" selected="">80개</option>--%>
+<%--                            <option value="100">100개</option>--%>
+<%--                        </select>--%>
+<%--                    </div>--%>
                     <div class="r-side-items">
                         <button type="button" class="btn icon change-list" id="listBtn"><span class="text">앨범/리스트</span>
                         </button>
