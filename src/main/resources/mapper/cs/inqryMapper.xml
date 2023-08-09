@@ -85,9 +85,11 @@
 
     <update id="updateAnswer" parameterType="InqryDTO">
         UPDATE inqry
-        SET ANS_CN = #{ansCn}
+        SET ANS_CN = #{ansCn},
+            INQRY_YN = #{inqryYn}
         WHERE INQRY_NO = #{inqryNo}
     </update>
+
 
 
     <delete id="delete" parameterType="map">

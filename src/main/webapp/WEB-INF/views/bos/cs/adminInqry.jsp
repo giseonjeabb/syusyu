@@ -50,10 +50,12 @@
         preventClick++;  // 더블클릭 방지용 변수 하나 올리고 작업
 
         var ansCnValue = $("textarea[name='ansCn']").val();
+        var inqryYnValue = ansCnValue !== null ? 'Y' : 'N'; // ansCnValue 값이 null이 아니면 'Y', 아니면 'N'
 
         const inqryData = {
             ansCn: ansCnValue,
-            inqryNo: "${inqryDTO.inqryNo}" // inqryNo를 데이터 객체에 추가
+            inqryNo: "${inqryDTO.inqryNo}", // inqryNo를 데이터 객체에 추가
+            inqryYn: inqryYnValue // inqryYn 값을 추가
         };
 
         // 사용자에게 확인 메시지를 표시하고 확인 누를 경우에만 AJAX 요청 보내기
@@ -65,6 +67,7 @@
                 contentType: "application/json",
                 success: function(result) {
                     if (result === 1) {
+                        alert(inqryYnValue);
                         alert("성공적으로 등록되었습니다.");
                         preventClick = 0;
                         location.href = "/adminInqry/adminInqryList";
