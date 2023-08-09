@@ -7,12 +7,14 @@
  * @since 2023/07/06
  */
 $(document).ready(function(){
+    $('.category_list').hide();
     // middle 카테고리에 마우스를 올리면
     $('.middle-link').on('mouseenter', function(){
         // 모든 category_list를 숨깁니다.
         $('.category_list').hide();
+
         // 현재 middle 카테고리에 연결된 category_list만 보여줍니다.
-        $(this).siblings('.category_list').show();
+        $(this).next('.category_list').show();
     });
 
     // 카테고리 전체에 마우스를 벗어나면
@@ -20,7 +22,6 @@ $(document).ready(function(){
         // 모든 category_list를 숨깁니다.
         $('.category_list').hide();
     });
-
 
     //신발카테고리 추가
     $('.category_btn, #category_All_list').on('mouseover', function() {
@@ -36,22 +37,22 @@ $(document).ready(function(){
     });
 
 
-    const $mainCategoryLinks = $('.mainCategory');
+    const mainCategoryLinks = $('.mainCategory');
 
     // 모든 서브 메뉴(.depth2)를 숨기는 함수
     function hideSubCategoryItems() {
         $('.depth2').hide();
     }
 
-    $mainCategoryLinks.each(function() {
-        const $subCategoryMenu = $(this).next('.depth2');
+    mainCategoryLinks.each(function() {
+        const subCategoryMenu = $(this).next('.depth2');
 
         $(this).on('mouseenter', function() {
             hideSubCategoryItems();  // 모든 서브 메뉴를 숨김
-            $subCategoryMenu.show();  // 해당 메인 카테고리 항목의 서브 메뉴만 표시
+            subCategoryMenu.show();  // 해당 메인 카테고리 항목의 서브 메뉴만 표시
         });
 
-        $subCategoryMenu.on('mouseleave', function() {
+        subCategoryMenu.on('mouseleave', function() {
             $(this).hide();  // 마우스가 서브 메뉴에서 벗어났을 때 해당 서브 메뉴를 숨김
         });
     });
