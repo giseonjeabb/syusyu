@@ -134,16 +134,16 @@
                 </c:forEach>
 
             </table>
-            <div class="pagination-container">
-                <div>
+            <div id="devPageWrap">
+                <div class="wrap-pagination">
                     <c:if test="${ph.showPrev}">
-                        <a href="<c:url value='/adminInqry/adminInqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="arrow-link">&lt;</a>
+                        <a class="page" href="<c:url value='/adminInqry/adminInqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="arrow-link">&lt;</a>
                     </c:if>
                     <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                        <a href="<c:url value='/adminInqry/adminInqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+                        <a class="page paging-active" href="<c:url value='/adminInqry/adminInqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
                     </c:forEach>
                     <c:if test="${ph.showNext}">
-                        <a href="<c:url value='/adminInqry/adminInqryList?page=${i}&pageSize=${ph.pageSize}'/>" class="arrow-link">&gt;</a>
+                        <a class="page" href="<c:url value='/adminInqry/adminInqryList?page=${i}&pageSize=${ph.pageSize}'/>" class="arrow-link">&gt;</a>
                     </c:if>
                 </div>
             </div>
