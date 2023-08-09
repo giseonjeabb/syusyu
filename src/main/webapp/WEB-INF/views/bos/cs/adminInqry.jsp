@@ -67,7 +67,6 @@
                 contentType: "application/json",
                 success: function(result) {
                     if (result === 1) {
-                        alert(inqryYnValue);
                         alert("성공적으로 등록되었습니다.");
                         preventClick = 0;
                         location.href = "/adminInqry/adminInqryList";
