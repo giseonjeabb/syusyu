@@ -64,57 +64,57 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="va-tt">
-                    <div class="inp-label ty3 mt-15">
-                        <span class="label">첨부파일</span>
-                    </div>
-                </td>
+<%--            <tr>--%>
+<%--                <td class="va-tt">--%>
+<%--                    <div class="inp-label ty3 mt-15">--%>
+<%--                        <span class="label">첨부파일</span>--%>
+<%--                    </div>--%>
+<%--                </td>--%>
 
-                <td>
-                    <div class="review-add-album pt-0">
-                        <div class="file-box l-wrap">
-                            <input type="hidden" class="file-config" data-file-maxsize="3" data-file-maxvol="10"
-                                   data-file-ext="jpg, jpeg, png">
-                            <div class="photo-item" id="photoDiv1">
-                                <div id="photodel1" style="float:right"></div>
-                                <label for="photo1">
-                                    <input type="file" class="photoImg" name="photo1" id="photo1"
-                                           accept=".jpg, .jpeg, .png" class="photo-file">
-                                    <input type="hidden" name="image1Remove" class="imageRemoveFlag" value="0"/>
-                                </label>
-                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>
-                                    <span>삭제</span></button>
-                            </div>
+<%--                <td>--%>
+<%--                    <div class="review-add-album pt-0">--%>
+<%--                        <div class="file-box l-wrap">--%>
+<%--                            <input type="hidden" class="file-config" data-file-maxsize="3" data-file-maxvol="10"--%>
+<%--                                   data-file-ext="jpg, jpeg, png">--%>
+<%--                            <div class="photo-item" id="photoDiv1">--%>
+<%--                                <div id="photodel1" style="float:right"></div>--%>
+<%--                                <label for="photo1">--%>
+<%--                                    <input type="file" class="photoImg" name="photo1" id="photo1"--%>
+<%--                                           accept=".jpg, .jpeg, .png" class="photo-file">--%>
+<%--                                    <input type="hidden" name="image1Remove" class="imageRemoveFlag" value="0"/>--%>
+<%--                                </label>--%>
+<%--                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>--%>
+<%--                                    <span>삭제</span></button>--%>
+<%--                            </div>--%>
 
-                            <div class="photo-item" id="photoDiv2">
-                                <div id="photodel2" style="float:right"></div>
-                                <label for="photo2">
-                                    <input type="file" class="photoImg" name="photo2" id="photo2"
-                                           accept=".jpg, .jpeg, .png" class="photo-file">
-                                    <input type="hidden" name="image2Remove" class="imageRemoveFlag" value="0"/>
-                                </label>
-                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>
-                                    <span>삭제</span></button>
-                            </div>
+<%--                            <div class="photo-item" id="photoDiv2">--%>
+<%--                                <div id="photodel2" style="float:right"></div>--%>
+<%--                                <label for="photo2">--%>
+<%--                                    <input type="file" class="photoImg" name="photo2" id="photo2"--%>
+<%--                                           accept=".jpg, .jpeg, .png" class="photo-file">--%>
+<%--                                    <input type="hidden" name="image2Remove" class="imageRemoveFlag" value="0"/>--%>
+<%--                                </label>--%>
+<%--                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>--%>
+<%--                                    <span>삭제</span></button>--%>
+<%--                            </div>--%>
 
-                            <div class="photo-item" id="photoDiv3">
-                                <div id="photodel3" style="float:right"></div>
-                                <label for="photo3">
-                                    <input type="file" class="photoImg" name="photo3" id="photo3"
-                                           accept=".jpg, .jpeg, .png" class="photo-file">
-                                    <input type="hidden" name="image3Remove" class="imageRemoveFlag" value="0"/>
-                                </label>
-                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>
-                                    <span>삭제</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list ty2">
-                        <li>이미지는 30MB 미만의 jpg, jpeg, png 파일만 첨부하실 수 있으며, 최대 3개까지 등록 가능합니다.</li>
-                    </ul>
-                </td>
-            </tr>
+<%--                            <div class="photo-item" id="photoDiv3">--%>
+<%--                                <div id="photodel3" style="float:right"></div>--%>
+<%--                                <label for="photo3">--%>
+<%--                                    <input type="file" class="photoImg" name="photo3" id="photo3"--%>
+<%--                                           accept=".jpg, .jpeg, .png" class="photo-file">--%>
+<%--                                    <input type="hidden" name="image3Remove" class="imageRemoveFlag" value="0"/>--%>
+<%--                                </label>--%>
+<%--                                <button type="button" class="btn icon close-w photo-del" data-photo-clear>--%>
+<%--                                    <span>삭제</span></button>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <ul class="list ty2">--%>
+<%--                        <li>이미지는 30MB 미만의 jpg, jpeg, png 파일만 첨부하실 수 있으며, 최대 3개까지 등록 가능합니다.</li>--%>
+<%--                    </ul>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
             </tbody>
         </table>
     </div>

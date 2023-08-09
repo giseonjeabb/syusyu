@@ -134,6 +134,8 @@ orderView.function = {
             {title: "결제금액", field: "realPayAmt", formatter: syusyu.common.Tabulator.formatNumberForTabulator},
             {title: "구매자명", field: "ordrNm"},
             {title: "수령인", field: "recipient"},
+            {title: "택배사", field: "dlvCom"},
+            {title: "송장번호", field: "trckNo"},
             {title: "주문상태코드", field: "ordStus", visible: false},
         ];
 
