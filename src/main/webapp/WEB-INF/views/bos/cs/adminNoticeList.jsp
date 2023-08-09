@@ -204,7 +204,7 @@
                     <c:if test="${ph.totalCnt!=null && ph.totalCnt!=0}">
 
                         <c:if test="${ph.showFirst}">
-                            <a class="page" href="<c:url value='/adminNotice/list${ph.sc.getQueryString(ph.beginPage)}'/>"><i class="fa-solid fa-angles-left"></i></a>
+                            <a class="page" href="<c:url value='/adminNotice/list${ph.sc.getQueryString(1)}'/>"><i class="fa-solid fa-angles-left"></i></a>
                         </c:if>
 
                         <c:if test="${ph.showPrev}">

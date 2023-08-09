@@ -147,7 +147,7 @@
 
             <c:if test="${ph.showFirst}">
                 <a class="page"
-                   href="<c:url value='/notice/noticeList${pg.sc.getQueryString(ph.beginPage)}'/>">&lt;&lt;</a>
+                   href="<c:url value='/notice/noticeList${ph.sc.getQueryString(1)}'/>">&lt;&lt;</a>
             </c:if>
 
             <c:if test="${ph.showPrev}">

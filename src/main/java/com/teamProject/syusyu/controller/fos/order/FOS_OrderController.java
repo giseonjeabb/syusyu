@@ -118,6 +118,8 @@ public class FOS_OrderController {
     @GetMapping("orders")
     @ResponseBody
     public ResponseEntity<Map<Integer, List<OrderInfoDTO>>> orderInfo(@SessionAttribute int mbrId, String startDate, String endDate) {
+
+        System.out.println("mbrId = " + mbrId);
         Map<Integer, List<OrderInfoDTO>> orderInfoListByOrdNo = null;
         Map<String, Object> param = new HashMap<>();
         param.put("mbrId", mbrId);
@@ -135,7 +137,7 @@ public class FOS_OrderController {
     }
 
     /**
-     * 주문 상세 페이지를 반환한다.
+     * 주문 상세 페이지를 반환한다.aa
      * 사용자의 아이디와 주문번호를 이용하여 해당 주문에 대한 상세 정보를 조회한다.
      *
      * @param m     페이지에 전달할 데이터를 담을 Model 객체
