@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <section class="mp-info-wrap">
     <div class="mp-info">
-        <a href="https://www.ottogimall.co.kr/front/help/benefit" class="left">
+        <a href="#" class="left">
             <img src="https://ottogi-mall-s3.s3.ap-northeast-2.amazonaws.com/data/grade/BfBuiDx2hDjqgQXGoaL.vbhdy7iolzdt.png"
                  alt="블루">
         </a>
@@ -11,15 +11,15 @@
     </div>
     <div class="mp-benefit-box">
         <div class="benefit">
-            <a href="https://www.ottogimall.co.kr/front/mypage/benefit_smoney" class="txt">포인트</a>
+            <a href="#" class="txt">포인트</a>
             <p>1,000</p>
-            <a href="https://www.ottogimall.co.kr/front/product/category/mileage"
+            <a href="#"
                class="btn ty1 c-ty5 w-90"><span>사용하기</span></a>
         </div>
         <div class="benefit">
-            <a href="https://www.ottogimall.co.kr/front/mypage/benefit_coupon?sstatus=usable" class="txt">쿠폰</a>
+            <a href="#" class="txt">쿠폰</a>
             <p>0</p>
-            <a href="https://www.ottogimall.co.kr/front/mypage/benefit_coupon?sstatus=usable"
+            <a href="#"
                class="btn ty1 c-ty5 w-90"><span>쿠폰등록</span></a>
         </div>
     </div>

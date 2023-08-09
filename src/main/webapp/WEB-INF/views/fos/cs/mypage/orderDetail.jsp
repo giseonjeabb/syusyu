@@ -13,7 +13,7 @@
         <input type="hidden" name="mnu" value="delivery">
         <input type="hidden" name="cmd">
         <input type="hidden" name="idx" value="39796">
-        <input type="hidden" name="redirect" value="https://www.ottogimall.co.kr/front/mypage/order_delivery">
+        <input type="hidden" name="redirect" value="#">
         <input type="hidden" name="params" value="sdts=2023-06-21&amp;sdte=2023-07-21&amp;page=0">
         <div class="sub-content-head etc-ty2 mb-30">
             <div class="inner">
@@ -39,7 +39,33 @@
                         </div>
                         <div class="order-info">
                             <div class="badge-cont">
-                                <span class="badge-item ${orderDetail.ordStus == 70 ? 'ty11' : 'ty13'} fw-7">${orderDetail.ordStusNm}</span>
+                                <c:choose>
+                                    <c:when test="${orderDetail.ordStus == 10}">
+                                        <span class="badge-item ty13 fw-7">결제완료</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 20}">
+                                        <span class="badge-item ty12 fw-7">상품준비중</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 30 || orderDetail.ordStus == 40 || orderDetail.ordStus == 50}">
+                                        <span class="badge-item ty13 fw-7">배송중</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 60}">
+                                        <span class="badge-item ty13 fw-7">배송완료</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 70}">
+                                        <span class="badge-item ty11 fw-7">주문취소</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 80}">
+                                        <span class="badge-item ty11 fw-7">반품</span>
+                                    </c:when>
+                                    <c:when test="${orderDetail.ordStus == 90}">
+                                        <span class="badge-item ty11 fw-7">교환</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge-item unknown fw-7">알 수 없는 상태</span>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                             <p class="name">${orderDetail.prodNm}</p>
                             <div class="option">${orderDetail.optNm}</div>
@@ -183,5 +209,5 @@
 </section>
 <!-- // 결제정보 -->
 <div class="btn-area mt-40">
-    <a href="https://www.ottogimall.co.kr/front/mypage/cs_inquiry" class="btn ty4 c-ty2"><span>1:1 문의</span></a>
+    <a href="#" class="btn ty4 c-ty2"><span>1:1 문의</span></a>
 </div>
