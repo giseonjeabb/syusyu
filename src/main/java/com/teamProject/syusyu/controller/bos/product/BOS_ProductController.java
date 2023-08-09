@@ -7,7 +7,6 @@ import com.teamProject.syusyu.common.util.FileUploadUtils;
 import com.teamProject.syusyu.domain.product.*;
 import com.teamProject.syusyu.service.base.product.CategoryServiceBase;
 import com.teamProject.syusyu.service.bos.product.BOS_ProductService;
-import com.teamProject.syusyu.service.fos.product.FOS_CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,7 +199,9 @@ public class BOS_ProductController {
     @PostMapping("/product/productList")
     public ResponseEntity<List<ProductDTO>> getProductList(@RequestBody SearchConditionDTO searchConditionDTO) {
 //        LOGGER.info("Inside getProductList method. Search conditions: {}", searchConditionDTO); // 로그 추가
-
+        if(searchConditionDTO.getLoadInitialData() == null) {
+            searchConditionDTO.setLoadInitialData(true);  // 처음 로딩 시에는 true로 설정
+        }
         List<ProductDTO> productInfoList;
         try {
             productInfoList = productService.getProductBosList(searchConditionDTO);

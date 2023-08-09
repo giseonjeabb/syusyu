@@ -312,7 +312,15 @@
         <if test="smallNm != null and smallNm != '-소분류-'">
             AND CATE.SMALL_NM = #{smallNM}
         </if>
-        ORDER BY P.PROD_ID DESC
+        <!-- 초기 로딩 조건 추가 -->
+        <if test="loadInitialData != null and loadInitialData == true">
+            ORDER BY P.REG_DTTM DESC
+            LIMIT 100
+        </if>
+        <!-- 그 외의 경우 기존 정렬 -->
+        <if test="loadInitialData == null or loadInitialData == false">
+            ORDER BY P.PROD_ID DESC
+        </if>
     </select>
     <select id="selectNewProductList" resultType="ProductDTO">
         SELECT P.PROD_ID

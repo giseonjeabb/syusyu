@@ -88,58 +88,57 @@ $(document).ready(function() {
         }
     });
 
+    loadProductData(true);
 
-
-
+    // 검색 버튼 클릭 이벤트
     $("#btn_search").click(function() {
-        const dataType = $("#date_type").val();
-        const startDate = $("#start_date").val();
-        const endDate = $("#end_date").val();
-        const searchType = $("#search_type").val();
-        const searchKeyword = $("#search_keyword").val();
-
-
-        const checkboxes = document.querySelectorAll('#productStatusCheckbox .chk-point');
-        const checkedValues = Array.from(checkboxes).filter(box => box.checked).map(box => parseInt(box.value));
-        console.log("Selected Status Values:", checkedValues);
-
-        const largeNm = $("#largeNo").val();
-        const middleNm = $("#middleNo").val();
-        const smallNm = $("#smallNo").val();
-
-        const searchData = {
-            dateType: dataType,
-            startDate: startDate,
-            endDate: endDate,
-            searchType: searchType,
-            searchKeyword: searchKeyword,
-            statusList: checkedValues,
-            largeNm: largeNm,
-            middleNm: middleNm,
-            smallNm: smallNm
-        };
-
-        console.log(searchData);
-
-        $.ajax({
-            url: '/bos/product/productList',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(searchData),
-            success: function (data) {
-                // 서버로부터 받은 상품 리스트를 사용하여 테이블 업데이트
-                updateTable(data);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
+        loadProductData(false);
     });
 
 
-
-
 });
+
+function loadProductData(isInitialLoad) {
+    let dataType = $("#date_type").val();
+    let startDate = $("#start_date").val();
+    let endDate = $("#end_date").val();
+    let searchType = $("#search_type").val();
+    let searchKeyword = $("#search_keyword").val();
+
+    const checkboxes = document.querySelectorAll('#productStatusCheckbox .chk-point');
+    const checkedValues = Array.from(checkboxes).filter(box => box.checked).map(box => parseInt(box.value));
+
+    let largeNm = $("#largeNo").val();
+    let middleNm = $("#middleNo").val();
+    let smallNm = $("#smallNo").val();
+
+    const searchData = {
+        dateType: dataType,
+        startDate: startDate,
+        endDate: endDate,
+        searchType: searchType,
+        searchKeyword: searchKeyword,
+        statusList: checkedValues,
+        largeNm: largeNm,
+        middleNm: middleNm,
+        smallNm: smallNm,
+        loadInitialData: isInitialLoad // 추가한 파라미터
+    };
+
+    $.ajax({
+        url: '/bos/product/productList',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(searchData),
+        success: function (data) {
+            updateTable(data);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
 
 // 테이블 업데이트 함수
 function updateTable(data) {
