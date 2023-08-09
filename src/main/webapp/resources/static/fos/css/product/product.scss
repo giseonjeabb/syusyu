@@ -1,0 +1,18 @@
+.top-btn {
+  display: none; /* 처음에는 숨김 */
+  position: fixed; /* 위치를 고정 */
+  bottom: 20px; /* 페이지 하단으로부터 20px 떨어진 곳에 위치 */
+  right: 20px; /* 페이지 우측으로부터 20px 떨어진 곳에 위치 */
+  z-index: 99; /* 대부분의 다른 요소보다 위에 위치 */
+  border: none;
+  outline: none;
+  background-color: #555; /* 배경색 */
+  color: white; /* 글자색 */
+  cursor: pointer; /* 마우스 커서 모양 */
+  padding: 10px 20px;
+  border-radius: 10px; /* 모서리 둥글게 */
+}
+
+.top-btn:hover {
+  background-color: #333; /* 마우스 오버시 배경색 변경 */
+}
