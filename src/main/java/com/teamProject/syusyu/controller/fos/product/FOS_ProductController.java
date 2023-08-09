@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,40 +34,6 @@ public class FOS_ProductController {
     FOS_ProductService fosProductService;
     @Autowired
     FOS_ReviewService fosReviewService;
-
-    /**
-     * 이 메소드는 모든 카테고리를 가져와서 세션에 저장하는 기능을 수행합니다.
-     * HTTP GET 요청을 통해 호출되며, 반환 값은 모든 카테고리의 정보와 HTTP 상태 코드입니다.
-     *
-     * @param request HttpServletRequest 객체. 세션을 얻기 위해 사용됩니다.
-     * @return categories가 null이면 HTTP 상태 코드 204(NO CONTENT)와 함께 null 반환, 그렇지 않으면 categories 객체와 HTTP 상태 코드 200(OK)를 ResponseEntity 객체로 반환.
-     * @throws Exception 카테고리 서비스에서 카테고리 목록을 가져오는 도중 발생할 수 있는 예외
-     * @author soso
-     * @since 2023/07/06
-     */
-    @GetMapping("categories")
-    public ResponseEntity<Map<String, Object>> categoryAllList(HttpServletRequest request) {
-        logger.info("Entering categoryAllList() method");
-        try {
-            Map<String, Object> categories = categoryService.getCategoryAllList();
-
-            if (categories == null) {
-                logger.info("categories is null");
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            // 세션에 카테고리 저장
-            HttpSession session = request.getSession();
-            session.setAttribute("categories", categories);
-
-            logger.info("Exiting categoryAllList() method");
-            return new ResponseEntity<>(categories, HttpStatus.OK);
-        } catch (Exception e) {
-            // 예외 처리 로직 추가
-            logger.error("An error occurred in categoryAllList(): ", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
 
     @GetMapping("products")
@@ -91,12 +54,12 @@ public class FOS_ProductController {
     public String productListView(@PathVariable("middleNo") Integer middleNo,
                                   @PathVariable("smallNo") Integer smallNo,
                                   Model model) {
-        logger.info("Entering productListView() method with middleNo: " + middleNo + ", smallNo: " + smallNo);
+//        logger.info("Entering productListView() method with middleNo: " + middleNo + ", smallNo: " + smallNo);
 
         model.addAttribute("middleNo", middleNo);
         model.addAttribute("smallNo", smallNo);
 
-        logger.info("Exiting productListView() method");
+//        logger.info("Exiting productListView() method");
         return ViewPath.FOS_PRODUCT + "productList";
     }
 
@@ -120,7 +83,7 @@ public class FOS_ProductController {
             @PathVariable Integer middleNo,
             @PathVariable Integer smallNo,
             @PathVariable String sort) {
-        logger.info("Entering getProductList() method with middleNo: " + middleNo + ", smallNo: " + smallNo + ", sort: " + sort);
+//        logger.info("Entering getProductList() method with middleNo: " + middleNo + ", smallNo: " + smallNo + ", sort: " + sort);
 
         Map<String, Object> productInfo = null;
 
@@ -136,7 +99,7 @@ public class FOS_ProductController {
             logger.error("An error occurred in getProductList(): ", e);
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
         }
-        logger.info("Exiting getProductList() method");
+//        logger.info("Exiting getProductList() method");
         return new ResponseEntity<>(productInfo, HttpStatus.OK);
     }
 

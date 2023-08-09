@@ -5,6 +5,9 @@
 <c:set var="loginOutText" value="${sessionScope.mbrId != null ? '로그아웃' : '로그인'}"/>
 <c:set var="categories" value="${sessionScope.categories}"/>
 <html>
+<style>
+    @import url(${cssUrlFos}/common/header.scss);
+</style>
 <script src="<c:url value='${jsUrlFos}/common/header.js'/>"></script>
 <body>
 <jsp:include page="layerPopup.jsp"/>
@@ -13,7 +16,7 @@
         <div class="header-top">
             <div class="inner">
                 <h1 class="logo"><a href="/"
-                                    style="background: url('/static/image/logo/syusyuBlackLogo.png') no-repeat center center;">syusyu</a>
+                                    style="background: url('/static/image/logo/syusyuBlackLogo.png') no-repeat center center;">syusyu</a>${categories.middleCategories}
                 </h1>
                 <div class="header-top-utils">
                     <a id="loginOut" href="#" onclick="location.href='${loginOutLink}'">${loginOutText}</a>
@@ -25,47 +28,30 @@
             <div class="inner">
                 <div class="header-bottom-item">
                     <div class="category">
-                        <c:forEach var="large" items="${categories.largeCategories}">
-                            <button type="button" class="category_btn"><span>${large.value}</span></button>
-                        </c:forEach>
-                        <div class="category_list">
-                            <ul class="depth1">
-                                <%--중분류--%>
-                                <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
-                                    <li>
-                                        <a class="mainCategory"
-                                           href="/fos/products/${middle.key}"
-                                           idx=${middle.key} data-idx=${middle.key}> <c:out value="${middle.value}"/> </a>
-                                        <div class="depth2">
-                                            <ul class="subCategory">
-                                                    <%-- 소분류 --%>
-                                                <!-- middle.key와 small.key가 같다면 해당 small카테고리의 항목의 값을 리스트 항목으로 출력-->
-                                                <c:forEach var="small" items="${categories.smallCategories}">
-                                                    <c:if test="${middle.key eq small.key}">
-                                                        <c:forEach var="smallCategoryItem" items="${small.value}">
-                                                            <li><a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>">
-                                                                <c:out value="${smallCategoryItem.value}"/></a></li>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
-                    <ul class="gnb-list">
-                        <li><a href="#"
-                               target="_self">hey!</a></li>
-                        <li><a href="#" target="_self">이벤트</a></li>
-                        <li><a href="#" target="_self">브랜드관</a></li>
+                        <ul class="gnb-list" id="gnb-list">
+                            <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
+                                <li><a class="middle-link" href="<c:url value='/fos/products/${middle.key}'/>" idx=${middle.key} data-idx=${middle.key} target="_self"><c:out value="${middle.value}"/></a>
+                                    <div class="category_list" id="category_link_list">
+                                        <ul class="depth1" id="depth1__block">
+                                            <c:forEach var="small" items="${categories.smallCategories}">
+                                                <c:if test="${middle.key eq small.key}">
+                                                    <c:forEach var="smallCategoryItem" items="${small.value}">
+                                                        <li><a class="mainCategory" href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>">
+                                                            <c:out value="${smallCategoryItem.value}"/></a></li>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </c:forEach>
                         <li><a href="#" target="_self">베스트</a></li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
                 <div class="header-bottom-item keywordBox">
                     <div class="h-search-wrap">
-                        <form id="frm_topper_search" action="#">
+                        <form id="frm_topper_search" action="https://www.ottogimall.co.kr/front/product/search_result">
                             <div class="input">
                                 <input type="text" id="search_input" name="keyword" class="inp" autocomplete="off">
                                 <button type="submit" class="btn icon search">

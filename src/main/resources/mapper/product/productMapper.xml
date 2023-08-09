@@ -247,8 +247,7 @@
         SELECT P.PROD_ID
              , P.PROD_NM
              , P.PROD_DTL_DESC
-             , P.STATUS
-             , GET_CD_NM('P0002', P.STATUS)
+             , GET_CD_NM('P0002', P.STATUS) AS STATUS_NM
              , P.DSPY_YN
              , (SELECT SUM(INV_QTY) FROM PROD_OPT WHERE PROD_ID = P.PROD_ID) AS TOT_QTY
              , PRC.BUY_PRC
@@ -259,21 +258,17 @@
              , GET_BUY_CNT(P.PROD_ID) AS BUY_CNT
              , GET_TOT_PNT(P.PROD_ID) AS POINT
              , GET_TOT_PRC(P.PROD_ID) AS TOT_PRC
-             , CATE.LARGE_NO
              , CATE.LARGE_NM
-             , CATE.MIDDLE_NO
              , CATE.MIDDLE_NM
-             , CATE.SMALL_NO
              , CATE.SMALL_NM
              , P.MODEL_NM
-             , P.BRND_ID
              , BRND.BRND_NM
              , BRND.BRND_KO_NM
              , P.MFGD_MATR
              , P.MFTCO
-             , GET_CD_NM('PR001', P.MFTCO)
+             , GET_CD_NM('PR001', P.MFTCO) AS mftcoName
              , P.MFT_NATN
-             , GET_CD_NM('MC001', P.MFT_NATN)
+             , GET_CD_NM('MC001', P.MFT_NATN) AS mgfNatnName
              , P.VW_CNT
              , P.REG_DTTM
              , P.REGR_ID
@@ -312,7 +307,15 @@
         <if test="smallNm != null and smallNm != '-소분류-'">
             AND CATE.SMALL_NM = #{smallNM}
         </if>
-        ORDER BY P.PROD_ID DESC
+        <!-- 초기 로딩 조건 추가 -->
+        <if test="loadInitialData != null and loadInitialData == true">
+            ORDER BY P.REG_DTTM DESC
+            LIMIT 100
+        </if>
+        <!-- 그 외의 경우 기존 정렬 -->
+        <if test="loadInitialData == null or loadInitialData == false">
+            ORDER BY P.PROD_ID DESC
+        </if>
     </select>
     <select id="selectNewProductList" resultType="ProductDTO">
         SELECT P.PROD_ID
