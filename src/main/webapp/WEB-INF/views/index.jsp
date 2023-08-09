@@ -31,7 +31,7 @@
 
 
 
-<section id="popularProductSection">>
+<section id="popularProductSection">
     <div class="content-title">
         <div class="sub-content-head etc-ty2">
             <div class="inner">
