@@ -30,7 +30,7 @@ public class FileUploadUtils {
      * @since 2023/07/29
      */
     public String saveFileAndGetUri(MultipartFile file) throws IOException {
-        LOGGER.info("saveFileAndGetUri is called with file: " + file.getOriginalFilename());
+//        LOGGER.info("saveFileAndGetUri is called with file: " + file.getOriginalFilename());
 
         // 업로드된 파일의 원래 이름을 가져옵니다.
         String originalFilename = file.getOriginalFilename();

@@ -54,12 +54,12 @@ public class FOS_ProductController {
     public String productListView(@PathVariable("middleNo") Integer middleNo,
                                   @PathVariable("smallNo") Integer smallNo,
                                   Model model) {
-        logger.info("Entering productListView() method with middleNo: " + middleNo + ", smallNo: " + smallNo);
+//        logger.info("Entering productListView() method with middleNo: " + middleNo + ", smallNo: " + smallNo);
 
         model.addAttribute("middleNo", middleNo);
         model.addAttribute("smallNo", smallNo);
 
-        logger.info("Exiting productListView() method");
+//        logger.info("Exiting productListView() method");
         return ViewPath.FOS_PRODUCT + "productList";
     }
 
@@ -83,7 +83,7 @@ public class FOS_ProductController {
             @PathVariable Integer middleNo,
             @PathVariable Integer smallNo,
             @PathVariable String sort) {
-        logger.info("Entering getProductList() method with middleNo: " + middleNo + ", smallNo: " + smallNo + ", sort: " + sort);
+//        logger.info("Entering getProductList() method with middleNo: " + middleNo + ", smallNo: " + smallNo + ", sort: " + sort);
 
         Map<String, Object> productInfo = null;
 
@@ -99,7 +99,7 @@ public class FOS_ProductController {
             logger.error("An error occurred in getProductList(): ", e);
             return new ResponseEntity<>(productInfo, HttpStatus.BAD_REQUEST);
         }
-        logger.info("Exiting getProductList() method");
+//        logger.info("Exiting getProductList() method");
         return new ResponseEntity<>(productInfo, HttpStatus.OK);
     }
 

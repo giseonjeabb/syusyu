@@ -1,7 +1,12 @@
 #gnb-list{
   margin-left: 2vw
 }
+
+#category_link_list{
+  display: none;
+}
 #depth1__block{
+  dosplay:none;
   overflow: auto;
   width: 240px;
   height: 100%;
