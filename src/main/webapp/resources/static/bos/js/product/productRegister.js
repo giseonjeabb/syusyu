@@ -952,7 +952,7 @@ function productRegisterSave() {
 
         console.log(data);
         alert("상품이 등록됐습니다.")
-        window.location.href = "/admin/dashboard";
+        window.location.href = "/bos/product/productList";
 
     });
 }

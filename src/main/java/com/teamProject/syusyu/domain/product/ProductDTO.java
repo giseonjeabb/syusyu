@@ -154,12 +154,12 @@ public class ProductDTO {
 
     }
 
-    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int brndId, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, Integer dlvGhg, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, int mftco, String mftcoNm, int mftNatn, String mftNatnNm, int status, String statusNm, String dspyYn, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, Date updDttm, int buyCnt, String brndNm, int largeNo, String largeNm, int middleNo, String middleNm, int smallNo, String smallNm, String sort, int code, String cdNm, int totQty, int buyPrc, int point, int totPrc, String mftcoName, String mftNatnName, int vwCnt, String brndKoNm) {
+    //상품조회
+    public ProductDTO(int prodId, int cateId, String prodNm, String modelNm, int salePrc, Integer dcPer, Integer dcPrc, double avgStarRating, Integer revwCnt, Integer dlvGhg, Integer dlvChgDtl, String prodDtlDesc, String mfgdMatr, String mftcoNm, String mftNatnNm, String statusNm, String dspyYn, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, Date updDttm, int buyCnt, String brndNm, String largeNm, String middleNm, String smallNm, String sort, int code, String cdNm, int totQty, int buyPrc, int point, int totPrc, String mftcoName, String mftNatnName, int vwCnt, String brndKoNm) {
         this.prodId = prodId;
         this.cateId = cateId;
         this.prodNm = prodNm;
         this.modelNm = modelNm;
-        this.brndId = brndId;
         this.salePrc = salePrc;
         this.dcPer = dcPer;
         this.dcPrc = dcPrc;
@@ -169,11 +169,8 @@ public class ProductDTO {
         this.dlvChgDtl = dlvChgDtl;
         this.prodDtlDesc = prodDtlDesc;
         this.mfgdMatr = mfgdMatr;
-        this.mftco = mftco;
         this.mftcoNm = mftcoNm;
-        this.mftNatn = mftNatn;
         this.mftNatnNm = mftNatnNm;
-        this.status = status;
         this.statusNm = statusNm;
         this.dspyYn = dspyYn;
         this.saleStDttm = saleStDttm;
@@ -185,11 +182,8 @@ public class ProductDTO {
         this.updDttm = updDttm;
         this.buyCnt = buyCnt;
         this.brndNm = brndNm;
-        this.largeNo = largeNo;
         this.largeNm = largeNm;
-        this.middleNo = middleNo;
         this.middleNm = middleNm;
-        this.smallNo = smallNo;
         this.smallNm = smallNm;
         this.sort = sort;
         this.code = code;
@@ -204,6 +198,7 @@ public class ProductDTO {
         this.brndKoNm=brndKoNm;
     }
 
+    //메인상품진열
     public ProductDTO(int prodId, int cateId, int middleNo, String middleNm, int smallNo, String smallNm, String prodNm, String modelNm, int brndId, String brndNm, int salePrc, int dcPer, Integer dcPrc, String repImg, int status, Date saleStDttm, Date saleEdDttm, Date dcStDttm, Date dcEdDttm, Date regDttm, int regrId, double avgStarRating, Integer revwCnt, int buyCnt) {
         this.prodId = prodId;
         this.cateId = cateId;

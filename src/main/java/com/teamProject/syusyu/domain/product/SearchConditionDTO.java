@@ -13,9 +13,11 @@ public class SearchConditionDTO {
     private String largeNm;
     private String middleNm;
     private String smallNm;
+    private Boolean loadInitialData;
 
     public SearchConditionDTO(){}
-    public SearchConditionDTO(String largeNm, String middleNm, String smallNm, String dateType, String startDate, String endDate, String searchKeyword, String searchType, List<Integer> statusList) {
+
+    public SearchConditionDTO(String largeNm, String middleNm, String smallNm, String dateType, String startDate, String endDate, String searchKeyword, String searchType, List<Integer> statusList, Boolean loadInitialData) {
         this.largeNm = largeNm;
         this.middleNm = middleNm;
         this.smallNm = smallNm;
@@ -25,8 +27,20 @@ public class SearchConditionDTO {
         this.searchKeyword = searchKeyword;
         this.searchType = searchType;
         this.statusList = statusList;
+        this.loadInitialData = loadInitialData;
     }
 
+    public SearchConditionDTO(Boolean loadInitialData) {
+        this.loadInitialData = loadInitialData;
+    }
+
+    public Boolean getLoadInitialData() {
+        return loadInitialData;
+    }
+
+    public void setLoadInitialData(Boolean loadInitialData) {
+        this.loadInitialData = loadInitialData;
+    }
 
     public String getDateType() {
         return dateType;
