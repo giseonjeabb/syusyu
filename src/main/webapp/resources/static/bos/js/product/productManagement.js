@@ -44,6 +44,19 @@ $(document).ready(function() {
         }
     });
 
+    //체크박스
+    const chkAll = document.getElementById('chk-all');
+    const chkPoints = document.querySelectorAll('.chk-point');
+
+    chkAll.addEventListener('click', function() {
+        // "전체" 체크박스의 상태에 따라 모든 체크박스의 상태를 설정
+        chkPoints.forEach(chk => {
+            chk.checked = chkAll.checked;
+        });
+    });
+
+
+
 
     // 대분류가 선택될 때의 이벤트
     $("#largeNo").on('change', function() {
@@ -71,27 +84,11 @@ $(document).ready(function() {
     });
 
 
-
-    $('#productTable').DataTable({
-        paging: true,   // 페이징 활성화
-        searching: true, // 검색 활성화
-        ordering: true, // 컬럼별 정렬 활성화
-        scrollX: true,  // 가로 스크롤 활성화
-        drawCallback: function() {
-            const infoString = $('.dataTables_info').text();
-            const matches = /\d+ to \d+ of (\d+) entries/.exec(infoString);
-
-            if (matches && matches.length > 1) {
-                const totalEntries = matches[1];
-                $('#resultCnt').text(totalEntries);  // <span> 태그에 총 건수를 설정합니다.
-            }
-        }
-    });
-
     loadProductData(true);
 
     // 검색 버튼 클릭 이벤트
     $("#btn_search").click(function() {
+
         loadProductData(false);
     });
 
@@ -144,9 +141,13 @@ function loadProductData(isInitialLoad) {
 function updateTable(data) {
     // DataTables 플러그인을 사용하여 테이블 초기화 및 업데이트
     $('#productTable').DataTable({
+        autoWidth: false,
         data:data,
         destroy:true,  // 기존의 DataTables 인스턴스가 있다면 제거
         scrollX: true,  // 가로 스크롤 활성화
+        scrollY: true,
+
+
         columns:[
             {//체크박스
                 "title": "<input type='checkbox' id='select-all' />",
@@ -178,8 +179,7 @@ function updateTable(data) {
                 },
                 "orderable": false // 버튼 컬럼에서 정렬 기능을 비활성화합니다.
             },
-            {"title": "판매상태", "data": "status"},
-            {"title": "판매상태명", "data": "statusNm"}, // GET_CD_NM('P0002', P.STATUS) 결과에 해당
+            {"title": "판매상태", "data": "statusNm"},
             {"title": "전시상태", "data": "dspyYn"},
             {"title": "재고수량", "data": "totQty", render: numberWithCommas },
             {"title": "매입가", "data": "buyPrc", render: numberWithCommas },
@@ -190,29 +190,52 @@ function updateTable(data) {
             {"title": "판매수량", "data": "buyCnt", render: numberWithCommas },
             {"title": "포인트", "data": "point", render: numberWithCommas },
             {"title": "총판매금액", "data": "totPrc", render: numberWithCommas },
-            {"title": "대분류번호", "data": "largeNo"},
             {"title": "대분류", "data": "largeNm"},
-            {"title": "중분류번호", "data": "middleNo"},
             {"title": "중분류", "data": "middleNm"},
-            {"title": "소분류번호", "data": "smallNo"},
             {"title": "소분류", "data": "smallNm"},
-            {"title": "모델명", "data": "modelNm"},
-            {"title": "브랜드아이디", "data": "brndId"},
+            {
+                "title": "모델명",
+                "data": "modelNm",
+                "className": "text-center",
+                "render": function(data, type, row) {
+                    return data ? data : '-';
+                }
+            },
             {"title": "브랜드명", "data": "brndNm"},
             {"title": "제품소재", "data": "mfgdMatr"},
-            {"title": "제조사번호", "data": "mftco"},
             {"title": "제조사", "data": "mftcoName"},
-            {"title": "제조국번호", "data": "mftNatn"},
             {"title": "제조국", "data": "mftNatnName"},
             {"title": "좋아요", "data": "vwCnt", render: numberWithCommas },
             {"title": "상품등록일", "data": "regDttm"},
-            {"title": "최종수정일", "data": "updDttm"},
+            {
+                "title": "최종수정일",
+                "data": "updDttm",
+                "className": "text-center",  // 부트스트랩 클래스로 가운데 정렬 추가
+                "render": function(data, type, row) {
+                    return data ? data : '-';
+                }
+            },
             {"title": "상품판매시작일","data": "saleStDttm"},
             {"title": "상품판매종료일","data": "saleEdDttm"},
-            {"title": "상품할인시작일","data": "dcStDttm"},
-            {"title": "상품판매종료일","data": "dcEdDttm"}
+            {
+                "title": "상품할인시작일",
+                "data": "dcStDttm",
+                "className": "text-center",  // 부트스트랩 클래스 추가
+                "render": function(data, type, row) {
+                    return data ? data : '-';
+                }
+            },
+            {
+                "title": "상품판매종료일",
+                "data": "dcEdDttm",
+                "className": "text-center",  // 부트스트랩 클래스 추가
+                "render": function(data, type, row) {
+                    return data ? data : '-';
+                }
+            }
 
-        ]
+        ],
+
     });
 
 }

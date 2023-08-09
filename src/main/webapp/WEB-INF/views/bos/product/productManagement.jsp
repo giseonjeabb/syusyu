@@ -4,15 +4,16 @@
 <head>
   <script type="text/javascript"src="<c:url value='${jsUrlBos}/product/productManagement.js'/>"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.21/datatables.min.js"></script>
-
   <style>
     @import url(https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.21/datatables.min.css);
+
   </style>
 </head>
 <div class="container-fluid px-4">
   <h1 class="mt-4">상품통합검색</h1>
 
   <div id="search_container" class="search_form">
+    <input type="hidden" id="loadInitialData" value="true" />
     <table>
       <tr>
         <th>기간</th>
@@ -66,7 +67,7 @@
       <tr>
         <th>판매상태</th>
         <td colspan="3" id="productStatusCheckbox">
-           <label><input type="checkbox" id="chk-all" name="chk" checked>전체</label>
+          <label><input type="checkbox" id="chk-all" name="chk" checked>전체</label>
           <label><input type="checkbox" name="chk" class="chk-point" value="601" checked>판매중</label>
           <label><input type="checkbox" name="chk" class="chk-point" value="602" checked>품절</label>
           <label><input type="checkbox" name="chk" class="chk-point" value="603" checked>판매대기</label>
@@ -110,49 +111,9 @@
     <table id="productTable" class="display nowrap dataTable">
       <thead>
       <tr>
-        <th>체크박스</th>
-        <th>수정</th>
-        <th>삭제</th>
-        <th>번호번호</th>
-        <th>상품명</th>
-        <th>상세설명</th>
-        <th>판매상태</th>
-        <th>판매상태명</th>
-        <th>전시상태</th>
-        <th>재고수량</th>
-        <th>매입가</th>
-        <th>판매가</th>
-        <th>한인율</th>
-        <th>할인가</th>
-        <th>최대구매수량</th>
-        <th>판매수량</th>
-        <th>포인트</th>
-        <th>총판매금액</th>
-        <th>대분류번호</th>
-        <th>대분류</th>
-        <th>중분류번호</th>
-        <th>중분류</th>
-        <th>소분류번호</th>
-        <th>소분류</th>
-        <th>모델명</th>
-        <th>브랜드아이디</th>
-        <th>브랜드명</th>
-        <th>제품소재</th>
-        <th>제조사번호</th>
-        <th>제조사</th>
-        <th>제조국번호</th>
-        <th>제조국</th>
-        <th>좋아요</th>
-        <th>상품등록일</th>
-        <th>최종수정일</th>
-        <th>상품판매시작일</th>
-        <th>상품판매종료일</th>
-        <th>상품할인시작일</th>
-        <th>상품판매종료일</th>
       </tr>
       </thead>
       <tbody>
-
       </tbody>
     </table>
   </div>
