@@ -28,6 +28,37 @@
             <div class="inner">
                 <div class="header-bottom-item">
                     <div class="category">
+                        <c:forEach var="large" items="${categories.largeCategories}">
+                            <button type="button" class="category_btn" id="cate__large"><span>${large.value}</span></button>
+                        </c:forEach>
+                        <div class="category_list" id="category_All_list">
+                            <ul class="depth1">
+                                <%--중분류--%>
+                                <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
+                                    <li>
+                                        <a class="mainCategory"
+                                           href="/fos/products/${middle.key}"
+                                           idx=${middle.key} data-idx=${middle.key}> <c:out value="${middle.value}"/> </a>
+                                        <div class="depth2">
+                                            <ul class="subCategory">
+                                                    <%-- 소분류 --%>
+                                                <!-- middle.key와 small.key가 같다면 해당 small카테고리의 항목의 값을 리스트 항목으로 출력-->
+                                                <c:forEach var="small" items="${categories.smallCategories}">
+                                                    <c:if test="${middle.key eq small.key}">
+                                                        <c:forEach var="smallCategoryItem" items="${small.value}">
+                                                            <li><a href="<c:url value='/fos/products/${small.key}/${smallCategoryItem.key}'/>">
+                                                                <c:out value="${smallCategoryItem.value}"/></a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="category">
                         <ul class="gnb-list" id="gnb-list">
                             <c:forEach var="middle" items="${categories.middleCategories}" varStatus="status">
                                 <li><a class="middle-link" href="<c:url value='/fos/products/${middle.key}'/>" idx=${middle.key} data-idx=${middle.key} target="_self"><c:out value="${middle.value}"/></a>

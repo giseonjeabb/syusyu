@@ -20,6 +20,42 @@ $(document).ready(function(){
         // 모든 category_list를 숨깁니다.
         $('.category_list').hide();
     });
+
+
+    //신발카테고리 추가
+    $('.category_btn, #category_All_list').on('mouseover', function() {
+        clearTimeout(timeout);  // 기존의 딜레이를 취소
+        $('#category_All_list').show();
+    });
+
+    $('.category_btn, #category_All_list').on('mouseout', function() {
+        // 딜레이 후 서브 메뉴 숨김 처리
+        timeout = setTimeout(function() {
+            $('#category_All_list').hide();
+        }, 300);  // 300ms 딜레이
+    });
+
+
+    const $mainCategoryLinks = $('.mainCategory');
+
+    // 모든 서브 메뉴(.depth2)를 숨기는 함수
+    function hideSubCategoryItems() {
+        $('.depth2').hide();
+    }
+
+    $mainCategoryLinks.each(function() {
+        const $subCategoryMenu = $(this).next('.depth2');
+
+        $(this).on('mouseenter', function() {
+            hideSubCategoryItems();  // 모든 서브 메뉴를 숨김
+            $subCategoryMenu.show();  // 해당 메인 카테고리 항목의 서브 메뉴만 표시
+        });
+
+        $subCategoryMenu.on('mouseleave', function() {
+            $(this).hide();  // 마우스가 서브 메뉴에서 벗어났을 때 해당 서브 메뉴를 숨김
+        });
+    });
+
 });
 
 
