@@ -765,8 +765,8 @@
                 </div>
             </div>
             <div class="popup-btn-area">
-                <a href="https://www.ottogimall.co.kr/front" class="btn popup-btn ty4 c-ty8 delayPwReset" userno="352012"><span>다음에</span></a>
-                <a href="https://www.ottogimall.co.kr/front/mypage/my_modify" class="btn popup-btn ty4 c-ty9 pwReset"><span>변경하기</span></a>
+                <a href="#" class="btn popup-btn ty4 c-ty8 delayPwReset" userno="352012"><span>다음에</span></a>
+                <a href="#" class="btn popup-btn ty4 c-ty9 pwReset"><span>변경하기</span></a>
             </div>
         </div>
     </div>
