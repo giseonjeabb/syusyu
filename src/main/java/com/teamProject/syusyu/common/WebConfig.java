@@ -1,13 +1,19 @@
 package com.teamProject.syusyu.common;
 
+import com.teamProject.syusyu.common.interceptor.CategoryInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    private CategoryInterceptor categoryInterceptor;
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         /* ===== FOS ===== */
@@ -34,5 +40,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController(ViewPath.BOS + "orderView").setViewName(ViewPath.BOS_ORDER + "orderView");
         registry.addViewController(ViewPath.BOS + "dispatchManageView").setViewName(ViewPath.BOS_ORDER + "dispatchManage");
         registry.addViewController(ViewPath.BOS + "deliveryManageView").setViewName(ViewPath.BOS_ORDER + "deliveryManage");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(categoryInterceptor).addPathPatterns("/**");
     }
 }
