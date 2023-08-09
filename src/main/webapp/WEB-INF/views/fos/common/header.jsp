@@ -56,16 +56,16 @@
                         </div>
                     </div>
                     <ul class="gnb-list">
-                        <li><a href="https://www.ottogimall.co.kr/front/product/mainCategory/only"
+                        <li><a href="#"
                                target="_self">hey!</a></li>
-                        <li><a href="https://www.ottogimall.co.kr/front/promo/event" target="_self">이벤트</a></li>
-                        <li><a href="https://www.ottogimall.co.kr/front/product/brand" target="_self">브랜드관</a></li>
-                        <li><a href="https://www.ottogimall.co.kr/front/product/best" target="_self">베스트</a></li>
+                        <li><a href="#" target="_self">이벤트</a></li>
+                        <li><a href="#" target="_self">브랜드관</a></li>
+                        <li><a href="#" target="_self">베스트</a></li>
                     </ul>
                 </div>
                 <div class="header-bottom-item keywordBox">
                     <div class="h-search-wrap">
-                        <form id="frm_topper_search" action="https://www.ottogimall.co.kr/front/product/search_result">
+                        <form id="frm_topper_search" action="#">
                             <div class="input">
                                 <input type="text" id="search_input" name="keyword" class="inp" autocomplete="off">
                                 <button type="submit" class="btn icon search">

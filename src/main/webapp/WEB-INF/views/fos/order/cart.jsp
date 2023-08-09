@@ -2,15 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
-<head>
-    <script src="<c:url value="${jsUrlFos}/order/cart.js?dddd"/>"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            cart.initLoad();
-            cart.bindButtonEvent();
-        });
-    </script>
-</head>
+<script src="<c:url value="${jsUrlFos}/order/cart.js?dddd"/>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        cart.initLoad();
+        cart.bindButtonEvent();
+    });
+</script>
 <div class="breadcrumb">
     <div class="breadcrumb-inner">
         <a href="<c:url value="/"/>">홈</a>
@@ -43,7 +41,7 @@
             <div class="list-none etc-ty1" style="display: none">
                 <p class="msg-text icon-ty1">장바구니에 담긴 상품이 없습니다.</p>
                 <div class="btn-area">
-                    <a href="https://www.ottogimall.co.kr/front/product/best"
+                    <a href="<c:url value="/fos/products/1"/>"
                        class="btn ty4 c-ty2"><span>상품 담으러 가기</span></a>
                 </div>
             </div>
