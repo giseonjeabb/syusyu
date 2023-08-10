@@ -49,6 +49,13 @@
             /* 버튼 위에 마우스가 올라갔을 때의 span 요소에 적용할 스타일 설정 */
             color: white; /* 글자색 변경: 흰색 */
         }
+        .wrap-pagination .page.paging-active {
+            font-weight: bold;
+            color: #fff; /* 선택된 페이지 숫자의 글자색을 흰색으로 설정 */
+            background-color: #000; /* 선택된 페이지의 배경색을 검정색으로 설정 */
+            padding: 8px 12px; /* 선택된 페이지의 패딩 사이즈를 조정 */
+            border-radius: 4px; /* 선택된 페이지의 테두리를 둥글게 설정 */
+        }
 
     </style>
     <script>
@@ -123,16 +130,16 @@
                 </c:forEach>
             </div>
         </div>
-        <div class="pagination-container">
-            <div>
+        <div id="devPageWrap">
+            <div class="wrap-pagination">
                 <c:if test="${ph.showPrev}">
-                    <a href="<c:url value='/inqry/inqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="arrow-link">&lt;</a>
+                    <a class="page" href="<c:url value='/inqry/inqryList?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>" class="arrow-link">&lt;</a>
                 </c:if>
                 <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                    <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+                    <a class="page paging-active" href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
                 </c:forEach>
                 <c:if test="${ph.showNext}">
-                    <a href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>" class="arrow-link">&gt;</a>
+                    <a class="page" href="<c:url value='/inqry/inqryList?page=${i}&pageSize=${ph.pageSize}'/>" class="arrow-link">&gt;</a>
                 </c:if>
             </div>
         </div>

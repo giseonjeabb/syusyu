@@ -98,6 +98,7 @@
                     <th scope="col">문의 번호</th>
                     <th scope="col">문의사항 종류</th>
                     <th scope="col">문의 제목</th>
+                    <th scope="col">문의 내용</th>
                     <th scope="col">문의 작성자 ID</th>
                     <th scope="col">등록 일자</th>
                     <th scope="col">답변 내용</th>
@@ -110,6 +111,7 @@
                         <td scope="row">${inqryDTO.inqryNo}</td>        <%---문의사항 번호---%>
                         <td>${[inqryTypeTextMap[inqryDTO.inqryTp]]}</td>   <%---문의사항 타입---%>
                         <td>${inqryDTO.title}</td>
+                        <td>${inqryDTO.content}</td>
                         <td>${inqryDTO.regrId}</td>
                         <td><fmt:formatDate value="${inqryDTO.regDttm}" pattern="yyyy-MM-dd" type="date"/></td>
                         <td>${inqryDTO.ansCn}</td>
