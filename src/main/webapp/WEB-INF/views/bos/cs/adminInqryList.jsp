@@ -107,9 +107,9 @@
                 <c:forEach var="inqryDTO" items="${list}">
                     <input type="hidden" name="inqryNo" value="${inqryDTO.inqryNo}">
                     <tr class="table-light">
-                        <td scope="row">${inqryDTO.inqryNo}</td>        <%---문의사항 번호---%>
+                        <td scope="row"><span id="inqryNo">${inqryDTO.inqryNo}</span></td>        <%---문의사항 번호---%>
                         <td>${[inqryTypeTextMap[inqryDTO.inqryTp]]}</td>   <%---문의사항 타입---%>
-                        <td>${inqryDTO.title}</td>
+                        <td><a href="#" class="notice-link" data-inqryno="${inqryDTO.inqryNo}">${inqryDTO.title}</a></td>
                         <td>
                             <c:choose>
                                 <c:when test="${regrIdValueMap[inqryDTO.regrId] != null}">
@@ -161,6 +161,12 @@
     </section>
 
     <script>
+        // JavaScript에서 inqryNo 값을 읽어오기 위해 해당 span 요소를 선택합니다.
+        const inqryNoElement = document.getElementById("inqryNo");
+
+        // 선택한 span 요소의 내용을 가져옵니다.
+        const inqryNoValue = inqryNoElement.textContent;
+
         function executeScript(inqryNo) {
             var preventClick = false; // 더블 클릭 방지용 변수
 
@@ -195,6 +201,36 @@
                 }
             });
         }
+
+        $(".notice-link").on("click", function(event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+
+            // data-inqryno 속성 값을 가져옵니다.
+            const inqryNoValue = $(this).data("inqryno");
+
+            // modifyUrl을 동적으로 생성합니다.
+            const modifyUrl = "<c:url value='/adminInqry/read'/>";
+            const urlWithParams = modifyUrl + "?inqryNo=" + inqryNoValue;
+
+            // Ajax 요청을 보냅니다.
+            $.ajax({
+                type: 'GET',
+                url: urlWithParams,
+                contentType: 'application/json; charset=utf-8',
+                success: function(response) {
+                    // Ajax 요청이 성공적으로 완료된 후 실행할 코드를 작성합니다.
+                    // 이 경우 서버에서 반환된 데이터를 사용할 수도 있습니다.
+                    // 예: console.log(response);
+                    // 페이지를 이동하려면 아래와 같이 사용합니다.
+                    window.location.href = urlWithParams;
+                },
+                error: function() {
+                    // Ajax 요청이 실패한 경우 실행할 코드를 작성합니다.
+                    alert("문의 수정을 가져오는 동안 오류가 발생했습니다.");
+                }
+            });
+        });
+
     </script>
 
 

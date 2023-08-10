@@ -2,7 +2,6 @@ package com.teamProject.syusyu.controller.bos.cs.mypage;
 
 import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.domain.PageHandler2;
-import com.teamProject.syusyu.domain.PageHandler3;
 import com.teamProject.syusyu.domain.cs.*;
 import com.teamProject.syusyu.service.fos.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +86,6 @@ public class AdminInqryController {
             regrIdValueMap.put(800024, "epdlxjahepffld");
             regrIdValueMap.put(800025, "giseonjeabb");
             regrIdValueMap.put(800026, "giseonjeabb1");
-// ... 계속해서 80002부터 80020까지 맵에 추가해 나갑니다.
 
             m.addAttribute("regrIdValueMap", regrIdValueMap);
         } catch (Exception e) {
@@ -121,6 +119,21 @@ public class AdminInqryController {
             e.printStackTrace();
         }
         return ViewPath.BOS_CS + "adminInqry";
+    }
+
+    @GetMapping("/read")
+    public String read(Integer inqryNo, Model m, HttpSession session, RedirectAttributes rattr){
+
+        try {
+            InqryDTO inqryDTO = inqryService.read(inqryNo);
+            String Content = inqryService.getContent(inqryNo);
+            m.addAttribute("inqryDTO", inqryDTO);
+            m.addAttribute("Content", Content);
+            System.out.println("inqryNo = " + inqryNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ViewPath.BOS_CS +"adminInqryread";
     }
 
     @PostMapping("/modify")
