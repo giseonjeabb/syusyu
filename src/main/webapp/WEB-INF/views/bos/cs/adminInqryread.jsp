@@ -18,6 +18,7 @@
         @import url(${cssUrlBos}/cs/adminInqry.scss);
         .detail-cont{
             border-bottom: 0px;
+            height: 300px;
         }
     </style>
 </head>
@@ -36,7 +37,7 @@
     <%-----제목 , 내용 -----%>
 
     <div class="container">
-        <h2 class="title-t ty3 mb-30"> 공지사항 </h2><br>
+        <h2 class="title-t ty3 mb-30"> 문의사항 </h2><br>
 
         <form id="form" class="frm" action="" method="post">
 
