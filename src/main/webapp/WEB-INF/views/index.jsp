@@ -12,12 +12,12 @@
 <div class="swiper mySwiper">
     <!-- Slides -->
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerNike.jpg'/>" alt="Banner 1"></div>
+        <div class="swiper-slide">   <a href="http://localhost:8080/notice/read?page=1&pageSize=10&option=&keyword=&notcNo=443"><img src="<c:url value='${imgUrl}/banner/promoBannerNike.jpg'/>" alt="Banner 1"></a></div>
         <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBanner2.jpeg'/>" alt="Banner 2"></div>
         <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBanner1.jpg'/>" alt="Banner 3"></div>
         <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerOofos.jpg'/>" alt="Banner 4"></div>
-        <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerAdidas.jpg'/>" alt="Banner 5"></div>
-        <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerConverse.jpg'/>" alt="Banner 6"></div>
+        <div class="swiper-slide">   <a href="http://localhost:8080/notice/read?page=1&pageSize=10&option=&keyword=&notcNo=440"> <img src="<c:url value='${imgUrl}/banner/promoBannerAdidas.jpg'/>" alt="Banner 5"></div>
+        <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerConverse.jpg'/>" alt="Banner 6"></a></div>
         <div class="swiper-slide"><img src="<c:url value='${imgUrl}/banner/promoBannerOTZ.jpg'/>" alt="Banner 7"></div>
     </div>
 

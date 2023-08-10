@@ -6,7 +6,7 @@
                  alt="블루">
         </a>
         <p class="">
-            <span class="name">방채민</span>님, 반갑습니다<br> 즐거운 쇼핑하세요!
+            <span class="name">기선제압</span>님, 반갑습니다<br> 즐거운 쇼핑하세요!
         </p>
     </div>
     <div class="mp-benefit-box">

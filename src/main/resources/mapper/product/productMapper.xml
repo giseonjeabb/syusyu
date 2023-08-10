@@ -287,7 +287,7 @@
                  JOIN BRAND BRND on BRND.BRND_ID = P.BRND_ID
         WHERE 1=1
         <if test="dateType != null and startDate != null and endDate != null">
-            AND P.${dateType} BETWEEN #{startDate} AND #{endDate}
+            AND STR_TO_DATE(P.${dateType}, '%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate}, '%Y-%m-%d') AND STR_TO_DATE(#{endDate}, '%Y-%m-%d')
         </if>
         <if test="searchKeyword != null and searchKeyword != ''">
             AND P.${searchType} LIKE CONCAT('%', #{searchKeyword}, '%')
