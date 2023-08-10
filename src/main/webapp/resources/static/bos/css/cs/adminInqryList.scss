@@ -351,3 +351,14 @@ td:nth-child(9) {
 #removeBtn:hover {
   background: #5c636a;
 }
+
+th:nth-child(5),
+td:nth-child(5) {
+  width: 120px; /* Adjust the width as needed for the 제목 column */
+}
+
+
+th:nth-child(7),
+td:nth-child(7) {
+  width: 120px; /* Adjust the width as needed for the 제목 column */
+}
