@@ -57,6 +57,39 @@ public class AdminInqryController {
             inqryTypeTextMap.put("95", "이 상품 찾아요");
             inqryTypeTextMap.put("96", "건의사항 있어요");
             m.addAttribute("inqryTypeTextMap", inqryTypeTextMap);
+
+            // 숫자와 해당 값을 매핑한 맵 생성
+            Map<Integer, String> regrIdValueMap = new HashMap<>();
+            regrIdValueMap.put(80000, "admin");
+            regrIdValueMap.put(80001, "asdf");
+            regrIdValueMap.put(80002, "qwer");
+            regrIdValueMap.put(80003, "zxcv");
+            regrIdValueMap.put(80004, "asqw");
+            regrIdValueMap.put(80005, "wldks");
+            regrIdValueMap.put(80006, "wlgh");
+            regrIdValueMap.put(80007, "gkwns");
+            regrIdValueMap.put(80008, "alswns");
+            regrIdValueMap.put(80009, "tjwns");
+            regrIdValueMap.put(80010, "dwns");
+            regrIdValueMap.put(80011, "wldks");
+            regrIdValueMap.put(80012, "coals0115");
+            regrIdValueMap.put(80013, "1q2w3e4r");
+            regrIdValueMap.put(80014, "shtjdwls93");
+            regrIdValueMap.put(80015, "indigo93");
+            regrIdValueMap.put(80016, "tonymkcv");
+            regrIdValueMap.put(80017, "tkfkddms12");
+            regrIdValueMap.put(80018, "dudtjs93");
+            regrIdValueMap.put(80019, "ckdwls94");
+            regrIdValueMap.put(80020, "rltjs987");
+            regrIdValueMap.put(800021, "rltjs010");
+            regrIdValueMap.put(800022, "asdf123");
+            regrIdValueMap.put(800023, "tjwns");
+            regrIdValueMap.put(800024, "epdlxjahepffld");
+            regrIdValueMap.put(800025, "giseonjeabb");
+            regrIdValueMap.put(800026, "giseonjeabb1");
+// ... 계속해서 80002부터 80020까지 맵에 추가해 나갑니다.
+
+            m.addAttribute("regrIdValueMap", regrIdValueMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
