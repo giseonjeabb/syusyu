@@ -41,8 +41,8 @@
         .r-side .btn:hover {
             /* 버튼 위에 마우스가 올라갔을 때의 스타일 설정 */
             color: white !important;
-            background-color: red; /* 기본 배경색: 빨간색 */
-            color: red; /* 글자색 변경: 빨간색 */
+            background-color: #587dc8; /* 배경색: 주황색 */
+            color: #ffffff; /* 글자색: 흰색 */
             /* 원하는 다른 스타일들 추가 가능 */
         }
         .r-side .btn:hover span {
@@ -91,7 +91,7 @@
 		                <span class="badge-cont single">
 								<c:choose>
                                     <c:when test="${inqryDTO.inqryYn eq 'Y'}">
-                                        <span class="badge-item ty10" style="background-color: #d3233a; color: white;">답변완료</span>
+                                        <span class="badge-item ty10" style="background-color: #587dc8; color: #ffffff;">답변완료</span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="badge-item ty10">답변대기</span>
