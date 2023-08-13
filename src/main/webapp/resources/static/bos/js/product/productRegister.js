@@ -365,7 +365,7 @@ function applyOptions() {
         priceInput.type = "text";
         priceInput.min = "0";
         priceInput.oninput = function () {
-            this.value = this.value.replace(/[^0-9]/g, ''); // 수정된 부분
+            this.value = this.value.replace(/[^0-9]/g, '');
             if (this.value.startsWith('0')) {
                 this.value = this.value.substr(1)
             }
@@ -384,13 +384,17 @@ function applyOptions() {
         qtyCell.classList.add('text-center', 'align-middle');
         let qtyInput = document.createElement('input');
         qtyInput.classList.add('opt_inv_qty', 'border-0', 'w-100');
-        qtyInput.type = "number";
+        qtyInput.type = "text";
         qtyInput.min = "0";
         qtyInput.oninput = function () {
             this.value = this.value.replace(/[^0-9]/g, '');
             if (this.value.startsWith('0')) {
                 this.value = this.value.substr(1)
             }
+        };
+        qtyInput.onblur = function () {
+            let qty = Number(this.value.replace(/[^0-9]/g, ''));
+            this.value = qty.toLocaleString('en');
         };
         qtyInput.value = "0";
         qtyCell.appendChild(qtyInput);

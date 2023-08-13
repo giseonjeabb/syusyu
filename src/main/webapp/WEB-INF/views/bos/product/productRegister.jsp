@@ -8,12 +8,9 @@
     <script src="<c:url value='/static/bos/summernote/summernote-lite.js'/>"></script>
     <link href="<c:url value='/static/bos/summernote/summernote-lite.css'/>" rel="stylesheet">
     <script src="<c:url value='/static/bos/summernote/lang/summernote-ko-KR.js'/>"></script>
- 
-    <style>
-        #opt_table tbody tr:hover {
-            background-color: inherit !important;
-        }
 
+    <style>
+        @import url(/static/bos/product/productRegister.scss);
     </style>
 </head>
 
@@ -247,9 +244,9 @@
                     <div class="datatable-top d-flex justify-content-between">
                         <button type="button" class="btn btn-outline-dark" id="chk_del">선택삭제</button>
                     </div>
-                    <div class="datatable-container ml-auto">
-                        <table id="opt_table" class="datatable-table table-bordered" id="opt_table">
-                            <thead>
+                    <div class="table-responsive datatable-container ml-auto">
+                        <table id="opt_table" class="table bg-white table-striped datatable-table table-bordered">
+                            <thead class="bg-dark text-light">
                             <tr>
                                 <th rowspan="2" class="text-center align-middle"><input type="checkbox"></th>
                                 <th data-sortable="true" colspan="2" class="text-center align-middle">옵션명</th>
@@ -264,7 +261,7 @@
                                 <td class="text-center align-middle">사이즈</td>
                             </tr>
                             </thead>
-                            <tbody class="bg-white">
+                            <tbody>
 
                             </tbody>
                         </table>
