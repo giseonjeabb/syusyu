@@ -220,20 +220,22 @@
         </tr>
         <%-- 옵션--%>
         <tr>
-            <th>옵션입력<span style="color: red;">*</span></th>
-            <td class="d-flex flex-column mb-4 align-items-start w-full">
-                <div class="d-flex col-10">
-                    <div class="d-flex p-3 col-4 align-items-center">
-                        <label for="input_color" class="me-3 col-2">컬러</label>
-                        <input type="text" id="input_color" class="form-control col" placeholder="색상 입력">
+            <th c>옵션입력<span style="color: red;">*</span></th>
+            <td>
+                <div class="flex-column">
+                    <div class="col-10 d-flex">
+                        <div class="p-3 col-4 d-flex align-items-center">
+                            <label for="input_color" class="me-3 col-2">컬러</label>
+                            <input type="text" id="input_color" class="form-control col" placeholder="색상 입력">
+                        </div>
+                        <div class="p-3 col-6 d-flex align-items-center">
+                            <label for="input_size" class="me-3 col-2">사이즈</label>
+                            <input type="text" id="input_size" class="form-control col-6" placeholder="예시 : 220, 225 (,로 구분)">
+                        </div>
                     </div>
-                    <div class="d-flex p-3 col-6 align-items-center">
-                        <label for="input_size" class="me-3 col-2">사이즈</label>
-                        <input type="text" id="input_size" class="form-control col-6" placeholder="예시 : 220, 225 (,로 구분)">
+                    <div>
+                        <button type="button" class="btn btn-dark" id="btnOpt">옵션목록으로 적용↓</button>
                     </div>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-dark" id="btnOpt">옵션목록으로 적용 ↓</button>
                 </div>
             </td>
         </tr>
