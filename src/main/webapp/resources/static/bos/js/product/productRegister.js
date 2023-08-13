@@ -83,9 +83,19 @@ $(document).ready(function () {
     });
 
     /**
-     * 할인 기간 설정 체크박스가 선택되면 기간 설정 옵션을 보여주고, 오늘 날짜를 시작 날짜로 설정합니다.
-     * 각 할인 기간 설정 옵션에 이벤트 리스너를 추가하여, 선택된 옵션에 따라 종료 날짜를 자동으로 설정합니다.
-     * 체크박스 선택이 해제되면 해당 옵션을 숨기고, 시작 날짜와 종료 날짜를 null로 설정합니다.
+     * 할인 기간 설정 기능
+     *
+     * - 체크박스가 선택되면:
+     *  1. 기간 설정 옵션을 활성화합니다.
+     *  2. 오늘 날짜를 시작 날짜로 설정합니다.
+     *  3. 체크된 라디오 버튼에 따라 종료 날짜를 설정합니다.
+     *  4. 각 라디오 버튼에 이벤트 리스너를 추가하여 선택 변경 시 종료 날짜를 자동으로 조정합니다.
+     *
+     * - 체크박스 선택이 해제되면:
+     *  1. 기간 설정 옵션을 비활성화합니다.
+     *  2. 시작 및 종료 날짜를 초기화합니다.
+     *
+     * - 페이지 로드 시 체크박스의 초기 상태에 따라 기간 설정 옵션의 가시성을 설정합니다.
      *
      * @author soso
      * @since 2023/07/29
@@ -104,6 +114,13 @@ $(document).ready(function () {
             dateDiv.removeClass("d-none");
             /// 오늘 날짜를 시작 날짜로 설정합니다.
             setFlatpickrCalendar('dc_start_date', today);
+
+            // 체크된 라디오 버튼의 data-interval 값을 가져옵니다.
+            let checkedRadio = document.querySelector('.dc_date_range:checked');
+            let interval = parseInt(checkedRadio.getAttribute('data-interval'));
+
+            setCalendarRangeAddDays('dc_start_date', 'dc_end_date', interval);
+
             document.querySelectorAll('.dc_date_range').forEach((radio) => {
                 // 각 할인 기간 설정 옵션에 이벤트 리스너를 추가합니다.
                 radio.addEventListener('change', (event) => {
@@ -121,7 +138,7 @@ $(document).ready(function () {
         }
     });
 
-    // 페이지 로드 시 체크박스 상태에 따라 캘린더의 가시성을 설정
+   // 페이지 로드 시 체크박스 상태에 따라 캘린더의 가시성을 설정
     if (checkBox.is(':checked')) {
         dateDiv.show(); // show div
     } else {
@@ -153,6 +170,9 @@ $(document).ready(function () {
 
     // 판매 시작일을 오늘 날짜로 기본 설정합니다.
     setFlatpickrCalendar('sale_start_date', today);
+    // 판매 종료일을 2099년 12월 31일로 초기 설정합니다.
+    setFlatpickrCalendar('sale_end_date', new Date(2099, 11, 31));  // 11은 12월을 의미합니다. (월은 0부터 시작)
+
     // 문서 내의 모든 라디오 버튼을 선택합니다.
     document.querySelectorAll('.sale_date_range').forEach((radio) => {
         // 각 라디오 버튼에 이    벤트 리스너를 추가합니다.
@@ -189,7 +209,7 @@ $(document).ready(function () {
     productPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
-        this.value = formatWithComma(this.value);
+        this.value = formatWithComma(this);
         validateLastDigit(this);
     });
 
@@ -204,7 +224,7 @@ $(document).ready(function () {
     productBuyPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
-        this.value = formatWithComma(this.value);
+        this.value = formatWithComma(this);
         validateLastDigit(this);
     });
 
@@ -345,7 +365,7 @@ function applyOptions() {
         priceInput.type = "text";
         priceInput.min = "0";
         priceInput.oninput = function () {
-            this.value = this.value.replace(/[^0-9]/g, ''); // 수정된 부분
+            this.value = this.value.replace(/[^0-9]/g, '');
             if (this.value.startsWith('0')) {
                 this.value = this.value.substr(1)
             }
@@ -364,13 +384,17 @@ function applyOptions() {
         qtyCell.classList.add('text-center', 'align-middle');
         let qtyInput = document.createElement('input');
         qtyInput.classList.add('opt_inv_qty', 'border-0', 'w-100');
-        qtyInput.type = "number";
+        qtyInput.type = "text";
         qtyInput.min = "0";
         qtyInput.oninput = function () {
             this.value = this.value.replace(/[^0-9]/g, '');
             if (this.value.startsWith('0')) {
                 this.value = this.value.substr(1)
             }
+        };
+        qtyInput.onblur = function () {
+            let qty = Number(this.value.replace(/[^0-9]/g, ''));
+            this.value = qty.toLocaleString('en');
         };
         qtyInput.value = "0";
         qtyCell.appendChild(qtyInput);
@@ -459,12 +483,13 @@ function updateLengthSixty(input) {
     // 현재 텍스트의 길이를 가져옵니다
     let length = input.value.length;
 
-    // 텍스트의 길이를 표시하는 요소를 찾습니다
-    let lengthDisplay = document.getElementById("text_length");
+    // 현재 input 요소와 관련된 text_length 요소를 찾습니다
+    let lengthDisplay = input.nextElementSibling;
 
-    // 텍스트의 길이를 갱신합니다
+    // 길이를 갱신합니다
     lengthDisplay.textContent = length + "/60";
 }
+
 
 /**
  * 글자수 100까지
@@ -481,12 +506,13 @@ function updateLengthHundred(input) {
     // 현재 텍스트의 길이를 가져옵니다
     let length = input.value.length;
 
-    // 텍스트의 길이를 표시하는 요소를 찾습니다
-    let lengthDisplay = document.getElementById("text_length_mfgdMatr");
+    // 현재 input 요소와 관련된 text_length 요소를 찾습니다
+    let lengthDisplay = input.nextElementSibling;
 
-    // 텍스트의 길이를 갱신합니다
+    // 길이를 갱신합니다
     lengthDisplay.textContent = length + "/100";
 }
+
 
 /**
  * 한단어만 입력받기
@@ -578,9 +604,10 @@ function validateNumericCommaSpaceInput(input) {
  * @since 2023/07/29
  */
 function formatWithComma(input) {
+    // 숫자만 추출
     const numberOnly = input.value.replace(/[^0-9]/g, '');
-    const numberWithComma = numberOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    input.value = numberWithComma;
+    // 천 단위로 콤마 추가
+    return numberOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 /**
@@ -657,12 +684,14 @@ function calculateDiscountPrice() {
  * @since 2023/07/30
  */
 function updateTotalQuantity() {
-    const qtyInputs = Array.from(document.querySelectorAll('.opt_inv_qty input'));
+    const qtyInputs = Array.from(document.querySelectorAll('.opt_inv_qty'));
     let totalQuantity = qtyInputs.reduce((total, input) => {
-        return total + parseInt(input.value, 10);
+        let value = parseInt(input.value.replace(/,/g, ''), 10);
+        return total + value;
     }, 0);
-    document.getElementById('tot_qty').value = totalQuantity;
+    document.getElementById('tot_qty').value = totalQuantity.toLocaleString('en');
 }
+
 
 /**
  * 재고 수량에 따라 판매 상태를 업데이트하는 함수입니다.

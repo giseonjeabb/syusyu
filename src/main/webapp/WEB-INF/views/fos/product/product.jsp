@@ -10,9 +10,9 @@
 <head>
 
     <script src="${jsUrlFos}/product/product.js"></script>
+
     <style>
         @import url(${cssUrlFos}/product/FOS_Review.scss);
-        @import url(${cssUrlFos}/product/product.scss);
     </style>
 
 </head>
@@ -679,8 +679,8 @@
         </div><!--// goods-detail-wrap -->
     </form>
 
-<!-- 페이지의 맨 아래에 버튼을 추가합니다. -->
-<button id="btnTop" class="top-btn"><i class="fas fa-arrow-up"></i></button>
+    <!-- top버튼 -->
+    <button id="btnTop" class="top-btn"><i class="fas fa-arrow-up"></i></button>
 
 
     <!--상품할인팝업-->

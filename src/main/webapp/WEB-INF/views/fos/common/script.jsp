@@ -22,3 +22,5 @@
 <%-- flatpickr 캘린더 라이브러리 --%>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+<%--공통 top 버튼--%>
+<script src="${jsUrlCommon}/scrollToTop.js"></script>

@@ -5,7 +5,8 @@
 <!-- swiper-->
 <style>
     @import url(https://unpkg.com/swiper/swiper-bundle.min.css);
-    @import url(${cssUrlFos}/common/index.scss);
+    @import url(${cssUrlFos}/common/index.css);
+
 </style>
 <script src="<c:url value="${jsUrlFos}/index.js"/>"></script>
 <!-- Swiper Container -->
@@ -91,6 +92,8 @@
     </div>
 </section>
 
+<!-- top버튼 -->
+<button id="btnTop" class="top-btn"><i class="fas fa-arrow-up"></i></button>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

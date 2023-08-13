@@ -53,6 +53,18 @@ $(function () {
     // 상품 리스트를 가져옵니다.
     getProducts(middleNo, smallNo, sort);
 
+    /**
+     * 'Top' 버튼의 스크롤 기능.
+     *
+     * @description
+     * - 스크롤 위치가 100px 이상일 때: 'Top' 버튼 표시
+     * - 스크롤 위치가 100px 미만일 때: 'Top' 버튼 숨김
+     * - 'Top' 버튼 클릭 시: 페이지 최상단으로 부드럽게 스크롤
+     *
+     * @author soso
+     * @since 2023/08/14
+     */
+    scrollToTop();
 
 });
 
