@@ -682,12 +682,14 @@ function calculateDiscountPrice() {
  * @since 2023/07/30
  */
 function updateTotalQuantity() {
-    const qtyInputs = Array.from(document.querySelectorAll('.opt_inv_qty input'));
+    const qtyInputs = Array.from(document.querySelectorAll('.opt_inv_qty'));
     let totalQuantity = qtyInputs.reduce((total, input) => {
-        return total + parseInt(input.value, 10);
+        let value = parseInt(input.value.replace(/,/g, ''), 10);
+        return total + value;
     }, 0);
-    document.getElementById('tot_qty').value = totalQuantity;
+    document.getElementById('tot_qty').value = totalQuantity.toLocaleString('en');
 }
+
 
 /**
  * 재고 수량에 따라 판매 상태를 업데이트하는 함수입니다.
