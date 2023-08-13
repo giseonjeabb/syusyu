@@ -83,9 +83,19 @@ $(document).ready(function () {
     });
 
     /**
-     * 할인 기간 설정 체크박스가 선택되면 기간 설정 옵션을 보여주고, 오늘 날짜를 시작 날짜로 설정합니다.
-     * 각 할인 기간 설정 옵션에 이벤트 리스너를 추가하여, 선택된 옵션에 따라 종료 날짜를 자동으로 설정합니다.
-     * 체크박스 선택이 해제되면 해당 옵션을 숨기고, 시작 날짜와 종료 날짜를 null로 설정합니다.
+     * 할인 기간 설정 기능
+     *
+     * - 체크박스가 선택되면:
+     *  1. 기간 설정 옵션을 활성화합니다.
+     *  2. 오늘 날짜를 시작 날짜로 설정합니다.
+     *  3. 체크된 라디오 버튼에 따라 종료 날짜를 설정합니다.
+     *  4. 각 라디오 버튼에 이벤트 리스너를 추가하여 선택 변경 시 종료 날짜를 자동으로 조정합니다.
+     *
+     * - 체크박스 선택이 해제되면:
+     *  1. 기간 설정 옵션을 비활성화합니다.
+     *  2. 시작 및 종료 날짜를 초기화합니다.
+     *
+     * - 페이지 로드 시 체크박스의 초기 상태에 따라 기간 설정 옵션의 가시성을 설정합니다.
      *
      * @author soso
      * @since 2023/07/29
@@ -104,6 +114,13 @@ $(document).ready(function () {
             dateDiv.removeClass("d-none");
             /// 오늘 날짜를 시작 날짜로 설정합니다.
             setFlatpickrCalendar('dc_start_date', today);
+
+            // 체크된 라디오 버튼의 data-interval 값을 가져옵니다.
+            let checkedRadio = document.querySelector('.dc_date_range:checked');
+            let interval = parseInt(checkedRadio.getAttribute('data-interval'));
+
+            setCalendarRangeAddDays('dc_start_date', 'dc_end_date', interval);
+
             document.querySelectorAll('.dc_date_range').forEach((radio) => {
                 // 각 할인 기간 설정 옵션에 이벤트 리스너를 추가합니다.
                 radio.addEventListener('change', (event) => {
@@ -121,7 +138,7 @@ $(document).ready(function () {
         }
     });
 
-    // 페이지 로드 시 체크박스 상태에 따라 캘린더의 가시성을 설정
+   // 페이지 로드 시 체크박스 상태에 따라 캘린더의 가시성을 설정
     if (checkBox.is(':checked')) {
         dateDiv.show(); // show div
     } else {

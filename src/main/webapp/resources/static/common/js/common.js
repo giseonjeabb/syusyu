@@ -160,7 +160,7 @@ const setCalendarRangeByMonths = (startDateId, endDateId, month) => {
  * @param {string} startDateId - 시작 날짜 선택 필드의 ID
  * @param {string} endDateId - 종료 날짜 선택 필드의 ID
  * @param {number} day - startDate로부터 더할 일 수
- * @author min
+ * @author soso
  * @since 2023/07/30
  */
 const setCalendarRangeAddDays =(startDateId, endDateId, day) => {

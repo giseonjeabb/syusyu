@@ -122,19 +122,19 @@
                 </div>
                 <div class="d-flex d-none" id="dc_date">
                     <div class="btn-group col-6 align-items-end p-2" role="group" aria-label="Basic radio toggle button group" id="dcDate">
-                        <input type="radio" class="btn-check col-auto date_range dc_date_range" name="btnradio" data-interval="3" id="dcDate1" autocomplete="off" checked="">
+                        <input type="radio" class="btn-check col-auto date_range dc_date_range" name="dcbtnradio" data-interval="3" id="dcDate1" autocomplete="off" checked="">
                         <label class="btn btn-outline-dark  date_range" for="dcDate1">3일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="5" id="dcDate2" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="5" id="dcDate2" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate2">5일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="7" id="dcDate3" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="7" id="dcDate3" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate3">7일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="15" id="dcDate4" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="15" id="dcDate4" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate4">15일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="30" id="dcDate5" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="30" id="dcDate5" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate5">30일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="90" id="dcDate6" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="90" id="dcDate6" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate6">90일</label>
-                        <input type="radio" class="btn-check  date_range dc_date_range" name="btnradio" data-interval="120" id="dcDate7" autocomplete="off">
+                        <input type="radio" class="btn-check  date_range dc_date_range" name="dcbtnradio" data-interval="120" id="dcDate7" autocomplete="off">
                         <label class="btn btn-outline-dark" for="dcDate7">120일</label>
                     </div>
                     <div class="calendar p-1 col-8 d-flex align-items-center">
