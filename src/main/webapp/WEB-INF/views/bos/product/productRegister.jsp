@@ -283,15 +283,15 @@
                 <div>
 
                     <input class="smlImg form-control " type="file" onchange="validateFileInput(this)">
+                    <div id="imgInfo" >
+
+                    </div>
                     <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
                         추가이미지는 최대 9개까지 설정할 수 있습니다.
                         jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
                     <button type="button" class="btn btn-dark" id="addImgBtn"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div id="imgInfo" >
 
-
-                </div>
             </td>
         </tr>
         <%-- 스마트에디터--%>
