@@ -61,7 +61,7 @@
                 <div class="input-group mb-3 mt-2">
                     <!-- 숫자만 입력 받으며, 포커스를 잃을 때 천 단위로 콤마를 추가, 키를 누를 때마다 마지막 숫자가 0인지 확인 -->
                     <input type="text" class="form-control" placeholder="상품명 60자" id="product_name" onkeyup="updateLengthSixty(this);">
-                    <span class="input-group-text" id="text_length">0/60</span>
+                    <span class="input-group-text text_length">0/60</span>
                 </div>
             </td>
         </tr>
@@ -285,7 +285,7 @@
                     <input class="smlImg form-control " type="file" onchange="validateFileInput(this)">
                     <div id="imgInfo" >
 
-                    </div>
+                    </div>정
                     <p class="text-dark small p-2">권장 크기 : 1000 x 1000 (윈도대상 750 x 1000)
                         추가이미지는 최대 9개까지 설정할 수 있습니다.
                         jpg,jpeg,gif,png,bmp 형식의 정지 이미지만 등록됩니다.</p>
@@ -305,69 +305,77 @@
         </tr>
         <tr>
             <th scope="row">모델명</th>
-            <td><input type="text" class="form-control" placeholder="모델명 60자" id="product_model" oninput="updateLengthSixty(this)"></td>
-
+            <td>
+                <div class="input-group mb-3 mt-2">
+                    <input type="text" class="form-control" placeholder="모델명 60자" id="product_model" onkeyup="updateLengthSixty(this);">
+                    <span class="input-group-text text_length">0/60</span>
+                </div>
+            </td>
         </tr>
         <tr>
         <th scope="row">최대구매수량</th>
         <td><input type="text" class="form-control" placeholder="숫자만입력" id="dlvChgDtl" value="999999" oninput="updateLengthSixty(this)"></td>
 
     </tr>
-        <tr>
-            <th scope="row">제품소재<span style="color: red;">*</span></th>
-            <td><input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr" oninput="updateLengthHundred(this)"></td>
+    <tr>
+        <th scope="row">제품소재<span style="color: red;">*</span></th>
+        <td>
+            <div class="input-group mb-3 mt-2">
+                <input type="text" class="form-control" placeholder="제품소재 100자" id="mfgdMatr" oninput="updateLengthHundred(this)">
+                <span class="input-group-text text_length">0/100</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>브랜드<s매pan style="color: red;">*</s매pan></th>
+        <td>
+            <select class="form-select" id="product_brand">
+                <c:forEach var="brand" items="${brandList}">
+                    <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
+                </c:forEach>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">제조사<span style="color: red;">*</span></th>
+        <td>
+            <select class="form-select" id="mftco">
+                <c:forEach items="${mftcoList}" var="item">
+                    <option value="${item.code}">${item.cdNm}</option>
+                </c:forEach>
+            </select>
+        </td>
+    </tr>
 
-        </tr>
-        <tr>
-            <th>브랜드<s매pan style="color: red;">*</s매pan></th>
-            <td>
-                <select class="form-select" id="product_brand">
-                    <c:forEach var="brand" items="${brandList}">
-                        <option name="brandId" value="${brand.brndId}">${brand.brndNm}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">제조사<span style="color: red;">*</span></th>
-            <td>
-                <select class="form-select" id="mftco">
-                    <c:forEach items="${mftcoList}" var="item">
-                        <option value="${item.code}">${item.cdNm}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
+    <tr>
+        <th scope="row">제조국<span style="color: red;">*</span></th>
+        <td>
+            <select class="form-select" id="mftNatn">
+                <c:forEach items="${mftNatnList}" var="item">
+                    <option value="${item.code}">${item.cdNm}</option>
+                </c:forEach>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>출시일</th>
+        <td>
+            <div class="input col-3">
+                <input type="text" name="rles_dt" id="rles_dt" readonly="readonly" class="inp datepicker hasDatepicker col-3">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
 
-        <tr>
-            <th scope="row">제조국<span style="color: red;">*</span></th>
-            <td>
-                <select class="form-select" id="mftNatn">
-                    <c:forEach items="${mftNatnList}" var="item">
-                        <option value="${item.code}">${item.cdNm}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>출시일</th>
-            <td>
-                <div class="input col-3">
-                    <input type="text" name="rles_dt" id="rles_dt" readonly="readonly" class="inp datepicker hasDatepicker col-3">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+            <div class="d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-outline-dark m-2" id="cancelBtn">취소하기</button>
+                <button type="button" class="btn btn-dark m-2" onclick="productRegisterSave()">저장하기</button>
+            </div>
 
-                <div class="d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-outline-dark m-2" id="cancelBtn">취소하기</button>
-                    <button type="button" class="btn btn-dark m-2" onclick="productRegisterSave()">저장하기</button>
-                </div>
-
-            </td>
-        </tr>
-    </table>
+        </td>
+    </tr>
+</table>
 
 
 

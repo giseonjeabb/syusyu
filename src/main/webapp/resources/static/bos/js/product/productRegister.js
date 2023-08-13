@@ -483,12 +483,13 @@ function updateLengthSixty(input) {
     // 현재 텍스트의 길이를 가져옵니다
     let length = input.value.length;
 
-    // 텍스트의 길이를 표시하는 요소를 찾습니다
-    let lengthDisplay = document.getElementById("text_length");
+    // 현재 input 요소와 관련된 text_length 요소를 찾습니다
+    let lengthDisplay = input.nextElementSibling;
 
-    // 텍스트의 길이를 갱신합니다
+    // 길이를 갱신합니다
     lengthDisplay.textContent = length + "/60";
 }
+
 
 /**
  * 글자수 100까지
@@ -505,12 +506,13 @@ function updateLengthHundred(input) {
     // 현재 텍스트의 길이를 가져옵니다
     let length = input.value.length;
 
-    // 텍스트의 길이를 표시하는 요소를 찾습니다
-    let lengthDisplay = document.getElementById("text_length_mfgdMatr");
+    // 현재 input 요소와 관련된 text_length 요소를 찾습니다
+    let lengthDisplay = input.nextElementSibling;
 
-    // 텍스트의 길이를 갱신합니다
+    // 길이를 갱신합니다
     lengthDisplay.textContent = length + "/100";
 }
+
 
 /**
  * 한단어만 입력받기
