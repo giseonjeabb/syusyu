@@ -175,7 +175,7 @@
             <th>기간설정</th>
             <td class="d-flex align-items-end date_range_container btn-group fs-5">
                 <div class="btn-group col-6 align-items-end p-2" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="7" id="saleDate1" autocomplete="off" checked="">
+                    <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="7" id="saleDate1" autocomplete="off">
                     <label class="btn btn-outline-dark  date_range sale_date_range" for="saleDate1">7일</label>
                     <input type="radio" class="btn-check  date_range sale_date_range" name="btnradio" data-interval="15" id="saleDate2" autocomplete="off">
                     <label class="btn btn-outline-dark" for="saleDate2">15일</label>

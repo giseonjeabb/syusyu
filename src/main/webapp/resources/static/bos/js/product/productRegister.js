@@ -170,6 +170,9 @@ $(document).ready(function () {
 
     // 판매 시작일을 오늘 날짜로 기본 설정합니다.
     setFlatpickrCalendar('sale_start_date', today);
+    // 판매 종료일을 2099년 12월 31일로 초기 설정합니다.
+    setFlatpickrCalendar('sale_end_date', new Date(2099, 11, 31));  // 11은 12월을 의미합니다. (월은 0부터 시작)
+
     // 문서 내의 모든 라디오 버튼을 선택합니다.
     document.querySelectorAll('.sale_date_range').forEach((radio) => {
         // 각 라디오 버튼에 이    벤트 리스너를 추가합니다.
