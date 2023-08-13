@@ -13,6 +13,6 @@
     @import url(${cssUrlFos}/common/reset.css);
     @import url(${cssUrlFos}/common/common.css);
     @import url(${cssUrlFos}/common/common2.css);
-
+    @import url(${cssUrlCommon}/scrollToTop.css);
 
 </style>

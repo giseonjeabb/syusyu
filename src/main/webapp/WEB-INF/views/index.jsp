@@ -5,57 +5,8 @@
 <!-- swiper-->
 <style>
     @import url(https://unpkg.com/swiper/swiper-bundle.min.css);
-    @import url(${cssUrlFos}/common/index.scss);
+    @import url(${cssUrlFos}/common/index.css);
 
-
-    .swiper {
-        width: 100%;
-        max-width: 1920px;
-        height: 600px;
-        margin: 0 auto;
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        max-width: 1920px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 600px;
-        margin: auto;
-    }
-    .swiper-button-next, .swiper-button-prev {
-        color: rgba(255, 255, 255, 0.7) !important;
-        width: auto;
-        height: auto;
-        padding: 5px 10px;
-    }
-    .swiper-button-next:hover, .swiper-button-prev:hover {
-        color: rgb(255, 255, 255) !important;
-    }
-    .swiper-pagination-bullet {
-        background-color: rgba(255, 255, 255, 0.8) !important;
-    }
-    .swiper-pagination-bullet-active {
-        background-color: rgba(255, 255, 255, 1) !important;
-    }
-
-    .prd-lists::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        background-color: #fff;
-    }
 </style>
 <script src="<c:url value="${jsUrlFos}/index.js"/>"></script>
 <!-- Swiper Container -->
@@ -141,6 +92,8 @@
     </div>
 </section>
 
+<!-- top버튼 -->
+<button id="btnTop" class="top-btn"><i class="fas fa-arrow-up"></i></button>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
