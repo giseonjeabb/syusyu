@@ -189,7 +189,7 @@ $(document).ready(function () {
     productPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
-        this.value = formatWithComma(this.value);
+        this.value = formatWithComma(this);
         validateLastDigit(this);
     });
 
@@ -204,7 +204,7 @@ $(document).ready(function () {
     productBuyPriceInput.addEventListener('input', function () {
         validateNumericInput(this);
         removeLeadingZeros(this);
-        this.value = formatWithComma(this.value);
+        this.value = formatWithComma(this);
         validateLastDigit(this);
     });
 
@@ -578,9 +578,10 @@ function validateNumericCommaSpaceInput(input) {
  * @since 2023/07/29
  */
 function formatWithComma(input) {
+    // 숫자만 추출
     const numberOnly = input.value.replace(/[^0-9]/g, '');
-    const numberWithComma = numberOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    input.value = numberWithComma;
+    // 천 단위로 콤마 추가
+    return numberOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 /**
