@@ -246,20 +246,6 @@
 
                     <div class="datatable-top d-flex justify-content-between">
                         <button type="button" class="btn btn-outline-dark" id="chk_del">선택삭제</button>
-
-                        <div class="d-flex col-auto justify-content-center ml-auto">
-                            <div class="d-flex align-items-center">
-                                <label for="find_opt_qty" class="m-2 col-auto">재고수량</label>
-                                <input type="text" id="find_opt_qty" class="form-control" placeholder="숫자만 입력">
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <label for="find_opt_YN" class="m-2 col-auto">사용여부</label>
-                                <select class="form-select" id="find_opt_YN">
-                                    <option>Y</option>
-                                    <option>N</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     <div class="datatable-container ml-auto">
                         <table id="opt_table" class="datatable-table table-bordered" id="opt_table">
