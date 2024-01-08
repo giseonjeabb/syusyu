@@ -11678,7 +11678,7 @@ body {
 .layoutSidenav_content {
   width: 100%;
   background-color: #f9f9f9;
-  max-width: 1920px;
+  min-width: 200px;
 }
 
 .button_area {
@@ -11768,6 +11768,9 @@ body {
 }
 .search_form th, .search_form td {
   border: 1px solid #d9dadc;
+}
+.search_form th .calendar, .search_form td .calendar {
+  margin-top: 5px;
 }
 .search_form th {
   padding-left: 10px;

@@ -11760,7 +11760,8 @@ body {
 .layoutSidenav_content {
   width: 100%;
   background-color: #f9f9f9;
-  max-width: 1920px;
+  //max-width: 1920px;
+  min-width: 200px;
 }
 
 .button_area {
@@ -11864,6 +11865,10 @@ body {
 
   th, td {
     border: 1px solid #d9dadc;
+
+    .calendar {
+      margin-top: 5px;
+    }
   }
 
   th {

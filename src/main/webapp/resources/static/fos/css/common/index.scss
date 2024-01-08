@@ -34,38 +34,36 @@ html, body {
       width: 100%;
       height: 600px;
       margin: auto;
+
+
     }
   }
 
   &-button-next,
   &-button-prev {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgba(255, 255, 255, 0.5);
     width: auto;
     height: auto;
     padding: 5px 10px;
-
-    &:hover {
-      color: rgba(255, 255, 255, 1) !important;
-      background-color: rgba(255, 255, 255, 0.5) !important;
-    }
   }
 
   &-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.5) !important;
+    background-color: rgba(255, 255, 255, 0.5);
 
     &-active {
-      background-color: rgba(255, 255, 255, 0.8) !important;
+      background-color: rgba(255, 255, 255, 0.8);
     }
   }
 }
-
-.prd-lists::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
+.prd-lists {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
 }

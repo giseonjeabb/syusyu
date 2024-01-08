@@ -43,14 +43,14 @@
         </div>
     </div>
 
-        <div class="inner-content">
-            <div class="tab-wrap">
-                <div class="prd-list-wrap">
-                    <div class="prd-lists n5 productContainer">
-                    </div>
+    <div class="inner-content">
+        <div class="tab-wrap">
+            <div class="prd-list-wrap">
+                <div class="prd-lists n5 productContainer">
                 </div>
             </div>
         </div>
+    </div>
 
 
 </section>

@@ -12,13 +12,13 @@
     <div class="mp-benefit-box">
         <div class="benefit">
             <a href="#" class="txt">포인트</a>
-            <p>1,000</p>
+            <p>5,200</p>
             <a href="#"
                class="btn ty1 c-ty5 w-90"><span>사용하기</span></a>
         </div>
         <div class="benefit">
             <a href="#" class="txt">쿠폰</a>
-            <p>0</p>
+            <p>3</p>
             <a href="#"
                class="btn ty1 c-ty5 w-90"><span>쿠폰등록</span></a>
         </div>

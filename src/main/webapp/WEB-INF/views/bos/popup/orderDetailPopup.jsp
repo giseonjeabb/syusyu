@@ -66,9 +66,9 @@
             </colgroup>
             <tr>
                 <th>발송처리일시</th>
-                <td>${delivery.dispatchDttm}</td>
+                <td><fmt:formatDate value="${delivery.dispatchDttm}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <th>집화처리일시</th>
-                <td>${delivery.pickupDttm}</td>
+                <td><fmt:formatDate value="${delivery.pickupDttm}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             </tr>
             <tr>
                 <th>출하일시</th>
