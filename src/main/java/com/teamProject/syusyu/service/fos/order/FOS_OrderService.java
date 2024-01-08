@@ -2,6 +2,7 @@ package com.teamProject.syusyu.service.fos.order;
 
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.order.OrdClaimDTO;
+import com.teamProject.syusyu.domain.order.OrdDtlDTO;
 import com.teamProject.syusyu.domain.order.Order;
 import com.teamProject.syusyu.domain.order.OrderInfoDTO;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,8 @@ public interface FOS_OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     void order(Order order) throws Exception;
+
+    void validateQty(List<OrdDtlDTO> ordDtlList) throws Exception;
 
     List<CouponDTO> getOrderCouponList(@SessionAttribute int mbrId, @RequestBody int totProductPrice) throws Exception;
 

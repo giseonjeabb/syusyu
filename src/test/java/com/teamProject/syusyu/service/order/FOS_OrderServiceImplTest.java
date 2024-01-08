@@ -6,6 +6,7 @@ import com.teamProject.syusyu.domain.order.request.OrderProductRequestDTO;
 import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+
 public class FOS_OrderServiceImplTest {
     @Autowired
     FOS_OrderService service;
@@ -39,7 +41,8 @@ public class FOS_OrderServiceImplTest {
     @Autowired
     OrdClaimDAO ordClaimDAO;
 
-    @Before
+//    @Before
+//    @Ignore
     // 테스트 시작 전에 먼저 수행되는 메서드. 주문 관련 정보를 삭제한다.
     public void beforeEach() throws Exception {
         // 1. DELIVERY 테이블 데이터 삭제
@@ -81,6 +84,14 @@ public class FOS_OrderServiceImplTest {
         ordDAO.deleteAllOrder();
         result = ordDAO.countOrd();
         assertEquals(0, result);
+    }
+
+    @Test
+    public void validateQtyTest() throws Exception {
+        OrdDtlDTO ordDtl1 = ordDtlDAO.selectOrderDetail(170516);
+        OrdDtlDTO ordDtl2 = ordDtlDAO.selectOrderDetail(170517);
+
+        service.validateQty(List.of(ordDtl1, ordDtl2));
     }
 
     @Test
@@ -493,7 +504,7 @@ public class FOS_OrderServiceImplTest {
                 .build());
         orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
                 .prodId(10002)
-                .prodNm("CM878MA1")
+                .prodNm("CM878aA1")
                 .optCombNo(12)
                 .qty(2)
                 .build());

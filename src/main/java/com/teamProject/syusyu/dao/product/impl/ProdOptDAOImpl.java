@@ -47,5 +47,18 @@ public class ProdOptDAOImpl implements ProdOptDAO{
         return session.insert(namespace+"insertProdOpt", prodOptDTO);
     }
 
+    /** 상품의 재고수량을 가져온다.
+     *
+     * @param optCombNoArr 옵션조합번호
+     * @return 상품의 재고수량 반환
+     * @throws Exception 조회 중 발생할 수 있는 예외
+     * @author min
+     * @since 2024/01/08
+     */
+    @Override
+    public List<ProdOptDTO> selectProductQty(int[] optCombNoArr) throws Exception {
+        return session.selectList(namespace + "selectProductQty", optCombNoArr);
+    }
+
 
 }

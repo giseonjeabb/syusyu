@@ -9,4 +9,6 @@ public interface ProdOptDAO {
     List<ProdOptDTO> selectProdOptSizeList(int prodId);
 
     int insertProdOpt(ProdOptDTO prodOptDTO) throws Exception;
+
+    List<ProdOptDTO> selectProductQty(int[] optCombNoArr) throws Exception;
 }
