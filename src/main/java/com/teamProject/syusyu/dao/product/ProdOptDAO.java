@@ -4,6 +4,7 @@ import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProdOptDAO {
     List<ProdOptDTO> selectProdOptSizeList(int prodId);
@@ -11,4 +12,6 @@ public interface ProdOptDAO {
     int insertProdOpt(ProdOptDTO prodOptDTO) throws Exception;
 
     List<ProdOptDTO> selectProductQty(int[] optCombNoArr) throws Exception;
+
+    int decreaseProdQty(Map<String, Integer> param) throws Exception;
 }

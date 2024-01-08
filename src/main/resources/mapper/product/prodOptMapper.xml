@@ -28,6 +28,21 @@
                , #{invQty}
                , #{regrId} );
     </insert>
+
+    <select id="selectProductQty" parameterType="int" resultType="ProdOptDTO">
+        SELECT PO.PROD_ID, PO.OPT_COMB_NO, PO.INV_QTY
+        FROM PROD_OPT PO
+        WHERE OPT_COMB_NO IN
+        <foreach collection="array" item="optCombNoArr" open="(" close=")" separator=",">
+            #{optCombNoArr}
+        </foreach>
+    </select>
+
+    <update id="decreaseProdQty" parameterType="Map">
+        UPDATE prod_opt
+        SET INV_QTY = INV_QTY - #{qty}
+        WHERE OPT_COMB_NO = #{optCombNo}
+    </update>
 </mapper>
 
 

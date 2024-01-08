@@ -18,6 +18,8 @@ public interface FOS_OrderService {
     @Transactional(rollbackFor = Exception.class)
     void order(Order order) throws Exception;
 
+    void decreaseProdQty(List<OrdDtlDTO> ordDtlList) throws Exception;
+
     void validateQty(List<OrdDtlDTO> ordDtlList) throws Exception;
 
     List<CouponDTO> getOrderCouponList(@SessionAttribute int mbrId, @RequestBody int totProductPrice) throws Exception;

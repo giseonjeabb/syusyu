@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
@@ -22,5 +24,14 @@ public class ProdOptDAOImplTest extends TestCase {
     public void testSelectProductQty() throws Exception {
         List<ProdOptDTO> prodOptDTOList = prodOptDAO.selectProductQty(new int[]{820, 830});
         System.out.println("prodOptDTOList = " + prodOptDTOList);
+    }
+
+    @Test
+    public void decreaseProdQtyTest() throws Exception {
+        Map<String, Integer> param = new HashMap<>();
+        param.put("qty", 2);
+        param.put("optCombNo", 2);
+
+        prodOptDAO.decreaseProdQty(param);
     }
 }

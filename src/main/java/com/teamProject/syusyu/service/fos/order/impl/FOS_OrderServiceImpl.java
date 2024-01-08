@@ -131,10 +131,8 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void order(Order order) throws Exception {
-        // 0. 재고수량 검증하기
-        validateQty(order.getOrdDtlList());
-
         // 0-1. 재고수량 감소
+        decreaseProdQty(order.getOrdDtlList());
 
         // 1. 주문 정보를 DB에 삽입한다
         createOrder(order.getOrd());
@@ -150,6 +148,22 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
 
         // 5. 주문배송지 정보를 DB에 삽입한다.
         addDeliveryAddressForOrder(order.getOrdDlvAddr(), order.getOrd().getOrdNo());
+    }
+
+    @Override
+    public void decreaseProdQty(List<OrdDtlDTO> ordDtlList) throws Exception {
+        // 0. 재고가 있는지 검증한다.
+        validateQty(ordDtlList);
+
+        // 1. 재고수량을 감소시킨다.
+        for (OrdDtlDTO ordDtlDTO : ordDtlList) {
+            Map<String, Integer> param = new HashMap<>();
+            param.put("qty", ordDtlDTO.getQty());
+            param.put("optCombNo", ordDtlDTO.getOptCombNo());
+
+            prodOptDAO.decreaseProdQty(param);
+        }
+
     }
 
     @Override

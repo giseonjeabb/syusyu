@@ -87,6 +87,15 @@ public class FOS_OrderServiceImplTest {
     }
 
     @Test
+    public void decreaseProdQtyTest() throws Exception {
+        OrdDtlDTO ordDtl1 = ordDtlDAO.selectOrderDetail(170516);
+        OrdDtlDTO ordDtl2 = ordDtlDAO.selectOrderDetail(170517);
+
+        service.decreaseProdQty(List.of(ordDtl1, ordDtl2));
+
+    }
+
+    @Test
     public void validateQtyTest() throws Exception {
         OrdDtlDTO ordDtl1 = ordDtlDAO.selectOrderDetail(170516);
         OrdDtlDTO ordDtl2 = ordDtlDAO.selectOrderDetail(170517);

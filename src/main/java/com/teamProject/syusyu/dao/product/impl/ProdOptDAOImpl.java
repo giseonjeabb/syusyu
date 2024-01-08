@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProdOptDAOImpl implements ProdOptDAO{
@@ -47,7 +48,8 @@ public class ProdOptDAOImpl implements ProdOptDAO{
         return session.insert(namespace+"insertProdOpt", prodOptDTO);
     }
 
-    /** 상품의 재고수량을 가져온다.
+    /**
+     * 상품의 재고수량을 가져온다.
      *
      * @param optCombNoArr 옵션조합번호
      * @return 상품의 재고수량 반환
@@ -58,6 +60,20 @@ public class ProdOptDAOImpl implements ProdOptDAO{
     @Override
     public List<ProdOptDTO> selectProductQty(int[] optCombNoArr) throws Exception {
         return session.selectList(namespace + "selectProductQty", optCombNoArr);
+    }
+
+    /**
+     * 상품의 재고수량을 감소시킨다
+     *
+     * @param param 옵션조합번호와 구매하려는 수량이 들어있는 Map
+     * @return update 성공 row 개수
+     * @throws Exception update 중 발생할 수 있는 예외
+     * @author min
+     * @since 2024/01/08
+     */
+    @Override
+    public int decreaseProdQty(Map<String, Integer> param) throws Exception {
+        return session.update(namespace + "decreaseProdQty", param);
     }
 
 
