@@ -92,7 +92,6 @@ public class FOS_OrderServiceImplTest {
         OrdDtlDTO ordDtl2 = ordDtlDAO.selectOrderDetail(170517);
 
         service.decreaseProdQty(List.of(ordDtl1, ordDtl2));
-
     }
 
     @Test
@@ -160,6 +159,19 @@ public class FOS_OrderServiceImplTest {
                 .claimPic3("사진1")
                 .regrId(80001)
                 .build();
+    }
+
+    @Test
+    public void orderQtyTest() {
+        Order order = getOrder();
+
+        try {
+            // 주문을 생성한다.
+            service.order(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("주문 생성 실패");
+        }
     }
 
     @Test
@@ -443,7 +455,7 @@ public class FOS_OrderServiceImplTest {
     }
 
     // 컴퓨티드 컬럼 아니고 그냥 화면에서 받아온 값들 잘 들어갔는지 검증
-    private static Order getOrder() {
+    public static Order getOrder() {
         // 1. 주문에 필요한 데이터 세팅
         // 1-1. 주문 상품 정보가 들어있는 DTO 생성
         List<OrderProductRequestDTO> orderProductList = new ArrayList<>();
@@ -454,16 +466,10 @@ public class FOS_OrderServiceImplTest {
                 .qty(3)
                 .build());
         orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
-                .prodId(10007)
-                .prodNm("아딜렛 클로그")
-                .optCombNo(null)
-                .qty(1)
-                .build());
-        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
-                .prodId(10011)
-                .prodNm("로그 2.0")
-                .optCombNo(null)
-                .qty(4)
+                .prodId(10001)
+                .prodNm("반스 올드스쿨")
+                .optCombNo(2)
+                .qty(3)
                 .build());
 
         // 1-2. 주문정보가 들어있는 DTO 생성
