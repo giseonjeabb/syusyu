@@ -439,7 +439,7 @@ public class FOS_OrderServiceImplTest {
             e.printStackTrace();
         }
 
-        // 데이터가 insert되지 않고 롤백되었는지 확인
+        // 데이터가 insert되지 않고롤백되었는지 확인
         // 1. ORD
         assertEquals(0, ordDAO.countOrd());
         // 2. ORD_DTL

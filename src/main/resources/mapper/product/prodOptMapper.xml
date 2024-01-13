@@ -36,11 +36,18 @@
         <foreach collection="array" item="optCombNoArr" open="(" close=")" separator=",">
             #{optCombNoArr}
         </foreach>
+#         FOR UPDATE
     </select>
 
     <update id="decreaseProdQty" parameterType="Map">
         UPDATE prod_opt
         SET INV_QTY = INV_QTY - #{qty}
+        WHERE OPT_COMB_NO = #{optCombNo}
+    </update>
+
+    <update id="updateProdQty" parameterType="Map">
+        UPDATE prod_opt
+        SET INV_QTY = #{invQty}
         WHERE OPT_COMB_NO = #{optCombNo}
     </update>
 </mapper>

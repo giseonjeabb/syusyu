@@ -34,4 +34,13 @@ public class ProdOptDAOImplTest extends TestCase {
 
         prodOptDAO.decreaseProdQty(param);
     }
+
+    @Test
+    public void updateProdQtyTest() throws Exception {
+        Map<String, Integer> param = new HashMap<>();
+        param.put("invQty", 2);
+        param.put("optCombNo", 2);
+
+        prodOptDAO.updateProdQty(param);
+    }
 }

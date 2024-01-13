@@ -76,5 +76,19 @@ public class ProdOptDAOImpl implements ProdOptDAO{
         return session.update(namespace + "decreaseProdQty", param);
     }
 
+    /**
+     * 상품의 재고수량을 변경한다.
+     *
+     * @param param 옵션조합번호와 변경할 수량이 들어있는 Map
+     * @return update 성공 row 개수
+     * @throws Exception update 중 발생할 수 있는 예외
+     * @author min
+     * @since 2024/01/13
+     */
+    @Override
+    public int updateProdQty(Map<String, Integer> param) throws Exception {
+        return session.update(namespace + "updateProdQty", param);
+    }
+
 
 }

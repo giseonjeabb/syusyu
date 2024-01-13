@@ -13,4 +13,6 @@ public interface ProdOptDAO {
     List<ProdOptDTO> selectProductQty(int[] optCombNoArr) throws Exception;
 
     int decreaseProdQty(Map<String, Integer> param) throws Exception;
+
+    int updateProdQty(Map<String, Integer> param) throws Exception;
 }
