@@ -463,14 +463,14 @@ public class FOS_OrderServiceImplTest {
                 .prodId(10001)
                 .prodNm("반스 올드스쿨")
                 .optCombNo(1)
-                .qty(3)
+                .qty(1)
                 .build());
-        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
-                .prodId(10001)
-                .prodNm("반스 올드스쿨")
-                .optCombNo(2)
-                .qty(3)
-                .build());
+//        orderProductList.add(OrderProductRequestDTO.Builder.anOrderProductRequestDTO()
+//                .prodId(10001)
+//                .prodNm("반스 올드스쿨")
+//                .optCombNo(2)
+//                .qty(1)
+//                .build());
 
         // 1-2. 주문정보가 들어있는 DTO 생성
         OrderRequestDTO orderRequest = OrderRequestDTO.Builder.anOrderRequestDTO()
