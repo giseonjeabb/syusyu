@@ -103,7 +103,7 @@
             WEIGHT = #{weight},             -- 무게
             SHOE_SIZE = #{shoeSize},        -- 신발 사이즈
             REVW_CN = #{revwCn},            -- 리뷰 내용
-            UPD_DTTM = now(),                -- 글 수정한 시간
+            UPD_DTTM = SYSDATE,                -- 글 수정한 시간
             IMAGE_LIST = #{imageList}        -- 이미지 경로
         WHERE REVW_NO = #{revwNo}           -- 리뷰 글 번호
         AND REGR_ID = #{regrId}             -- 작성자 id

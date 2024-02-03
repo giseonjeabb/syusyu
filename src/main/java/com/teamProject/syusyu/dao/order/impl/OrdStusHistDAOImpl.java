@@ -27,6 +27,7 @@ public class OrdStusHistDAOImpl implements OrdStusHistDAO {
      */
     @Override
     public int insertOrderStatusHistory(OrdStusHistDTO ordStusHistDTO) throws Exception {
+        System.out.println("ordStusHistDTO = " + ordStusHistDTO);
         return session.insert(namespace + "insertOrdStusHist", ordStusHistDTO);
     }
 

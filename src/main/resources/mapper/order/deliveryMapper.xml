@@ -4,17 +4,17 @@
 
 <mapper namespace="com.teamProject.syusyu.deliveryMapper">
     <insert id="insertDelivery" parameterType="DeliveryDTO" useGeneratedKeys="true" keyProperty="dlvNo">
-        INSERT INTO DELIVERY ( ORD_DTL_NO # 주문상세번호
-                             , DLV_STUS # 배송상태
-                             , DLV_TP # 배송방법
-                             , DISPATCH_DTTM # 발송처리일시
-                             , DLV_COM # 택배사
-                             , TRCK_NO # 송장번호
-                             , REG_ID) # 등록자
+        INSERT INTO DELIVERY ( ORD_DTL_NO -- 주문상세번호
+                             , DLV_STUS -- 배송상태
+                             , DLV_TP -- 배송방법
+                             , DISPATCH_DTTM -- 발송처리일시
+                             , DLV_COM -- 택배사
+                             , TRCK_NO -- 송장번호
+                             , REG_ID) -- 등록자
         VALUES ( #{ordDtlNo}
-               , 10 # 발송완료
-               , 10 # 배송방법(10 = 택배, 등기, 소포)
-               , now()
+               , 10 -- 발송완료
+               , 10 -- 배송방법(10 = 택배, 등기, 소포)
+               , SYSDATE
                , #{dlvCom}
                , #{trckNo}
                , #{regId});
@@ -23,13 +23,13 @@
     <select id="selectDelivery" parameterType="int" resultType="DeliveryDTO">
         SELECT D.DLV_NO
              , D.ORD_DTL_NO
-             , D.DISPATCH_DTTM                           # 발송처리일시
-             , D.PICKUP_DTTM                             # 집화처리일시
-             , D.SHMT_DTTM                               # 출하일시
-             , D.DLV_COM                                 # 택배사코드
-             , GET_CD_NM('O0011', DLV_COM) AS DLV_COM_NM # 택배사명
-             , D.TRCK_NO                                 # 송장번호
-             , D.CMPL_DTTM                               # 배송완료일시
+             , D.DISPATCH_DTTM                           -- 발송처리일시
+             , D.PICKUP_DTTM                             -- 집화처리일시
+             , D.SHMT_DTTM                               -- 출하일시
+             , D.DLV_COM                                 -- 택배사코드
+             , GET_CD_NM('O0011', DLV_COM) AS DLV_COM_NM -- 택배사명
+             , D.TRCK_NO                                 -- 송장번호
+             , D.CMPL_DTTM                               -- 배송완료일시
         FROM DELIVERY D
         WHERE ORD_DTL_NO = #{ordDtlNo}
     </select>
@@ -45,7 +45,7 @@
           , CMPL_DTTM = #{cmplDttm}
           , DLV_COM = #{dlvCom}
           , TRCK_NO = #{trckNo}
-          , UPD_DTTM = now()
+          , UPD_DTTM = SYSDATE
           , UPD_ID = #{updId}
         WHERE DLV_NO = #{dlvNo}
     </update>

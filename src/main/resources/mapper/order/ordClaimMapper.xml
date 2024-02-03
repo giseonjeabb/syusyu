@@ -23,23 +23,23 @@
                               , CLAIM_PIC3
                               , REGR_ID)
         <![CDATA[
-        SELECT ORD_NO                                   # 주문번호
-             , #{ordDtlNo}                              # 주문상세번호
-             , #{claimTp}                               # 주문클레임 분류
-             , '17'                                     # 주문클레임 처리상태
-             , #{rfndYn}                                # 환불완료여부(Y/N)
-             , TOT_RFND_AMT                             # 총 환불금액
-             , LEAST(TOT_RFND_AMT, REAL_PAY_AMT)        # 카드환불금액
-             , GREATEST(TOT_RFND_AMT - REAL_PAY_AMT, 0) # 반환포인트
-             , #{reqrId}                                # 요청자
-             , #{reqRsn}                                # 요청사유
-             , #{reqDtlRsn}                             # 요청상세사유
-             , #{aprvDttm}                              # 승인일시
-             , #{aprvrId}                               # 승인자
-             , #{claimPic1}                             # 사진1
-             , #{claimPic2}                             # 사진2
-             , #{claimPic3}                             # 사진3
-             , #{regrId}                                # 등록자
+        SELECT ORD_NO                                   -- 주문번호
+             , #{ordDtlNo}                              -- 주문상세번호
+             , #{claimTp}                               -- 주문클레임 분류
+             , '17'                                     -- 주문클레임 처리상태
+             , #{rfndYn}                                -- 환불완료여부(Y/N)
+             , TOT_RFND_AMT                             -- 총 환불금액
+             , LEAST(TOT_RFND_AMT, REAL_PAY_AMT)        -- 카드환불금액
+             , GREATEST(TOT_RFND_AMT - REAL_PAY_AMT, 0) -- 반환포인트
+             , #{reqrId}                                -- 요청자
+             , #{reqRsn}                                -- 요청사유
+             , #{reqDtlRsn}                             -- 요청상세사유
+             , #{aprvDttm}                              -- 승인일시
+             , #{aprvrId}                               -- 승인자
+             , #{claimPic1}                             -- 사진1
+             , #{claimPic2}                             -- 사진2
+             , #{claimPic3}                             -- 사진3
+             , #{regrId}                                -- 등록자
         FROM (SELECT P.ORD_NO
                    , GET_ORGN_PAY_AMT(TOT_PROD_AMT, P.CPN_ISS_NO) +
                      IF(ALL_TOT_PROD_AMT > 50000 OR P.DLV_FEE > 0, 0, -3000) AS TOT_RFND_AMT

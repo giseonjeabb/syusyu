@@ -353,7 +353,7 @@
                              GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
         WHERE P.STATUS = 601 /* 판매중 */
         AND P.DEL_YN = 'N'
-        AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+        AND SYSDATE BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
         ORDER BY P.REG_DTTM DESC
         LIMIT 10;
     </select>
@@ -393,7 +393,7 @@
                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
         WHERE P.STATUS = 601 /* 판매중 */
           AND P.DEL_YN = 'N'
-          AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+          AND SYSDATE BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
         ORDER BY P.VW_CNT DESC
         LIMIT 10
     </select>
@@ -433,7 +433,7 @@
                             GROUP BY prod_id) AS ASR ON P.PROD_ID = ASR.prod_id
         WHERE P.STATUS = 601 /* 판매중 */
           AND P.DEL_YN = 'N'
-          AND NOW() BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
+          AND SYSDATE BETWEEN PRC.SALE_ST_DTTM AND PRC.SALE_ED_DTTM  /* 현재 날짜 및 시간 값이 판매 시작 및 종료 시간 사이에 있는지 확인 */
         ORDER BY BUY_CNT
         LIMIT 10
     </select>

@@ -7,7 +7,7 @@
         SELECT *
         FROM MEMBER
         WHERE LGIN_ID = #{lginId}
-          AND LGIN_PWD = #{lginPwd};
+          AND LGIN_PWD = #{lginPwd}
     </select>
 
     <insert id="memberInsert" parameterType="MemberDTO" useGeneratedKeys="true" keyProperty="mbrId">

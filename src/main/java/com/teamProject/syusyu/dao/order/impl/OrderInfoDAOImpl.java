@@ -30,6 +30,7 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      */
     @Override
     public List<OrderInfoDTO> selectOrderList(Map<String, Object> param) throws Exception {
+        System.out.println("param = " + param);
         return session.selectList(namespace + "selectOrderList", param);
     }
 

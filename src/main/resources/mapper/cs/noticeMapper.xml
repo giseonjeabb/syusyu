@@ -37,7 +37,7 @@
         SET TITLE    = #{title}
           , NOTC_TP = #{notcTp}
           , CONTENT  = #{content}
-          , UPD_DTTM = now()
+          , UPD_DTTM = SYSDATE
           , START_DTTM = #{startDttm}
           , END_DTTM = #{endDttm}
         WHERE NOTC_NO = #{notcNo}
@@ -59,7 +59,7 @@
                UPD_DTTM,
                START_DTTM,
                END_DTTM,
-               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM -- 공지 종류 이름
         FROM notice
         where DEL_YN = 'N'
         ORDER BY REG_DTTM DESC, NOTC_NO DESC
@@ -78,7 +78,7 @@
                UPD_DTTM,
                START_DTTM,
                END_DTTM,
-               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM -- 공지 종류 이름
         FROM notice
     </sql>
 
@@ -100,7 +100,7 @@
                UPD_DTTM,
                START_DTTM,
                END_DTTM,
-               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM # 공지 종류 이름
+               GET_CD_NM('N0001', NOTC_TP) AS NOTC_TP_NM -- 공지 종류 이름
 
         FROM notice
         ORDER BY REG_DTTM DESC, NOTC_NO DESC

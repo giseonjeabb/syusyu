@@ -36,7 +36,7 @@
         <foreach collection="array" item="optCombNoArr" open="(" close=")" separator=",">
             #{optCombNoArr}
         </foreach>
-        FOR UPDATE
+#         FOR UPDATE
     </select>
 
     <update id="decreaseProdQty" parameterType="Map">

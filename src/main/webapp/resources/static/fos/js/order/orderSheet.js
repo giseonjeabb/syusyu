@@ -125,28 +125,30 @@ function requestPay() {
     // 결제금액
     const finalPayAmt = document.querySelector('#finalPayAmt').value;
 
-    IMP.request_pay({
-        pg: 'html5_inicis.INIpayTest',
-        pay_method: 'card',
-        // pay_method : 'naverpay',
-        merchant_uid: "IMP" + makeMerchantUid, // 생성한 고유 주문번호
-        amount: finalPayAmt,
-        buyer_email: ordEmail,
-        buyer_name: ordName,
-        buyer_tel: ordMobile, // 필수 파라미터
-        buyer_addr: dfltAddr,
-        buyer_postcode: zipcode
-        // PC환경에서 일어나는 대부분의(iframe) 결제는 두 번째인자인 callback 함수를 통해 결제 결과 수신이 가능하다.
-    }, rsp => {
-        if (rsp.success) {
-            createOrder(rsp);
-        } else {
-            alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-        }
-    });
+    // IMP.request_pay({
+    //     pg: 'html5_inicis.INIpayTest',
+    //     pay_method: 'card',
+    //     // pay_method : 'naverpay',
+    //     merchant_uid: "IMP" + makeMerchantUid, // 생성한 고유 주문번호
+    //     amount: finalPayAmt,
+    //     buyer_email: ordEmail,
+    //     buyer_name: ordName,
+    //     buyer_tel: ordMobile, // 필수 파라미터
+    //     buyer_addr: dfltAddr,
+    //     buyer_postcode: zipcode
+    //     // PC환경에서 일어나는 대부분의(iframe) 결제는 두 번째인자인 callback 함수를 통해 결제 결과 수신이 가능하다.
+    // }, rsp => {
+    //     if (rsp.success) {
+            createOrder();
+        // } else {
+        //     alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+        // }
+    // });
 }
 
 function createOrder(rsp) {
+    // TODO 여기 관심사(?) 분리
+
     // 주문 생성 API 호출 시 넘겨줘야 할 정보를 세팅하는 함수
     // 데이터 객체 생성
     let orderProductList = [];

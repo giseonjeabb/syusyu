@@ -9,17 +9,30 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- Root Context: defines shared resources visible to all other web components -->
+
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        &lt;!&ndash; Oracle JDBC 드라이버 클래스 &ndash;&gt;-->
+<!--        <property name="driverClassName" value="oracle.jdbc.OracleDriver" />-->
+<!--        &lt;!&ndash; Oracle JDBC URL (예시: jdbc:oracle:thin:@[hostname]:[port]:[SID]) &ndash;&gt;-->
+<!--        <property name="url" value="jdbc:oracle:thin:@192.168.35.171:1521:ORCL" />-->
+<!--        &lt;!&ndash; Oracle 데이터베이스 사용자 이름 &ndash;&gt;-->
+<!--        <property name="username" value="c##syusyu" />-->
+<!--        &lt;!&ndash; Oracle 데이터베이스 비밀번호 &ndash;&gt;-->
+<!--        <property name="password" value="1234" />-->
+<!--    </bean>-->
+
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-<!--        <property name="url" value="jdbc:log4jdbc:mysql://121.128.157.121:7010/syusyu?useUnicode=true&amp;characterEncoding=utf8" />-->
-        <property name="url" value="jdbc:log4jdbc:mysql://172.30.1.57:7010/syusyu?useUnicode=true&amp;characterEncoding=utf8" />
+        <property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/syusyu?useUnicode=true&amp;characterEncoding=utf8" />
+<!--        <property name="url" value="jdbc:log4jdbc:mysql://172.30.1.57:7010/syusyu?useUnicode=true&amp;characterEncoding=utf8" />-->
 <!--        <property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/schema_name?useUnicode=true&amp;characterEncoding=utf8" />-->
 <!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
 <!--        <property name="url" value="jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"/>-->
-        <property name="username" value="syur1" />
-<!--        <property name="username" value="root" />-->
+<!--        <property name="username" value="syur1" />-->
+        <property name="username" value="root" />
 <!--        <property name="username" value="Han" />-->
-        <property name="password" value="1234" />
+        <property name="password" value="dlirucl2980!" />
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

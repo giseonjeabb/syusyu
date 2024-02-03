@@ -3,13 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.ordMapper">
-    <insert id="insertOrd" parameterType="OrdDTO" useGeneratedKeys="true" keyProperty="ordNo">
+    <insert id="insertOrd" parameterType="OrdDTO">
         INSERT INTO ord ( ORDR_ID
                         , ORD_DTTM
                         , REGR_ID)
         VALUES ( #{ordrId}
-               , now()
+               , SYSDATE
                , #{regrId})
+
+        <selectKey resultType="int" keyProperty="ordNo" order="AFTER">
+            SELECT ISEQ$$_74499.currval FROM DUAL
+        </selectKey>
     </insert>
 
     <select id="selectOrd" parameterType="int" resultType="OrdDTO">
@@ -30,17 +34,17 @@
 
     <select id="selectOrderCoupon" parameterType="Map" resultType="MbrCpnDTO">
         <![CDATA[
-        SELECT MC.CPN_ISS_NO # 쿠폰발행번호
-             , C.CPN_NM      # 쿠폰명
-             , C.BNEF_TP     # 혜택타입(01=금액, 02=%)
-             , C.CPN_BNEF    # 쿠폰혜택
-             , C.MAX_DC_AMT  # 최대할인금액
+        SELECT MC.CPN_ISS_NO -- 쿠폰발행번호
+             , C.CPN_NM      -- 쿠폰명
+             , C.BNEF_TP     -- 혜택타입(01=금액, 02=%)
+             , C.CPN_BNEF    -- 쿠폰혜택
+             , C.MAX_DC_AMT  -- 최대할인금액
         FROM MBR_CPN MC
                  JOIN COUPON C ON MC.CPN_ID = C.CPN_ID
         WHERE MC.MBR_ID = #{mbrId}
           AND MC.DEL_YN = 'N'
-          AND MC.USE_STUS = 01 # 01=적립
-          AND MC.END_DTTM >= NOW()
+          AND MC.USE_STUS = 01 -- 01=적립
+          AND MC.END_DTTM >= SYSDATE
           AND C.MIN_ORD_AMT <= #{totProdAmt};
         ]]>
     </select>

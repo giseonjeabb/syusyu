@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.teamProject.syusyu.ordDtlMapper">
-    <insert id="insertOrdDtl" parameterType="OrdDtlDTO" useGeneratedKeys="true" keyProperty="ordDtlNo">
+    <insert id="insertOrdDtl" parameterType="OrdDtlDTO">
         INSERT INTO ord_dtl ( ORD_NO
                             , PROD_ID
                             , PROD_NM
@@ -19,17 +19,20 @@
              , #{prodId}
              , #{prodNm}
              , #{optCombNo}
-             , '10'       # 결제완료
-             , P.SALE_PRC # 판매가
-             , P.DC_PER   # 할인율
+             , '10'       -- 결제완료
+             , P.SALE_PRC -- 판매가
+             , P.DC_PER   -- 할인율
              , #{qty}
              , #{prodTotalPayAmt}
-             , DATE_ADD(NOW(), INTERVAL 7 DAY)
+             , SYSDATE
              , #{regrId}
         FROM (SELECT PRC.SALE_PRC, PRC.DC_PER
               FROM PRODUCT PROD
                        JOIN PRICE PRC ON PROD.PROD_ID = PRC.PROD_ID
               WHERE PROD.PROD_ID = #{prodId}) P
+        <selectKey resultType="int" keyProperty="ordDtlNo" order="AFTER">
+            SELECT ISEQ$$_74508.currval FROM DUAL
+        </selectKey>
     </insert>
 
     <select id="selectOrdDtl" parameterType="int" resultType="OrdDtlDTO">
@@ -52,7 +55,7 @@
     <update id="updateOrdStus" parameterType="Map">
         UPDATE ORD_DTL
         SET ORD_STUS = #{ordStus}
-          , UPD_DTTM = now()
+          , UPD_DTTM = SYSDATE
           , UPDR_ID = #{updrId}
         WHERE ORD_DTL_NO = #{ordDtlNo}
     </update>

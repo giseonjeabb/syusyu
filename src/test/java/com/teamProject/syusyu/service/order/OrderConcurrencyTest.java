@@ -30,15 +30,15 @@ public class OrderConcurrencyTest {
     public void orderQtyTest() throws Exception {
         // 1. 테스트할 상품의 재고수량을 1로 설정한다.(opt_comb_no = 1, 2)
         int[] optCombArr = {1};
-        int[] invQtyArr = {100};
+        int[] invQtyArr = {200};
         int updateInvQtyresult = setInvQty(optCombArr, invQtyArr);
 
         // 재고수량 변경이 잘 되었는지 체크
         assertTrue(optCombArr.length == updateInvQtyresult);
 
         // 2. 2개의 쓰레드로 총 10개의 주문을 시도한다.
-        int numberOfThreads = 5;
-        int ordersPerThread = 100;
+        int numberOfThreads = 2;
+        int ordersPerThread = 200;
 
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 

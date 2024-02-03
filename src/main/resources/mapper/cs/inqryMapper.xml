@@ -71,7 +71,7 @@
         SET INQRY_TP = #{inqryTp},
             TITLE = #{title},
             CONTENT = #{content},
-            UPD_DTTM = NOW(),
+            UPD_DTTM = SYSDATE,
             INQRY_YN = <choose>
                             <when test="ansCn != null">
                                 #{ansCn}
