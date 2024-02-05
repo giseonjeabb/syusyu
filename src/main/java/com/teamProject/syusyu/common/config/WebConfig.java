@@ -1,5 +1,6 @@
-package com.teamProject.syusyu.common;
+package com.teamProject.syusyu.common.config;
 
+import com.teamProject.syusyu.common.ViewPath;
 import com.teamProject.syusyu.common.interceptor.CategoryInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

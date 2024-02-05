@@ -8,6 +8,7 @@ import com.teamProject.syusyu.domain.order.request.CancelOrderRequest;
 import com.teamProject.syusyu.domain.order.request.OrderRequestDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -71,8 +72,10 @@ public class FOS_OrderController {
     public ResponseEntity<String> order(@RequestBody OrderRequestDTO orderRequestDTO, @SessionAttribute int mbrId) {
         try {
             service.order(new Order(orderRequestDTO, mbrId));
+
+        } catch (OptimisticLockingFailureException e) { // 낙관락 충돌이 발생했을 때
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity<>("ADD_ERR", HttpStatus.BAD_REQUEST);
         }
 

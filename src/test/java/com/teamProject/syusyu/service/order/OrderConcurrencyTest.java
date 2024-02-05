@@ -30,21 +30,24 @@ public class OrderConcurrencyTest {
     public void orderQtyTest() throws Exception {
         // 1. 테스트할 상품의 재고수량을 1로 설정한다.(opt_comb_no = 1, 2)
         int[] optCombArr = {1};
-        int[] invQtyArr = {100};
+        int[] invQtyArr = {1};
         int updateInvQtyresult = setInvQty(optCombArr, invQtyArr);
 
         // 재고수량 변경이 잘 되었는지 체크
         assertTrue(optCombArr.length == updateInvQtyresult);
 
         // 2. 2개의 쓰레드로 총 10개의 주문을 시도한다.
-        int numberOfThreads = 5;
-        int ordersPerThread = 100;
+        int numberOfThreads = 2;
+        int ordersPerThread = 1;
 
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 
         for (int i = 0; i < numberOfThreads; i++) {
             executorService.execute(() -> {
                 for (int j = 0; j < ordersPerThread; j++) {
+                    // 현재 쓰레드 이름 출력
+                    System.out.println("Executing order #" + j + " on thread: " + Thread.currentThread().getName());
+
                     Order order = FOS_OrderServiceImplTest.getOrder();
                     try {
                         // 주문을 생성한다.

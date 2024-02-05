@@ -3,7 +3,6 @@ package com.teamProject.syusyu.service.fos.order.impl;
 import com.teamProject.syusyu.dao.member.DlvAddrDAO;
 import com.teamProject.syusyu.dao.member.MemberDao;
 import com.teamProject.syusyu.dao.order.*;
-import com.teamProject.syusyu.dao.order.OrderInfoDAO;
 import com.teamProject.syusyu.dao.product.ProdOptDAO;
 import com.teamProject.syusyu.domain.member.CouponDTO;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
@@ -13,10 +12,17 @@ import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.service.base.order.OrderServiceBase;
 import com.teamProject.syusyu.service.fos.order.FOS_OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.support.RetrySynchronizationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,11 +38,10 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
     private final OrdDlvAddrDAO ordDlvAddrDAO;
     private final OrderInfoDAO orderInfoDAO;
     private final OrdClaimDAO ordClaimDAO;
-    private final DeliveryDAO deliveryDAO;
     private final ProdOptDAO prodOptDAO;
 
     @Autowired
-    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO, DeliveryDAO deliveryDAO, ProdOptDAO prodOptDAO) {
+    public FOS_OrderServiceImpl(MemberDao memberDao, DlvAddrDAO dlvAddrDAO, CartProdDAO cartProdDAO, OrdDAO ordDAO, OrdDtlDAO ordDtlDAO, OrdStusHistDAO ordStusHistDAO, PayDAO payDAO, PayRsltDAO payRsltDAO, OrdDlvAddrDAO ordDlvAddrDAO, OrderInfoDAO orderInfoDAO, OrdClaimDAO ordClaimDAO, ProdOptDAO prodOptDAO) {
         this.memberDao = memberDao;
         this.dlvAddrDAO = dlvAddrDAO;
         this.cartProdDAO = cartProdDAO;
@@ -48,7 +53,6 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
         this.ordDlvAddrDAO = ordDlvAddrDAO;
         this.orderInfoDAO = orderInfoDAO;
         this.ordClaimDAO = ordClaimDAO;
-        this.deliveryDAO = deliveryDAO;
         this.prodOptDAO = prodOptDAO;
     }
 
@@ -129,6 +133,11 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
      * @since 2023/07/07
      */
     @Override
+    @Retryable(
+        value = OptimisticLockingFailureException.class,
+        maxAttempts = 3,
+        backoff = @Backoff(delay = 100)
+    )
     @Transactional(rollbackFor = Exception.class)
     public void order(Order order) throws Exception {
         // 0-1. 재고수량 감소
@@ -161,7 +170,11 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
             param.put("qty", ordDtlDTO.getQty());
             param.put("optCombNo", ordDtlDTO.getOptCombNo());
 
-            prodOptDAO.decreaseProdQty(param);
+            int decreaseProdQtyResult = prodOptDAO.decreaseProdQty(param);
+
+            if (decreaseProdQtyResult == 0) {
+                throw new OptimisticLockingFailureException("재고수량 감소 중 충돌 발생");
+            }
         }
 
     }
