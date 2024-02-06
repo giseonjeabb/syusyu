@@ -19,6 +19,7 @@ import org.springframework.retry.support.RetrySynchronizationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -134,7 +135,7 @@ public class FOS_OrderServiceImpl extends OrderServiceBase implements FOS_OrderS
      */
     @Override
     @Retryable(
-        value = OptimisticLockingFailureException.class,
+        value = SQLException.class,
         maxAttempts = 3,
         backoff = @Backoff(delay = 100)
     )

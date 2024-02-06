@@ -36,6 +36,7 @@
         <foreach collection="array" item="optCombNoArr" open="(" close=")" separator=",">
             #{optCombNoArr}
         </foreach>
+        FOR UPDATE NOWAIT;
     </select>
 
     <update id="decreaseProdQty" parameterType="Map">
@@ -43,7 +44,6 @@
         SET INV_QTY = INV_QTY - #{qty}
           , UPD_DTTM = now()
         WHERE OPT_COMB_NO = #{optCombNo}
-          AND INV_QTY >= #{qty}
     </update>
 
     <update id="updateProdQty" parameterType="Map">
