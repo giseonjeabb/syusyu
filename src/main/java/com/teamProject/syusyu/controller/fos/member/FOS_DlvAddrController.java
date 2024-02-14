@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.fos.member;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.member.DlvAddrDTO;
 import com.teamProject.syusyu.service.fos.member.FOS_DlvAddrService;
 import org.springframework.http.HttpStatus;

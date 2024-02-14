@@ -50,6 +50,6 @@
     <!-- 한글 변환 필터 끝 -->
     
     <listener>
-        <listener-class>com.teamProject.syusyu.common.listener.MyServletContextListener</listener-class>
+        <listener-class>com.teamProject.syusyu.common.web.listener.MyServletContextListener</listener-class>
     </listener>
 </web-app>

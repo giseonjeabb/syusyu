@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.fos.order;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.order.CartProdDTO;
 import com.teamProject.syusyu.service.fos.order.FOS_CartService;
 import org.springframework.http.HttpStatus;

@@ -71,7 +71,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <beans:bean class="com.teamProject.syusyu.common.interceptor.CategoryInterceptor"/>
+            <beans:bean class="com.teamProject.syusyu.common.web.interceptor.CategoryInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

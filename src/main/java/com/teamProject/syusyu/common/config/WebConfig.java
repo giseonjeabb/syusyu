@@ -1,7 +1,7 @@
 package com.teamProject.syusyu.common.config;
 
-import com.teamProject.syusyu.common.ViewPath;
-import com.teamProject.syusyu.common.interceptor.CategoryInterceptor;
+import com.teamProject.syusyu.common.core.ViewPath;
+import com.teamProject.syusyu.common.web.interceptor.CategoryInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

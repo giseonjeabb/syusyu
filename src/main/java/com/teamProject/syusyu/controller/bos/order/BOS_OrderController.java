@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.bos.order;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.order.request.OrderSearchRequestDTO;
 import com.teamProject.syusyu.service.bos.order.BOS_OrderService;
 import org.springframework.http.HttpStatus;

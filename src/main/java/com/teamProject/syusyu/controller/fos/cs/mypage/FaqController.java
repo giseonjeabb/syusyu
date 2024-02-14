@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.fos.cs.mypage;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.FaqSearchCondition;
 import com.teamProject.syusyu.service.fos.cs.FOS_FaqService;

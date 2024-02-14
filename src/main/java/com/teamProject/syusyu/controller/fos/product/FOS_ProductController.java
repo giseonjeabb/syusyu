@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.fos.product;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.product.ImageDTO;
 import com.teamProject.syusyu.domain.product.ProdOptDTO;
 import com.teamProject.syusyu.domain.product.ProductDTO;

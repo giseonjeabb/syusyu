@@ -1,14 +1,12 @@
 package com.teamProject.syusyu.controller.fos.cs;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.PageHandler2;
 import com.teamProject.syusyu.domain.cs.InqryDTO;
-import com.teamProject.syusyu.domain.cs.inqryData;
 import com.teamProject.syusyu.service.fos.cs.InqryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

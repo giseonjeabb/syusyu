@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.bos.statistics;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.service.bos.statistics.StatisticsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

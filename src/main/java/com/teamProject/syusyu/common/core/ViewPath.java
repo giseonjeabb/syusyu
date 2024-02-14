@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.common;
+package com.teamProject.syusyu.common.core;
 
 public class ViewPath {
     // FOS

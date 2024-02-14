@@ -2,7 +2,7 @@ package com.teamProject.syusyu.controller.bos.product;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.common.util.FileUploadUtils;
 import com.teamProject.syusyu.domain.product.*;
 import com.teamProject.syusyu.service.base.product.CategoryServiceBase;

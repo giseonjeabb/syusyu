@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.bos.cs.mypage;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.cs.FaqDTO;
 import com.teamProject.syusyu.domain.cs.PageHandler;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;

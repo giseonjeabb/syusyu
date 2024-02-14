@@ -1,6 +1,6 @@
 package com.teamProject.syusyu.controller.fos.product;
 
-import com.teamProject.syusyu.common.ViewPath;
+import com.teamProject.syusyu.common.core.ViewPath;
 import com.teamProject.syusyu.domain.cs.SearchCondition;
 import com.teamProject.syusyu.domain.product.ReviewDTO;
 import com.teamProject.syusyu.service.fos.product.FOS_ReviewService;

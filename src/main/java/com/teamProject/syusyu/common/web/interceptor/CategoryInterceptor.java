@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.common.interceptor;
+package com.teamProject.syusyu.common.web.interceptor;
 
 import com.teamProject.syusyu.service.base.product.CategoryServiceBase;
 import org.springframework.beans.factory.annotation.Autowired;

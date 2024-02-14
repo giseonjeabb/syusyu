@@ -1,4 +1,4 @@
-package com.teamProject.syusyu.common.listener;
+package com.teamProject.syusyu.common.web.listener;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
